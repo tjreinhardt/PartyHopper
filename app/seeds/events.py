@@ -3,7 +3,7 @@ from app.models import db, Event, User
 
 def seed_events():
     event1 = Event(
-        userId = 8,
+        userId = 1,
         name = "Beach Party!!",
         description = "Fun in the sun",
         eventType = "Rager",

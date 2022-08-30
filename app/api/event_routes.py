@@ -23,19 +23,19 @@ def get_all_events():
   return {"Events": res}
 
 #get all events for the session user
-# @event_routes.route('/user/session')
-# @login_required
-# def get_all_events_from_user():
-#     events = Event.query.filter(Event.userId == current_user.id).all()
-#     res = {}
+@event_routes.route('/user/session')
+@login_required
+def get_all_events_from_user():
+    events = Event.query.filter(Event.userId == current_user.id).all()
+    res = {}
 
-#     for event in events:
-#         # rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
-#         event_dict = event.to_dict()
-#         # event_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
-#         res[event.id] = event_dict
+    for event in events:
+        # rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
+        event_dict = event.to_dict()
+        # event_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
+        res[event.id] = event_dict
 
-#     return {"Events": res}
+    return {"Events": res}
 
 
 #get all events from other user

@@ -52,7 +52,7 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'bio': self.bio,
-            'total_reviews': len(self.reviews)
+            'bio': self.bio
+            # 'total_reviews': len(self.reviews)
             # 'total_rsvps': len(self.rsvps)
         }
