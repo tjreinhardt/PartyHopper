@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useHistory, useParams } from "react-router-dom";
-// import EditEventModal from "../modals/EditEventModal";
-import { getEventDetailThunk, deleteEventThunk, likeEventThunk } from "../../store/event"
+import { useHistory, useParams } from "react-router-dom";
+import { getEventDetailThunk, deleteEventThunk } from "../../store/event"
+import EditEventModal from "../modals/EditEventModal";
 
 
 
@@ -18,9 +18,9 @@ const EventDetail = () => {
 
   useEffect(() => {
     dispatch(getEventDetailThunk(eventId)).then(() => setEventIsLoaded(true));
-  }, [dispatch]);
+  }, [dispatch, eventId]);
+
   let showButton = false
-  // const [showButton, setShowButton] = useState(false);
   if (eventIsLoaded && event && (session.id === event.userId)) {
     showButton = true
   }
@@ -48,9 +48,13 @@ const EventDetail = () => {
         <p>{event.name}</p>
         <p>{event.description}</p>
         <p>{event.totalRsvps}</p>
-        {showButton && (<div className="event-detail-buttons">
-          <button onClick={handleDelete} className="login-button" style={{ width: '100px' }}>Delete event</button>
-        </div>)}
+        <div>
+          {showButton && (<div className="event-detail-buttons">
+            <button onClick={handleDelete}>Delete event</button>
+            <button onClick={() => setEditModal(true)}>Edit event</button>
+            {editModal && <EditEventModal event={event} setShowModal={setEditModal} />}
+          </div>)}
+        </div>
       </div>
     </div>
   </>
