@@ -5,13 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from .event import Event, event_rsvps
-# from .reviews import like_reviews
-
-# follows = db.Table(
-#     "follows",
-#     db.Column("follower_id", db.Integer, db.ForeignKey("users.id", ondelete="CASCADE")),
-#     db.Column("followed_id", db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"))
-# )
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 

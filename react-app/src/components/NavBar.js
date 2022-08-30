@@ -1,9 +1,11 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import CreateEventModal from './modals/CreateEventModal';
 import LogoutButton from './auth/LogoutButton';
 
 const NavBar = () => {
+  const [createModal, setCreateModal] = useState(false);
   return (
     <nav>
       <ul>
@@ -30,8 +32,12 @@ const NavBar = () => {
         <li>
           <LogoutButton />
         </li>
+        <div onClick={() => setCreateModal(true)}>
+          <div>Create Event</div>
+        </div>
+        {createModal && <CreateEventModal setShowModal={setCreateModal} />}
       </ul>
-    </nav>
+    </nav >
   );
 }
 

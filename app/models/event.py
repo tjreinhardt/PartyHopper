@@ -16,9 +16,9 @@ class Event(db.Model):
   userId = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
   name = db.Column(db.String(125))
   description = db.Column(db.String(500))
+  imageUrl = db.Column(db.String(500))
   eventType = db.Column(db.String(50))
   entertainment = db.Column(db.String(50))
-  imageUrl = db.Column(db.String(500))
   createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
   startTime = db.Column(db.DateTime(timezone=True))
   endTime = db.Column(db.DateTime(timezone=True))
@@ -40,11 +40,11 @@ class Event(db.Model):
     return {
       "id": self.id,
       "userId": self.userId,
-      "description": self.description,
       "name": self.name,
+      "description": self.description,
+      "imageUrl": self.imageUrl,
       "eventType": self.eventType,
       "entertainment": self.entertainment,
-      "imageUrl": self.imageUrl,
       "createdAt": self.createdAt,
       "startTime": self.startTime,
       "endTime": self.endTime,
