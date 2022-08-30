@@ -24,12 +24,12 @@ class Review(db.Model):
   user = relationship("User", back_populates="reviews")
   event = relationship("Event", back_populates="reviews")
 
-  review_like_users = db.relationship(
-        "User",
-        secondary=review_likes,
-        back_populates="like_reviews",
-        passive_deletes=True
-  )
+  # review_like_users = db.relationship(
+  #       "User",
+  #       secondary=review_likes,
+  #       back_populates="like_reviews",
+  #       passive_deletes=True
+  # )
 
   def to_dict(self):
     return {

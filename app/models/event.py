@@ -42,23 +42,23 @@ class Event(db.Model):
       "userId": self.userId,
       "description": self.description,
       "name": self.name,
-      "eventType": self.event_type,
+      "eventType": self.eventType,
       "entertainment": self.entertainment,
-      "imageUrl": self.image_url,
-      "createdAt": self.created_at,
-      "startTime": self.start_time,
-      "endTime": self.end_time,
+      "imageUrl": self.imageUrl,
+      "createdAt": self.createdAt,
+      "startTime": self.startTime,
+      "endTime": self.endTime,
       "rating": self.rating,
       "lat": self.lat,
       "lng": self.lng,
-      "user": {
-          "profileImage":self.user.profile_image,
-          "username":self.user.username,
-          'totalRsvps': self.user.followers.count(),
-          'totalFollowings': self.user.following.count(),
-          'totalEvents': len(self.user.events),
-          'fullname': self.user.fullname
-      },
+      # "user": {
+      #     "profileImage":self.user.profileImage,
+      #     "username":self.user.username,
+      #     'totalRsvps': self.user.followers.count(),
+      #     'totalFollowings': self.user.following.count(),
+      #     'totalEvents': len(self.user.events),
+      #     'fullname': self.user.fullname
+      # },
       "totalReviews": len(self.reviews),
-      "totalRsvps": len(self.event_rsvp_users),
+      "totalRsvps": len(self.event_rsvp_users)
     }
