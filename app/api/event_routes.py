@@ -67,7 +67,7 @@ def get_event_detail(eventId):
     return event_dict
 
 #create an event
-@event_routes.route('/new',methods=['POST'])
+@event_routes.route('/new', methods=['POST'])
 # @login_required
 def create_event():
     form = CreateEventForm()
