@@ -47,7 +47,7 @@ def seed_events():
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event4 = Event(
-        userId = 4,
+        userId = 1,
         name = "DANCE Party!!",
         description = "Fun on the floor",
         eventType = "Rager",
