@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 506333afb1a9
+Revision ID: 5053ed309707
 Revises: 
-Create Date: 2022-08-31 11:01:10.719555
+Create Date: 2022-08-31 11:58:28.910171
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '506333afb1a9'
+revision = '5053ed309707'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,17 +33,16 @@ def upgrade():
     op.create_table('events',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=125), nullable=True),
-    sa.Column('description', sa.String(length=500), nullable=True),
-    sa.Column('imageUrl', sa.String(length=500), nullable=True),
-    sa.Column('eventType', sa.String(length=50), nullable=True),
-    sa.Column('entertainment', sa.String(length=50), nullable=True),
+    sa.Column('name', sa.String(length=125), nullable=False),
+    sa.Column('description', sa.String(length=500), nullable=False),
+    sa.Column('imageUrl', sa.String(length=500), nullable=False),
+    sa.Column('eventType', sa.String(length=50), nullable=False),
+    sa.Column('entertainment', sa.String(length=50), nullable=False),
     sa.Column('createdAt', sa.DateTime(), nullable=False),
     sa.Column('startTime', sa.DateTime(), nullable=False),
-    sa.Column('endTime', sa.DateTime(timezone=True), nullable=False),
-    sa.Column('rating', sa.Integer(), nullable=True),
-    sa.Column('lat', sa.Integer(), nullable=True),
-    sa.Column('lng', sa.Integer(), nullable=True),
+    sa.Column('endTime', sa.DateTime(), nullable=False),
+    sa.Column('lat', sa.Integer(), nullable=False),
+    sa.Column('lng', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )

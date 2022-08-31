@@ -56,6 +56,7 @@ def seed_events():
         startTime = datetime(2015, 6, 5, 11, 12, 12, 10),
         endTime = datetime(2015, 6, 5, 10, 20, 10, 10),
         createdAt = datetime(2015, 6, 5, 10, 20, 10, 10),
+        event_rsvp_users = [User.query.get(1),User.query.get(3) , User.query.get(2)],
         lat = 15,
         lng = 15
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]

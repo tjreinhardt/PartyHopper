@@ -21,8 +21,8 @@ class Event(db.Model):
   entertainment = db.Column(db.String(50), nullable=False)
   createdAt = db.Column(db.DateTime, nullable=False)
   startTime = db.Column(db.DateTime, nullable=False)
-  endTime = db.Column(db.DateTime(timezone=True), nullable=False)
-  rating = db.Column(db.Integer)
+  endTime = db.Column(db.DateTime, nullable=False)
+  # rating = db.Column(db.Integer)
   lat = db.Column(db.Integer, nullable=False)
   lng = db.Column(db.Integer, nullable=False)
   user = db.relationship("User", back_populates="events")
@@ -48,9 +48,10 @@ class Event(db.Model):
       "createdAt": self.createdAt,
       "startTime": self.startTime,
       "endTime": self.endTime,
-      "rating": self.rating,
       "lat": self.lat,
       "lng": self.lng,
+      "totalRsvps": len(self.event_rsvp_users)
+      # "rating": self.rating,
       # "user": {
       #     "profileImage":self.user.profileImage,
       #     "username":self.user.username,
@@ -60,5 +61,4 @@ class Event(db.Model):
       #     'fullname': self.user.fullname
       # },
       # "totalReviews": len(self.reviews),
-      "totalRsvps": len(self.event_rsvp_users)
     }

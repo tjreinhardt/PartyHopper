@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import * as eventActions from '../store/event'
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 
 const HomePage = () => {
-  const { eventId } = useParams()
   const dispatch = useDispatch()
   const events = Object.values(useSelector(state => state.event))
   console.log(events, 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww')
@@ -37,6 +35,7 @@ const HomePage = () => {
               <div>LATTITUDE: {event.lat}</div>
               <div>LONGITUDE: {event.lng}</div>
               <div>CREATED AT: {event.createdAt}</div>
+              <div>TOTAL RSVPS: {event.totalRsvps}</div>
             </div>
           ).reverse()
         }
