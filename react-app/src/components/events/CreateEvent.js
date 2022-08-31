@@ -9,6 +9,7 @@ const CreateEventForm = ({ hideModal }) => {
 
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
+  const [imageUrl, setImageUrl] = useState("")
   const [errors, setErrors] = useState([])
 
 
@@ -48,6 +49,13 @@ const CreateEventForm = ({ hideModal }) => {
               type={'text'}
               value={description}
               onChange={e => setDescription(e.target.value)}
+            />
+          </div>
+          <div>
+            <input
+              type={'text'}
+              value={imageUrl}
+              onChange={e => setImageUrl(e.target.value)}
             />
           </div>
         </div>

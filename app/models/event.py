@@ -20,13 +20,13 @@ class Event(db.Model):
   eventType = db.Column(db.String(50))
   entertainment = db.Column(db.String(50))
   createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
-  startTime = db.Column(db.DateTime(timezone=True))
-  endTime = db.Column(db.DateTime(timezone=True))
+  # startTime = db.Column(db.DateTime(timezone=True))
+  # endTime = db.Column(db.DateTime(timezone=True))
   rating = db.Column(db.Integer)
   lat = db.Column(db.Integer)
   lng = db.Column(db.Integer)
   user = db.relationship("User", back_populates="events")
-  reviews = db.relationship("Review", back_populates="event", cascade="all, delete")
+  # reviews = db.relationship("Review", back_populates="event", cascade="all, delete")
 
   event_rsvp_users = db.relationship(
         "User",
@@ -46,8 +46,8 @@ class Event(db.Model):
       "eventType": self.eventType,
       "entertainment": self.entertainment,
       "createdAt": self.createdAt,
-      "startTime": self.startTime,
-      "endTime": self.endTime,
+      # "startTime": self.startTime,
+      # "endTime": self.endTime,
       "rating": self.rating,
       "lat": self.lat,
       "lng": self.lng,
@@ -59,6 +59,6 @@ class Event(db.Model):
       #     'totalEvents': len(self.user.events),
       #     'fullname': self.user.fullname
       # },
-      "totalReviews": len(self.reviews),
+      # "totalReviews": len(self.reviews),
       "totalRsvps": len(self.event_rsvp_users)
     }
