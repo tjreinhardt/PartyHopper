@@ -66,6 +66,11 @@ def get_event_detail(eventId):
     # event_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
     return event_dict
 
+
+
+
+
+
 #create an event
 @event_routes.route('/new', methods=['POST'])
 # @login_required
@@ -85,6 +90,13 @@ def create_event():
         res["rsvpStatus"] = 0
         return res
     return {'errors': ['Oof']}, 400
+
+
+
+
+
+
+
 
 
 #update an event
