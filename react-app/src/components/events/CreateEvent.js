@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createEventThunk } from "../../store/event";
+import 'react-modern-calendar-datepicker/lib/DatePicker.css';
+import DatePicker from 'react-modern-calendar-datepicker';
 
 const CreateEventForm = ({ hideModal }) => {
   const dispatch = useDispatch();
@@ -14,8 +16,8 @@ const CreateEventForm = ({ hideModal }) => {
   const [entertainment, setEntertainment] = useState("")
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
-  const [lat, setLat] = useState("")
-  const [lng, setLng] = useState("")
+  const [lat, setLat] = useState(1)
+  const [lng, setLng] = useState(1)
   const [errors, setErrors] = useState([])
 
 
@@ -24,7 +26,12 @@ const CreateEventForm = ({ hideModal }) => {
     setErrors([]);
     const newEvent = {
       name,
-      description
+      description,
+      imageUrl,
+      eventType,
+      entertainment,
+      lat,
+      lng
     };
     dispatch(createEventThunk(newEvent))
       .then(
@@ -85,7 +92,7 @@ const CreateEventForm = ({ hideModal }) => {
           </div>
           <div>
             <input
-              type={'text'}
+              type={'time'}
               placeholder={"Start Time"}
               value={startTime}
               onChange={e => setStartTime(e.target.value)}
@@ -93,7 +100,7 @@ const CreateEventForm = ({ hideModal }) => {
           </div>
           <div>
             <input
-              type={'text'}
+              type={'date'}
               placeholder={"End Time"}
               value={endTime}
               onChange={e => setEndTime(e.target.value)}

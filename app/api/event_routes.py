@@ -81,8 +81,14 @@ def create_event():
         event = Event(
             name=form.data['name'],
             description=form.data['description'],
-            start_time=form.data['start_time'],
-            end_time=form.data['end_time']
+            imageUrl=form.data['imageUrl'],
+            eventType=form.data['eventType'],
+            entertainment=form.data['entertainment'],
+            startTime=form.data['startTime'],
+            endTime=form.data['endTime'],
+            lat=form.data['lat'],
+            lng=form.data['lng']
+
         )
         event.userId = current_user.id
         db.session.add(event)
@@ -91,7 +97,7 @@ def create_event():
         res=event.to_dict()
         res["rsvpStatus"] = 0
         return res
-    return {'errors': ['Oof']}, 400
+    return {'errors': ['Please fill out all fields']}, 400
 
 
 

@@ -48,6 +48,16 @@ const EventDetail = () => {
         <p>{event.name}</p>
         <p>{event.description}</p>
         <p>{event.totalRsvps}</p>
+        <img src={event.imageUrl}></img>
+        <div>OWNER USER ID: {event.userId}</div>
+        <div>EVENT TYPE: {event.eventType}</div>
+        <div>EVENT ENTERTAINMENT: {event.entertainment}</div>
+        <div>START TIME: {event.startTime}</div>
+        <div>END TIME: {event.endTime}</div>
+        <div>LATTITUDE: {event.lat}</div>
+        <div>LONGITUDE: {event.lng}</div>
+        <div>CREATED AT: {event.createdAt}</div>
+        <div>TOTAL RSVPS: {event.totalRsvps}</div>
         <div>
           {showButton && (<div className="event-detail-buttons">
             <button onClick={handleDelete}>Delete event</button>

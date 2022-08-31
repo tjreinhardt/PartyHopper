@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5053ed309707
+Revision ID: 323fdfd4b301
 Revises: 
-Create Date: 2022-08-31 11:58:28.910171
+Create Date: 2022-08-31 14:09:04.168706
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5053ed309707'
+revision = '323fdfd4b301'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -38,9 +38,9 @@ def upgrade():
     sa.Column('imageUrl', sa.String(length=500), nullable=False),
     sa.Column('eventType', sa.String(length=50), nullable=False),
     sa.Column('entertainment', sa.String(length=50), nullable=False),
-    sa.Column('createdAt', sa.DateTime(), nullable=False),
-    sa.Column('startTime', sa.DateTime(), nullable=False),
-    sa.Column('endTime', sa.DateTime(), nullable=False),
+    sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
+    sa.Column('startTime', sa.DateTime(), nullable=True),
+    sa.Column('endTime', sa.DateTime(), nullable=True),
     sa.Column('lat', sa.Integer(), nullable=False),
     sa.Column('lng', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ondelete='CASCADE'),
