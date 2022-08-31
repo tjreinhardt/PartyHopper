@@ -27,6 +27,8 @@ const HomePage = () => {
                 <div>{event.name}</div>
               </NavLink>
               <div>{event.description}</div>
+              <img src={event.imageUrl}></img>
+              <div>{event.userId.name}</div>
             </div>
           ).reverse()
         }
