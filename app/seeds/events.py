@@ -1,4 +1,5 @@
 from app.models import db, Event, User
+from datetime import datetime
 
 
 def seed_events():
@@ -8,7 +9,12 @@ def seed_events():
         description = "Fun in the sun",
         eventType = "Rager",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg"
+        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
+        startTime = datetime(2015, 6, 5, 11, 12, 12, 10),
+        endTime = datetime(2015, 6, 5, 10, 20, 10, 10),
+        createdAt = datetime(2015, 6, 5, 10, 20, 10, 10),
+        lat = 1,
+        lng = 1
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event2 = Event(
@@ -17,7 +23,12 @@ def seed_events():
         description = "Fun in the casa",
         eventType = "Rager",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg"
+        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
+        startTime = datetime(2015, 6, 5, 8, 10, 10, 10),
+        endTime = datetime(2015, 6, 5, 10, 20, 10, 10),
+        createdAt = datetime(2015, 6, 5, 10, 20, 10, 10),
+        lat = 5,
+        lng = 5
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event3 = Event(
@@ -26,7 +37,13 @@ def seed_events():
         description = "Fun while drunk",
         eventType = "Rager",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg"
+        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
+        startTime = datetime(2015, 6, 5, 11, 12, 12, 10),
+        endTime = datetime(2015, 6, 5, 10, 20, 10, 10),
+        createdAt = datetime(2015, 6, 5, 10, 20, 10, 10),
+        lat = 10,
+        lng = 10
+
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event4 = Event(
@@ -35,7 +52,12 @@ def seed_events():
         description = "Fun on the floor",
         eventType = "Rager",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg"
+        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
+        startTime = datetime(2015, 6, 5, 11, 12, 12, 10),
+        endTime = datetime(2015, 6, 5, 10, 20, 10, 10),
+        createdAt = datetime(2015, 6, 5, 10, 20, 10, 10),
+        lat = 15,
+        lng = 15
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
 

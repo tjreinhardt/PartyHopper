@@ -40,7 +40,7 @@ def get_all_events_from_user():
 
 #get all events from other user
 @event_routes.route('/user/<int:id>')
-# @login_required
+@login_required
 def get_others_events(id):
     events = Event.query.filter(Event.userId == id).all()
     res = {}
@@ -55,7 +55,7 @@ def get_others_events(id):
 
 #get the detail from a selected event
 @event_routes.route('/<int:eventId>')
-# @login_required
+@login_required
 def get_event_detail(eventId):
     event = Event.query.get(eventId)
     if not event:
@@ -80,7 +80,9 @@ def create_event():
     if form.validate_on_submit():
         event = Event(
             name=form.data['name'],
-            description=form.data['description']
+            description=form.data['description'],
+            start_time=form.data['start_time'],
+            end_time=form.data['end_time']
         )
         event.userId = current_user.id
         db.session.add(event)

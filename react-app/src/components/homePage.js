@@ -23,12 +23,20 @@ const HomePage = () => {
         {events &&
           events.map(event =>
             <div>
+              <br></br>
               <NavLink to={`/events/${event.id}`}>
                 <div>{event.name}</div>
               </NavLink>
               <div>{event.description}</div>
               <img src={event.imageUrl}></img>
-              <div>{event.userId.name}</div>
+              <div>OWNER USER ID: {event.userId}</div>
+              <div>EVENT TYPE: {event.eventType}</div>
+              <div>EVENT ENTERTAINMENT: {event.entertainment}</div>
+              <div>START TIME: {event.startTime}</div>
+              <div>END TIME: {event.endTime}</div>
+              <div>LATTITUDE: {event.lat}</div>
+              <div>LONGITUDE: {event.lng}</div>
+              <div>CREATED AT: {event.createdAt}</div>
             </div>
           ).reverse()
         }

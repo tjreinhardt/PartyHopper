@@ -3,11 +3,11 @@
 # from sqlalchemy import ForeignKey
 # # from flask_login import UserMixin
 
-# review_likes = db.Table(
-#   "review_likes",
-#   db.Column("reviewId", db.Integer, db.ForeignKey("reviews.id", ondelete="CASCADE"), primary_key=True),
-#   db.Column("userId", db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
-# )
+# # review_likes = db.Table(
+# #   "review_likes",
+# #   db.Column("reviewId", db.Integer, db.ForeignKey("reviews.id", ondelete="CASCADE"), primary_key=True),
+# #   db.Column("userId", db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+# # )
 
 # class Review(db.Model):
 #   __tablename__ = "reviews"
@@ -45,5 +45,4 @@
 #                 "profileImage": self.user.profile_image,
 #                 "username": self.user.username
 #             },
-#       "totalReviews": len(self.review_like_users)
 #     }

@@ -14,17 +14,17 @@ class Event(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   userId = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-  name = db.Column(db.String(125))
-  description = db.Column(db.String(500))
-  imageUrl = db.Column(db.String(500))
-  eventType = db.Column(db.String(50))
-  entertainment = db.Column(db.String(50))
-  createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
-  # startTime = db.Column(db.DateTime(timezone=True))
-  # endTime = db.Column(db.DateTime(timezone=True))
+  name = db.Column(db.String(125), nullable=False)
+  description = db.Column(db.String(500), nullable=False)
+  imageUrl = db.Column(db.String(500), nullable=False)
+  eventType = db.Column(db.String(50), nullable=False)
+  entertainment = db.Column(db.String(50), nullable=False)
+  createdAt = db.Column(db.DateTime, nullable=False)
+  startTime = db.Column(db.DateTime, nullable=False)
+  endTime = db.Column(db.DateTime(timezone=True), nullable=False)
   rating = db.Column(db.Integer)
-  lat = db.Column(db.Integer)
-  lng = db.Column(db.Integer)
+  lat = db.Column(db.Integer, nullable=False)
+  lng = db.Column(db.Integer, nullable=False)
   user = db.relationship("User", back_populates="events")
   # reviews = db.relationship("Review", back_populates="event", cascade="all, delete")
 
@@ -46,8 +46,8 @@ class Event(db.Model):
       "eventType": self.eventType,
       "entertainment": self.entertainment,
       "createdAt": self.createdAt,
-      # "startTime": self.startTime,
-      # "endTime": self.endTime,
+      "startTime": self.startTime,
+      "endTime": self.endTime,
       "rating": self.rating,
       "lat": self.lat,
       "lng": self.lng,
