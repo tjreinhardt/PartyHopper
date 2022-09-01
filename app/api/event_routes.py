@@ -3,7 +3,7 @@ from flask import Blueprint, jsonify, Response,request
 from flask_login import login_required, current_user
 from app.models import Event,db
 from app.forms.event_form import CreateEventForm
-from datetime import date
+from datetime import datetime
 
 # from app.forms.review_form import ReviewForm
 import json
@@ -92,6 +92,7 @@ def create_event():
         lng=form.data['lng']
         )
 
+
         event.userId = current_user.id
         db.session.add(event)
         db.session.commit()
@@ -120,10 +121,15 @@ def update_event(eventId):
     form = CreateEventForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
-    # if event.image_url != form.data['image_url']:
-    #     return {'errors': ['image cannot be changed']}, 400
     event.name=(form.data['name'])
     event.description=(form.data['description'])
+    event.imageUrl=(form.data['imageUrl'])
+    event.eventType=(form.data['eventType'])
+    event.entertainment=(form.data['entertainment'])
+    event.startDate=(form.data['startDate'])
+    event.startTime=(form.data['startTime'])
+    event.lat=(form.data['lat'])
+    event.lng=(form.data['lng'])
     db.session.commit()
     # rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
     res = event.to_dict()

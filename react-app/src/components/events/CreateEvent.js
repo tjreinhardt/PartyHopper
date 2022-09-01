@@ -27,12 +27,6 @@ const CreateEventForm = ({ hideModal }) => {
   if (todays_month < 10) todays_month = `0${todays_month}`
   let todays_year = today.getFullYear();
   let todays_date = `${todays_year}-${todays_month}-${todays_day}`
-  let start_comparison = startDate.split('-').join('')
-  let today_comparison = todays_date.split('-').join('')
-
-
-  console.log(start_comparison, 'start_comparison--------------------------')
-  console.log(today_comparison, 'today_comparison--------------------------')
 
 
   const handleSubmit = async (e) => {
@@ -49,35 +43,44 @@ const CreateEventForm = ({ hideModal }) => {
       lat,
       lng
     };
-    const dispatchEvent = await dispatch(createEventThunk(newEvent));
-    if (dispatchEvent) {
-      hideModal()
+    // const dispatchEvent = await dispatch(createEventThunk(newEvent));
+    // if (dispatchEvent) {
+    //   hideModal()
+    // }
+    if (startDate + 1 > todays_date) {
+
+      dispatch(createEventThunk(newEvent))
+        .then(
+          async (res) => {
+            if (res.errors) {
+              setErrors(res.errors)
+              // e.preventDefault()
+            }
+            else {
+              hideModal()
+              history.push(`/events/${res.id}`);
+            }
+          })
     }
-    // dispatch(createEventThunk(newEvent))
-    //   .then(
-    //     async (res) => {
-    //       if (res.errors) {
-    //         setErrors(res.errors)
-    //         // e.preventDefault()
-    //       }
-    //       else {
-    //         hideModal()
-    //         history.push(`/events/${res.id}`);
-    //       }
-    //     })
+    errors.push(['Cannot pick a date that has already happened'])
   }
-
-
-  console.log(startDate, 'startDate --------------------------------')
-  console.log(today_comparison - start_comparison, 'todays_comparison - start_comparison --------------------------------------')
 
 
   useEffect(() => {
     let errors = [];
-    if (today_comparison - start_comparison > 0) errors.push("Date invalid, cannot be set in the past");
+    if (!name) errors.push("Please name your event")
+    if (!description) errors.push("Please enter a description for your event")
+    if (!imageUrl) errors.push("Please upload an image for your event")
+    if (!eventType) errors.push("Please enter a category for your event")
+    if (!entertainment) errors.push("Please select entertainment type")
+    if (!startDate) errors.push("Please add a date for your event");
+    if (Number(startDate.split('-').join('')) + 1 < Number(todays_date.split('-').join(''))) errors.push("Start Date must be on/later than today's date")
+    if (!startTime) errors.push("Please enter a start-time for your event")
+    if (!lat) errors.push("Please enter a latitude")
+    if (!lng) errors.push("Please enter a longitude")
     // if (startDate < todays_date) errors.push("Fix your date fool")
     setErrors(errors)
-  }, [start_comparison, today_comparison, startDate, todays_date])
+  }, [name, description, imageUrl, eventType, entertainment, startDate, startTime, lat, lng, todays_date])
 
 
   return (
@@ -173,7 +176,10 @@ const CreateEventForm = ({ hideModal }) => {
           </div>
         </div>
         <div className="bottom-button">
+          {/* {!errors && ( */}
           <button type="submit">Share</button>
+          {/* ) */}
+          {/* } */}
           <button onClick={hideModal}>Cancel</button>
         </div>
         <ul>
