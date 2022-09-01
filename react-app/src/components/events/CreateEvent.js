@@ -3,7 +3,9 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import DatePicker from 'react-modern-calendar-datepicker';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const CreateEventForm = ({ hideModal }) => {
   const dispatch = useDispatch();
@@ -16,8 +18,10 @@ const CreateEventForm = ({ hideModal }) => {
   const [entertainment, setEntertainment] = useState("")
   const [startTime, setStartTime] = useState("")
   const [endTime, setEndTime] = useState("")
+  const [startDate, setStartDate] = useState("")
   const [lat, setLat] = useState(1)
   const [lng, setLng] = useState(1)
+  const [startAmPm, setStartAmPm] = useState("")
   const [errors, setErrors] = useState([])
 
 
@@ -30,6 +34,9 @@ const CreateEventForm = ({ hideModal }) => {
       imageUrl,
       eventType,
       entertainment,
+      startTime,
+      endTime,
+      startDate,
       lat,
       lng
     };
@@ -75,35 +82,65 @@ const CreateEventForm = ({ hideModal }) => {
             />
           </div>
           <div>
-            <input
-              type={'text'}
-              placeholder={"Event Type"}
-              value={eventType}
-              onChange={e => setEventType(e.target.value)}
-            />
+            <select value={eventType} onChange={e => setEventType(e.target.value)}>
+              <option value="None">None</option>
+              <option value="Party">Party</option>
+              <option value="Kickback">Kickback</option>
+              <option value="Live Show/Event">Live Show/Event</option>
+              <option value="Rager">Rager</option>
+              <option value="Block Party">Block Party</option>
+              <option value="Local Community Event">Local Community Event</option>
+              <option value="Charity Event">Charity Event</option>
+              <option value="After Party">After Party</option>
+              <option value="Grand Opening">Grand Opening</option>
+            </select>
+          </div>
+          <div>
+            <select value={entertainment} onChange={e => setEntertainment(e.target.value)}>
+              <option value="None">None</option>
+              <option value="Live-Band">Live-Band</option>
+              <option value="DJ">DJ</option>
+              <option value="Comedian">Comedian</option>
+            </select>
           </div>
           <div>
             <input
-              type={'text'}
-              placeholder={"Event Entertainment"}
-              value={entertainment}
-              onChange={e => setEntertainment(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type={'time'}
-              placeholder={"Start Time"}
+              type={'number'}
+              min={'1'}
+              max={'12'}
+              placeholder={"1"}
               value={startTime}
               onChange={e => setStartTime(e.target.value)}
             />
+            <select>
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+          <div>
           </div>
           <div>
             <input
-              type={'date'}
-              placeholder={"End Time"}
-              value={endTime}
+              type={'number'}
+              min={'1'}
+              max={'12'}
+              placeholder={"1"}
+              value={endTime + startAmPm}
               onChange={e => setEndTime(e.target.value)}
+            />
+            <select value={startAmPm} onChange={e => setStartAmPm(e.target.value)}>
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+          <div>
+          </div>
+          <div>
+            <input
+              type={'text'}
+              placeholder={"Start Date"}
+              value={startDate}
+              onChange={e => setStartDate(e.target.value)}
             />
           </div>
           <div>

@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify, Response,request
 from flask_login import login_required, current_user
 from app.models import Event,db
 from app.forms.event_form import CreateEventForm
+
 # from app.forms.review_form import ReviewForm
 import json
 
@@ -86,6 +87,7 @@ def create_event():
             entertainment=form.data['entertainment'],
             startTime=form.data['startTime'],
             endTime=form.data['endTime'],
+            startDate=form.data['startDate'],
             lat=form.data['lat'],
             lng=form.data['lng']
 
