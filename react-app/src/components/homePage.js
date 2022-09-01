@@ -30,9 +30,8 @@ const HomePage = () => {
               <div>OWNER USER ID: {event.userId}</div>
               <div>EVENT TYPE: {event.eventType}</div>
               <div>EVENT ENTERTAINMENT: {event.entertainment}</div>
+              <div>START DATE: {event.startDate}</div>
               <div>START TIME: {event.startTime}</div>
-              <div>STARTAMPM: {event.startAmPm}</div>
-              <div>END TIME: {event.endTime}</div>
               <div>LATTITUDE: {event.lat}</div>
               <div>LONGITUDE: {event.lng}</div>
               <div>CREATED AT: {event.createdAt}</div>

@@ -3,6 +3,7 @@ from flask import Blueprint, jsonify, Response,request
 from flask_login import login_required, current_user
 from app.models import Event,db
 from app.forms.event_form import CreateEventForm
+from datetime import date
 
 # from app.forms.review_form import ReviewForm
 import json
@@ -80,18 +81,17 @@ def create_event():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         event = Event(
-            name=form.data['name'],
-            description=form.data['description'],
-            imageUrl=form.data['imageUrl'],
-            eventType=form.data['eventType'],
-            entertainment=form.data['entertainment'],
-            startTime=form.data['startTime'],
-            endTime=form.data['endTime'],
-            startDate=form.data['startDate'],
-            lat=form.data['lat'],
-            lng=form.data['lng']
-
+        name=form.data['name'],
+        description=form.data['description'],
+        imageUrl=form.data['imageUrl'],
+        eventType=form.data['eventType'],
+        entertainment=form.data['entertainment'],
+        startDate=form.data['startDate'],
+        startTime=form.data['startTime'],
+        lat=form.data['lat'],
+        lng=form.data['lng']
         )
+
         event.userId = current_user.id
         db.session.add(event)
         db.session.commit()
