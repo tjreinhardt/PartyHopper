@@ -27,7 +27,7 @@ const EventDetail = () => {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    return dispatch(deleteEventThunk(eventId)).then(() => history.push('/session/events'))
+    return dispatch(deleteEventThunk(eventId)).then(() => history.push('/'))
   }
 
   // const handleLikes = async (eventId) => {
@@ -52,8 +52,8 @@ const EventDetail = () => {
         <div>OWNER USER ID: {event.userId}</div>
         <div>EVENT TYPE: {event.eventType}</div>
         <div>EVENT ENTERTAINMENT: {event.entertainment}</div>
+        <div>START DATE: {event.startDate}</div>
         <div>START TIME: {event.startTime}</div>
-        <div>END TIME: {event.endTime}</div>
         <div>LATTITUDE: {event.lat}</div>
         <div>LONGITUDE: {event.lng}</div>
         <div>CREATED AT: {event.createdAt}</div>

@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -16,42 +15,70 @@ const CreateEventForm = ({ hideModal }) => {
   const [imageUrl, setImageUrl] = useState("")
   const [eventType, setEventType] = useState("")
   const [entertainment, setEntertainment] = useState("")
-  const [startTime, setStartTime] = useState("")
-  const [endTime, setEndTime] = useState("")
   const [startDate, setStartDate] = useState("")
+  const [startTime, setStartTime] = useState("")
   const [lat, setLat] = useState(1)
   const [lng, setLng] = useState(1)
-  const [startAmPm, setStartAmPm] = useState("")
   const [errors, setErrors] = useState([])
+  let today = new Date();
+  let todays_day = today.getDay() - 3;
+  if (todays_day < 10) todays_day = `0${todays_day}`
+  let todays_month = today.getMonth() + 1;
+  if (todays_month < 10) todays_month = `0${todays_month}`
+  let todays_year = today.getFullYear();
+  let todays_date = `${todays_year}-${todays_month}-${todays_day}`
+  let start_comparison = startDate.split('-').join('')
+  let today_comparison = todays_date.split('-').join('')
+
+
+  console.log(start_comparison, 'start_comparison--------------------------')
+  console.log(today_comparison, 'today_comparison--------------------------')
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors([]);
+    // setErrors([]);
     const newEvent = {
       name,
       description,
       imageUrl,
       eventType,
       entertainment,
-      startTime,
-      endTime,
       startDate,
+      startTime,
       lat,
       lng
     };
-    dispatch(createEventThunk(newEvent))
-      .then(
-        async (res) => {
-          if (res.errors) {
-            setErrors(res.errors)
-          }
-          else {
-            hideModal()
-            history.push(`/events/${res.id}`);
-          }
-        })
+    const dispatchEvent = await dispatch(createEventThunk(newEvent));
+    if (dispatchEvent) {
+      hideModal()
+    }
+    // dispatch(createEventThunk(newEvent))
+    //   .then(
+    //     async (res) => {
+    //       if (res.errors) {
+    //         setErrors(res.errors)
+    //         // e.preventDefault()
+    //       }
+    //       else {
+    //         hideModal()
+    //         history.push(`/events/${res.id}`);
+    //       }
+    //     })
   }
+
+
+  console.log(startDate, 'startDate --------------------------------')
+  console.log(today_comparison - start_comparison, 'todays_comparison - start_comparison --------------------------------------')
+
+
+  useEffect(() => {
+    let errors = [];
+    if (today_comparison - start_comparison > 0) errors.push("Date invalid, cannot be set in the past");
+    // if (startDate < todays_date) errors.push("Fix your date fool")
+    setErrors(errors)
+  }, [start_comparison, today_comparison, startDate, todays_date])
+
 
   return (
     <div>
@@ -105,43 +132,28 @@ const CreateEventForm = ({ hideModal }) => {
           </div>
           <div>
             <input
-              type={'number'}
-              min={'1'}
-              max={'12'}
-              placeholder={"1"}
-              value={startTime}
-              onChange={e => setStartTime(e.target.value)}
-            />
-            <select>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </select>
-          </div>
-          <div>
+              type="hidden"
+              value={todays_date}
+            >
+            </input>
           </div>
           <div>
             <input
-              type={'number'}
-              min={'1'}
-              max={'12'}
-              placeholder={"1"}
-              value={endTime + startAmPm}
-              onChange={e => setEndTime(e.target.value)}
-            />
-            <select value={startAmPm} onChange={e => setStartAmPm(e.target.value)}>
-              <option value="AM">AM</option>
-              <option value="PM">PM</option>
-            </select>
-          </div>
-          <div>
-          </div>
-          <div>
-            <input
-              type={'text'}
-              placeholder={"Start Date"}
+              type={'date'}
               value={startDate}
               onChange={e => setStartDate(e.target.value)}
             />
+          </div>
+          <div>
+          </div>
+          <div>
+            <input
+              type={'time'}
+              value={startTime}
+              onChange={e => setStartTime(e.target.value)}
+            />
+          </div>
+          <div>
           </div>
           <div>
             <input

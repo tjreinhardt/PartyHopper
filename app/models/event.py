@@ -20,9 +20,8 @@ class Event(db.Model):
   eventType = db.Column(db.String(50), nullable=False)
   entertainment = db.Column(db.String(50), nullable=False)
   createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
-  startTime = db.Column(db.String)
-  endTime = db.Column(db.String)
   startDate = db.Column(db.String)
+  startTime = db.Column(db.String)
   # rating = db.Column(db.Integer)
   lat = db.Column(db.Integer, nullable=False)
   lng = db.Column(db.Integer, nullable=False)
@@ -47,9 +46,8 @@ class Event(db.Model):
       "eventType": self.eventType,
       "entertainment": self.entertainment,
       "createdAt": self.createdAt,
-      "startTime": self.startTime,
-      "endTime": self.endTime,
       "startDate": self.startDate,
+      "startTime": self.startTime,
       "lat": self.lat,
       "lng": self.lng,
       "totalRsvps": len(self.event_rsvp_users)
