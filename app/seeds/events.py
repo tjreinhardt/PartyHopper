@@ -1,5 +1,5 @@
 from app.models import db, Event, User
-from datetime import datetime
+from datetime import datetime, date, time
 
 
 def seed_events():
@@ -24,9 +24,9 @@ def seed_events():
         eventType = "Rager",
         entertainment = "DJ",
         imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
-        startDate = datetime(2015, 6, 5, 8, 10, 10, 10),
-        startTime = datetime(2015, 6, 5, 10, 20, 10, 10),
-        createdAt = datetime(2015, 6, 5, 10, 20, 10, 10),
+        startDate = date(3, 6, 5),
+        startTime = date(2, 6, 5),
+        createdAt = date(4, 6, 5),
         lat = 5,
         lng = 5
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
@@ -38,9 +38,9 @@ def seed_events():
         eventType = "Rager",
         entertainment = "DJ",
         imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
-        startDate = datetime(2015, 6, 5, 11, 12, 12, 10),
-        startTime = datetime(2015, 6, 5, 10, 20, 10, 10),
-        createdAt = datetime(2015, 6, 5, 10, 20, 10, 10),
+        startDate = date(3, 6, 5),
+        startTime = date(5, 6, 7),
+        createdAt = date(2, 6, 5),
         lat = 10,
         lng = 10
 
@@ -53,9 +53,9 @@ def seed_events():
         eventType = "Rager",
         entertainment = "DJ",
         imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
-        startDate = datetime(2015, 6, 5, 11, 12, 12, 10),
-        startTime = datetime(2015, 6, 5, 10, 20, 10, 10),
-        createdAt = datetime(2015, 6, 5, 10, 20, 10, 10),
+        startDate = date(1, 6, 5),
+        startTime = date(2, 6, 3),
+        createdAt = date(2, 6, 5),
         event_rsvp_users = [User.query.get(1),User.query.get(3) , User.query.get(2)],
         lat = 15,
         lng = 15
