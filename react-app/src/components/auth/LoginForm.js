@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { login } from '../../store/session';
 import { NavLink } from 'react-router-dom';
-
+import '../../styles/LoginForm.css'
 const LoginForm = () => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
@@ -108,16 +108,7 @@ const LoginForm = () => {
             onChange={updatePassword}
           />
         </div>
-        <button type='submit'
-          style={{
-            height: '43px',
-            color: 'white',
-            backgroundColor: '#d32323',
-            fontSize: '16px',
-            border: 'transparent',
-            borderRadius: '4px',
-            fontWeight: '900'
-          }}>Log In</button>
+        <button type='submit' className='login-form-login-button'>Log In</button>
         <div
           style={{
             display: 'flex',

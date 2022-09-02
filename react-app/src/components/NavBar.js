@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import CreateEventModal from './modals/CreateEventModal';
 import LogoutButton from './auth/LogoutButton';
+import '../styles/NavBar.css'
 
 const NavBar = () => {
   const [createModal, setCreateModal] = useState(false);
@@ -11,42 +12,19 @@ const NavBar = () => {
   const user = useSelector(state => state.session.user)
 
   return (
-    <nav
-      style={{
-        paddingTop: '24px'
-      }}>
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-end'
-        }}>
+    <nav className='navbar-nav'>
+      <div className='nav-outer-wrapper'>
         {user && (
           <>
             <NavLink to='/' exact={true} activeClassName='active'>
-              <button
-                style={{
-                  width: '70px',
-                  height: '40px',
-                  marginRight: '12px'
-                }}>Home</button>
+              <button className='nav-buttons'>Home</button>
             </NavLink>
             <div onClick={() => setCreateModal(true)}>
-              <button
-                style={{
-                  width: '70px',
-                  height: '40px',
-                  marginRight: '12px'
-                }}>Create Event</button>
+              <button className='nav-buttons'>Create Event</button>
             </div>
             {createModal && <CreateEventModal setShowModal={setCreateModal} />}
             <NavLink to='/users' exact={true} activeClassName='active'>
-              <button
-                style={{
-                  width: '70px',
-                  height: '40px',
-                  marginRight: '12px'
-                }}>Users</button>
+              <button className='nav-buttons'>Users</button>
             </NavLink>
             <LogoutButton />
           </>
@@ -55,25 +33,10 @@ const NavBar = () => {
         {!user && (
           <>
             <NavLink to='/login' exact={true} activeClassName='active'>
-              <button
-                style={{
-                  width: '70px',
-                  height: '40px',
-                  marginRight: '12px'
-                }}>Log In</button>
+              <button className='nav-buttons'>Log In</button>
             </NavLink>
             <NavLink to='/sign-up' exact={true} activeClassName='active'>
-              <button
-                style={{
-                  width: '70px',
-                  height: '40px',
-                  marginRight: '12px',
-                  color: 'white',
-                  backgroundColor: 'rgba(224,7,7,1)',
-                  border: 'transparent',
-                  borderRadius: '4px',
-                  fontWeight: '700'
-                }}>Sign Up</button>
+              <button className='nav-signup-button-red'>Sign Up</button>
             </NavLink>
 
           </>

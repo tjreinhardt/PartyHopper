@@ -14,3 +14,20 @@ input {
   height: 22px;
   margin-bottom: 9px;
 }
+
+select {
+    /* padding-top: 5px; */
+      /* padding-bottom: 5px; */
+      padding-left: 9px;
+      /* padding-right: 9px; */
+      font-size: 14px;
+      width: 322px;
+      height: 36px;
+      margin-bottom: 9px;
+}
+
+
+body {
+  padding: 0px;
+  margin: 0px;
+}
