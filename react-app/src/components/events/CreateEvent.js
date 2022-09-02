@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import "react-datepicker/dist/react-datepicker.css";
-
+import '../../styles/CreateEvent.css'
 
 const CreateEventForm = ({ hideModal }) => {
   const dispatch = useDispatch();
@@ -86,8 +86,8 @@ const CreateEventForm = ({ hideModal }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form  onSubmit={handleSubmit}>
+        <div className="create-event-form-form">
           <div>
             <input
               type={'text'}
