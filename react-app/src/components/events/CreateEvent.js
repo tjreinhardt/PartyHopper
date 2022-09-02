@@ -27,6 +27,7 @@ const CreateEventForm = ({ hideModal }) => {
   if (todays_month < 10) todays_month = `0${todays_month}`
   let todays_year = today.getFullYear();
   let todays_date = `${todays_year}-${todays_month}-${todays_day}`
+  let display_date = `${todays_month}-${todays_day}-${todays_year}`
 
 
   const handleSubmit = async (e) => {

@@ -28,11 +28,9 @@ function App() {
     return null;
   }
 
-  return (
+  return loaded && (
     <BrowserRouter>
-      {user &&
-        <NavBar />
-      }
+      <NavBar />
       <Switch>
         <Route path='/login' exact={true}>
           <LoginForm />

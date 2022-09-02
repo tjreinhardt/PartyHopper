@@ -1,1 +1,16 @@
 /* TODO Add site wide styles */
+
+html {
+  font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+input {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 9px;
+  padding-right: 9px;
+  font-size: 14px;
+  width: 300px;
+  height: 22px;
+  margin-bottom: 9px;
+}
