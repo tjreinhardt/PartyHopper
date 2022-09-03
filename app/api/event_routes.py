@@ -3,9 +3,9 @@ from flask import Blueprint, jsonify, Response,request
 from flask_login import login_required, current_user
 from app.models import Event, db, Review
 from app.forms.event_form import CreateEventForm
+from app.forms.create_review import ReviewForm
 from datetime import datetime
 
-from app.forms.create_review import ReviewForm
 import json
 
 
@@ -172,19 +172,19 @@ def get_all_reviews(eventId):
 
 #Create a review
 @event_routes.route('/<int:eventId>/reviews/new', methods=["POST"])
-@login_required
+# @login_required
 def create_reviews(eventId):
     event = Event.query.get(eventId)
     if not event:
         return {'errors': ['event can not be found']}, 404
 
-    form = CreateReviewForm()
+    form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         review = Review(
-            concesssions_rating=form.data['concesssions_rating'],
-            entertainment_rating=form.data['entertainment_rating'],
-            atmosphere_rating=form.data['atmosphere_rating'],
+            concesssionsRating=form.data['concesssions_rating'],
+            entertainmentRating=form.data['entertainment_rating'],
+            atmosphereRating=form.data['atmosphere_rating'],
             comment=form.data['comment'],
         )
         review.userId = current_user.id
@@ -214,7 +214,7 @@ def update_reviews(eventId, reviewId):
     if review.userId != current_user.id:
         return {"errors": ['Unauthorized']}, 401
 
-    form = CreateReviewForm()
+    form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         review.concessions_rating = form.data["concessions_rating"]

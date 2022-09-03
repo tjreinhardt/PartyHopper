@@ -76,10 +76,10 @@ const GetReviews = ({ eventId }) => {
                                 <div>{review.comment}</div>
                                 <div>{(review.concessionsRating + review.entertainmentRating + review.atmosphereRating) / 3}</div>
                             </div>
-                            <div className="review-list-create-like">
+                            {/* <div className="review-list-create-like"> */}
                                 <p className="review-list-create">{timeAfterCreated(review.createdAt)}</p>
                                 {/* {!!review.totalLikes && (review.totalLikes === 1 ? <p>1 like</p> : <p>{review.totalLikes} likes</p>)} */}
-                    </div>
+                    {/* </div> */}
                         {session.id === review.userId && <button onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
 
                 </div>)

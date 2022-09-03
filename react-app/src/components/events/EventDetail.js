@@ -6,6 +6,7 @@ import EditEventModal from "../modals/EditEventModal";
 import NavBar from "../NavBar";
 import '../../styles/EventDetail.css'
 import GetReviews from "../reviews/ReviewList"
+import CreateReviewForm from "../reviews/CreateReview";
 
 
 
@@ -79,6 +80,9 @@ const EventDetail = () => {
             {editModal && <EditEventModal event={event} setShowModal={setEditModal} />}
           </div>)}
         </div>
+      </div>
+      <div>Create Review
+        <CreateReviewForm eventId={eventId} />
       </div>
 
     </div>
