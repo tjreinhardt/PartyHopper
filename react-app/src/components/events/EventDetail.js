@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getEventDetailThunk, deleteEventThunk } from "../../store/event"
 import EditEventModal from "../modals/EditEventModal";
+import NavBar from "../NavBar";
+import '../../styles/EventDetail.css'
+import ReviewList from "../reviews/ReviewList"
 
 
 
@@ -43,12 +46,18 @@ const EventDetail = () => {
 
 
   return (eventIsLoaded && event && <>
+  <NavBar />
     <div>
       <div>
+        <div className="image-header-block">
+          <div className="image-header-content-block">
         <p>{event.name}</p>
+
+          </div>
+          <img src={event.imageUrl} alt=""></img>
+        </div>
         <p>{event.description}</p>
         <p>{event.totalRsvps}</p>
-        <img src={event.imageUrl}></img>
         <div>OWNER USER ID: {event.userId}</div>
         <div>EVENT TYPE: {event.eventType}</div>
         <div>EVENT ENTERTAINMENT: {event.entertainment}</div>
@@ -58,6 +67,8 @@ const EventDetail = () => {
         <div>LONGITUDE: {event.lng}</div>
         <div>CREATED AT: {event.createdAt}</div>
         <div>TOTAL RSVPS: {event.totalRsvps}</div>
+        <div>{event.totalReviews}</div>
+
         <div>
           {showButton && (<div className="event-detail-buttons">
             <button onClick={handleDelete}>Delete event</button>
@@ -66,6 +77,10 @@ const EventDetail = () => {
           </div>)}
         </div>
       </div>
+
+                            <div>
+                        <ReviewList eventId={eventId} />
+                    </div>
     </div>
   </>
   )

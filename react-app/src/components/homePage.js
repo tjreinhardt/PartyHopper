@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import * as eventActions from '../store/event'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import NavBar from "./NavBar";
 
 const HomePage = () => {
   const { startDate } = useParams()
@@ -18,7 +19,7 @@ const HomePage = () => {
 
 
   return (
-    <>
+    <> <NavBar />
       <div
         style={{
           display: 'flex',
