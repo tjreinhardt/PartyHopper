@@ -6,6 +6,7 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from .event import Event, event_rsvps
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -13,6 +14,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     bio = db.Column(db.String(300))
+    # imageUrl = db.column(db.String(500))
     hashed_password = db.Column(db.String(255), nullable=False)
     lat = db.Column(db.Integer)
     lng = db.Column(db.Integer)

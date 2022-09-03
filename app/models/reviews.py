@@ -43,14 +43,14 @@ class Review(db.Model):
     return {
       "id": self.id,
       "userId": self.userId,
-      "eventId": self.eventId,
+      "eventId": self.eventId,  
       "concessionsRating": self.concessions_rating,
       "entertainmentRating": self.entertainment_rating,
       "atmosphereRating": self.atmosphere_rating,
       "comment": self.comment,
       "reviewDate": self.review_date,
       "user": {
-                "profileImage": self.user.profile_image,
+                # "profileImage": self.user.imageUrl,
                 "username": self.user.username
-            },
+            }
     }
