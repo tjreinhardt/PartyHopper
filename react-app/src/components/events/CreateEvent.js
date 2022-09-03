@@ -5,6 +5,7 @@ import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/CreateEvent.css'
+import NavBar from "../NavBar";
 
 const CreateEventForm = ({ hideModal }) => {
   const dispatch = useDispatch();
@@ -27,7 +28,6 @@ const CreateEventForm = ({ hideModal }) => {
   if (todays_month < 10) todays_month = `0${todays_month}`
   let todays_year = today.getFullYear();
   let todays_date = `${todays_year}-${todays_month}-${todays_day}`
-  let display_date = `${todays_month}-${todays_day}-${todays_year}`
 
 
   const handleSubmit = async (e) => {
@@ -85,9 +85,10 @@ const CreateEventForm = ({ hideModal }) => {
 
 
   return (
-    <div>
+    <div style={{marginTop:'20px'}}>
+      {/* <NavBar /> */}
       <form  onSubmit={handleSubmit}>
-        <div className="create-event-form-form">
+        <div style={{display:'flex', justifyContent:'center', flexDirection:'column', alignItems:'center'}}>
           <div>
             <input
               type={'text'}
@@ -178,10 +179,12 @@ const CreateEventForm = ({ hideModal }) => {
         </div>
         <div className="bottom-button">
           {/* {!errors && ( */}
-          <button type="submit">Share</button>
+          <button type="submit" style={{margin:'10px'}}>Share</button>
+          <br />
           {/* ) */}
           {/* } */}
-          <button onClick={hideModal}>Cancel</button>
+          <button onClick={hideModal} style={{margin:'10px'}}>Cancel</button>
+          <br />
         </div>
         <ul>
           {errors.map((error, idx) => (

@@ -5,7 +5,7 @@ from app.models import Event,db
 from app.forms.event_form import CreateEventForm
 from datetime import datetime
 
-# from app.forms.review_form import ReviewForm
+from app.forms.review_form import ReviewForm
 import json
 
 
@@ -151,3 +151,113 @@ def delete_event(eventId):
     db.session.delete(event)
     db.session.commit()
     return {"message":"Successfully deleted"}
+
+
+#get all reviews for a specified event
+@event_routes.route('/<int:eventId>/reviews')
+@login_required
+def get_all_reviews(eventId):
+    event = Event.query.get(eventId)
+    if not event:
+        return {'errors': ['event can not be found']}, 404
+    reviews = Review.query.filter(Review.eventId == eventId).all()
+    res = {}
+    for review in reviews:
+        rsvp_status = list(filter(lambda user: user.id==current_user.id))
+        review_dict = review.to_dict()
+        review_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
+        res[review.id] = review_dict
+    return {"Reviews": res}
+
+
+#Create a review
+@event_routes.route('/<int:eventId>/reviews/new', methods=["POST"])
+@login_required
+def create_reviews(eventId):
+    event = Event.query.get(eventId)
+    if not event:
+        return {'errors': ['event can not be found']}, 404
+
+    form = CreateReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        review = Review(
+            concesssions_rating=form.data['concesssions_rating'],
+            entertainment_rating=form.data['entertainment_rating'],
+            atmosphere_rating=form.data['atmosphere_rating'],
+            comment=form.data['comment'],
+        )
+        review.userId = current_user.id
+        review.eventId = eventId
+        db.session.add(review)
+        db.session.commit()
+        # print("review.totalLikes-------------", review.review_rsvp_users)
+
+        res = review.to_dict()
+        res["rsvpStatus"] = 0
+        return res
+    return  {'errors': ['All fields are required']}, 400
+
+
+#Update a review
+@event_routes.route('/<int:eventId>/reviews/<int:reviewId>', methods=["PUT"])
+@login_required
+def update_reviews(eventId, reviewId):
+    event = Event.query.get(eventId)
+    if not event:
+        return {'errors': ['event can not be found']}, 404
+
+    review = Review.query.get(reviewId)
+    if not review:
+        return {'errors': ['review can not be found']}, 404
+
+    if review.userId != current_user.id:
+        return {"errors": ['Unauthorized']}, 401
+
+    form = CreateReviewForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        review.concessions_rating = form.data["concessions_rating"]
+        review.entertainment_rating = form.data["entertainment_rating"]
+        review.atmosphere_rating = form.data["atmosphere_rating"]
+        review.comment = form.data["comment"]
+        db.session.commit()
+        rsvp_status = list(filter(lambda user: user.id==current_user.id, review.review_rsvp_users))
+        res = review.to_dict()
+        # res["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
+        # res = {
+        #     "id": review.id,
+        #     "userId": review.userId,
+        #     "content": review.content,
+        #     "createdAt": review.created_at,
+        #     "user": {
+        #         "profileImage":review.user.profile_image,
+        #         "username":review.user.username
+        #     },
+        #     "totalLikes":len(review.review_rsvp_users),
+        #     "rsvpStatus": True if len(rsvp_status) > 0 else False
+        # }
+        return res
+    return  {'errors': ['content is required']}, 400
+
+
+
+#delete a review
+@event_routes.route('/<int:eventId>/reviews/<int:reviewId>',methods=['DELETE'])
+@login_required
+def delete_review(eventId, reviewId):
+    event = Event.query.get(eventId)
+    if not event:
+        return {'errors': ['event cannot be found']}, 400
+
+    review = Review.query.get(reviewId)
+    if not review:
+        return {'errors': ['review cannot be found']}, 400
+
+    if review.userId != current_user.id:
+        return {"errors": ['Unauthorized']}, 401
+
+    db.session.delete(review)
+    db.session.commit()
+    return {"message":"Successfully deleted"}
+

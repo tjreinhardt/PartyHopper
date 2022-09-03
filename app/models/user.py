@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     )
 
     events = db.relationship("Event", back_populates="user", cascade="all, delete")
-    # reviews = db.relationship("Review", back_populates="user", cascade="all, delete")
+    reviews = db.relationship("Review", back_populates="user", cascade="all, delete")
 
 
 
@@ -46,7 +46,7 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'bio': self.bio
-            # 'total_reviews': len(self.reviews)
+            'bio': self.bio,
+            'total_reviews': len(self.reviews)
             # 'total_rsvps': len(self.rsvps)
         }

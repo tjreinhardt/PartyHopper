@@ -22,11 +22,11 @@ class Event(db.Model):
   createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
   startDate = db.Column(db.String, nullable=False)
   startTime = db.Column(db.String, nullable=False)
-  # rating = db.Column(db.Integer)
+  rating = db.Column(db.Integer)
   lat = db.Column(db.Integer, nullable=False)
   lng = db.Column(db.Integer, nullable=False)
   user = db.relationship("User", back_populates="events")
-  # reviews = db.relationship("Review", back_populates="event", cascade="all, delete")
+  reviews = db.relationship("Review", back_populates="event", cascade="all, delete")
 
   event_rsvp_users = db.relationship(
         "User",
@@ -50,8 +50,8 @@ class Event(db.Model):
       "startTime": self.startTime,
       "lat": self.lat,
       "lng": self.lng,
-      "totalRsvps": len(self.event_rsvp_users)
-      # "rating": self.rating,
+      "totalRsvps": len(self.event_rsvp_users),
+      "totalReviews": len(self.reviews)\
       # "user": {
       #     "profileImage":self.user.profileImage,
       #     "username":self.user.username,
@@ -60,5 +60,4 @@ class Event(db.Model):
       #     'totalEvents': len(self.user.events),
       #     'fullname': self.user.fullname
       # },
-      # "totalReviews": len(self.reviews),
     }

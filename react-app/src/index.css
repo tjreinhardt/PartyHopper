@@ -13,6 +13,7 @@ input {
   width: 300px;
   height: 22px;
   margin-bottom: 9px;
+  border: 1px solid #999;
 }
 
 select {

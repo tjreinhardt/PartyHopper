@@ -1,0 +1,11 @@
+.event-detail-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-header-content-block{
+    position: relative;
+    flex: 1 auto;
+    z-index: 1;
+}

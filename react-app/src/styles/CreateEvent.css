@@ -3,3 +3,29 @@ create-event-form-form {
     justify-content: center;
     align-items: center;
 }
+
+
+.bottom-button {
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+}
+
+input {
+
+}
+
+button{
+    height: 43px;
+    width: 100px;
+    color: white;
+    background-color: #d32323;
+    font-size: 16px;
+    border: transparent;
+    border-radius: 4px;
+    font-weight: 900;
+    transition: all 0.8s;
+    cursor: pointer;
+}

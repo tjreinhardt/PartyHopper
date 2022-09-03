@@ -86,9 +86,6 @@ const LoginForm = () => {
         </div>
         <div>
           <input
-            style={{
-              border: '1px solid #999'
-            }}
             name='email'
             type='text'
             placeholder='Email'
@@ -98,9 +95,6 @@ const LoginForm = () => {
         </div>
         <div>
           <input
-            style={{
-              border: '1px solid #999'
-            }}
             name='password'
             type='password'
             placeholder='Password'
