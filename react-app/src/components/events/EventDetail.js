@@ -5,7 +5,7 @@ import { getEventDetailThunk, deleteEventThunk } from "../../store/event"
 import EditEventModal from "../modals/EditEventModal";
 import NavBar from "../NavBar";
 import '../../styles/EventDetail.css'
-import ReviewList from "../reviews/ReviewList"
+import GetReviews from "../reviews/ReviewList"
 
 
 
@@ -66,8 +66,11 @@ const EventDetail = () => {
         <div>LATTITUDE: {event.lat}</div>
         <div>LONGITUDE: {event.lng}</div>
         <div>CREATED AT: {event.createdAt}</div>
-        <div>TOTAL RSVPS: {event.totalRsvps}</div>
-        <div>{event.totalReviews}</div>
+        {/* <div>TOTAL RSVPS: {event.totalRsvps}</div> */}
+        <div>total reviews:{event.totalReviews}</div>
+        <div>
+            <GetReviews eventId={eventId} />
+        </div>
 
         <div>
           {showButton && (<div className="event-detail-buttons">
@@ -78,9 +81,6 @@ const EventDetail = () => {
         </div>
       </div>
 
-                            <div>
-                        <ReviewList eventId={eventId} />
-                    </div>
     </div>
   </>
   )

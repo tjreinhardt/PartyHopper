@@ -1,11 +1,11 @@
 from flask import Blueprint, jsonify, Response,request
 # from flask_api import status
 from flask_login import login_required, current_user
-from app.models import Event,db
+from app.models import Event, db, Review
 from app.forms.event_form import CreateEventForm
 from datetime import datetime
 
-from app.forms.review_form import ReviewForm
+from app.forms.create_review import ReviewForm
 import json
 
 
@@ -63,9 +63,9 @@ def get_event_detail(eventId):
     if not event:
         return {'errors': ['event can not be found']},404
 
-    # rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
+    rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
     event_dict = event.to_dict()
-    # event_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
+    event_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
     return event_dict
 
 
@@ -163,9 +163,9 @@ def get_all_reviews(eventId):
     reviews = Review.query.filter(Review.eventId == eventId).all()
     res = {}
     for review in reviews:
-        rsvp_status = list(filter(lambda user: user.id==current_user.id))
+        # rsvp_status = list(filter(lambda user: user.id==current_user.id, review.review_like_users))
         review_dict = review.to_dict()
-        review_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
+        # review_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
         res[review.id] = review_dict
     return {"Reviews": res}
 
@@ -231,7 +231,7 @@ def update_reviews(eventId, reviewId):
         #     "content": review.content,
         #     "createdAt": review.created_at,
         #     "user": {
-        #         "profileImage":review.user.profile_image,
+        #         "profileImage":review.user.imageUrl,
         #         "username":review.user.username
         #     },
         #     "totalLikes":len(review.review_rsvp_users),
