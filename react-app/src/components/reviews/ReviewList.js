@@ -1,16 +1,29 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink} from "react-router-dom";
+import { Rating } from 'react-simple-star-rating';
+// import { NavLink } from "react-router-dom";
 import { getReviewsThunk, deleteReviewThunk } from "../../store/review";
+import { MdOutlineSentimentDissatisfied,
+  MdOutlineSentimentNeutral,
+  MdOutlineSentimentSatisfied,
+  MdOutlineSentimentVeryDissatisfied,
+  MdOutlineSentimentVerySatisfied
+} from 'react-icons/md';
 
 
-
-
+const customIcons = [
+  { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
+  { icon: <MdOutlineSentimentDissatisfied size={50} /> },
+  { icon: <MdOutlineSentimentNeutral size={50} /> },
+  { icon: <MdOutlineSentimentSatisfied size={50} /> },
+  { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
+]
 
 const GetReviews = ({ eventId }) => {
     const dispatch = useDispatch();
     const reviews = useSelector(state => state.review);
     const session = useSelector(state => state.session.user);
+    const [rating, setRating] = useState(100)
     const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
     const reviewsList = Object.values(reviews)
     reviewsList.reverse()
@@ -24,6 +37,10 @@ const GetReviews = ({ eventId }) => {
 
         return dispatch(deleteReviewThunk(eventId, reviewId))
     }
+
+    const handleRating = (rate:number) => {
+        setRating(rate)
+    }   
 
     // const handleLikes = async (eventId, reviewId) => {
 
@@ -70,13 +87,22 @@ const GetReviews = ({ eventId }) => {
             (
                 <div key={review.id} className="review-list-review-container">
                             <div className="review-list-username-content">
-                                <div>{review.concessionsRating}</div>
-                                <div>{review.entertainmentRating}</div>
-                                <div>{review.atmosphereRating}</div>
+                                    <Rating 
+                                        ratingValue={review.rating} 
+                                        // onClick={handleRating} 
+                                        customIcons={customIcons}
+                                        // showTooltip
+                                        // tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}
+                                        // readonly
+                                        allowHover={false}
+                                    />  
+                                    <div>{review.rating}</div>
+                                {/* <div>Entertainment Quality:{review.entertainmentRating}%</div>
+                                <div>Overall vibe/atmosphere{review.atmosphereRating}%</div> */}
                                 <div>{review.comment}</div>
-                                <div>{(review.concessionsRating + review.entertainmentRating + review.atmosphereRating) / 3}</div>
+                                {/* <div>Overall rating:{(review.concessionsRating + review.entertainmentRating + review.atmosphereRating) / 3}%</div> */}
+                                <div className="review-list-create">{timeAfterCreated(review.reviewDate)}</div>
                             </div>
-                                <div className="review-list-create">{timeAfterCreated(review.createdAt)}</div>
                         {session.id === review.userId && <button onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
 
                 </div>)

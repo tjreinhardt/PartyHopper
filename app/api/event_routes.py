@@ -182,9 +182,9 @@ def create_reviews(eventId):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         review = Review(
-            concessionsRating=form.data['concessionsRating'],
-            entertainmentRating=form.data['entertainmentRating'],
-            atmosphereRating=form.data['atmosphereRating'],
+            rating=form.data['rating'],
+            # entertainmentRating=form.data['entertainmentRating'],
+            # atmosphereRating=form.data['atmosphereRating'],
             comment=form.data['comment']
         )
         review.userId = current_user.id
@@ -217,9 +217,9 @@ def update_reviews(eventId, reviewId):
     form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        review.concessionsRating = form.data["concessionsRating"]
-        review.entertainmentRating = form.data["entertainmentRating"]
-        review.atmosphereRating = form.data["atmosphereRating"]
+        review.rating = form.data["rating"]
+        # review.entertainmentRating = form.data["entertainmentRating"]
+        # review.atmosphereRating = form.data["atmosphereRating"]
         review.comment = form.data["comment"]
         db.session.commit()
         rsvp_status = list(filter(lambda user: user.id==current_user.id, review.review_rsvp_users))

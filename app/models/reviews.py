@@ -15,9 +15,9 @@ class Review(db.Model):
   id = db.Column(db.Integer, primary_key=True)
   userId = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
   eventId = db.Column(db.Integer, db.ForeignKey("events.id", ondelete="CASCADE"), nullable=False)
-  concessionsRating = db.Column(db.Integer, nullable=False)
-  entertainmentRating = db.Column(db.Integer, nullable=False)
-  atmosphereRating = db.Column(db.Integer, nullable=False)
+  rating = db.Column(db.Integer, nullable=False)
+  # entertainmentRating = db.Column(db.Integer, nullable=False)
+  # atmosphereRating = db.Column(db.Integer, nullable=False)
   comment = db.Column(db.String(500), nullable=False)
   review_date = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
 
@@ -44,9 +44,9 @@ class Review(db.Model):
       "id": self.id,
       "userId": self.userId,
       "eventId": self.eventId,  
-      "concessionsRating": self.concessionsRating,
-      "entertainmentRating": self.entertainmentRating,
-      "atmosphereRating": self.atmosphereRating,
+      "rating": self.rating,
+      # "entertainmentRating": self.entertainmentRating,
+      # "atmosphereRating": self.atmosphereRating,
       "comment": self.comment,
       "reviewDate": self.review_date,
       "user": {
