@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e737d1341534
+Revision ID: 2155da2c9ba7
 Revises: 
-Create Date: 2022-09-03 14:44:41.134660
+Create Date: 2022-09-03 19:58:59.226843
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e737d1341534'
+revision = '2155da2c9ba7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -58,9 +58,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('eventId', sa.Integer(), nullable=False),
-    sa.Column('concessions_rating', sa.Integer(), nullable=False),
-    sa.Column('entertainment_rating', sa.Integer(), nullable=False),
-    sa.Column('atmosphere_rating', sa.Integer(), nullable=False),
+    sa.Column('concessionsRating', sa.Integer(), nullable=False),
+    sa.Column('entertainmentRating', sa.Integer(), nullable=False),
+    sa.Column('atmosphereRating', sa.Integer(), nullable=False),
     sa.Column('comment', sa.String(length=500), nullable=False),
     sa.Column('review_date', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.ForeignKeyConstraint(['eventId'], ['events.id'], ondelete='CASCADE'),
