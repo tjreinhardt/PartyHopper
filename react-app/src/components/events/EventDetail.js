@@ -7,18 +7,20 @@ import NavBar from "../NavBar";
 import '../../styles/EventDetail.css'
 import GetReviews from "../reviews/ReviewList"
 import CreateReviewForm from "../reviews/CreateReview";
+import EditReviewForm from "../reviews/EditReview";
 
 
 
 const EventDetail = () => {
   const dispatch = useDispatch();
   const { eventId } = useParams();
+  const reviews = useSelector(state => state.review)
   const history = useHistory()
   const event = useSelector(state => state.event[eventId]);
   const session = useSelector(state => state.session.user);
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const [editModal, setEditModal] = useState(false);
-
+  const reviewsList = Object.values(reviews)
 
   useEffect(() => {
     dispatch(getEventDetailThunk(eventId)).then(() => setEventIsLoaded(true));
@@ -43,6 +45,21 @@ const EventDetail = () => {
     return null
   }
 
+
+  let userReviewed;
+  for (let i = 0; i < reviewsList.length; i++) {
+    if (reviewsList[i].userId === session.id) 
+    userReviewed = false;
+  }
+
+  let sessionLinks;
+  if (userReviewed === false) {
+    sessionLinks = <EditReviewForm eventId={eventId} />
+    } else {
+      sessionLinks = (
+      <CreateReviewForm eventId={eventId}/>
+    )
+  }
 
 
 
@@ -79,9 +96,13 @@ const EventDetail = () => {
             <button onClick={() => setEditModal(true)}>Edit event</button>
             {editModal && <EditEventModal event={event} setShowModal={setEditModal} />}
           </div>)}
-      <div>Create Review
+          <div>
+            {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}
+            {sessionLinks}
+          </div>
+      {/* <div>Create Review
         <CreateReviewForm eventId={eventId} />
-      </div>
+      </div> */}
         </div>
       </div>
 

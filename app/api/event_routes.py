@@ -222,7 +222,7 @@ def update_reviews(eventId, reviewId):
         # review.atmosphereRating = form.data["atmosphereRating"]
         review.comment = form.data["comment"]
         db.session.commit()
-        rsvp_status = list(filter(lambda user: user.id==current_user.id, review.review_rsvp_users))
+        # rsvp_status = list(filter(lambda user: user.id==current_user.id, review.review_rsvp_users))
         res = review.to_dict()
         # res["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
         # res = {
