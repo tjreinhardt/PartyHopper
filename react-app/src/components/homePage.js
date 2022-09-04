@@ -4,6 +4,7 @@ import * as eventActions from '../store/event'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
+import '../styles/HomePage.css'
 
 const HomePage = () => {
   const { startDate } = useParams()
@@ -20,51 +21,31 @@ const HomePage = () => {
 
   return (
     <> <NavBar />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
+    <div className="page-content-wrapper">
+      <div className="content-wrapper">
         {events &&
           events.map(event =>
-            <div
-              style={{
-                width: '90vw'
-              }}>
+            <NavLink to={`/events/${event.id}`} className="event-card">
+                <img src={event.imageUrl} alt='event-imageUrl'></img>
               <br></br>
-              <NavLink
-                style={{
-                  textDecoration: 'none',
-                  cursor: 'pointer'
-                }} to={`/events/${event.id}`}>
-                <div
-                  style={{
-                    fontSize: '36px',
-                    position: 'relative',
-                    color: 'black',
-                    textDecoration: 'none'
-                  }}>{event.name}</div>
+              <div className="event-content-wrapper">
+              <NavLink className={'event-name-navlink'}to={`/events/${event.id}`}>
+                <div className="event-name-div">{event.name}</div>
               </NavLink>
-              <img src={event.imageUrl} alt='event-imageUrl'></img>
-              <div
-                style={{
-                  fontSize: '24px',
-                  position: 'relative'
-                }}>{event.description}</div>
-              {/* <div>ownerId: {event.userId}</div> */}
-              <div>{event.eventType}</div>
-              <div>{event.entertainment}</div>
-              <div>Event Date: {event.startDate}</div>
-              <div>Starts at: {event.startTime}</div>
+              {/* <div className="event-description-div">{event.description}</div> */}
+              {/* <div className="event-type-div">{event.eventType}</div> */}
+              {/* <div className="event-entertainment-div">{event.entertainment}</div> */}
+              {/* <div className="event-startdate-div">Event Date: {event.startDate}</div> */}
+              {/* <div className="event-starttime-div">Starts at: {event.startTime}</div> */}
               {/* <div>Coordinates: Lat: {event.lat}, Long: {event.lng}</div> */}
-              <div>RSVPs: {event.totalRsvps}</div>
+              <div className="event-totalrsvps-div">RSVPs: {event.totalRsvps}</div>
               {/* <div>CREATED AT: {event.createdAt}</div> */}
-            </div>
+              </div>
+            </NavLink>
           ).reverse()
         }
       </div>
+    </div>
     </>
   )
 }
