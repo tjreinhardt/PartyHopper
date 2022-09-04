@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Rating } from 'react-simple-star-rating';
 // import { NavLink } from "react-router-dom";
-import { getReviewsThunk, deleteReviewThunk } from "../../store/review";
+import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../store/review";
 import { MdOutlineSentimentDissatisfied,
   MdOutlineSentimentNeutral,
   MdOutlineSentimentSatisfied,
@@ -23,11 +23,10 @@ const GetReviews = ({ eventId }) => {
     const dispatch = useDispatch();
     const reviews = useSelector(state => state.review);
     const session = useSelector(state => state.session.user);
-    const [rating, setRating] = useState(100)
     const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
     const reviewsList = Object.values(reviews)
     reviewsList.reverse()
-    console.log('reviewsList========================', reviewsList)
+    // console.log('reviewsList========================', reviewsList)
 
     useEffect(() => {
         dispatch(getReviewsThunk(eventId)).then(() => setReviewsIsLoaded(true))
@@ -38,10 +37,9 @@ const GetReviews = ({ eventId }) => {
         return dispatch(deleteReviewThunk(eventId, reviewId))
     }
 
-    const handleRating = (rate:number) => {
-        setRating(rate)
-    }   
-
+    const handleEdit = async (eventId, reviewId) => {
+        return dispatch(updateReviewThunk(reviewId, eventId))
+    }
     // const handleLikes = async (eventId, reviewId) => {
 
     //     return dispatch(likeReviewThunk(eventId, reviewId))
@@ -60,19 +58,19 @@ const GetReviews = ({ eventId }) => {
         const day = Math.floor(hour / 24);
         const week = Math.floor(day / 7)
         if (week > 0) {
-            res = `${week}w`
+            res = `${week} weeks`
         }
         else if (day > 0) {
-            res = `${day}d`
+            res = `${day} days`
         }
         else if (hour > 0) {
-            res = `${hour}h`
+            res = `${hour} hours`
         }
         else if (minute > 0) {
-            res = `${minute}m`
+            res = `${minute} min`
         }
         else {
-            res = `${second}s`
+            res = `${second}seconds`
         }
 
         return res
@@ -87,23 +85,17 @@ const GetReviews = ({ eventId }) => {
             (
                 <div key={review.id} className="review-list-review-container">
                             <div className="review-list-username-content">
+                                <h2>{review.user.username}</h2>
                                     <Rating 
                                         ratingValue={review.rating} 
-                                        // onClick={handleRating} 
                                         customIcons={customIcons}
-                                        // showTooltip
-                                        // tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}
-                                        // readonly
                                         allowHover={false}
                                     />  
-                                    <div>{review.rating}</div>
-                                {/* <div>Entertainment Quality:{review.entertainmentRating}%</div>
-                                <div>Overall vibe/atmosphere{review.atmosphereRating}%</div> */}
                                 <div>{review.comment}</div>
-                                {/* <div>Overall rating:{(review.concessionsRating + review.entertainmentRating + review.atmosphereRating) / 3}%</div> */}
                                 <div className="review-list-create">{timeAfterCreated(review.reviewDate)}</div>
                             </div>
                         {session.id === review.userId && <button onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
+                        {session.id === review.userId && <button onClick={() => handleEdit(eventId, review.id)}>Edit</button>}
 
                 </div>)
             )}

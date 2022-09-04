@@ -2,6 +2,7 @@ const GET_REVIEWS = "review/GET_REVIEWS"
 const CREATE_REVIEW = "review/CREATE_REVIEW"
 const DELETE_REVIEW = "review/DELETE_REVIEW"
 const LIKE_REVIEW = "review/LIKE_REVIEW"
+const UPDATE_REVIEW = "review/UPDATE_REVIEW"
 
 
 const getReviews = (reviews) =>{
@@ -21,6 +22,13 @@ const createReview = (review) =>{
 const deleteReview = (reviewId) => {
   return {
     type: DELETE_REVIEW,
+    reviewId
+  }
+}
+
+const updateReview = (reviewId) => {
+  return {
+    type: UPDATE_REVIEW,
     reviewId
   }
 }
@@ -72,6 +80,23 @@ export const deleteReviewThunk = (eventId, reviewId) => async dispatch => {
   return response
 }
 
+export const updateReviewThunk = (eventId, reviewId) => async (dispatch) => {
+  // const id = parseInt(reviewId.id, 10);
+  const res = await fetch(`/api/events/${eventId}/reviews/${reviewId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(reviewId),
+  });
+
+  if (res.ok) {
+    const review = await res.json();
+    dispatch(updateReview(reviewId));
+  } else if (res.status < 500) {
+    const data = await res.json();
+    if (data.errors) return data.errors;
+  } else return ["An error occurred. Please try again."];
+};
+
 export const likeReviewThunk = (eventId, reviewId) => async dispatch => {
   const response = await fetch(`/api/events/${eventId}/reviews/${reviewId}/likes`, {
     method: 'PUT',
@@ -107,6 +132,11 @@ export default function reducer(state = initialState, action) {
         delete newState[action.reviewId]
         return newState
       }
+      case UPDATE_REVIEW: {
+        newState = { ...state }
+        newState[action.reviewId] = action.event
+        return newState
+    }
       case LIKE_REVIEW: {
         newState = {...state}
         newState[action.reviewId] = {...newState[action.reviewId], totalLikes:action.totalLikes, likeStatus: action.likeStatus }

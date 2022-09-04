@@ -1,9 +1,9 @@
-
-
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { createReviewThunk } from "../../store/review";
-import { Rating } from 'react-simple-star-rating';
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { updateReviewThunk } from "../../store/review";
+import { Rating } from "react-simple-star-rating";
 import { MdOutlineSentimentDissatisfied,
   MdOutlineSentimentNeutral,
   MdOutlineSentimentSatisfied,
@@ -19,57 +19,55 @@ const customIcons = [
   { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
 ]
 
-const CreateReviewForm = ({ eventId }) => {
-    const dispatch = useDispatch();
+
+const EditReviewForm = () => {
+    const dispatch = useDispatch()
+    const {review} = useParams()
+    const history = useHistory()
+    const reviews = useSelector(state => state.review)
+    const reviewsList = Object.values(reviews)
+
     const session = useSelector(state => state.session.user);
 
-    const [rating, setRating] = useState(3)
-    // const [entertainmentRating, setEntertainmentRating] = useState(3)
-    // const [atmosphereRating, setAtmosphereRating] = useState(3)
+    const [rating, setRating] = useState(1)
     const [comment, setComment] = useState('')
     const [errors, setErrors] = useState([])
 
 
-
-const handleRating = (rate) => {
-    setRating(rate)
-}   
-// const handleEntertainmentRating = (rate:number) => {
-//     setEntertainmentRating(rate)
-// }
-// const handleAtmosphereRating = (rate:number) => {
-//     setAtmosphereRating(rate)
-// }
-
-
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors([]);
-        const review = {
+
+        const newReview = {
+            id: review.id,
             rating,
-            // entertainmentRating,
-            // atmosphereRating,
-            comment,
-            eventId: eventId,
-            userId: session.id
+            comment
         }
-        dispatch(createReviewThunk(eventId, review))
+        dispatch(updateReviewThunk(newReview))
             .then(
                 async (res) => {
                     if (res.errors) {
                         setErrors(res.errors)
-                    } 
-                })
+                    } else {
+                        history.push('/events')
+                    }
+                }
+            )
     }
+    const handleRating = (rate) => {
+    setRating(rate)
+}   
+  useEffect(() => {
+    let errors = [];
+    if (!rating) errors.push("Please rate your experience")
+    if (!comment) errors.push("Please leave a detailed review")
+    // if (startDate < todays_date) errors.push("Fix your date fool")
+    setErrors(errors)
+  }, [rating, comment])
+
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="create-review-form">
-
-                {/* <label>Review:</label> */}
+            <form onSubmit={handleSubmit} className="edit-review-form">
                 <div>
                     <div>       
                         <Rating 
@@ -93,12 +91,16 @@ const handleRating = (rate) => {
                     ))}
                 </div>
                 <div>
-                    <button className="login-button" style={{ width: '60px' }}>Post</button>
+                    <button className="login-button" style={{ width: '60px' }} type="submit">Edit</button>
+                    {/* <button onClick={hideModal}>Cancel</button> */}
                 </div>
 
             </form>
         </div>
     )
-}
 
-export default CreateReviewForm
+
+
+
+}
+export default EditReviewForm;
