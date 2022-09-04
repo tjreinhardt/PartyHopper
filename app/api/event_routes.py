@@ -182,10 +182,10 @@ def create_reviews(eventId):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         review = Review(
-            concesssionsRating=form.data['concesssions_rating'],
-            entertainmentRating=form.data['entertainment_rating'],
-            atmosphereRating=form.data['atmosphere_rating'],
-            comment=form.data['comment'],
+            concessionsRating=form.data['concessionsRating'],
+            entertainmentRating=form.data['entertainmentRating'],
+            atmosphereRating=form.data['atmosphereRating'],
+            comment=form.data['comment']
         )
         review.userId = current_user.id
         review.eventId = eventId
@@ -194,7 +194,7 @@ def create_reviews(eventId):
         # print("review.totalLikes-------------", review.review_rsvp_users)
 
         res = review.to_dict()
-        res["rsvpStatus"] = 0
+        # res["rsvpStatus"] = 0
         return res
     return  {'errors': ['All fields are required']}, 400
 
@@ -217,9 +217,9 @@ def update_reviews(eventId, reviewId):
     form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        review.concessions_rating = form.data["concessions_rating"]
-        review.entertainment_rating = form.data["entertainment_rating"]
-        review.atmosphere_rating = form.data["atmosphere_rating"]
+        review.concessionsRating = form.data["concessionsRating"]
+        review.entertainmentRating = form.data["entertainmentRating"]
+        review.atmosphereRating = form.data["atmosphereRating"]
         review.comment = form.data["comment"]
         db.session.commit()
         rsvp_status = list(filter(lambda user: user.id==current_user.id, review.review_rsvp_users))

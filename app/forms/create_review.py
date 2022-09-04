@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import Review
 
 class ReviewForm(FlaskForm):
-    concessions_rating = IntegerField('concessions_rating', validators=[(DataRequired())])
-    entertainment_rating = IntegerField('entertainment_rating', validators=[(DataRequired())])
-    atmosphere_rating = IntegerField('atmosphere_rating', validators=[(DataRequired())])
+    concessionsRating = IntegerField('concessionsRating', validators=[(DataRequired())])
+    entertainmentRating = IntegerField('entertainmentRating', validators=[(DataRequired())])
+    atmosphereRating = IntegerField('atmosphereRating', validators=[(DataRequired())])
     comment = StringField('comment', validators=[DataRequired()])

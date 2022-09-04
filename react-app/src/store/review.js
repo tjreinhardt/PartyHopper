@@ -44,19 +44,21 @@ export const getReviewsThunk = (eventId) => async dispatch =>{
   return response
 }
 
-export const createReviewThunk = (eventId,review)=> async dispatch =>{
+export const createReviewThunk = (eventId, review)=> async dispatch =>{
   const response = await fetch(`/api/events/${eventId}/reviews/new`,{
       method:'POST',
       headers: {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify(review)
-    }
-  )
+}
+)
+// console.log(response)
   const data = await response.json()
   if (response.ok){
     dispatch(createReview(data))
   }
+  console.log(response)
   return data
 }
 
