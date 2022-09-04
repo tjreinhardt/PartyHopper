@@ -26,7 +26,8 @@ const CreateReviewForm = ({ eventId }) => {
             entertainmentRating,
             atmosphereRating,
             comment,
-            userId: session.id,
+            eventId: eventId,
+            userId: session.id
         }
         dispatch(createReviewThunk(eventId, review))
             .then(
@@ -51,18 +52,18 @@ const CreateReviewForm = ({ eventId }) => {
                         onChange={e => setConcessionsRating(e.target.value)}
                     />
                     <input
-                            type={'number'}
-                            style={{ fontSize: '16px', minWidth: '400px', marginTop: '6px', height: '30px' }}
-                            value={entertainmentRating}
-                            placeholder="How was the entertainment?"
-                            onChange={e => setEntertainmentRating(e.target.value)}
+                        type={'number'}
+                        style={{ fontSize: '16px', minWidth: '400px', marginTop: '6px', height: '30px' }}
+                        value={entertainmentRating}
+                        placeholder="How was the entertainment?"
+                        onChange={e => setEntertainmentRating(e.target.value)}
                         />
                     <input
-                            type={'number'}
-                            style={{ fontSize: '16px', minWidth: '400px', marginTop: '6px', height: '30px' }}
-                            value={atmosphereRating}
-                            placeholder="How was the vibe?"
-                            onChange={e => setAtmosphereRating(e.target.value)}
+                        type={'number'}
+                        style={{ fontSize: '16px', minWidth: '400px', marginTop: '6px', height: '30px' }}
+                        value={atmosphereRating}
+                        placeholder="How was the vibe?"
+                        onChange={e => setAtmosphereRating(e.target.value)}
                         />
                     <input
                         type={'textarea'}

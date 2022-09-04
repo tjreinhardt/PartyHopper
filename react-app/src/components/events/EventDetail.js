@@ -79,10 +79,11 @@ const EventDetail = () => {
             <button onClick={() => setEditModal(true)}>Edit event</button>
             {editModal && <EditEventModal event={event} setShowModal={setEditModal} />}
           </div>)}
-        </div>
-      </div>
+          {}
       <div>Create Review
         <CreateReviewForm eventId={eventId} />
+      </div>
+        </div>
       </div>
 
     </div>
