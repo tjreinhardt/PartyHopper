@@ -5,9 +5,9 @@ def seed_reviews():
     review1 = Review(
         userId = 1,
         eventId = 1,
-        concessionsRating = 5,
-        entertainmentRating = 4,
-        atmosphereRating = 5,
+        rating = 5,
+        # entertainmentRating = 4,
+        # atmosphereRating = 5,
         comment = "SO DOPE!"
        
     )
@@ -15,9 +15,9 @@ def seed_reviews():
     review2 = Review(
         userId = 2,
         eventId = 1,
-        concessionsRating = 4,
-        entertainmentRating = 4,
-        atmosphereRating = 3,
+        rating = 4,
+        # entertainmentRating = 4,
+        # atmosphereRating = 3,
         comment = "Had a weird experience with the bartender!"
         
        
@@ -26,9 +26,9 @@ def seed_reviews():
     review3 = Review(
         userId = 3,
         eventId = 1,
-        concessionsRating = 5,
-        entertainmentRating = 3,
-        atmosphereRating = 5,
+        rating = 5,
+        # entertainmentRating = 3,
+        # atmosphereRating = 5,
         comment = "Food and vibes were awesome, but the band sucked"
     )
 
