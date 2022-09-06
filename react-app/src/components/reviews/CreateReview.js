@@ -4,19 +4,20 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createReviewThunk } from "../../store/review";
 import { Rating } from 'react-simple-star-rating';
-import { MdOutlineSentimentDissatisfied,
-  MdOutlineSentimentNeutral,
-  MdOutlineSentimentSatisfied,
-  MdOutlineSentimentVeryDissatisfied,
-  MdOutlineSentimentVerySatisfied
+import {
+    MdOutlineSentimentDissatisfied,
+    MdOutlineSentimentNeutral,
+    MdOutlineSentimentSatisfied,
+    MdOutlineSentimentVeryDissatisfied,
+    MdOutlineSentimentVerySatisfied
 } from 'react-icons/md';
 
 const customIcons = [
-  { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
-  { icon: <MdOutlineSentimentDissatisfied size={50} /> },
-  { icon: <MdOutlineSentimentNeutral size={50} /> },
-  { icon: <MdOutlineSentimentSatisfied size={50} /> },
-  { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
+    { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
+    { icon: <MdOutlineSentimentDissatisfied size={50} /> },
+    { icon: <MdOutlineSentimentNeutral size={50} /> },
+    { icon: <MdOutlineSentimentSatisfied size={50} /> },
+    { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
 ]
 
 const CreateReviewForm = ({ eventId }) => {
@@ -31,15 +32,15 @@ const CreateReviewForm = ({ eventId }) => {
 
 
 
-const handleRating = (rate) => {
-    setRating(rate)
-}   
-// const handleEntertainmentRating = (rate:number) => {
-//     setEntertainmentRating(rate)
-// }
-// const handleAtmosphereRating = (rate:number) => {
-//     setAtmosphereRating(rate)
-// }
+    const handleRating = (rate) => {
+        setRating(rate)
+    }
+    // const handleEntertainmentRating = (rate:number) => {
+    //     setEntertainmentRating(rate)
+    // }
+    // const handleAtmosphereRating = (rate:number) => {
+    //     setAtmosphereRating(rate)
+    // }
 
 
 
@@ -61,9 +62,21 @@ const handleRating = (rate) => {
                 async (res) => {
                     if (res.errors) {
                         setErrors(res.errors)
-                    } 
+                    }
                 })
     }
+
+    useEffect(() => {
+        let errors = [];
+        if (!rating) errors.push("Please rate the event")
+        if (!comment) errors.push("Please describe how you felt about the event")
+        if (comment.length > 500) errors.push("Comment length exceeds max limit")
+        // if (!lat) errors.push("Please enter a latitude")
+        // if (!lng) errors.push("Please enter a longitude")
+        // if (startDate < todays_date) errors.push("Fix your date fool")
+        setErrors(errors)
+    }, [rating, comment])
+
 
     return (
         <div>
@@ -71,14 +84,14 @@ const handleRating = (rate) => {
 
                 {/* <label>Review:</label> */}
                 <div>
-                    <div>       
-                        <Rating 
-                        value={rating} 
-                        onClick={handleRating} 
-                        customIcons={customIcons}
-                        showTooltip
-                        fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
-                        tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}
+                    <div>
+                        <Rating
+                            value={rating}
+                            onClick={handleRating}
+                            customIcons={customIcons}
+                            showTooltip
+                            fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
+                            tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}
                         />
                     </div>
                     <input
@@ -87,7 +100,7 @@ const handleRating = (rate) => {
                         value={comment}
                         placeholder="Please let us know about your experience"
                         onChange={e => setComment(e.target.value)}
-                    /> 
+                    />
                     {errors.map((error, idx) => (
                         <li key={idx} >{error}</li>
                     ))}

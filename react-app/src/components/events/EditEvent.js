@@ -61,15 +61,18 @@ const EditEventForm = ({ event, hideModal }) => {
   useEffect(() => {
     let errors = [];
     if (!name) errors.push("Please name your event")
+    if (name.length > 125) errors.push("Name length exceeds max limit")
     if (!description) errors.push("Please enter a description for your event")
+    if (description.length > 500) errors.push("Description length exceeds max limit")
     if (!imageUrl) errors.push("Please upload an image for your event")
+    if (imageUrl.length > 500) errors.push("Image URL length exceeds max limit")
     if (!eventType) errors.push("Please enter a category for your event")
     if (!entertainment) errors.push("Please select entertainment type")
     if (!startDate) errors.push("Please add a date for your event");
     if (Number(startDate.split('-').join('')) + 1 < Number(todays_date.split('-').join(''))) errors.push("Start Date must be on/later than today's date")
     if (!startTime) errors.push("Please enter a start-time for your event")
-    if (!lat) errors.push("Please enter a latitude")
-    if (!lng) errors.push("Please enter a longitude")
+    // if (!lat) errors.push("Please enter a latitude")
+    // if (!lng) errors.push("Please enter a longitude")
     // if (startDate < todays_date) errors.push("Fix your date fool")
     setErrors(errors)
   }, [name, description, imageUrl, eventType, todays_date, entertainment, startDate, startTime, lat, lng])
@@ -149,7 +152,7 @@ const EditEventForm = ({ event, hideModal }) => {
           </div>
           <div>
           </div>
-          <div>
+          {/* <div>
             <input
               type={'number'}
               placeholder={"Lat"}
@@ -164,7 +167,7 @@ const EditEventForm = ({ event, hideModal }) => {
               value={lng}
               onChange={e => setLng(e.target.value)}
             />
-          </div>
+          </div> */}
         </div>
         <div className="bottom-button">
           {/* {!errors && ( */}
