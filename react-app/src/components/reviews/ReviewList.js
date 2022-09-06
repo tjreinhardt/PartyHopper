@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Rating } from 'react-simple-star-rating';
 // import { NavLink } from "react-router-dom";
 import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../store/review";
@@ -24,6 +25,7 @@ const customIcons = [
 
 const GetReviews = ({ eventId }) => {
     const dispatch = useDispatch();
+    const history = useHistory()
     const reviews = useSelector(state => state.review);
     const review = useSelector(state => state.review)
     const event = useSelector(state => state.event)
@@ -52,6 +54,7 @@ const GetReviews = ({ eventId }) => {
         setShowModal(true);
         setEvId(eventId)
         setResId(reviewId);
+
     }
     // const handleLikes = async (eventId, reviewId) => {
 

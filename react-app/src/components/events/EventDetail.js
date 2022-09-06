@@ -54,7 +54,7 @@ const EventDetail = () => {
 
   let sessionLinks;
   if (userReviewed === false) {
-    sessionLinks = <EditReviewForm eventId={eventId} />
+    sessionLinks = null
   } else {
     sessionLinks = (
       <CreateReviewForm eventId={eventId} />

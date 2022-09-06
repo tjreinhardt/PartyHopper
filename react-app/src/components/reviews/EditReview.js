@@ -21,20 +21,21 @@ const customIcons = [
 ]
 
 
-const EditReviewForm = ({ eventId, id }) => {
+const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
     const dispatch = useDispatch()
+    const history = useHistory()
     const reviews = useSelector(state => state.review)
     // console.log(reviews, "------------------ reviews")
     const session = useSelector(state => state.session.user);
     const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
     const reviewsList = Object.values(reviews)
+    // const [showModal, setShowModal] = useState(true);
 
     const [rating, setRating] = useState(1)
     const [comment, setComment] = useState('')
     const [errors, setErrors] = useState([])
     // console.log("review", review)
     // console.log("event", event)
-    // const history = useHistory()
     // const reviews = useSelector(state => state.review)
     // const reviewsList = Object.values(reviews)
 
@@ -48,6 +49,8 @@ const EditReviewForm = ({ eventId, id }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setShowModal(!showModal)
+        history.push(`/events/${eventId}`)
 
         const newReview = {
             id: id,
