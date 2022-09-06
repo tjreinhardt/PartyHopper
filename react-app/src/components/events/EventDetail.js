@@ -48,28 +48,28 @@ const EventDetail = () => {
 
   let userReviewed;
   for (let i = 0; i < reviewsList.length; i++) {
-    if (reviewsList[i].userId === session.id) 
-    userReviewed = false;
+    if (reviewsList[i].userId === session.id)
+      userReviewed = false;
   }
 
   let sessionLinks;
   if (userReviewed === false) {
     sessionLinks = <EditReviewForm eventId={eventId} />
-    } else {
-      sessionLinks = (
-      <CreateReviewForm eventId={eventId}/>
+  } else {
+    sessionLinks = (
+      <CreateReviewForm eventId={eventId} />
     )
   }
 
 
 
   return (eventIsLoaded && event && <>
-  <NavBar />
+    <NavBar />
     <div>
       <div>
         <div className="image-header-block">
           <div className="image-header-content-block">
-        <p>{event.name}</p>
+            <p>{event.name}</p>
 
           </div>
           <img src={event.imageUrl} alt=""></img>
@@ -77,6 +77,7 @@ const EventDetail = () => {
         <p>{event.description}</p>
         <p>{event.totalRsvps}</p>
         <div>OWNER USER ID: {event.userId}</div>
+        <div>{event.id} EVENT ID</div>
         <div>EVENT TYPE: {event.eventType}</div>
         <div>EVENT ENTERTAINMENT: {event.entertainment}</div>
         <div>START DATE: {event.startDate}</div>
@@ -87,7 +88,7 @@ const EventDetail = () => {
         {/* <div>TOTAL RSVPS: {event.totalRsvps}</div> */}
         <div>total reviews:{event.totalReviews}</div>
         <div>
-            <GetReviews eventId={eventId} />
+          <GetReviews eventId={eventId} />
         </div>
 
         <div>
@@ -100,7 +101,7 @@ const EventDetail = () => {
             {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}
             {sessionLinks}
           </div>
-      {/* <div>Create Review
+          {/* <div>Create Review
         <CreateReviewForm eventId={eventId} />
       </div> */}
         </div>

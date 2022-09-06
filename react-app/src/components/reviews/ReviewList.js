@@ -3,42 +3,55 @@ import { useDispatch, useSelector } from "react-redux";
 import { Rating } from 'react-simple-star-rating';
 // import { NavLink } from "react-router-dom";
 import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../store/review";
-import { MdOutlineSentimentDissatisfied,
-  MdOutlineSentimentNeutral,
-  MdOutlineSentimentSatisfied,
-  MdOutlineSentimentVeryDissatisfied,
-  MdOutlineSentimentVerySatisfied
+import {
+    MdOutlineSentimentDissatisfied,
+    MdOutlineSentimentNeutral,
+    MdOutlineSentimentSatisfied,
+    MdOutlineSentimentVeryDissatisfied,
+    MdOutlineSentimentVerySatisfied
 } from 'react-icons/md';
+import EditReviewForm from "./EditReview";
+import { Modal } from "../../context/Modal";
 
 
 const customIcons = [
-  { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
-  { icon: <MdOutlineSentimentDissatisfied size={50} /> },
-  { icon: <MdOutlineSentimentNeutral size={50} /> },
-  { icon: <MdOutlineSentimentSatisfied size={50} /> },
-  { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
+    { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
+    { icon: <MdOutlineSentimentDissatisfied size={50} /> },
+    { icon: <MdOutlineSentimentNeutral size={50} /> },
+    { icon: <MdOutlineSentimentSatisfied size={50} /> },
+    { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
 ]
 
 const GetReviews = ({ eventId }) => {
     const dispatch = useDispatch();
     const reviews = useSelector(state => state.review);
+    const review = useSelector(state => state.review)
+    const event = useSelector(state => state.event)
+    const [showModal, setShowModal] = useState();
+    // console.log(event, '-------test')
     const session = useSelector(state => state.session.user);
     const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
     const reviewsList = Object.values(reviews)
-    reviewsList.reverse()
+    const [resId, setResId] = useState()
+    const [evId, setEvId] = useState()
+    // reviewsList.reverse()
     // console.log('reviewsList========================', reviewsList)
 
     useEffect(() => {
         dispatch(getReviewsThunk(eventId)).then(() => setReviewsIsLoaded(true))
-    }, [dispatch, eventId])
+    }, [dispatch, showModal, eventId])
 
     const handleDelete = async (eventId, reviewId) => {
 
         return dispatch(deleteReviewThunk(eventId, reviewId))
     }
 
-    const handleEdit = async (eventId, reviewId) => {
-        return dispatch(updateReviewThunk(reviewId, eventId))
+    const handleEdit = async (e, eventId, reviewId) => {
+        e.preventDefault();
+        // dispatch(updateReviewThunk(eventId, reviewId))
+        setShowModal(true);
+        setEvId(eventId)
+        setResId(reviewId);
     }
     // const handleLikes = async (eventId, reviewId) => {
 
@@ -84,19 +97,25 @@ const GetReviews = ({ eventId }) => {
             {reviewsList.map((review) =>
             (
                 <div key={review.id} className="review-list-review-container">
-                            <div className="review-list-username-content">
-                                <h2>{review.user.username}</h2>
-                                    <Rating 
-                                        ratingValue={review.rating} 
-                                        customIcons={customIcons}
-                                        allowHover={false}
-                                    />  
-                                <div>{review.comment}</div>
-                                <div className="review-list-create">{timeAfterCreated(review.reviewDate)}</div>
-                            </div>
-                        {session.id === review.userId && <button onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
-                        {session.id === review.userId && <button onClick={() => handleEdit(eventId, review.id)}>Edit</button>}
-
+                    <div className="review-list-username-content">
+                        <h2>{review.user.username}</h2>
+                        <Rating
+                            ratingValue={review.rating}
+                            customIcons={customIcons}
+                            allowHover={false}
+                        />
+                        <div>{review.comment}</div>
+                        <div>{review.id} reviewId</div>
+                        <div className="review-list-create">{timeAfterCreated(review.reviewDate)}</div>
+                    </div>
+                    {showModal && (<Modal onClose={() => setShowModal(false)}>
+                        <EditReviewForm id={review.id} eventId={Number(eventId)} showModal={showModal} setShowModal={setShowModal} />
+                    </Modal>)}
+                    {session.id === review.userId && <button onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
+                    {/* {session.id === review.userId && <EditReviewForm id={review.id} eventId={eventId} onClick={(e) => handleEdit(e, eventId, review.id)} />} */}
+                    <div>
+                        <button onClick={(e) => handleEdit(e, review.id)}>Manage/Edit</button>
+                    </div>
                 </div>)
             )}
         </div>

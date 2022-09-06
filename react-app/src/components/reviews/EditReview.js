@@ -2,81 +2,96 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { updateReviewThunk } from "../../store/review";
+import { updateReviewThunk, getReviewsThunk } from "../../store/review";
 import { Rating } from "react-simple-star-rating";
-import { MdOutlineSentimentDissatisfied,
-  MdOutlineSentimentNeutral,
-  MdOutlineSentimentSatisfied,
-  MdOutlineSentimentVeryDissatisfied,
-  MdOutlineSentimentVerySatisfied
+import {
+    MdOutlineSentimentDissatisfied,
+    MdOutlineSentimentNeutral,
+    MdOutlineSentimentSatisfied,
+    MdOutlineSentimentVeryDissatisfied,
+    MdOutlineSentimentVerySatisfied
 } from 'react-icons/md';
 
 const customIcons = [
-  { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
-  { icon: <MdOutlineSentimentDissatisfied size={50} /> },
-  { icon: <MdOutlineSentimentNeutral size={50} /> },
-  { icon: <MdOutlineSentimentSatisfied size={50} /> },
-  { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
+    { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
+    { icon: <MdOutlineSentimentDissatisfied size={50} /> },
+    { icon: <MdOutlineSentimentNeutral size={50} /> },
+    { icon: <MdOutlineSentimentSatisfied size={50} /> },
+    { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
 ]
 
 
-const EditReviewForm = () => {
+const EditReviewForm = ({ eventId, id }) => {
     const dispatch = useDispatch()
-    const {review} = useParams()
-    const history = useHistory()
     const reviews = useSelector(state => state.review)
-    const reviewsList = Object.values(reviews)
-
+    // console.log(reviews, "------------------ reviews")
     const session = useSelector(state => state.session.user);
+    const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
+    const reviewsList = Object.values(reviews)
 
     const [rating, setRating] = useState(1)
     const [comment, setComment] = useState('')
     const [errors, setErrors] = useState([])
+    // console.log("review", review)
+    // console.log("event", event)
+    // const history = useHistory()
+    // const reviews = useSelector(state => state.review)
+    // const reviewsList = Object.values(reviews)
+
+    useEffect(() => {
+        dispatch(getReviewsThunk(eventId)).then(() => setReviewsIsLoaded(true))
+    }, [dispatch, eventId])
+
+
+
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const newReview = {
-            id: review.id,
+            id: id,
             rating,
-            comment
+            comment,
+            eventId: eventId,
+            userId: session.id
         }
-        dispatch(updateReviewThunk(newReview))
-            .then(
-                async (res) => {
-                    if (res.errors) {
-                        setErrors(res.errors)
-                    } else {
-                        history.push('/events')
-                    }
-                }
-            )
+        console.log(newReview, '---------------newReview')
+        return dispatch(updateReviewThunk(newReview))
+        // .then(
+        //     async (res) => {
+        //         if (res.errors) {
+        //             setErrors(res.errors)
+        //         } else {
+        //             history.push('/events')
+        //         }
+        //     }
+        // )
     }
     const handleRating = (rate) => {
-    setRating(rate)
-}   
-  useEffect(() => {
-    let errors = [];
-    if (!rating) errors.push("Please rate your experience")
-    if (!comment) errors.push("Please leave a detailed review")
-    // if (startDate < todays_date) errors.push("Fix your date fool")
-    setErrors(errors)
-  }, [rating, comment])
+        setRating(rate)
+    }
+    useEffect(() => {
+        let errors = [];
+        if (!rating) errors.push("Please rate your experience")
+        if (!comment) errors.push("Please leave a detailed review")
+        // if (startDate < todays_date) errors.push("Fix your date fool")
+        setErrors(errors)
+    }, [rating, comment])
 
 
     return (
         <div>
             <form onSubmit={handleSubmit} className="edit-review-form">
                 <div>
-                    <div>       
-                        <Rating 
-                        value={rating} 
-                        onClick={handleRating} 
-                        customIcons={customIcons}
-                        showTooltip
-                        fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
-                        tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}
+                    <div>
+                        <Rating
+                            value={rating}
+                            onClick={handleRating}
+                            customIcons={customIcons}
+                            showTooltip
+                            fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
+                            tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}
                         />
                     </div>
                     <input
@@ -85,7 +100,7 @@ const EditReviewForm = () => {
                         value={comment}
                         placeholder="Please let us know about your experience"
                         onChange={e => setComment(e.target.value)}
-                    /> 
+                    />
                     {errors.map((error, idx) => (
                         <li key={idx} >{error}</li>
                     ))}
