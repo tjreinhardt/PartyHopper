@@ -16,8 +16,8 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.String(300))
     # imageUrl = db.column(db.String(500))
     hashed_password = db.Column(db.String(255), nullable=False)
-    lat = db.Column(db.Integer)
-    lng = db.Column(db.Integer)
+    # lat = db.Column(db.Integer)
+    # lng = db.Column(db.Integer)
 
 
     rsvp_event = db.relationship(

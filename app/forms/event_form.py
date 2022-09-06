@@ -13,5 +13,5 @@ class CreateEventForm(FlaskForm):
     # entertainment = StringField('entertainment', validators=[DataRequired()])
     startDate = StringField('startDate', validators=[DataRequired()])
     startTime = StringField('startTime', validators=[DataRequired()])
-    lat = IntegerField('lat', validators=[DataRequired()])
-    lng = IntegerField('lng', validators=[DataRequired()])
+    # lat = IntegerField('lat', validators=[DataRequired()])
+    # lng = IntegerField('lng', validators=[DataRequired()])
