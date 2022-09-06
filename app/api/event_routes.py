@@ -200,7 +200,7 @@ def create_reviews(eventId):
 
 
 #Update a review
-@event_routes.route('/<int:eventId>/reviews/<int:reviewId>', methods=["PUT"])
+@event_routes.route('/<int:eventId>/reviews/<int:reviewId>/edit', methods=["PUT"])
 @login_required
 def update_reviews(eventId, reviewId):
     event = Event.query.get(eventId)
@@ -216,14 +216,16 @@ def update_reviews(eventId, reviewId):
 
     form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-        review.rating = form.data["rating"]
-        # review.entertainmentRating = form.data["entertainmentRating"]
-        # review.atmosphereRating = form.data["atmosphereRating"]
-        review.comment = form.data["comment"]
-        db.session.commit()
+    # if form.validate_on_submit():
+    # print(review.rating, '--------------------review.rating')
+    review.rating=(form.data['rating'])
+    review.comment=(form.data['comment'])
+    review.userId=current_user.id
+    review.eventId=eventId
+    db.session.commit()
         # rsvp_status = list(filter(lambda user: user.id==current_user.id, review.review_rsvp_users))
-        res = review.to_dict()
+    res = review.to_dict()
+    # print(res)
         # res["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
         # res = {
         #     "id": review.id,
@@ -237,8 +239,8 @@ def update_reviews(eventId, reviewId):
         #     "totalLikes":len(review.review_rsvp_users),
         #     "rsvpStatus": True if len(rsvp_status) > 0 else False
         # }
-        return res
-    return  {'errors': ['content is required']}, 400
+    return res
+    # return  {'errors': ['content is required']}, 400
 
 
 
@@ -260,4 +262,3 @@ def delete_review(eventId, reviewId):
     db.session.delete(review)
     db.session.commit()
     return {"message":"Successfully deleted"}
-
