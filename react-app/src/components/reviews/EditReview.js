@@ -24,23 +24,14 @@ const customIcons = [
 const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const reviews = useSelector(state => state.review)
-    // console.log(reviews, "------------------ reviews")
     const session = useSelector(state => state.session.user);
-    const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
-    const reviewsList = Object.values(reviews)
-    // const [showModal, setShowModal] = useState(true);
 
     const [rating, setRating] = useState(1)
     const [comment, setComment] = useState('')
     const [errors, setErrors] = useState([])
-    // console.log("review", review)
-    // console.log("event", event)
-    // const reviews = useSelector(state => state.review)
-    // const reviewsList = Object.values(reviews)
 
     useEffect(() => {
-        dispatch(getReviewsThunk(eventId)).then(() => setReviewsIsLoaded(true))
+        dispatch(getReviewsThunk(eventId))
     }, [dispatch, eventId])
 
 
@@ -61,23 +52,15 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
         }
         console.log(newReview, '---------------newReview')
         return dispatch(updateReviewThunk(newReview))
-        // .then(
-        //     async (res) => {
-        //         if (res.errors) {
-        //             setErrors(res.errors)
-        //         } else {
-        //             history.push('/events')
-        //         }
-        //     }
-        // )
+
     }
     const handleRating = (rate) => {
         setRating(rate)
     }
     useEffect(() => {
         let errors = [];
-        if (!rating) errors.push("Please rate your experience")
-        if (!comment) errors.push("Please leave a detailed review")
+        if (!rating) errors.push("Please rate the event")
+        if (!comment) errors.push("Feeling different about this experience?")
         // if (startDate < todays_date) errors.push("Fix your date fool")
         setErrors(errors)
     }, [rating, comment])

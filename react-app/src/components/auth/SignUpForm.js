@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
@@ -39,9 +39,21 @@ const SignUpForm = () => {
     setRepeatPassword(e.target.value);
   };
 
+  useEffect(() => {
+    let errors = [];
+    if (!email) errors.push("Enter your email")
+    if (!username) errors.push("Enter a username")
+    if (!password) errors.push("Enter a password")
+    // if (!password.includes("!" || "@" || "#" || "$" || "%" || "^" || "&" || "*" || "(" || ")" || "{" || "}" || "+" || "=" || "_" || "-" || "?" || "/" || ">" || "." || "," || "<" || "~" || "`" || "[" || "]" || "'" || "'" || ";" || ":")) errors.push("Password must include 1 special character (!, @, #, etc..)")
+    if (password.length < 8) errors.push("Password must be at least 8 characters")
+    if (password !== repeatPassword) errors.push("Passwords must match")
+    // if (startDate < todays_date) errors.push("Fix your date fool")
+    setErrors(errors)
+  }, [email, username, password, repeatPassword])
   if (user) {
     return <Redirect to='/' />;
   }
+
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>

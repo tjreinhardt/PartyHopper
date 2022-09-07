@@ -88,8 +88,8 @@ def create_event():
         entertainment=form.data['entertainment'],
         startDate=form.data['startDate'],
         startTime=form.data['startTime'],
-        lat=form.data['lat'],
-        lng=form.data['lng']
+        # lat=form.data['lat'],
+        # lng=form.data['lng']
         )
 
 
@@ -128,8 +128,8 @@ def update_event(eventId):
     event.entertainment=(form.data['entertainment'])
     event.startDate=(form.data['startDate'])
     event.startTime=(form.data['startTime'])
-    event.lat=(form.data['lat'])
-    event.lng=(form.data['lng'])
+    # event.lat=(form.data['lat'])
+    # event.lng=(form.data['lng'])
     db.session.commit()
     # rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
     res = event.to_dict()

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { Rating } from 'react-simple-star-rating';
-// import { NavLink } from "react-router-dom";
 import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../store/review";
 import {
     MdOutlineSentimentDissatisfied,
@@ -25,19 +23,11 @@ const customIcons = [
 
 const GetReviews = ({ eventId }) => {
     const dispatch = useDispatch();
-    const history = useHistory()
     const reviews = useSelector(state => state.review);
-    const review = useSelector(state => state.review)
-    const event = useSelector(state => state.event)
     const [showModal, setShowModal] = useState();
-    // console.log(event, '-------test')
     const session = useSelector(state => state.session.user);
     const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
     const reviewsList = Object.values(reviews)
-    const [resId, setResId] = useState()
-    const [evId, setEvId] = useState()
-    // reviewsList.reverse()
-    // console.log('reviewsList========================', reviewsList)
 
     useEffect(() => {
         dispatch(getReviewsThunk(eventId)).then(() => setReviewsIsLoaded(true))
@@ -48,18 +38,11 @@ const GetReviews = ({ eventId }) => {
         return dispatch(deleteReviewThunk(eventId, reviewId))
     }
 
-    const handleEdit = async (e, eventId, reviewId) => {
+    const handleEdit = async (e) => {
         e.preventDefault();
-        // dispatch(updateReviewThunk(eventId, reviewId))
         setShowModal(true);
-        setEvId(eventId)
-        setResId(reviewId);
 
     }
-    // const handleLikes = async (eventId, reviewId) => {
-
-    //     return dispatch(likeReviewThunk(eventId, reviewId))
-    // }
 
     if (!reviews) {
         return null
@@ -115,7 +98,6 @@ const GetReviews = ({ eventId }) => {
                         <EditReviewForm id={review.id} eventId={Number(eventId)} showModal={showModal} setShowModal={setShowModal} />
                     </Modal>)}
                     {session.id === review.userId && <button onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
-                    {/* {session.id === review.userId && <EditReviewForm id={review.id} eventId={eventId} onClick={(e) => handleEdit(e, eventId, review.id)} />} */}
                     <div>
                         <button onClick={(e) => handleEdit(e, review.id)}>Manage/Edit</button>
                     </div>

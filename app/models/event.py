@@ -14,7 +14,7 @@ class Event(db.Model):
 
   id = db.Column(db.Integer, primary_key=True)
   userId = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
-  name = db.Column(db.String(125), nullable=False)
+  name = db.Column(db.String(50), nullable=False)
   description = db.Column(db.String(500), nullable=False)
   imageUrl = db.Column(db.String(500), nullable=False)
   eventType = db.Column(db.String(50), nullable=False)
