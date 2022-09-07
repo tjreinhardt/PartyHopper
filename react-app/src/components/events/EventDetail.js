@@ -8,6 +8,8 @@ import '../../styles/EventDetail.css'
 import GetReviews from "../reviews/ReviewList"
 import CreateReviewForm from "../reviews/CreateReview";
 import EditReviewForm from "../reviews/EditReview";
+import { getReviewsThunk } from "../../store/review";
+import { Rating } from "react-simple-star-rating";
 
 
 
@@ -21,10 +23,14 @@ const EventDetail = () => {
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const reviewsList = Object.values(reviews)
+  const [rating, setRating] = useState(0)
+
 
   useEffect(() => {
     dispatch(getEventDetailThunk(eventId)).then(() => setEventIsLoaded(true));
   }, [dispatch, eventId]);
+
+
 
   let showButton = false
   if (eventIsLoaded && event && (session.id === event.userId)) {
@@ -61,50 +67,78 @@ const EventDetail = () => {
     )
   }
 
+  console.log(reviewsList, 'ReviewsList')
+  const averageReviews = (reviewsList) => {
+    let sum = 0;
+    for (let i = 0; i < reviewsList.length; i++) {
+      sum += reviewsList[i].rating
+      console.log(sum, 'reviewsList[i].rating')
+      i++
+    }
+    return ((sum / reviewsList.length)).toFixed(2)
+  }
+
+
+
 
 
   return (eventIsLoaded && event && <>
     <NavBar />
     <div>
-      <div>
+      <div className="header-content-wrapper">
         <div className="image-header-block">
           <div className="image-header-content-block">
-            <p>{event.name}</p>
-
           </div>
-          <img src={event.imageUrl} alt=""></img>
-        </div>
-        <p>{event.description}</p>
-        <p>{event.totalRsvps}</p>
-        <div>OWNER USER ID: {event.userId}</div>
-        <div>{event.id} EVENT ID</div>
-        <div>EVENT TYPE: {event.eventType}</div>
-        <div>EVENT ENTERTAINMENT: {event.entertainment}</div>
-        <div>START DATE: {event.startDate}</div>
-        <div>START TIME: {event.startTime}</div>
-        <div>LATTITUDE: {event.lat}</div>
-        <div>LONGITUDE: {event.lng}</div>
-        <div>CREATED AT: {event.createdAt}</div>
-        {/* <div>TOTAL RSVPS: {event.totalRsvps}</div> */}
-        <div>total reviews:{event.totalReviews}</div>
-        <div>
-          <GetReviews eventId={eventId} />
-        </div>
-
-        <div>
-          {showButton && (<div className="event-detail-buttons">
-            <button onClick={handleDelete}>Delete event</button>
-            <button onClick={() => setEditModal(true)}>Edit event</button>
-            {editModal && <EditEventModal event={event} setShowModal={setEditModal} />}
-          </div>)}
-          <div>
-            {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}
-            {sessionLinks}
+          <div className="event-detail-image-wrapper">
+            <img className="event-detail-img" src={event.imageUrl} alt=""></img>
           </div>
-          {/* <div>Create Review
+        </div>
+        <div className="overlay-content-on-image">
+          <div className={"event-detail-name-div"}>{event.name}</div>
+          <div className={"event-detail-rating-reviews-content-div"}>
+            <Rating
+              className="overall-rating-stars"
+              ratingValue={averageReviews(reviewsList)}
+              allowHover={false}
+              readonly={true}
+            />
+            <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '0px' }}>
+              <div className={"event-detail-total-reviews-div"}>{event.totalReviews} reviews</div>
+
+              <div className={"event-detail-type-div"}>{event.eventType}, </div>
+              <div className={"event-detail-entertainment-div"}>{event.entertainment}</div>
+            </div>
+          </div>
+
+        </div>
+        {/* <div>Create Review
         <CreateReviewForm eventId={eventId} />
       </div> */}
-        </div>
+      </div>
+    </div>
+    <div className={"event-description-div"}>{event.description}</div>
+    {/* <div className={"event-total-rsvps-div"}>{event.totalRsvps}</div> */}
+    <div className={"event-user-id-div"}>OWNER USER ID: {event.userId}</div>
+    <div className={"event-id-div"}>{event.id} EVENT ID</div>
+    <div className={"event-start-date-div"}>START DATE: {event.startDate}</div>
+    <div className={"event-start-time-div"}>START TIME: {event.startTime}</div>
+    {/* <div className={"event--div"}>LATTITUDE: {event.lat}</div>
+        <div className={"event--div"}>LONGITUDE: {event.lng}</div> */}
+    <div className={"event--div"}>CREATED AT: {event.createdAt}</div>
+    {/* <div>TOTAL RSVPS: {event.totalRsvps}</div> */}
+    <div>
+      <GetReviews eventId={eventId} />
+    </div>
+
+    <div>
+      {showButton && (<div className="event-detail-buttons">
+        <button onClick={handleDelete}>Delete event</button>
+        <button onClick={() => setEditModal(true)}>Edit event</button>
+        {editModal && <EditEventModal event={event} setShowModal={setEditModal} />}
+      </div>)}
+      <div>
+        {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}
+        {sessionLinks}
       </div>
 
     </div>

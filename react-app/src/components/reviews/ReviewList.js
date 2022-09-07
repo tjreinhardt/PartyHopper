@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { Rating } from 'react-simple-star-rating';
-// import { NavLink } from "react-router-dom";
 import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../store/review";
 import {
     MdOutlineSentimentDissatisfied,
     MdOutlineSentimentNeutral,
     MdOutlineSentimentSatisfied,
     MdOutlineSentimentVeryDissatisfied,
-    MdOutlineSentimentVerySatisfied
+    MdOutlineSentimentVerySatisfied,
+    MdThumbUpAlt
 } from 'react-icons/md';
 import EditReviewForm from "./EditReview";
 import { Modal } from "../../context/Modal";
@@ -25,41 +24,28 @@ const customIcons = [
 
 const GetReviews = ({ eventId }) => {
     const dispatch = useDispatch();
-    const history = useHistory()
     const reviews = useSelector(state => state.review);
-    const review = useSelector(state => state.review)
-    const event = useSelector(state => state.event)
     const [showModal, setShowModal] = useState();
-    // console.log(event, '-------test')
     const session = useSelector(state => state.session.user);
     const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
     const reviewsList = Object.values(reviews)
-    const [resId, setResId] = useState()
-    const [evId, setEvId] = useState()
-    // reviewsList.reverse()
-    // console.log('reviewsList========================', reviewsList)
 
     useEffect(() => {
         dispatch(getReviewsThunk(eventId)).then(() => setReviewsIsLoaded(true))
     }, [dispatch, showModal, eventId])
+
+
 
     const handleDelete = async (eventId, reviewId) => {
 
         return dispatch(deleteReviewThunk(eventId, reviewId))
     }
 
-    const handleEdit = async (e, eventId, reviewId) => {
+    const handleEdit = async (e) => {
         e.preventDefault();
-        // dispatch(updateReviewThunk(eventId, reviewId))
         setShowModal(true);
-        setEvId(eventId)
-        setResId(reviewId);
 
     }
-    // const handleLikes = async (eventId, reviewId) => {
-
-    //     return dispatch(likeReviewThunk(eventId, reviewId))
-    // }
 
     if (!reviews) {
         return null
@@ -92,11 +78,49 @@ const GetReviews = ({ eventId }) => {
         return res
     }
 
+    // const reviewAverage = (reviewsList) => {
+    //     let sum = 0
+    //     let totalReviews = reviewsList.length
+    //     let average;
+    //     reviewsList.forEach((review) => {
+    //         console.log('reviewsList.length', reviewsList.length)
+    //         console.log('reviewsList[0].rating', reviewsList[0].rating)
+    //         if (reviewsList.length === 0) {
+    //             return null;
+    //         }
+    //         if (reviewsList.length === 1) {
+    //             average = reviewsList[0].rating / 20
+    //         }
+    //         if (reviewsList.length === 2) {
+    //             average = (reviewsList[0].rating + reviewsList[1].rating) / 20
+    //             console.log(review.rating, 'review.rating else')
+    //             console.log(average, 'average else')
+    //         } else {
+    //             review.rating += sum;
+    //             average = sum / 20
+    //         }
+    //     })
+    //     return average;
+    // }
+
+
+    // const reviewAverage = (reviewsList) => {
+    //     let sum = 0;
+    //     let average = 0;
+    //     for (let i = 0; i < reviewsList.length; i++) {
+    //         reviewsList[i] += sum
+    //         average = sum / 20
+    //         // return average
+    //     }
+    //     return average
+    // }
+
 
 
     return (reviewsIsLoaded &&
 
         <div className="review-details-container">
+            {/* {reviewAverage(reviewsList)} Average rating */}
             {reviewsList.map((review) =>
             (
                 <div key={review.id} className="review-list-review-container">
@@ -104,8 +128,9 @@ const GetReviews = ({ eventId }) => {
                         <h2>{review.user.username}</h2>
                         <Rating
                             ratingValue={review.rating}
-                            customIcons={customIcons}
+                            // customIcons={customIcons}
                             allowHover={false}
+                            readonly={true}
                         />
                         <div>{review.comment}</div>
                         <div>{review.id} reviewId</div>
@@ -114,10 +139,11 @@ const GetReviews = ({ eventId }) => {
                     {showModal && (<Modal onClose={() => setShowModal(false)}>
                         <EditReviewForm id={review.id} eventId={Number(eventId)} showModal={showModal} setShowModal={setShowModal} />
                     </Modal>)}
-                    {session.id === review.userId && <button onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
-                    {/* {session.id === review.userId && <EditReviewForm id={review.id} eventId={eventId} onClick={(e) => handleEdit(e, eventId, review.id)} />} */}
-                    <div>
-                        <button onClick={(e) => handleEdit(e, review.id)}>Manage/Edit</button>
+                    <div className="rating-edit-delete-button-wrapper">
+                        {session.id === review.userId && <button onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
+                        {session.id === review.userId && <div>
+                            <button onClick={(e) => handleEdit(e, review.id)}>Manage/Edit</button>
+                        </div>}
                     </div>
                 </div>)
             )}

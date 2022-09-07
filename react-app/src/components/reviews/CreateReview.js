@@ -1,7 +1,8 @@
 
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { createReviewThunk } from "../../store/review";
 import { Rating } from 'react-simple-star-rating';
 import {
@@ -69,8 +70,8 @@ const CreateReviewForm = ({ eventId }) => {
     useEffect(() => {
         let errors = [];
         if (!rating) errors.push("Please rate the event")
-        if (!comment) errors.push("Please describe how you felt about the event")
-        if (comment.length > 500) errors.push("Comment length exceeds max limit")
+        if (!comment) errors.push("Please describe the event")
+        if (comment.length > 500) errors.push("Description exceeds max limit")
         // if (!lat) errors.push("Please enter a latitude")
         // if (!lng) errors.push("Please enter a longitude")
         // if (startDate < todays_date) errors.push("Fix your date fool")
@@ -88,7 +89,7 @@ const CreateReviewForm = ({ eventId }) => {
                         <Rating
                             value={rating}
                             onClick={handleRating}
-                            customIcons={customIcons}
+                            // customIcons={customIcons}
                             showTooltip
                             fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
                             tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}

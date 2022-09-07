@@ -61,13 +61,13 @@ const EditEventForm = ({ event, hideModal }) => {
   useEffect(() => {
     let errors = [];
     if (!name) errors.push("Please name your event")
-    if (name.length > 125) errors.push("Name length exceeds max limit")
+    if (name.length > 50) errors.push("Name length exceeds max limit")
     if (!description) errors.push("Please enter a description for your event")
     if (description.length > 500) errors.push("Description length exceeds max limit")
     if (!imageUrl) errors.push("Please upload an image for your event")
     if (imageUrl.length > 500) errors.push("Image URL length exceeds max limit")
-    if (!eventType) errors.push("Please enter a category for your event")
-    if (!entertainment) errors.push("Please select entertainment type")
+    if (!eventType || eventType === 'None') errors.push("Please enter a category for your event")
+    if (!entertainment || entertainment === 'None') errors.push("Please select entertainment type")
     if (!startDate) errors.push("Please add a date for your event");
     if (Number(startDate.split('-').join('')) + 1 < Number(todays_date.split('-').join(''))) errors.push("Start Date must be on/later than today's date")
     if (!startTime) errors.push("Please enter a start-time for your event")
@@ -75,7 +75,7 @@ const EditEventForm = ({ event, hideModal }) => {
     // if (!lng) errors.push("Please enter a longitude")
     // if (startDate < todays_date) errors.push("Fix your date fool")
     setErrors(errors)
-  }, [name, description, imageUrl, eventType, todays_date, entertainment, startDate, startTime, lat, lng])
+  }, [name, description, imageUrl, eventType, entertainment, startDate, startTime, todays_date])
 
   return (
     <div>
