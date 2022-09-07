@@ -55,6 +55,8 @@ const SignUpForm = () => {
   }
 
 
+
+
   return (
     <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
       <form onSubmit={onSignUp}
@@ -177,6 +179,7 @@ const SignUpForm = () => {
           </NavLink>
         </div>
       </form>
+
     </div>
   );
 };

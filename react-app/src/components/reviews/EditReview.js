@@ -40,8 +40,11 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setShowModal(!showModal)
-        history.push(`/events/${eventId}`)
+        if (errors.length === 0) {
+            history.push(`/events/${eventId}`)
+            setShowModal(!showModal)
+
+        }
 
         const newReview = {
             id: id,
@@ -51,7 +54,10 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
             userId: session.id
         }
         console.log(newReview, '---------------newReview')
-        return dispatch(updateReviewThunk(newReview))
+        if (comment.length !== 0 && rating) {
+
+            return dispatch(updateReviewThunk(newReview))
+        }
 
     }
     const handleRating = (rate) => {
@@ -60,7 +66,8 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
     useEffect(() => {
         let errors = [];
         if (!rating) errors.push("Please rate the event")
-        if (!comment) errors.push("Feeling different about this experience?")
+        // if (!comment) errors.push("Feeling different about this experience?")
+        if (comment.length === 0) errors.push("Please provide a review")
         // if (startDate < todays_date) errors.push("Fix your date fool")
         setErrors(errors)
     }, [rating, comment])
