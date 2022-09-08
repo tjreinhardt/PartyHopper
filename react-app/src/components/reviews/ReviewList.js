@@ -34,6 +34,12 @@ const GetReviews = ({ eventId }) => {
 
     }
 
+    const handleCreate = async (e) => {
+        e.preventDefault();
+        setShowModal(true);
+
+    }
+
     if (!reviews) {
         return null
     }

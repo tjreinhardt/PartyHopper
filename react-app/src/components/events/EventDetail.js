@@ -129,6 +129,10 @@ const EventDetail = () => {
     {/* <div className={"event--div"}>LATTITUDE: {event.lat}</div>
         <div className={"event--div"}>LONGITUDE: {event.lng}</div> */}
     <div className={"event--div"}>CREATED AT: {event.createdAt}</div>
+    <div>
+      {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}
+      {session.id !== event.userId && sessionLinks}
+    </div>
     {/* <div>TOTAL RSVPS: {event.totalRsvps}</div> */}
     <div>
       <GetReviews eventId={eventId} />
@@ -136,14 +140,10 @@ const EventDetail = () => {
 
     <div>
       {showButton && (<div className="event-detail-buttons">
-        <button onClick={handleDelete}>Delete event</button>
-        <button onClick={() => setEditModal(true)}>Edit event</button>
+        <button onClick={handleDelete}>Delete Event</button>
+        <button onClick={() => setEditModal(true)}>Edit Event</button>
         {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
       </div>)}
-      <div>
-        {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}
-        {session.id !== event.userId && sessionLinks}
-      </div>
 
     </div>
   </>

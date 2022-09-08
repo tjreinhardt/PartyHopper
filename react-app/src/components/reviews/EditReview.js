@@ -9,7 +9,7 @@ import { Rating } from "react-simple-star-rating";
 
 
 
-const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
+const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const session = useSelector(state => state.session.user);
@@ -42,7 +42,7 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
             userId: session.id
         }
         console.log(newReview, '---------------newReview')
-        if (comment.length !== 0 && rating) {
+        if (errors) {
 
             return dispatch(updateReviewThunk(newReview))
         }
@@ -53,9 +53,9 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
     }
     useEffect(() => {
         let errors = [];
-        if (!rating) errors.push("Please rate the event")
-        // if (!comment) errors.push("Feeling different about this experience?")
-        if (comment.length < 10) errors.push("Please provide a review")
+        if (rating === 0) errors.push("Please rate the event")
+        if (comment.length === 0) errors.push("Please provide a review")
+        if (comment.length < 10) errors.push("Review is too short")
         // if (startDate < todays_date) errors.push("Fix your date fool")
         setErrors(errors)
     }, [rating, comment])
@@ -63,7 +63,7 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className="edit-review-form">
+            <form style={{ padding: '20px' }} onSubmit={handleSubmit} className="edit-review-form">
                 <div>
                     <div>
                         <Rating
@@ -77,7 +77,9 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
                     </div>
                     <input
                         type={'textarea'}
-                        style={{ fontSize: '16px', minWidth: '400px', marginTop: '6px', height: '30px' }}
+                        rows={"15"}
+                        columns={"15"}
+                        style={{ overflowX: 'scroll', display: 'inline-block', textOverflow: 'clip', wordWrap: 'break-word', fontSize: '16px', minWidth: '400px', marginTop: '6px', height: '30px' }}
                         value={comment}
                         placeholder="Please let us know about your experience"
                         onChange={e => setComment(e.target.value)}
@@ -87,7 +89,7 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
                     ))}
                 </div>
                 <div>
-                    <button className="login-button" style={{ width: '60px' }} type="submit">Edit</button>
+                    <button className="login-button" style={{ width: '420px' }} type="submit">Edit</button>
                     {/* <button onClick={hideModal}>Cancel</button> */}
                 </div>
 

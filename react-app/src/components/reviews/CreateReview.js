@@ -57,11 +57,9 @@ const CreateReviewForm = ({ eventId }) => {
 
     useEffect(() => {
         let errors = [];
-        if (!rating) errors.push("Please rate the event")
-        if (!comment) errors.push("Please describe the event")
-        if (comment.length > 500) errors.push("Description exceeds max limit")
-        // if (!lat) errors.push("Please enter a latitude")
-        // if (!lng) errors.push("Please enter a longitude")
+        if (rating === 0) errors.push("Please rate the event")
+        if (comment.length === 0) errors.push("Please provide a review")
+        if (comment.length < 10) errors.push("Review is too short (10 characters minimum)")
         // if (startDate < todays_date) errors.push("Fix your date fool")
         setErrors(errors)
     }, [rating, comment])
