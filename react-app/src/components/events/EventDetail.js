@@ -28,7 +28,7 @@ const EventDetail = () => {
 
   useEffect(() => {
     dispatch(getEventDetailThunk(eventId)).then(() => setEventIsLoaded(true));
-  }, [dispatch, eventId]);
+  }, [dispatch, eventId, reviewsList.length]);
 
 
 
@@ -41,6 +41,7 @@ const EventDetail = () => {
     e.preventDefault();
     return dispatch(deleteEventThunk(eventId)).then(() => history.push('/'))
   }
+
 
   // const handleLikes = async (eventId) => {
   //   return dispatch(likeEventThunk(eventId))
@@ -70,12 +71,16 @@ const EventDetail = () => {
   console.log(reviewsList, 'ReviewsList')
   const averageReviews = (reviewsList) => {
     let sum = 0;
-    for (let i = 0; i < reviewsList.length; i++) {
-      sum += reviewsList[i].rating
-      console.log(sum, 'reviewsList[i].rating')
-      i++
+    if (!reviewsList.length) return 0;
+    if (reviewsList.length === 2) return ((reviewsList[0].rating + reviewsList[1].rating) / 2)
+    else {
+      for (let i = 0; i < reviewsList.length; i++) {
+        sum += reviewsList[i].rating
+        // console.log(sum, 'reviewsList[i].rating')
+        i++
+      }
+      return (sum / reviewsList.length).toFixed(2)
     }
-    return ((sum / reviewsList.length)).toFixed(2)
   }
 
 
@@ -97,10 +102,12 @@ const EventDetail = () => {
           <div className={"event-detail-name-div"}>{event.name}</div>
           <div className={"event-detail-rating-reviews-content-div"}>
             <Rating
-              className="overall-rating-stars"
+              // className="overall-rating-stars"
+              initialValue={0}
               ratingValue={averageReviews(reviewsList)}
-              allowHover={false}
-              readonly={true}
+              transition={true}
+            // allowHover={false}
+            // readonly={true}
             />
             <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '0px' }}>
               <div className={"event-detail-total-reviews-div"}>{event.totalReviews} reviews</div>
@@ -134,7 +141,7 @@ const EventDetail = () => {
       {showButton && (<div className="event-detail-buttons">
         <button onClick={handleDelete}>Delete event</button>
         <button onClick={() => setEditModal(true)}>Edit event</button>
-        {editModal && <EditEventModal event={event} setShowModal={setEditModal} />}
+        {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
       </div>)}
       <div>
         {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}

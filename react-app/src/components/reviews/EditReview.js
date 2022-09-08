@@ -81,7 +81,7 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
                         <Rating
                             value={rating}
                             onClick={handleRating}
-                            customIcons={customIcons}
+                            // customIcons={customIcons}
                             showTooltip
                             fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
                             tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}

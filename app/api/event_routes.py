@@ -201,7 +201,7 @@ def create_reviews(eventId):
 
 #Update a review
 @event_routes.route('/<int:eventId>/reviews/<int:reviewId>/edit', methods=["PUT"])
-@login_required
+# @login_required
 def update_reviews(eventId, reviewId):
     event = Event.query.get(eventId)
     if not event:
@@ -211,8 +211,8 @@ def update_reviews(eventId, reviewId):
     if not review:
         return {'errors': ['review can not be found']}, 404
 
-    if review.userId != current_user.id:
-        return {"errors": ['Unauthorized']}, 401
+    # if review.userId != current_user.id:
+    #     return {"errors": ['Unauthorized']}, 401
 
     form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']

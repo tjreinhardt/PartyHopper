@@ -25,7 +25,7 @@ const CreateReviewForm = ({ eventId }) => {
     const dispatch = useDispatch();
     const session = useSelector(state => state.session.user);
 
-    const [rating, setRating] = useState(3)
+    const [rating, setRating] = useState(0)
     // const [entertainmentRating, setEntertainmentRating] = useState(3)
     // const [atmosphereRating, setAtmosphereRating] = useState(3)
     const [comment, setComment] = useState('')

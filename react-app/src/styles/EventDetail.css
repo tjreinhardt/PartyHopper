@@ -47,7 +47,7 @@
     font-weight: 700;
     /* top: -60px; */
     color: rgb(255, 255, 255);
-    /* z-index: 3; */
+    z-index: 3;
 }
 
 .event-detail-entertainment-div {
@@ -96,7 +96,7 @@
     font-weight: 700;
     top: 250px;
     /* color: rgb(255, 255, 255); */
-    /* z-index: 3; */
+    z-index: 3;
 }
 
 .event-detail-total-reviews-div {
@@ -116,7 +116,7 @@
 
     position: relative;
     width: 100vw;
-    z-index: 3;
+    z-index: 0;
     height: 426px;
     margin-top: 100px
 }
