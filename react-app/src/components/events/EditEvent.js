@@ -29,7 +29,6 @@ const EditEventForm = ({ event, hideModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setErrors([]);
     const newEvent = {
       id: event.id,
       name,
@@ -81,7 +80,18 @@ const EditEventForm = ({ event, hideModal }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          <div style={{ width: '320px', textAlign: 'center', fontWeight: '600', color: 'red' }}>** An event may be scheduled to start at ANY time, so long as it's <span style={{ textDecoration: 'underline', fontWeight: '550' }}>on</span> or <span style={{ textDecoration: 'underline', fontWeight: '550' }}>after</span> the current day **</div>
+          <div style={{
+            width: '320px',
+            textAlign: 'center',
+            fontWeight: '600',
+            color: 'red'
+          }}>** An event may be scheduled to start at ANY time, so long as it's <span style={{
+            textDecoration: 'underline',
+            fontWeight: '550'
+          }}>on</span> or <span style={{
+            textDecoration: 'underline',
+            fontWeight: '550'
+          }}>after</span> the current day **</div>
           <div>
             <input
               type={'text'}
@@ -171,10 +181,7 @@ const EditEventForm = ({ event, hideModal }) => {
           </div> */}
         </div>
         <div className="bottom-button">
-          {/* {!errors && ( */}
           <button type="submit">Share</button>
-          {/* ) */}
-          {/* } */}
           <button onClick={hideModal}>Cancel</button>
         </div>
         <ul>

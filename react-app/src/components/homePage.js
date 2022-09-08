@@ -106,14 +106,10 @@ const HomePage = ({ eventId }) => {
     <> <NavBar />
       <div className="carousel-outer-div">
         <div className="carousel-content-div">
-          {/* <button style={{ zIndex: '2', position: 'relative', top: '600px', left: '44vw' }} onClick={slideToPrevItem}>Prev item</button> */}
           {carouselFragment}
-          {/* <button style={{ zIndex: '2', position: 'absolute', top: '600px', left: '51vw' }} onClick={slideToNextItem}>Next item</button> */}
         </div>
       </div>
       <div className="page-content-wrapper">
-        {/* <button onClick={slideToNextItem}>Next item</button>
-        <button onClick={slideToPrevItem}>Prev item</button> */}
         <div className="content-wrapper">
           {events &&
             events.map(event =>
@@ -124,14 +120,6 @@ const HomePage = ({ eventId }) => {
                   <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
                     <div style={{ color: 'black' }} className="event-name-div">{event.name}</div>
                   </NavLink>
-                  {/* <div className="event-description-div">{event.description}</div> */}
-                  {/* <div className="event-type-div">{event.eventType}</div> */}
-                  {/* <div className="event-entertainment-div">{event.entertainment}</div> */}
-                  {/* <div className="event-startdate-div">Event Date: {event.startDate}</div> */}
-                  {/* <div className="event-starttime-div">Starts at: {event.startTime}</div> */}
-                  {/* <div>Coordinates: Lat: {event.lat}, Long: {event.lng}</div> */}
-                  {/* <div className="event-totalrsvps-div">RSVPs: {event.totalRsvps}</div> */}
-                  {/* <div>CREATED AT: {event.createdAt}</div> */}
                 </div>
                 <NavLink to={`/events/${event.id}`}>
                   <Rating

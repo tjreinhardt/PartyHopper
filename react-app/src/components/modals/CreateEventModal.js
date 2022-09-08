@@ -3,7 +3,6 @@ import { Modal } from '../../context/Modal';
 import CreateEventForm from '../events/CreateEvent';
 
 function CreateEventModal({ setShowModal }) {
-  // const [showModal, setShowModal] = useState(false);
 
   return (
     <>

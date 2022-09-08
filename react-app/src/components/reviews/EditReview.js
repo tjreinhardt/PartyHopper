@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { updateReviewThunk, getReviewsThunk } from "../../store/review";
 import { Rating } from "react-simple-star-rating";
@@ -56,7 +56,6 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
         if (rating === 0) errors.push("Please rate the event")
         if (comment.length === 0) errors.push("Please provide a review")
         if (comment.length < 10) errors.push("Review is too short")
-        // if (startDate < todays_date) errors.push("Fix your date fool")
         setErrors(errors)
     }, [rating, comment])
 
@@ -69,7 +68,6 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
                         <Rating
                             value={rating}
                             onClick={handleRating}
-                            // customIcons={customIcons}
                             showTooltip
                             fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
                             tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}
@@ -79,7 +77,16 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
                         type={'textarea'}
                         rows={"15"}
                         columns={"15"}
-                        style={{ overflowX: 'scroll', display: 'inline-block', textOverflow: 'clip', wordWrap: 'break-word', fontSize: '16px', minWidth: '400px', marginTop: '6px', height: '30px' }}
+                        style={{
+                            overflowX: 'scroll',
+                            display: 'inline-block',
+                            textOverflow: 'clip',
+                            wordWrap: 'break-word',
+                            fontSize: '16px',
+                            minWidth: '400px',
+                            marginTop: '6px',
+                            height: '30px'
+                        }}
                         value={comment}
                         placeholder="Please let us know about your experience"
                         onChange={e => setComment(e.target.value)}

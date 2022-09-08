@@ -52,7 +52,12 @@ const LoginForm = () => {
         <div style={{ marginLeft: '0px' }}>
           partyhopper
         </div>
-        <img style={{ height: '60px', width: 'auto', marginLeft: '0px', zIndex: '1' }} src={"https://www.svgrepo.com/show/349576/yelp.svg"} />
+        <img style={{
+          height: '60px',
+          width: 'auto',
+          marginLeft: '0px',
+          zIndex: '1'
+        }} src={"https://www.svgrepo.com/show/349576/yelp.svg"} />
       </div>
 
       <div

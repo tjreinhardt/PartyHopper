@@ -5,7 +5,7 @@ import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/CreateEvent.css'
-import NavBar from "../NavBar";
+// import NavBar from "../NavBar";
 
 const CreateEventForm = ({ hideModal }) => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const CreateEventForm = ({ hideModal }) => {
   const [entertainment, setEntertainment] = useState("")
   const [startDate, setStartDate] = useState("")
   const [startTime, setStartTime] = useState("")
-  const [lat, setLat] = useState(1)
-  const [lng, setLng] = useState(1)
+  // const [lat, setLat] = useState(1)
+  // const [lng, setLng] = useState(1)
   const [errors, setErrors] = useState([])
   let today = new Date();
 
@@ -35,7 +35,6 @@ const CreateEventForm = ({ hideModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setErrors([]);
     const newEvent = {
       name,
       description,
@@ -47,10 +46,6 @@ const CreateEventForm = ({ hideModal }) => {
       // lat,
       // lng
     };
-    // const dispatchEvent = await dispatch(createEventThunk(newEvent));
-    // if (dispatchEvent) {
-    //   hideModal()
-    // }
     if ((startDate + 1 > todays_date) && (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === true)) {
 
       dispatch(createEventThunk(newEvent))
@@ -95,9 +90,20 @@ const CreateEventForm = ({ hideModal }) => {
     <div style={{ marginTop: '20px' }}>
       {/* <NavBar /> */}
       <form onSubmit={handleSubmit}>
-        <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}>
 
-          <div>** An event may be scheduled to start at any time, hosted <span style={{ textDecoration: 'underline', fontWeight: '550' }}>on</span> or <span style={{ textDecoration: 'underline', fontWeight: '550' }}>after</span> today's date **</div>
+          <div>** An event may be scheduled to start at any time, hosted <span style={{
+            textDecoration: 'underline',
+            fontWeight: '550'
+          }}>on</span> or <span style={{
+            textDecoration: 'underline',
+            fontWeight: '550'
+          }}>after</span> today's date **</div>
           <div>
             <input
               type={'text'}
@@ -188,11 +194,15 @@ const CreateEventForm = ({ hideModal }) => {
         </div>
         <div className="bottom-button">
           {/* {!errors && ( */}
-          <button type="submit" style={{ margin: '10px' }}>Share</button>
+          <button type="submit" style={{
+            margin: '10px'
+          }}>Share</button>
           <br />
           {/* ) */}
           {/* } */}
-          <button onClick={hideModal} style={{ margin: '10px' }}>Cancel</button>
+          <button onClick={hideModal} style={{
+            margin: '10px'
+          }}>Cancel</button>
           <br />
         </div>
         <ul>
