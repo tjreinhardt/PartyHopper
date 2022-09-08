@@ -99,7 +99,7 @@ const EventDetail = () => {
           </div>
         </div>
         <div className="overlay-content-on-image">
-          <div className={"event-detail-name-div"}>{event.name}</div>
+          <div style={{ textTransform: 'capitalize' }} className={"event-detail-name-div"}>{event.name}</div>
           <div className={"event-detail-rating-reviews-content-div"}>
             <Rating
               // className="overall-rating-stars"
@@ -122,28 +122,28 @@ const EventDetail = () => {
         <CreateReviewForm eventId={eventId} />
       </div> */}
       </div>
-    </div>
-    <div className={"event-description-div"}>{event.description}</div>
-    <div className={"event-start-date-div"}>Event Date: {event.startDate}</div>
-    <div className={"event-start-time-div"}>Event Time: {event.startTime}</div>
-    {/* <div className={"event--div"}>LATTITUDE: {event.lat}</div>
+      <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+        {showButton && (<div className="event-detail-buttons">
+          <button style={{ fontWeight: '800', fontSize: '16px', height: '36px', marginTop: '10px', marginRight: '8px', width: '150px', marginLeft: '5%', marginTop: '10px', }} onClick={() => setEditModal(true)}>Edit Event</button>
+          <button style={{ fontWeight: '800', fontSize: '16px', height: '36px', width: '150px', marginTop: '10px' }} onClick={handleDelete}>Delete Event</button>
+          {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
+        </div>)}
+      </div>
+      <div style={{ fontSize: '20px', textTransform: 'capitalize', maxWidth: '60%', marginLeft: '12px', marginTop: '8px', wordBreak: 'break-word', textOverflow: 'clip' }} className={"event-description-div"}>{event.description}</div>
+      <div style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px' }} className={"event-start-date-div"}>Event Date: {event.startDate}</div>
+      <div style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px' }} className={"event-start-time-div"}>Event Time: {event.startTime}</div>
+      {/* <div className={"event--div"}>LATTITUDE: {event.lat}</div>
         <div className={"event--div"}>LONGITUDE: {event.lng}</div> */}
-    <div className={"event--div"}>CREATED AT: {event.createdAt}</div>
-    <div>
-      {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}
-      {session.id !== event.userId && sessionLinks}
-    </div>
-    {/* <div>TOTAL RSVPS: {event.totalRsvps}</div> */}
-    <div>
-      <GetReviews eventId={eventId} />
-    </div>
+      {/* <div style={{ marginLeft: '12px', marginTop: '6px' }} className={"event--div"}>CREATED AT: {event.createdAt}</div> */}
+      <div>
+        {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}
+        {session.id !== event.userId && sessionLinks}
+      </div>
+      {/* <div>TOTAL RSVPS: {event.totalRsvps}</div> */}
+      <div>
+        <GetReviews eventId={eventId} />
+      </div>
 
-    <div>
-      {showButton && (<div className="event-detail-buttons">
-        <button onClick={handleDelete}>Delete Event</button>
-        <button onClick={() => setEditModal(true)}>Edit Event</button>
-        {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
-      </div>)}
 
     </div>
   </>

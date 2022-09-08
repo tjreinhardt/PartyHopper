@@ -14,7 +14,7 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
     const history = useHistory()
     const session = useSelector(state => state.session.user);
 
-    const [rating, setRating] = useState(1)
+    const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
     const [errors, setErrors] = useState([])
 

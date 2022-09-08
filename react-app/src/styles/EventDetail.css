@@ -50,6 +50,10 @@
     z-index: 3;
 }
 
+.event-detail-name-div:first-letter {
+    text-transform: capitalize;
+}
+
 .event-detail-entertainment-div {
     display: flex;
     align-items: center;
