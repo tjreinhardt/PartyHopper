@@ -46,7 +46,7 @@ const HomePage = () => {
     slideToPrevItem,
     slideToNextItem
   } = useSpringCarousel({
-    // draggingSlideTreshold: 5,
+    draggingSlideTreshold: 1,
     withLoop: true,
     items: images.map((i) => ({
       id: i.id,

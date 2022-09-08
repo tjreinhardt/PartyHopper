@@ -33,6 +33,8 @@
 
 .carousel-content-div {
     height: 682px;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .event-content-wrapper {

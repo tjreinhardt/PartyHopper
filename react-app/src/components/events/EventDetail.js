@@ -145,7 +145,7 @@ const EventDetail = () => {
       </div>)}
       <div>
         {/* {userReviewed === true && <CreateReviewForm eventId={eventId}/>} */}
-        {sessionLinks}
+        {session.id !== event.userId && sessionLinks}
       </div>
 
     </div>
