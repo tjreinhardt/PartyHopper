@@ -2,25 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Rating } from 'react-simple-star-rating';
 import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../store/review";
-import {
-    MdOutlineSentimentDissatisfied,
-    MdOutlineSentimentNeutral,
-    MdOutlineSentimentSatisfied,
-    MdOutlineSentimentVeryDissatisfied,
-    MdOutlineSentimentVerySatisfied,
-    MdThumbUpAlt
-} from 'react-icons/md';
 import EditReviewForm from "./EditReview";
 import { Modal } from "../../context/Modal";
+import "../../styles/ReviewsList.css"
 
 
-const customIcons = [
-    { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
-    { icon: <MdOutlineSentimentDissatisfied size={50} /> },
-    { icon: <MdOutlineSentimentNeutral size={50} /> },
-    { icon: <MdOutlineSentimentSatisfied size={50} /> },
-    { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
-]
+
 
 const GetReviews = ({ eventId }) => {
     const dispatch = useDispatch();
@@ -72,77 +59,43 @@ const GetReviews = ({ eventId }) => {
             res = `${minute} min`
         }
         else {
-            res = `${second}seconds`
+            res = `${second}s`
         }
 
         return res
     }
 
-    // const reviewAverage = (reviewsList) => {
-    //     let sum = 0
-    //     let totalReviews = reviewsList.length
-    //     let average;
-    //     reviewsList.forEach((review) => {
-    //         console.log('reviewsList.length', reviewsList.length)
-    //         console.log('reviewsList[0].rating', reviewsList[0].rating)
-    //         if (reviewsList.length === 0) {
-    //             return null;
-    //         }
-    //         if (reviewsList.length === 1) {
-    //             average = reviewsList[0].rating / 20
-    //         }
-    //         if (reviewsList.length === 2) {
-    //             average = (reviewsList[0].rating + reviewsList[1].rating) / 20
-    //             console.log(review.rating, 'review.rating else')
-    //             console.log(average, 'average else')
-    //         } else {
-    //             review.rating += sum;
-    //             average = sum / 20
-    //         }
-    //     })
-    //     return average;
-    // }
-
-
-    // const reviewAverage = (reviewsList) => {
-    //     let sum = 0;
-    //     let average = 0;
-    //     for (let i = 0; i < reviewsList.length; i++) {
-    //         reviewsList[i] += sum
-    //         average = sum / 20
-    //         // return average
-    //     }
-    //     return average
-    // }
 
 
 
     return (reviewsIsLoaded &&
 
         <div className="review-details-container">
-            {/* {reviewAverage(reviewsList)} Average rating */}
             {reviewsList.map((review) =>
             (
                 <div key={review.id} className="review-list-review-container">
                     <div className="review-list-username-content">
-                        <h2>{review.user.username}</h2>
+                        <div className="review-list-username">{review.user.username}</div>
                         <Rating
                             ratingValue={review.rating}
-                            // customIcons={customIcons}
                             allowHover={false}
                             readonly={true}
+                            size={25}
                         />
-                        <div>{review.comment}</div>
-                        <div>{review.id} reviewId</div>
+                        <div className="reviews-list-comment-div-wrapper">
+                            <div className="review-list-username" style={{ marginRight: '3px', fontSize: '16px' }}>{review.user.username} said:</div>
+                            <div className="reviews-list-comment">"{review.comment}"</div>
+                        </div>
+                        {/* <div>{review.id} reviewId</div> */}
                         <div className="review-list-create">{timeAfterCreated(review.reviewDate)}</div>
                     </div>
                     {showModal && (<Modal onClose={() => setShowModal(false)}>
                         <EditReviewForm id={review.id} eventId={Number(eventId)} showModal={showModal} setShowModal={setShowModal} />
                     </Modal>)}
                     <div className="rating-edit-delete-button-wrapper">
-                        {session.id === review.userId && <button onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
+                        {session.id === review.userId && <button className="delete-review-button" onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
                         {session.id === review.userId && <div>
-                            <button onClick={(e) => handleEdit(e, review.id)}>Manage/Edit</button>
+                            <button className="edit-review-button" onClick={(e) => handleEdit(e, review.id)}>Edit</button>
                         </div>}
                     </div>
                 </div>)

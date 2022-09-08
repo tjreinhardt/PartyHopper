@@ -10,6 +10,7 @@ import { authenticate } from './store/session';
 import HomePage from './components/homePage';
 import EventDetail from './components/events/EventDetail';
 import CreateEventForm from './components/events/CreateEvent';
+import Footer from './components/Footer';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -28,32 +29,35 @@ function App() {
 
 
   return loaded && (
-    <BrowserRouter>
-      {/* <NavBar /> */}
-      <Switch>
-        <Route path='/login' exact={true}>
-          <LoginForm />
-        </Route>
-        <Route path='/sign-up' exact={true}>
-          <SignUpForm />
-        </Route>
-        <ProtectedRoute path='/users' exact={true} >
-          <UsersList />
-        </ProtectedRoute>
-        <ProtectedRoute path='/' exact={true} >
-          <HomePage />
-        </ProtectedRoute>
-        <ProtectedRoute path='/events/new' exact={true} >
-          <CreateEventForm />
-        </ProtectedRoute>
-        <ProtectedRoute path='/events/:eventId' exact={true} >
-          <EventDetail />
-        </ProtectedRoute>
-        <ProtectedRoute path='/users/:userId' exact={true} >
-          <User />
-        </ProtectedRoute>
-      </Switch>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        {/* <NavBar /> */}
+        <Switch>
+          <Route path='/login' exact={true}>
+            <LoginForm />
+          </Route>
+          <Route path='/sign-up' exact={true}>
+            <SignUpForm />
+          </Route>
+          <ProtectedRoute path='/users' exact={true} >
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path='/' exact={true} >
+            <HomePage />
+          </ProtectedRoute>
+          <ProtectedRoute path='/events/new' exact={true} >
+            <CreateEventForm />
+          </ProtectedRoute>
+          <ProtectedRoute path='/events/:eventId' exact={true} >
+            <EventDetail />
+          </ProtectedRoute>
+          <ProtectedRoute path='/users/:userId' exact={true} >
+            <User />
+          </ProtectedRoute>
+        </Switch>
+      </BrowserRouter>
+      <Footer />
+    </>
   );
 }
 

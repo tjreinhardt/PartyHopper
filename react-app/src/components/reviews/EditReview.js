@@ -4,21 +4,9 @@ import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { updateReviewThunk, getReviewsThunk } from "../../store/review";
 import { Rating } from "react-simple-star-rating";
-import {
-    MdOutlineSentimentDissatisfied,
-    MdOutlineSentimentNeutral,
-    MdOutlineSentimentSatisfied,
-    MdOutlineSentimentVeryDissatisfied,
-    MdOutlineSentimentVerySatisfied
-} from 'react-icons/md';
 
-const customIcons = [
-    { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
-    { icon: <MdOutlineSentimentDissatisfied size={50} /> },
-    { icon: <MdOutlineSentimentNeutral size={50} /> },
-    { icon: <MdOutlineSentimentSatisfied size={50} /> },
-    { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
-]
+
+
 
 
 const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
@@ -67,7 +55,7 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal }) => {
         let errors = [];
         if (!rating) errors.push("Please rate the event")
         // if (!comment) errors.push("Feeling different about this experience?")
-        if (comment.length === 0) errors.push("Please provide a review")
+        if (comment.length < 10) errors.push("Please provide a review")
         // if (startDate < todays_date) errors.push("Fix your date fool")
         setErrors(errors)
     }, [rating, comment])

@@ -5,21 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { createReviewThunk } from "../../store/review";
 import { Rating } from 'react-simple-star-rating';
-import {
-    MdOutlineSentimentDissatisfied,
-    MdOutlineSentimentNeutral,
-    MdOutlineSentimentSatisfied,
-    MdOutlineSentimentVeryDissatisfied,
-    MdOutlineSentimentVerySatisfied
-} from 'react-icons/md';
 
-const customIcons = [
-    { icon: <MdOutlineSentimentVeryDissatisfied size={50} /> },
-    { icon: <MdOutlineSentimentDissatisfied size={50} /> },
-    { icon: <MdOutlineSentimentNeutral size={50} /> },
-    { icon: <MdOutlineSentimentSatisfied size={50} /> },
-    { icon: <MdOutlineSentimentVerySatisfied size={50} /> }
-]
+
+
 
 const CreateReviewForm = ({ eventId }) => {
     const dispatch = useDispatch();

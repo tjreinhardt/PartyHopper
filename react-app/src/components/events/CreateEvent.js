@@ -22,6 +22,9 @@ const CreateEventForm = ({ hideModal }) => {
   const [lng, setLng] = useState(1)
   const [errors, setErrors] = useState([])
   let today = new Date();
+
+
+
   let todays_day = today.getDay() - 3;
   if (todays_day < 10) todays_day = `0${todays_day}`
   let todays_month = today.getMonth() + 1;
@@ -48,7 +51,7 @@ const CreateEventForm = ({ hideModal }) => {
     // if (dispatchEvent) {
     //   hideModal()
     // }
-    if (startDate + 1 > todays_date) {
+    if ((startDate + 1 > todays_date) && (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === true)) {
 
       dispatch(createEventThunk(newEvent))
         .then(
@@ -74,6 +77,7 @@ const CreateEventForm = ({ hideModal }) => {
     if (!description) errors.push("Please enter a description for your event")
     if (description.length > 500) errors.push("Description length exceeds max limit")
     if (!imageUrl) errors.push("Please upload an image for your event")
+    if ((/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("ImageUrl is not valid")
     if (imageUrl.length > 500) errors.push("Image URL length exceeds max limit")
     if (!eventType || eventType === 'None') errors.push("Please enter a category for your event")
     if (!entertainment || entertainment === 'None') errors.push("Please select entertainment type")

@@ -23,9 +23,9 @@ const NavBar = () => {
               <button className='nav-buttons'>Create Event</button>
             </div>
             {createModal && <CreateEventModal setShowModal={setCreateModal} />}
-            <NavLink to='/users' exact={true} activeClassName='active'>
+            {/* <NavLink to='/users' exact={true} activeClassName='active'>
               <button className='nav-buttons'>Users</button>
-            </NavLink>
+            </NavLink> */}
             <LogoutButton />
           </>
 

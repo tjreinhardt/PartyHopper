@@ -69,6 +69,10 @@ img {
     text-decoration: none;
 }
 
+.event-name-div::first-letter {
+    text-transform: capitalize;
+}
+
 .event-name-div:hover {
     text-decoration: underline 3px black;
 }

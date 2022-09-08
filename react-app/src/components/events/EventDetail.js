@@ -106,11 +106,11 @@ const EventDetail = () => {
               initialValue={0}
               ratingValue={averageReviews(reviewsList)}
               transition={true}
-            // allowHover={false}
-            // readonly={true}
+              allowHover={false}
+              readonly={true}
             />
             <div style={{ display: 'flex', justifyContent: 'flex-start', paddingLeft: '0px' }}>
-              <div className={"event-detail-total-reviews-div"}>{event.totalReviews} reviews</div>
+              <div className={"event-detail-total-reviews-div"}>{event.totalReviews} {(event.totalReviews) !== 1 ? "reviews" : "review"}</div>
 
               <div className={"event-detail-type-div"}>{event.eventType}, </div>
               <div className={"event-detail-entertainment-div"}>{event.entertainment}</div>
@@ -124,11 +124,8 @@ const EventDetail = () => {
       </div>
     </div>
     <div className={"event-description-div"}>{event.description}</div>
-    {/* <div className={"event-total-rsvps-div"}>{event.totalRsvps}</div> */}
-    <div className={"event-user-id-div"}>OWNER USER ID: {event.userId}</div>
-    <div className={"event-id-div"}>{event.id} EVENT ID</div>
-    <div className={"event-start-date-div"}>START DATE: {event.startDate}</div>
-    <div className={"event-start-time-div"}>START TIME: {event.startTime}</div>
+    <div className={"event-start-date-div"}>Event Date: {event.startDate}</div>
+    <div className={"event-start-time-div"}>Event Time: {event.startTime}</div>
     {/* <div className={"event--div"}>LATTITUDE: {event.lat}</div>
         <div className={"event--div"}>LONGITUDE: {event.lng}</div> */}
     <div className={"event--div"}>CREATED AT: {event.createdAt}</div>

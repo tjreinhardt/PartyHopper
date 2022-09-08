@@ -94,7 +94,7 @@ const LoginForm = () => {
                 }}> Sign up</div>
             </NavLink>
           </div>
-          <div
+          {/* <div
             style={{
               textAlign: 'center',
               fontSize: '12px',
@@ -102,7 +102,7 @@ const LoginForm = () => {
               marginBottom: '22px',
               marginTop: '6px'
             }}>By logging in, you agree to PartyHopper's <NavLink style={{ color: '#0073bb' }} to='/tos'>Terms of Service</NavLink> and <NavLink style={{ color: '#0073bb' }} to='/privacy'>Privacy Policy</NavLink>
-          </div>
+          </div> */}
           <div style={{ textAlign: 'center' }}>
             {errors.map((error, ind) => (
               <div key={ind}>{error}</div>
@@ -114,6 +114,8 @@ const LoginForm = () => {
               type='text'
               placeholder='Email'
               value={email}
+              required
+              onInvalid={e => e.target.setCustomValidity(errors)}
               onChange={updateEmail}
             />
           </div>
@@ -123,6 +125,8 @@ const LoginForm = () => {
               type='password'
               placeholder='Password'
               value={password}
+              required
+              onInvalid={e => e.target.setCustomValidity(errors)}
               onChange={updatePassword}
             />
           </div>

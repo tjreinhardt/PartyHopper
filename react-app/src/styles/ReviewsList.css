@@ -1,0 +1,60 @@
+.review-list-username {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 0px;
+}
+
+.review-list-username:first-letter {
+  font-size: 18px;
+  font-weight: 700;
+  padding: 0px;
+  text-transform: capitalize;
+}
+
+
+.reviews-list-comment {
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: rgba(45, 46, 47, 1);
+  display: inline-block;
+  max-width: 300px;
+  justify-content: center;
+  margin-top: 2px;
+  word-wrap: break-word;
+  text-overflow: clip;
+  line-height: 17px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.reviews-list-comment:first-letter {
+  text-transform: capitalize;
+}
+
+.delete-review-button {
+  height: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  width: 80px;
+}
+
+.edit-review-button {
+  height: 25px;
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: 600;
+  width: 80px;
+}
+
+.rating-edit-delete-button-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.comment-username-says {
+  font-weight: 700;
+}
+
+.reviews-list-comment-div-wrapper {
+  display: flex;
+  flex-direction: row;
+}

@@ -84,7 +84,7 @@ const SignUpForm = () => {
           }}
         >Find the best local parties
         </div>
-        <div
+        {/* <div
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -96,7 +96,7 @@ const SignUpForm = () => {
             marginBottom: '22px',
             marginTop: '6px'
           }}>By continuing, you agree to PartyHopper's <NavLink style={{ color: '#0073bb', marginRight: '4px' }} to='/tos'> Terms of Service </NavLink> and acknowledge PartyHopper's <NavLink style={{ color: '#0073bb' }} to='/privacy'>Privacy Policy</NavLink>
-        </div>
+        </div> */}
         <div>
           {errors.map((error, ind) => (
             <div key={ind}>{error}</div>
