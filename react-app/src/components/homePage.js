@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useSpringCarousel } from 'react-spring-carousel';
 import '../styles/HomePage.css'
+import { Rating } from 'react-simple-star-rating'
 
 const HomePage = () => {
   const { startDate } = useParams()
@@ -111,9 +112,15 @@ const HomePage = () => {
                   {/* <div className="event-startdate-div">Event Date: {event.startDate}</div> */}
                   {/* <div className="event-starttime-div">Starts at: {event.startTime}</div> */}
                   {/* <div>Coordinates: Lat: {event.lat}, Long: {event.lng}</div> */}
-                  <div className="event-totalrsvps-div">RSVPs: {event.totalRsvps}</div>
+                  {/* <div className="event-totalrsvps-div">RSVPs: {event.totalRsvps}</div> */}
                   {/* <div>CREATED AT: {event.createdAt}</div> */}
                 </div>
+                {/* <NavLink to={`/events/${event.id}/reviews/new`}>
+                  <Rating
+                  // readonly={true}
+                  // allowHover={false}
+                  ></Rating>
+                </NavLink> */}
               </NavLink>
             ).reverse()
           }

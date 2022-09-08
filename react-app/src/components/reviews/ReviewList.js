@@ -106,7 +106,7 @@ const GetReviews = ({ eventId }) => {
                         <EditReviewForm id={review.id} eventId={Number(eventId)} showModal={showModal} setShowModal={setShowModal} />
                     </Modal>)}
                 </div>)
-            )}
+            ).reverse()}
         </div>
     )
 }

@@ -66,7 +66,7 @@ const CreateReviewForm = ({ eventId }) => {
 
 
     return (
-        <div>
+        <div style={{ margin: '12px', width: '440px', padding: '20px', border: '1px solid gray' }}>
             <form onSubmit={handleSubmit} className="create-review-form">
 
                 {/* <label>Review:</label> */}
@@ -88,12 +88,14 @@ const CreateReviewForm = ({ eventId }) => {
                         placeholder="Please let us know about your experience"
                         onChange={e => setComment(e.target.value)}
                     />
-                    {errors.map((error, idx) => (
-                        <li key={idx} >{error}</li>
-                    ))}
                 </div>
                 <div>
-                    <button className="login-button" style={{ width: '60px' }}>Post</button>
+                    <button className="login-button" style={{ width: '420px', height: '35px', marginBottom: '12px' }}>Post</button>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                    {errors.map((error, idx) => (
+                        <div style={{ color: 'red' }} key={idx} >*{error}</div>
+                    ))}
                 </div>
 
             </form>
