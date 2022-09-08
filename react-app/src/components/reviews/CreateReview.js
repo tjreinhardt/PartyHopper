@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { createReviewThunk } from "../../store/review";
 import { Rating } from 'react-simple-star-rating';
+import { useHistory } from "react-router-dom";
 
 
 
 
 const CreateReviewForm = ({ eventId }) => {
     const dispatch = useDispatch();
+    const history = useHistory()
     const session = useSelector(state => state.session.user);
-
+    const [showModal, setShowModal] = useState();
     const [rating, setRating] = useState(0)
     // const [entertainmentRating, setEntertainmentRating] = useState(3)
     // const [atmosphereRating, setAtmosphereRating] = useState(3)
@@ -37,7 +39,11 @@ const CreateReviewForm = ({ eventId }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors([]);
+        if (errors.length === 0) {
+            history.push(`/events/${eventId}`)
+            setShowModal(showModal)
+
+        }
         const review = {
             rating,
             // entertainmentRating,
@@ -46,13 +52,11 @@ const CreateReviewForm = ({ eventId }) => {
             eventId: eventId,
             userId: session.id
         }
-        dispatch(createReviewThunk(eventId, review))
-            .then(
-                async (res) => {
-                    if (res.errors) {
-                        setErrors(res.errors)
-                    }
-                })
+        if (errors) {
+            return dispatch(createReviewThunk(eventId, review))
+
+        }
+
     }
 
     useEffect(() => {

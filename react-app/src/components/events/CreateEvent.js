@@ -96,6 +96,8 @@ const CreateEventForm = ({ hideModal }) => {
       {/* <NavBar /> */}
       <form onSubmit={handleSubmit}>
         <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+
+          <div>** An event may be scheduled to start at any time, hosted <span style={{ textDecoration: 'underline', fontWeight: '550' }}>on</span> or <span style={{ textDecoration: 'underline', fontWeight: '550' }}>after</span> today's date **</div>
           <div>
             <input
               type={'text'}

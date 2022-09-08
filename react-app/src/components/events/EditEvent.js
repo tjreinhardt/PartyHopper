@@ -81,6 +81,7 @@ const EditEventForm = ({ event, hideModal }) => {
     <div>
       <form onSubmit={handleSubmit}>
         <div>
+          <div style={{ width: '320px', textAlign: 'center', fontWeight: '600', color: 'red' }}>** An event may be scheduled to start at ANY time, so long as it's <span style={{ textDecoration: 'underline', fontWeight: '550' }}>on</span> or <span style={{ textDecoration: 'underline', fontWeight: '550' }}>after</span> the current day **</div>
           <div>
             <input
               type={'text'}

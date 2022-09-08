@@ -5,15 +5,16 @@ import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../sto
 import EditReviewForm from "./EditReview";
 import { Modal } from "../../context/Modal";
 import "../../styles/ReviewsList.css"
-import { NavLink } from "react-router-dom";
-
+import { NavLink, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 
 const GetReviews = ({ eventId }) => {
     const dispatch = useDispatch();
+    const history = useHistory()
     const reviews = useSelector(state => state.review);
-    const [showModal, setShowModal] = useState();
+    const [showModal, setShowModal] = useState(false);
     const session = useSelector(state => state.session.user);
     const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
     const reviewsList = Object.values(reviews)
@@ -25,8 +26,10 @@ const GetReviews = ({ eventId }) => {
 
 
     const handleDelete = async (eventId, reviewId) => {
-
+        // setShowModal(showModal)
+        history.push(`/events/${eventId}`)
         return dispatch(deleteReviewThunk(eventId, reviewId))
+        // setShowModal(false)
     }
 
     const handleEdit = async (e) => {
@@ -35,11 +38,7 @@ const GetReviews = ({ eventId }) => {
 
     }
 
-    const handleCreate = async (e) => {
-        e.preventDefault();
-        setShowModal(true);
 
-    }
 
     if (!reviews) {
         return null

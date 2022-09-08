@@ -11,6 +11,7 @@ import HomePage from './components/homePage';
 import EventDetail from './components/events/EventDetail';
 import CreateEventForm from './components/events/CreateEvent';
 import Footer from './components/Footer';
+import CreateReviewForm from './components/reviews/CreateReview';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -53,6 +54,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path='/users/:userId' exact={true} >
             <User />
+          </ProtectedRoute>
+          <ProtectedRoute path='/events/:eventId/new_review' exact={true}>
+            <CreateReviewForm />
           </ProtectedRoute>
         </Switch>
       </BrowserRouter>

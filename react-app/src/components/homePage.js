@@ -7,12 +7,15 @@ import NavBar from "./NavBar";
 import { useSpringCarousel } from 'react-spring-carousel';
 import '../styles/HomePage.css'
 import { Rating } from 'react-simple-star-rating'
+import { getReviewsThunk } from "../store/review";
 
-const HomePage = () => {
+const HomePage = ({ eventId }) => {
   const { startDate } = useParams()
   console.log(startDate)
   const dispatch = useDispatch()
   const events = Object.values(useSelector(state => state.event))
+  const reviews = useSelector(state => state.review);
+  const reviewsList = Object.values(reviews)
 
 
   const images = [
@@ -81,7 +84,22 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(eventActions.getAllEventsThunk())
+    dispatch(getReviewsThunk())
   }, [dispatch])
+
+  const getAverageRating = (eventId) => {
+    console.log(reviewsList, 'reviewsList----------------')
+    const reviewsData = reviewsList.filter(review => review.eventId === eventId)
+    console.log(reviewsData, 'reviewsData----------------')
+    const eventRating = reviewsData.map(review => review.rating)
+    console.log(eventRating)
+    const averageEventRating = (eventRating.reduce((a, b) => a + b, 0) / eventRating.length)
+    console.log(averageEventRating)
+    const result = Math.floor(Number(averageEventRating))
+    console.log(result)
+    return result
+  }
+  // getAverageRating()
 
 
   return (
@@ -115,12 +133,13 @@ const HomePage = () => {
                   {/* <div className="event-totalrsvps-div">RSVPs: {event.totalRsvps}</div> */}
                   {/* <div>CREATED AT: {event.createdAt}</div> */}
                 </div>
-                {/* <NavLink to={`/events/${event.id}/reviews/new`}>
+                <NavLink to={`/events/${event.id}`}>
                   <Rating
-                  // readonly={true}
-                  // allowHover={false}
+                    value={getAverageRating}
+                    readonly={true}
+                    allowHover={false}
                   ></Rating>
-                </NavLink> */}
+                </NavLink>
               </NavLink>
             ).reverse()
           }
