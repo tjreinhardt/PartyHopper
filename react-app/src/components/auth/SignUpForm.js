@@ -98,11 +98,6 @@ const SignUpForm = () => {
           }}>By continuing, you agree to PartyHopper's <NavLink style={{ color: '#0073bb', marginRight: '4px' }} to='/tos'> Terms of Service </NavLink> and acknowledge PartyHopper's <NavLink style={{ color: '#0073bb' }} to='/privacy'>Privacy Policy</NavLink>
         </div> */}
         <div>
-          {errors.map((error, ind) => (
-            <div key={ind}>{error}</div>
-          ))}
-        </div>
-        <div>
           <input
             style={{
               border: '1px solid #999'
@@ -158,8 +153,15 @@ const SignUpForm = () => {
             backgroundColor: '#d32323',
             border: 'transparent',
             borderRadius: '4px',
+            width: '320px',
             fontWeight: '900'
           }}>Sign Up</button>
+        <div style={{ textAlign: 'center' }}>
+          <br />
+          {errors.map((error, ind) => (
+            <div style={{ color: 'red' }} key={ind}>* {error}</div>
+          ))}
+        </div>
         <div
           style={{
             display: 'flex',
@@ -178,9 +180,9 @@ const SignUpForm = () => {
               }}> Log In</div>
           </NavLink>
         </div>
-      </form>
+      </form >
 
-    </div>
+    </div >
   );
 };
 

@@ -5,6 +5,7 @@ import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../sto
 import EditReviewForm from "./EditReview";
 import { Modal } from "../../context/Modal";
 import "../../styles/ReviewsList.css"
+import { NavLink } from "react-router-dom";
 
 
 
@@ -81,29 +82,29 @@ const GetReviews = ({ eventId }) => {
             (
                 <div key={review.id} className="review-list-review-container">
                     <div className="review-list-username-content">
-                        <div className="review-list-username">{review.user.username}</div>
+                        <div style={{ fontSize: '20px', marginLeft: '18px', marginBottom: '2px' }} className="review-list-username">{review.user.username}</div>
                         <Rating
                             ratingValue={review.rating}
                             allowHover={false}
                             readonly={true}
                             size={25}
                         />
-                        <div className="reviews-list-comment-div-wrapper">
+                        <div style={{ marginTop: '4px' }} className="reviews-list-comment-div-wrapper">
                             <div className="review-list-username" style={{ marginRight: '3px', fontSize: '16px' }}>{review.user.username} said:</div>
                             <div className="reviews-list-comment">"{review.comment}"</div>
                         </div>
                         {/* <div>{review.id} reviewId</div> */}
-                        <div className="review-list-create">{timeAfterCreated(review.reviewDate)}</div>
+                        <div className="rating-edit-delete-button-wrapper">
+                            <div style={{ fontSize: '12px', marginTop: '6px', textAlign: 'left' }} className="review-list-create">{timeAfterCreated(review.reviewDate)}</div>
+                            {session.id === review.userId && <div>
+                                <button style={{ width: '50px', marginLeft: '12px', border: 'none', color: 'red', backgroundColor: 'white' }} className="edit-review-button" onClick={(e) => handleEdit(e, review.id)}>Edit</button>
+                            </div>}
+                            {session.id === review.userId && <button style={{ width: '50px', border: 'none', color: 'red', backgroundColor: 'white' }} className="delete-review-button" onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
+                        </div>
                     </div>
                     {showModal && (<Modal onClose={() => setShowModal(false)}>
                         <EditReviewForm id={review.id} eventId={Number(eventId)} showModal={showModal} setShowModal={setShowModal} />
                     </Modal>)}
-                    <div className="rating-edit-delete-button-wrapper">
-                        {session.id === review.userId && <button className="delete-review-button" onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
-                        {session.id === review.userId && <div>
-                            <button className="edit-review-button" onClick={(e) => handleEdit(e, review.id)}>Edit</button>
-                        </div>}
-                    </div>
                 </div>)
             )}
         </div>
