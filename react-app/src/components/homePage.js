@@ -118,7 +118,7 @@ const HomePage = ({ eventId }) => {
                 <br></br>
                 <div className="event-content-wrapper">
                   <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
-                    <div style={{ color: 'black' }} className="event-name-div">{event.name}</div>
+                    <div style={{ color: 'black', wordBreak: 'break-word' }} className="event-name-div">{event.name}</div>
                   </NavLink>
                 </div>
                 {/* <NavLink to={`/events/${event.id}`}> */}

@@ -128,7 +128,8 @@ const EventDetail = () => {
         </div>
         <div className="overlay-content-on-image">
           <div style={{
-            textTransform: 'capitalize'
+            textTransform: 'capitalize',
+            wordBreak: 'break-word'
           }} className={"event-detail-name-div"}>{event.name}</div>
           <div className={"event-detail-rating-reviews-content-div"}>
             <div className='star-chart-wrapper'>
