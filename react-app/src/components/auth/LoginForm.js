@@ -13,7 +13,7 @@ const LoginForm = () => {
 
   const onLogin = async (e) => {
     e.preventDefault();
-    const data = await dispatch(login(email, password));
+    const data = await dispatch(login(email.trim(), password.trim()));
     if (data) {
       setErrors(data);
     }
@@ -37,8 +37,8 @@ const LoginForm = () => {
 
   useEffect(() => {
     let errors = [];
-    if (!email) errors.push("Please enter your email")
-    if (!password) errors.push("Please enter your password")
+    if (email.trim().length === 0) errors.push("Please enter your email")
+    if (password.trim().length === 0) errors.push("Please enter your password")
     setErrors(errors)
   }, [email, password])
 
@@ -52,7 +52,7 @@ const LoginForm = () => {
         <div style={{ marginLeft: '0px' }}>
           partyhopper
         </div>
-        <img style={{
+        <img alt='' style={{
           height: '60px',
           width: 'auto',
           marginLeft: '0px',

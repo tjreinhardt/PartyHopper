@@ -67,13 +67,13 @@ const CreateEventForm = ({ hideModal }) => {
 
   useEffect(() => {
     let errors = [];
-    if (!name) errors.push("Please name your event")
-    if (name.length > 50) errors.push("Name length exceeds max limit")
-    if (!description) errors.push("Please enter a description for your event")
-    if (description.length > 500) errors.push("Description length exceeds max limit")
-    if (!imageUrl) errors.push("Please upload an image for your event")
+    if (name.trim().length === 0) errors.push("Please name your event")
+    if (name.trim().length > 50) errors.push("Name length exceeds max limit")
+    if (description.trim().length === 0) errors.push("Please enter a description for your event")
+    if (description.trim().length > 500) errors.push("Description length exceeds max limit")
+    if (imageUrl.trim().length === 0) errors.push("Please upload an image for your event")
     if ((/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("ImageUrl is not valid")
-    if (imageUrl.length > 500) errors.push("Image URL length exceeds max limit")
+    if (imageUrl.trim().length > 500) errors.push("Image URL length exceeds max limit")
     if (!eventType || eventType === 'None') errors.push("Please enter a category for your event")
     if (!entertainment || entertainment === 'None') errors.push("Please select entertainment type")
     if (!startDate) errors.push("Please add a date for your event");
@@ -94,13 +94,15 @@ const CreateEventForm = ({ hideModal }) => {
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
-          alignItems: 'center'
+          alignItems: 'center',
+          paddingTop: '5rem'
         }}>
 
-          <div>** An event may be scheduled to start at any time, hosted <span style={{
+          <div style={{ color: 'red', marginBottom: '14px', wordBreak: 'break-word', textAlign: 'center', width: '300px' }}>** An event can be scheduled at any time, <span style={{
             textDecoration: 'underline',
-            fontWeight: '550'
-          }}>on</span> or <span style={{
+            fontWeight: '550',
+            color: 'red'
+          }}>on</span>/<span style={{
             textDecoration: 'underline',
             fontWeight: '550'
           }}>after</span> today's date **</div>
@@ -205,7 +207,7 @@ const CreateEventForm = ({ hideModal }) => {
           }}>Cancel</button>
           <br />
         </div>
-        <ul>
+        <ul style={{ paddingBottom: '5rem' }}>
           {errors.map((error, idx) => (
             <li key={idx} >{error}</li>
           ))}

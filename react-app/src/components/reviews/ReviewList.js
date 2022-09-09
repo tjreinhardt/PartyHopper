@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../store/review";
+import { getReviewsThunk, deleteReviewThunk } from "../../store/review";
 import EditReviewForm from "./EditReview";
 import { Modal } from "../../context/Modal";
 import "../../styles/ReviewsList.css"
@@ -50,6 +50,10 @@ const GetReviews = ({ eventId }) => {
         return null
     }
 
+    if (!reviewsList) {
+        return null
+    }
+
     const timeAfterCreated = (createdAt) => {
         const age = Date.now() - Date.parse(createdAt);
         let res;
@@ -95,7 +99,7 @@ const GetReviews = ({ eventId }) => {
                         <div className='star-chart-wrapper'>
                             <div className='star-chart-inner-div' style={{ display: 'flex' }}>
                                 {rate.map((_, i) => {
-                                    const input = i + 1;
+                                    // const input = i + 1;
                                     return (
                                         <div style={{ display: 'flex', flexDirection: 'row' }}>
                                             <FaStar

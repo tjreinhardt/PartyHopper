@@ -15,8 +15,8 @@ const EditEventForm = ({ event, hideModal }) => {
   const [entertainment, setEntertainment] = useState(event.entertainment)
   const [startDate, setStartDate] = useState(event.startDate)
   const [startTime, setStartTime] = useState(event.startTime)
-  const [lat, setLat] = useState(event.lat)
-  const [lng, setLng] = useState(event.lng)
+  // const [lat, setLat] = useState(event.lat)
+  // const [lng, setLng] = useState(event.lng)
   const [errors, setErrors] = useState([])
   let today = new Date();
   let todays_day = today.getDay() - 3;
@@ -37,34 +37,36 @@ const EditEventForm = ({ event, hideModal }) => {
       eventType,
       entertainment,
       startDate,
-      startTime,
-      lat,
-      lng
+      startTime
+      // lat,
+      // lng
     };
-    if (startDate + 1 > todays_date) {
+    if (!errors.length) {
       dispatch(updateEventThunk(newEvent))
-        .then(
-          async (res) => {
-            if (res.errors) {
-              setErrors(res.errors)
-            }
-            else {
-              hideModal()
-              history.push(`/events/${res.id}`);
-            }
+      history.push(`/events/${newEvent.id}`);
+      hideModal()
+      // .then(
+      //   async (res) => {
+      //     if (res.errors) {
+      //       setErrors(res.errors)
+      //     }
+      //     else {
+      //       hideModal()
+      //     }
 
-          })
+      //   })
     }
-    errors.push(['Cannot pick a date that has already happened'])
+    // errors.push(['Cannot pick a date that has already happened'])
   }
   useEffect(() => {
     let errors = [];
-    if (!name) errors.push("Please name your event")
-    if (name.length > 50) errors.push("Name length exceeds max limit")
-    if (!description) errors.push("Please enter a description for your event")
-    if (description.length > 500) errors.push("Description length exceeds max limit")
-    if (!imageUrl) errors.push("Please upload an image for your event")
-    if (imageUrl.length > 500) errors.push("Image URL length exceeds max limit")
+    // if (!name) errors.push("Please name your event")
+    if (name.trim().length === 0) errors.push("Please enter your event name")
+    if (name.trim().length > 50) errors.push("Name length exceeds max limit")
+    if (description.trim().length === 0) errors.push("Please enter a description for your event")
+    if (description.trim().length > 500) errors.push("Description length exceeds max limit")
+    if (imageUrl.trim().length === 0) errors.push("Please upload an image for your event")
+    if (imageUrl.trim().length > 500) errors.push("Image URL length exceeds max limit")
     if (!eventType || eventType === 'None') errors.push("Please enter a category for your event")
     if (!entertainment || entertainment === 'None') errors.push("Please select entertainment type")
     if (!startDate) errors.push("Please add a date for your event");

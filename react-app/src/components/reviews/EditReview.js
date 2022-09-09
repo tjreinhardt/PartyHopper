@@ -42,12 +42,6 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (errors.length === 0) {
-            history.push(`/events/${eventId}`)
-            setShowModal(!showModal)
-
-        }
-
         const newReview = {
             id: id,
             rating,
@@ -55,10 +49,13 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
             eventId: eventId,
             userId: session.id
         }
-        console.log(newReview, '---------------newReview')
-        if (errors) {
 
-            return dispatch(updateReviewThunk(newReview))
+
+        // console.log(newReview, '---------------newReview')
+        if (!errors.length) {
+            dispatch(updateReviewThunk(newReview))
+            history.push(`/events/${eventId}`)
+            setShowModal(!showModal)
         }
 
     }
@@ -69,7 +66,9 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
         let errors = [];
         if (rating === 0) errors.push("Please rate the event")
         if (comment.length === 0) errors.push("Please provide a review")
-        if (comment.length < 10) errors.push("Review is too short")
+        if (comment.trim().length < 10 && comment.trim().length >= 1) errors.push("Review is too short (10 characters minimum)")
+        if (comment.trim().length > 500) errors.push("Review is too long (500)")
+        if (comment.trim().length === 0) errors.push("Review cannot be blank")
         setErrors(errors)
     }, [rating, comment])
 
@@ -129,13 +128,15 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
                         placeholder="Please let us know about your experience"
                         onChange={e => setComment(e.target.value)}
                     />
-                    {errors.map((error, idx) => (
-                        <li key={idx} >{error}</li>
-                    ))}
                 </div>
                 <div>
                     <button className="login-button" style={{ width: '420px' }} type="submit">Edit</button>
                     {/* <button onClick={hideModal}>Cancel</button> */}
+                    <div style={{ textAlign: 'center' }}>
+                        {errors.map((error, idx) => (
+                            <div style={{ color: 'red' }} key={idx} >*{error}</div>
+                        ))}
+                    </div>
                 </div>
 
             </form>

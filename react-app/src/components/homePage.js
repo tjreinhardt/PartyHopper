@@ -7,15 +7,12 @@ import NavBar from "./NavBar";
 import { useSpringCarousel } from 'react-spring-carousel';
 import '../styles/HomePage.css'
 // import { Rating } from 'react-simple-star-rating'
-import { getReviewsThunk } from "../store/review";
+// import { getReviewsThunk } from "../store/review";
 
 const HomePage = ({ eventId }) => {
-  const { startDate } = useParams()
-  console.log(startDate)
+  // const { startDate } = useParams()
   const dispatch = useDispatch()
   const events = Object.values(useSelector(state => state.event))
-  const reviews = useSelector(state => state.review);
-  const reviewsList = Object.values(reviews)
 
 
   const images = [
@@ -63,7 +60,7 @@ const HomePage = ({ eventId }) => {
             </div>
             <div>
 
-              <img style={{ opacity: "100%", margin: '0px', position: 'sticky', top: '0', minHeight: '682px', minWidth: '100vw', width: '100vw', height: "100vh", bottom: '60px' }} className="image-card" src={i.imageUrl}>
+              <img alt="" style={{ opacity: "100%", margin: '0px', position: 'sticky', top: '0', minHeight: '682px', minWidth: '100vw', width: '100vw', height: "100vh", bottom: '60px' }} className="image-card" src={i.imageUrl}>
               </img>
             </div>
           </div>
@@ -87,18 +84,18 @@ const HomePage = ({ eventId }) => {
     // dispatch(getReviewsThunk())
   }, [dispatch])
 
-  const getAverageRating = (eventId) => {
-    console.log(reviewsList, 'reviewsList----------------')
-    const reviewsData = reviewsList.filter(review => review.eventId === eventId)
-    console.log(reviewsData, 'reviewsData----------------')
-    const eventRating = reviewsData.map(review => review.rating)
-    console.log(eventRating)
-    const averageEventRating = (eventRating.reduce((a, b) => a + b, 0) / eventRating.length)
-    console.log(averageEventRating)
-    const result = Math.floor(Number(averageEventRating))
-    console.log(result)
-    return result
-  }
+  // const getAverageRating = (eventId) => {
+  //   console.log(reviewsList, 'reviewsList----------------')
+  //   const reviewsData = reviewsList.filter(review => review.eventId === eventId)
+  //   console.log(reviewsData, 'reviewsData----------------')
+  //   const eventRating = reviewsData.map(review => review.rating)
+  //   console.log(eventRating)
+  //   const averageEventRating = (eventRating.reduce((a, b) => a + b, 0) / eventRating.length)
+  //   console.log(averageEventRating)
+  //   const result = Math.floor(Number(averageEventRating))
+  //   console.log(result)
+  //   return result
+  // }
   // getAverageRating()
 
 
