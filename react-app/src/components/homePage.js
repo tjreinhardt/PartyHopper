@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useSpringCarousel } from 'react-spring-carousel';
 import '../styles/HomePage.css'
-import { Rating } from 'react-simple-star-rating'
+// import { Rating } from 'react-simple-star-rating'
 import { getReviewsThunk } from "../store/review";
 
 const HomePage = ({ eventId }) => {
@@ -84,7 +84,7 @@ const HomePage = ({ eventId }) => {
 
   useEffect(() => {
     dispatch(eventActions.getAllEventsThunk())
-    dispatch(getReviewsThunk())
+    // dispatch(getReviewsThunk())
   }, [dispatch])
 
   const getAverageRating = (eventId) => {
@@ -113,7 +113,7 @@ const HomePage = ({ eventId }) => {
         <div className="content-wrapper">
           {events &&
             events.map(event =>
-              <NavLink to={`/events/${event.id}`} className="event-card">
+              <div key={event.id} to={`/events/${event.id}`} className="event-card">
                 <img src={event.imageUrl} alt='event-imageUrl'></img>
                 <br></br>
                 <div className="event-content-wrapper">
@@ -121,14 +121,14 @@ const HomePage = ({ eventId }) => {
                     <div style={{ color: 'black' }} className="event-name-div">{event.name}</div>
                   </NavLink>
                 </div>
-                <NavLink to={`/events/${event.id}`}>
-                  <Rating
+                {/* <NavLink to={`/events/${event.id}`}> */}
+                {/* <Rating
                     value={getAverageRating}
                     readonly={true}
                     allowHover={false}
-                  ></Rating>
-                </NavLink>
-              </NavLink>
+                  ></Rating> */}
+                {/* </NavLink> */}
+              </div>
             ).reverse()
           }
         </div>

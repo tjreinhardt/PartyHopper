@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Rating } from 'react-simple-star-rating';
 import { getReviewsThunk, deleteReviewThunk, updateReviewThunk } from "../../store/review";
 import EditReviewForm from "./EditReview";
 import { Modal } from "../../context/Modal";
 import "../../styles/ReviewsList.css"
 import { useHistory } from "react-router-dom";
+import { FaStar } from 'react-icons/fa'
 
 
 
@@ -17,6 +17,15 @@ const GetReviews = ({ eventId }) => {
     const session = useSelector(state => state.session.user);
     const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
     const reviewsList = Object.values(reviews)
+
+    const colors = {
+        'yellow': "rgb(219, 142, 0)",
+        'gray': "#a9a9a9"
+    }
+
+
+    const rate = Array(5).fill(0)
+
 
     useEffect(() => {
         dispatch(getReviewsThunk(eventId)).then(() => setReviewsIsLoaded(true))
@@ -83,12 +92,26 @@ const GetReviews = ({ eventId }) => {
                             marginLeft: '18px',
                             marginBottom: '2px'
                         }} className="review-list-username">{review.user.username}</div>
-                        <Rating
-                            ratingValue={review.rating}
-                            allowHover={false}
-                            readonly={true}
-                            size={25}
-                        />
+                        <div className='star-chart-wrapper'>
+                            <div className='star-chart-inner-div' style={{ display: 'flex' }}>
+                                {rate.map((_, i) => {
+                                    const input = i + 1;
+                                    return (
+                                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                            <FaStar
+                                                key={i}
+                                                size={25}
+                                                isFilled={review.rating}
+                                                style={{
+                                                    marginRight: 10
+                                                }}
+                                                color={i <= (review.rating - 1) ? colors.yellow : colors.gray}
+                                            ></FaStar>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
                         <div style={{ marginTop: '4px' }} className="reviews-list-comment-div-wrapper">
                             <div className="review-list-username" style={{
                                 marginRight: '3px',
