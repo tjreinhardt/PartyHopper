@@ -7,7 +7,7 @@ import NavBar from "../NavBar";
 import '../../styles/EventDetail.css'
 import GetReviews from "../reviews/ReviewList"
 import CreateReviewForm from "../reviews/CreateReview";
-import { Rating } from "react-simple-star-rating";
+import { FaStar } from 'react-icons/fa'
 
 
 
@@ -16,12 +16,19 @@ const EventDetail = () => {
   const { eventId } = useParams();
   const reviews = useSelector(state => state.review)
   const history = useHistory()
+  const [rating, setRating] = useState(0)
   const event = useSelector(state => state.event[eventId]);
   const session = useSelector(state => state.session.user);
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const reviewsList = Object.values(reviews)
 
+  const colors = {
+    'yellow': "rgb(219, 142, 0)",
+    'gray': "#a9a9a9"
+  }
+
+  const rate = Array(5).fill(0)
 
   useEffect(() => {
     dispatch(getEventDetailThunk(eventId)).then(() => setEventIsLoaded(true));
@@ -61,20 +68,20 @@ const EventDetail = () => {
 
   const averageReviews = (reviewsList) => {
     let sum = 0;
-    if (!reviewsList.length) return 0;
-    if (reviewsList.length === 2) return ((reviewsList[0].rating + reviewsList[1].rating) / 2)
+    if (reviewsList.length === 0) return
+    if (reviewsList.length === 1) return reviewsList[0].rating - 1
+    if (reviewsList.length === 2) return (((reviewsList[0].rating - 1) + reviewsList[1].rating) / 2)
     else {
       for (let i = 0; i < reviewsList.length; i++) {
         sum += reviewsList[i].rating
         i++
       }
-      return (sum / reviewsList.length).toFixed(2)
+      return ((sum / reviewsList.length)).toFixed(2)
     }
   }
 
   const timeConversion = (startTime) => {
     let parts = startTime.split(":")
-    // console.log(parts)
     if (parts[0] > 12) {
       return `${(parts[0]) - 12}:${parts[1]} PM`
     } else return `${startTime} AM`
@@ -91,25 +98,22 @@ const EventDetail = () => {
       removeZeroes.shift()
       removeZeroes = removeZeroes[0]
     } else removeZeroes = month
-    // console.log(removeZeroes, 'removeZeroes')
 
     let monthsNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     console.log(removeZeroes, "removeZeroes")
-    // console.log(months[10], "months[10]")
     console.log(monthsNumber[10] - 2, "monthsNumber[10] - 1")
     for (let i = 0; i < months.length; i++) {
-      if (`${monthsNumber[i]}` == removeZeroes) {
+      if (`${monthsNumber[i]}` === removeZeroes) {
         return `${months[i]} ${day}, ${year}`
       }
     }
-    // let day = parts[2]
-    // return
   }
 
 
 
 
+  console.log(averageReviews(reviewsList))
 
   return (eventIsLoaded && event && <>
     <NavBar />
@@ -127,14 +131,26 @@ const EventDetail = () => {
             textTransform: 'capitalize'
           }} className={"event-detail-name-div"}>{event.name}</div>
           <div className={"event-detail-rating-reviews-content-div"}>
-            <Rating
-              // className="overall-rating-stars"
-              initialValue={0}
-              ratingValue={averageReviews(reviewsList)}
-              transition={true}
-              allowHover={false}
-              readonly={true}
-            />
+            <div className='star-chart-wrapper'>
+              <div className='star-chart-inner-div' style={{ display: 'flex' }}>
+                {rate.map((_, i) => {
+                  const input = i + 1;
+                  return (
+                    <div style={{ display: 'flex', flexDirection: 'row' }}>
+                      <FaStar
+                        key={i}
+                        size={30}
+                        isFilled={averageReviews(reviewsList)}
+                        style={{
+                          marginRight: 10
+                        }}
+                        color={i <= (averageReviews(reviewsList)) ? colors.yellow : colors.gray}
+                      ></FaStar>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
             <div style={{
               display: 'flex',
               justifyContent: 'flex-start',
@@ -150,9 +166,6 @@ const EventDetail = () => {
           </div>
 
         </div>
-        {/* <div>Create Review
-        <CreateReviewForm eventId={eventId} />
-      </div> */}
       </div>
       <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
         {showButton && (<div className="event-detail-buttons">

@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { createReviewThunk } from "../../store/review";
-import { Rating } from 'react-simple-star-rating';
 import { useHistory } from "react-router-dom";
+import { FaStar } from 'react-icons/fa'
 
 
 
@@ -18,13 +18,22 @@ const CreateReviewForm = ({ eventId }) => {
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
     const [errors, setErrors] = useState([])
+    const [onHoverRating, setOnHoverRating] = useState(null);
 
-
-
-
-    const handleRating = (rate) => {
-        setRating(rate)
+    const colors = {
+        'yellow': "rgb(219, 142, 0)",
+        'gray': "#a9a9a9"
     }
+    const rate = Array(5).fill(0)
+    const handleMouseover = value => {
+        setOnHoverRating(value)
+    };
+    const handleMousoverExit = () => {
+        setOnHoverRating(null)
+    };
+
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -64,13 +73,30 @@ const CreateReviewForm = ({ eventId }) => {
             <form onSubmit={handleSubmit} className="create-review-form">
                 <div>
                     <div>
-                        <Rating
-                            value={rating}
-                            onClick={handleRating}
-                            showTooltip
-                            fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
-                            tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}
-                        />
+                        <div className='star-chart-wrapper'>
+                            <div className='star-chart-inner-div' style={{ display: 'flex' }}>
+                                {rate.map((_, i) => {
+                                    const input = i + 1;
+                                    return (
+                                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                            <FaStar
+                                                key={i}
+                                                size={30}
+                                                style={{
+                                                    marginRight: 10,
+                                                    cursor: 'pointer'
+                                                }}
+                                                color={input <= (rating || onHoverRating) ? colors.yellow : colors.gray}
+
+                                                onClick={() => setRating(input)}
+                                                onMouseEnter={() => handleMouseover(input)}
+                                                onMouseLeave={handleMousoverExit}
+                                            ></FaStar>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
                     </div>
                     <input
                         type={'textarea'}
