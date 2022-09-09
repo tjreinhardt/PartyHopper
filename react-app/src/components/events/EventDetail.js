@@ -16,7 +16,7 @@ const EventDetail = () => {
   const { eventId } = useParams();
   const reviews = useSelector(state => state.review)
   const history = useHistory()
-  const [rating, setRating] = useState(0)
+  // const [rating, setRating] = useState(0)
   const event = useSelector(state => state.event[eventId]);
   const session = useSelector(state => state.session.user);
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
@@ -133,9 +133,9 @@ const EventDetail = () => {
           }} className={"event-detail-name-div"}>{event.name}</div>
           <div className={"event-detail-rating-reviews-content-div"}>
             <div className='star-chart-wrapper'>
-              <div className='star-chart-inner-div' style={{ display: 'flex' }}>
+              <div className='star-chart-inner-div' style={{ display: 'flex', marginBottom: '10px' }}>
                 {rate.map((_, i) => {
-                  const input = i + 1;
+                  // const input = i + 1;
                   return (
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                       <FaStar
@@ -177,8 +177,7 @@ const EventDetail = () => {
             marginTop: '10px',
             marginRight: '8px',
             width: '150px',
-            marginLeft: '5%',
-            marginTop: '10px',
+            marginLeft: '5%'
           }} onClick={() => setEditModal(true)}>Edit Event</button>
           <button style={{
             fontWeight: '800',

@@ -37,19 +37,17 @@ const CreateReviewForm = ({ eventId }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (errors.length === 0) {
-            history.push(`/events/${eventId}`)
-            setShowModal(showModal)
-
-        }
         const review = {
             rating,
             comment,
             eventId: eventId,
             userId: session.id
-        }
-        if (errors) {
-            return dispatch(createReviewThunk(eventId, review))
+        };
+
+        if (!errors.length) {
+            dispatch(createReviewThunk(eventId, review))
+            history.push(`/events/${eventId}`)
+            setShowModal(showModal)
 
         }
 
@@ -60,8 +58,10 @@ const CreateReviewForm = ({ eventId }) => {
     useEffect(() => {
         let errors = [];
         if (rating === 0) errors.push("Please rate the event")
-        if (comment.length === 0) errors.push("Please provide a review")
-        if (comment.length < 10) errors.push("Review is too short (10 characters minimum)")
+        // if (comment.length === 0) errors.push("Please provide a review")
+        if (comment.trim().length < 10 && comment.trim().length >= 1) errors.push("Review is too short (10 characters minimum)")
+        if (comment.trim().length > 500) errors.push("Review is too long (500)")
+        if (comment.trim().length === 0) errors.push("Please provide a review")
         setErrors(errors)
     }, [rating, comment])
 
@@ -107,16 +107,16 @@ const CreateReviewForm = ({ eventId }) => {
                     />
                 </div>
                 <div>
-                    <button className="login-button" style={{
+                    <button type="submit" className="login-button" style={{
                         width: '420px',
                         height: '35px',
                         marginBottom: '12px'
                     }}>Post</button>
-                </div>
-                <div style={{ textAlign: 'center' }}>
-                    {errors.map((error, idx) => (
-                        <div style={{ color: 'red' }} key={idx} >*{error}</div>
-                    ))}
+                    <div style={{ textAlign: 'center' }}>
+                        {errors.map((error, idx) => (
+                            <div style={{ color: 'red' }} key={idx} >*{error}</div>
+                        ))}
+                    </div>
                 </div>
 
             </form>
