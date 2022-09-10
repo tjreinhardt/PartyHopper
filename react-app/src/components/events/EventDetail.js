@@ -113,7 +113,7 @@ const EventDetail = () => {
 
 
 
-  console.log(averageReviews(reviewsList))
+  // console.log(averageReviews(reviewsList))
 
   return (eventIsLoaded && event && <>
     <NavBar />
