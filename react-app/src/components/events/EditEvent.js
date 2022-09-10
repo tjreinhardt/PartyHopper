@@ -8,13 +8,14 @@ const EditEventForm = ({ event, hideModal }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [name, setName] = useState(event.name)
-  const [description, setDescription] = useState(event.description)
-  const [imageUrl, setImageUrl] = useState(event.imageUrl)
+  const [name, setName] = useState(event.name.trim())
+  const [description, setDescription] = useState(event.description.trim())
+  const [imageUrl, setImageUrl] = useState(event.imageUrl.trim())
   const [eventType, setEventType] = useState(event.eventType)
   const [entertainment, setEntertainment] = useState(event.entertainment)
   const [startDate, setStartDate] = useState(event.startDate)
   const [startTime, setStartTime] = useState(event.startTime)
+
   // const [lat, setLat] = useState(event.lat)
   // const [lng, setLng] = useState(event.lng)
   const [errors, setErrors] = useState([])
@@ -62,11 +63,11 @@ const EditEventForm = ({ event, hideModal }) => {
     let errors = [];
     // if (!name) errors.push("Please name your event")
     if (name.trim().length === 0) errors.push("Please enter your event name")
-    if (name.trim().length > 50) errors.push("Name length exceeds max limit")
+    if (name.trim().length > 50) errors.push("Name is too long")
     if (description.trim().length === 0) errors.push("Please enter a description for your event")
-    if (description.trim().length > 500) errors.push("Description length exceeds max limit")
+    if (description.trim().length > 500) errors.push("Description is too long")
     if (imageUrl.trim().length === 0) errors.push("Please upload an image for your event")
-    if (imageUrl.trim().length > 500) errors.push("Image URL length exceeds max limit")
+    if (imageUrl.trim().length > 500) errors.push("Your Image URL Address is too long")
     if (!eventType || eventType === 'None') errors.push("Please enter a category for your event")
     if (!entertainment || entertainment === 'None') errors.push("Please select entertainment type")
     if (!startDate) errors.push("Please add a date for your event");
@@ -86,7 +87,8 @@ const EditEventForm = ({ event, hideModal }) => {
             width: '320px',
             textAlign: 'center',
             fontWeight: '600',
-            color: 'red'
+            color: 'red',
+            marginTop: '5%'
           }}>** An event may be scheduled to start at ANY time, so long as it's <span style={{
             textDecoration: 'underline',
             fontWeight: '550'
@@ -98,7 +100,7 @@ const EditEventForm = ({ event, hideModal }) => {
             <input
               type={'text'}
               placeholder={"Event Name"}
-              value={name}
+              value={name.trim()}
               onChange={e => setName(e.target.value)}
             />
           </div>

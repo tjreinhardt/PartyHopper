@@ -13,11 +13,9 @@ create-event-form-form {
     padding: 5px;
 }
 
-input {
 
-}
 
-button{
+button {
     height: 43px;
     width: 100px;
     color: white;

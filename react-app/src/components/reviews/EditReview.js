@@ -9,7 +9,7 @@ import { FaStar } from 'react-icons/fa'
 
 
 
-const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
+const EditReviewForm = ({ eventId, id, showModal, setShowModal, review, event }) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const session = useSelector(state => state.session.user);
@@ -65,10 +65,10 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review }) => {
     useEffect(() => {
         let errors = [];
         if (rating === 0) errors.push("Please rate the event")
-        if (comment.length === 0) errors.push("Please provide a review")
+        // if (comment.length === 0) errors.push("Please provide a review")
         if (comment.trim().length < 10 && comment.trim().length >= 1) errors.push("Review is too short (10 characters minimum)")
         if (comment.trim().length > 500) errors.push("Review is too long (500)")
-        if (comment.trim().length === 0) errors.push("Review cannot be blank")
+        if (comment.trim().length === 0) errors.push("Please provide a review")
         setErrors(errors)
     }, [rating, comment])
 

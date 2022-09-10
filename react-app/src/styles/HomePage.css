@@ -31,6 +31,8 @@
     color: black;
 }
 
+
+
 .carousel-content-div {
     height: 682px;
     overflow-x: hidden;
@@ -43,9 +45,11 @@
 }
 
 
+
 img {
     width: 208px;
     height: 100%;
+    border-right: 1px solid gray;
     max-width: 208x;
     max-height: 202px;
     /* object-fit: cover; */
@@ -56,6 +60,11 @@ img {
 .event-description-div {
     font-size: 24px;
     position: relative;
+}
+
+.welcome-user-home {
+    background: linear-gradient(to top, black, transparent);
+    width: 100%;
 }
 
 .event-name-div {
