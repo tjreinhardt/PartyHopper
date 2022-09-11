@@ -19,7 +19,7 @@ const EventDetail = () => {
   // const [rating, setRating] = useState(0)
   const event = useSelector(state => state.event[eventId]);
   const session = useSelector(state => state.session.user);
-  console.log(session, 'session')
+  // console.log(session, 'session')
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const reviewsList = Object.values(reviews)
@@ -102,8 +102,8 @@ const EventDetail = () => {
 
     let monthsNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    console.log(removeZeroes, "removeZeroes")
-    console.log(monthsNumber[10] - 2, "monthsNumber[10] - 1")
+    // console.log(removeZeroes, "removeZeroes")
+    // console.log(monthsNumber[10] - 2, "monthsNumber[10] - 1")
     for (let i = 0; i < months.length; i++) {
       if (`${monthsNumber[i]}` === removeZeroes) {
         return `${months[i]} ${day}, ${year}`
@@ -114,7 +114,7 @@ const EventDetail = () => {
 
 
 
-  console.log(averageReviews(reviewsList), "averageReviews(reviewsList)")
+  // console.log(averageReviews(reviewsList), "averageReviews(reviewsList)")
 
   return (eventIsLoaded && event && <>
     <NavBar />

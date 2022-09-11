@@ -200,7 +200,7 @@ def create_reviews(eventId):
 
 
 #Update a review
-@event_routes.route('/<int:eventId>/reviews/<int:reviewId>/edit', methods=["PUT"])
+@event_routes.route('/<int:eventId>/reviews/<int:reviewId>/edit', methods=["PATCH"])
 # @login_required
 def update_reviews(eventId, reviewId):
     event = Event.query.get(eventId)
@@ -211,35 +211,22 @@ def update_reviews(eventId, reviewId):
     if not review:
         return {'errors': ['review can not be found']}, 404
 
-    # if review.userId != current_user.id:
-    #     return {"errors": ['Unauthorized']}, 401
+    if review.userId != current_user.id:
+        # review.userId = current_user.id
+        print(review.userId, "------------------------------------------------review.userId")
+        print(current_user.id, "------------------------------------------------current_user.id")
+        return {"errors": ['Unauthorized']}, 401
 
     form = ReviewForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # if form.validate_on_submit():
-    # print(review.rating, '--------------------review.rating')
-    review.rating=(form.data['rating'])
-    review.comment=(form.data['comment'])
-    review.userId=current_user.id
-    review.eventId=eventId
-    db.session.commit()
-        # rsvp_status = list(filter(lambda user: user.id==current_user.id, review.review_rsvp_users))
-    res = review.to_dict()
-    # print(res)
-        # res["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
-        # res = {
-        #     "id": review.id,
-        #     "userId": review.userId,
-        #     "content": review.content,
-        #     "createdAt": review.created_at,
-        #     "user": {
-        #         "profileImage":review.user.imageUrl,
-        #         "username":review.user.username
-        #     },
-        #     "totalLikes":len(review.review_rsvp_users),
-        #     "rsvpStatus": True if len(rsvp_status) > 0 else False
-        # }
-    return res
+    if form.validate_on_submit():
+        review.rating=(form.data['rating'])
+        review.comment=(form.data['comment'])
+        review.userId=current_user.id
+        review.eventId=eventId
+        db.session.commit()
+        res = review.to_dict()
+        return res
     # return  {'errors': ['content is required']}, 400
 
 

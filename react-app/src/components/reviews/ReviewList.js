@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getReviewsThunk, deleteReviewThunk } from "../../store/review";
 import EditReviewForm from "./EditReview";
@@ -16,7 +16,10 @@ const GetReviews = ({ eventId }) => {
     const [showModal, setShowModal] = useState(false);
     const session = useSelector(state => state.session.user);
     const [reviewsIsLoaded, setReviewsIsLoaded] = useState(false);
+    const [hoveredReviewId, setHoveredReviewId] = useState(null)
+    // const [sessionUser, setSessionUser] = useState(session.id)
     const reviewsList = Object.values(reviews)
+
 
     const colors = {
         'yellow': "rgb(219, 142, 0)",
@@ -26,11 +29,36 @@ const GetReviews = ({ eventId }) => {
 
     const rate = Array(5).fill(0)
 
+    const shouldChangeCurrentId = (currentId) => {
+        if (!hoveredReviewId) {
+            return true
+        };
+        if (hoveredReviewId && hoveredReviewId !== Number(currentId)) {
+            return true
+        }
+        return false
+    }
+
 
     useEffect(() => {
         dispatch(getReviewsThunk(eventId)).then(() => setReviewsIsLoaded(true))
     }, [dispatch, showModal, eventId])
 
+    useEffect(() => {
+        console.log('hoveredReviewId', hoveredReviewId)
+    }, [hoveredReviewId])
+
+    const handleOnMouseOver = useCallback(event => {
+        let { id } = event.currentTarget;
+        // let reviewId = Number(document.querySelector('div.review-list-review-container').getAttribute('id'))
+        // console.log('reviewId from document querySelector', reviewId)
+        if (shouldChangeCurrentId(id)) {
+            setHoveredReviewId(Number(id))
+        }
+    })
+    const handleOnMouseLeave = useCallback(event => {
+        console.log('mouseLeave::Event', event)
+    })
 
 
     const handleDelete = async (eventId, reviewId) => {
@@ -89,7 +117,7 @@ const GetReviews = ({ eventId }) => {
         <div className="review-details-container">
             {reviewsList.map((review) =>
             (
-                <div key={review.id} className="review-list-review-container">
+                <div id={review.id} onMouseOver={handleOnMouseOver} key={review.id} className="review-list-review-container">
                     <div className="review-list-username-content">
                         <div style={{
                             fontSize: '20px',
@@ -147,8 +175,8 @@ const GetReviews = ({ eventId }) => {
                             }} className="delete-review-button" onClick={() => handleDelete(eventId, review.id)}>Delete</button>}
                         </div>
                     </div>
-                    {showModal && (<Modal onClose={() => setShowModal(false)}>
-                        <EditReviewForm id={review.id} eventId={Number(eventId)} showModal={showModal} setShowModal={setShowModal} />
+                    {showModal && !!hoveredReviewId && (<Modal onClose={() => setShowModal(false)}>
+                        <EditReviewForm id={hoveredReviewId} userId={session?.id} eventId={Number(eventId)} showModal={showModal} setShowModal={setShowModal} />
                     </Modal>)}
                 </div>)
             )}

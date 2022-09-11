@@ -9,24 +9,59 @@ import { FaStar } from 'react-icons/fa'
 
 
 
-const EditReviewForm = ({ eventId, reviewId, id, showModal, setShowModal, event }) => {
+const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
+
     const dispatch = useDispatch()
     const history = useHistory()
     const session = useSelector(state => state.session.user);
     const review = useSelector(state => state.review)
     const review_ = Object.values(review)
-
-    const reviewList = review_.filter((rev) => rev.userId === session.id)
-    console.log(reviewList)
-
-
-
-    // console.log(reviewNumber(), 'reviewtest')
-
-    const [rating, setRating] = useState(reviewList[0].rating)
-    const [comment, setComment] = useState(reviewList[0].comment)
+    const user = useSelector(state => state?.session?.user);
+    // console.log('review_    ------', review_)
     const [errors, setErrors] = useState([])
     const [onHoverRating, setOnHoverRating] = useState(null);
+
+    let rev = review_.filter(rev => {
+        return (rev?.eventId === Number(eventId) && rev?.userId === user.id)
+    })
+
+    rev = rev[0]
+    // const user = useSelector(state => state?.session?.user);
+
+    // const reviewList = review_.filter((rev) => {
+    //     // console.log('rev.userId', rev?.userId)
+    //     // const result = rev?.userId === userId
+    //     const result = (rev?.eventId === Number(eventId) && rev?.userId === userId)
+    //     console.log('return from filter function', result)
+    //     return result
+    // })
+    const [rating, setRating] = useState(0)
+    const [comment, setComment] = useState('')
+    // console.log(reviewList)
+
+    const reviewFinder = (review_) => {
+        let result;
+        for (let i = 0; i < review_.length; i++) {
+            if (review_[i].userId === session?.id) {
+                result = review_[i].userId
+            }
+            console.log('result', result)
+            return result
+        }
+    }
+
+    reviewFinder(review_)
+    // for (let i = 0; i < review_.length; i++) {
+    //     if (review[i].userId === session?.id) {
+    //         return review[i].userId
+    //     }
+    // }
+
+
+    useEffect(() => {
+        dispatch(getReviewsThunk(eventId))
+    }, [dispatch, eventId, userId])
+
 
 
     const colors = {
@@ -35,34 +70,54 @@ const EditReviewForm = ({ eventId, reviewId, id, showModal, setShowModal, event 
     }
 
     const rate = Array(5).fill(0)
+
+
+    // const [editRating, setEditRating] = useState(review?.rating);
+    // const [editContent, setEditContent] = useState(review?.comment)
     const handleMouseover = value => {
         setOnHoverRating(value)
     };
     const handleMousoverExit = () => {
         setOnHoverRating(null)
     };
-    useEffect(() => {
-        dispatch(getReviewsThunk(eventId))
-    }, [dispatch, eventId])
 
 
 
+    console.log('reviewList', review_)
+    console.log('session?.id', session?.id)
+    console.log('userId ------------------', userId)
+    // console.log(' ------',)
+    // console.log('review?.id', review.user.id)
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        let result;
+        for (let i = 0; i < review_.length; i++) {
+            if (review_[i].userId === session?.id) {
+                result = review_[i].userId
+            }
+            console.log('result', result)
+            userId = result
+        }
+        // if (session?.id !== result) {
+        console.log('session?.id', session?.id)
+        console.log('result', result)
+
         const newReview = {
-            id: id,
+            id: rev?.id,
             rating,
             comment,
             eventId: eventId,
             userId: session?.id
         }
+        console.log('newReview ===================================', newReview)
 
-        if (!errors.length) {
+        if (session?.id === userId) {
             dispatch(updateReviewThunk(newReview))
             history.push(`/events/${eventId}`)
             setShowModal(!showModal)
+            // }
         }
 
     }
@@ -71,6 +126,7 @@ const EditReviewForm = ({ eventId, reviewId, id, showModal, setShowModal, event 
         if (rating === 0) errors.push("Please rate the event")
         // if (session.id !== reviewList[0].userId) errors.push('fuck')
         // if (comment.length === 0) errors.push("Please provide a review")
+        if (session?.id !== userId) errors.push("Cannot edit another users review")
         if (comment.trim().length < 10 && comment.trim().length >= 1) errors.push("Review is too short (10 characters minimum)")
         if (comment.trim().length > 500) errors.push("Review is too long (500)")
         if (comment.trim().length === 0) errors.push("Please provide a review")
