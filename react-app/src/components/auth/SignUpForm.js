@@ -43,6 +43,7 @@ const SignUpForm = () => {
     let errors = [];
     if (email.trim().length === 0) errors.push("Enter your email")
     if (email.trim().length > 255) errors.push("Email is too long")
+    if (!email.includes("@") || !email.includes(".")) errors.push("Email seems to be invalid, must contain '@' and ' . '")
     if (username.trim().length === 0) errors.push("Enter a username")
     if (username.trim().length > 40) errors.push("Username is too long")
     if (password.trim().length === 0) errors.push("Enter a password")

@@ -1,18 +1,25 @@
-/* .event-card {
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: ;
-} */
+.homepage-rate-button {
+    border: 1px solid transparent;
+    background-color: red;
+    color: white;
+    border-radius: 4px;
+    padding: 5%;
+    width: 80px;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 16px;
+    transition: all 0.4s;
+}
+
+.homepage-rate-button:hover {
+    background-color: rgb(255, 101, 101);
+}
 
 .content-wrapper {
-    /* position: relative;
-    top: 100px; */
     display: grid;
     grid-template-columns: 1fr 1fr;
     max-width: 1224px;
     position: relative;
-    /* justify-content: center; */
-    /* align-items: center; */
 }
 
 .event-card {
@@ -26,7 +33,7 @@
     flex-direction: row;
     /* flex-wrap: wrap; */
     transition: all 0.3s;
-    cursor: pointer;
+    /* cursor: pointer; */
     text-decoration: none;
     color: black;
 }

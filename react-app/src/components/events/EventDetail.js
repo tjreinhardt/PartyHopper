@@ -19,6 +19,7 @@ const EventDetail = () => {
   // const [rating, setRating] = useState(0)
   const event = useSelector(state => state.event[eventId]);
   const session = useSelector(state => state.session.user);
+  // console.log(session, 'session')
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const reviewsList = Object.values(reviews)
@@ -71,13 +72,17 @@ const EventDetail = () => {
     if (reviewsList.length === 0) return
     if (reviewsList.length === 1) return reviewsList[0].rating - 1
     if (reviewsList.length === 2) return (((reviewsList[0].rating - 1) + reviewsList[1].rating) / 2)
-    else {
+    if (reviewsList.length >= 3) {
+      let newArray = []
       for (let i = 0; i < reviewsList.length; i++) {
-        sum += reviewsList[i].rating
-        i++
+        newArray.push(reviewsList[i].rating)
+        console.log('newArray from for looooop', newArray)
+        let newValue = reviewsList[i].rating
+        sum += newValue
       }
-      return ((sum / reviewsList.length)).toFixed(2)
+      return sum / reviewsList.length - 1
     }
+    return ((sum / reviewsList.length)).toFixed(2)
   }
 
   const timeConversion = (startTime) => {
@@ -101,8 +106,8 @@ const EventDetail = () => {
 
     let monthsNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    console.log(removeZeroes, "removeZeroes")
-    console.log(monthsNumber[10] - 2, "monthsNumber[10] - 1")
+    // console.log(removeZeroes, "removeZeroes")
+    // console.log(monthsNumber[10] - 2, "monthsNumber[10] - 1")
     for (let i = 0; i < months.length; i++) {
       if (`${monthsNumber[i]}` === removeZeroes) {
         return `${months[i]} ${day}, ${year}`
@@ -113,7 +118,7 @@ const EventDetail = () => {
 
 
 
-  // console.log(averageReviews(reviewsList))
+  // console.log(averageReviews(reviewsList), "averageReviews(reviewsList)")
 
   return (eventIsLoaded && event && <>
     <NavBar />
@@ -211,8 +216,11 @@ const EventDetail = () => {
       <div>
         {session.id !== event.userId && sessionLinks}
       </div>
-      <div>
+      <div style={{ marginTop: '24px' }}>
         <GetReviews eventId={eventId} />
+      </div>
+      <div style={{ marginBottom: '12%' }}>
+
       </div>
 
 

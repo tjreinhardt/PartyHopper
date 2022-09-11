@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import fallback from "../Assets/groups-and-parties-christmas-party.jpeg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import * as eventActions from '../store/event'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -8,14 +8,17 @@ import NavBar from "./NavBar";
 import { useSpringCarousel } from 'react-spring-carousel';
 import '../styles/HomePage.css'
 import { FaStar } from 'react-icons/fa'
+import { getReviewsThunk } from "../store/review";
 // import { getReviewsThunk } from "../store/review";
 
 const HomePage = ({ eventId, event, showModal }) => {
-  // const { startDate } = useParams()
+  const history = useHistory()
   const dispatch = useDispatch()
+
   const user = useSelector(state => state.session.user);
-  const reviews = useSelector(state => state.review)
+  const reviews = useSelector(state => state?.review)
   const events = Object.values(useSelector(state => state.event))
+  const eventsList = Object.values(events)
   const [imageError, setImageError] = useState(false);
   // const [imageUrl, setImageUrl] = useState()
   const [fallbacks, setFallBacks] = useState(fallback)
@@ -23,7 +26,16 @@ const HomePage = ({ eventId, event, showModal }) => {
   const [rating, setRating] = useState(0)
 
   const [onHoverRating, setOnHoverRating] = useState(null);
+
+  const randomNum = Math.random(0, 5)
+  console.log('randomNum', randomNum)
   // const onError = () => setImageSrc(fallback)
+
+
+  // console.log(, "eventId")
+  // const getAverage = (eventId) => {
+
+  // }
 
   const colors = {
     'yellow': "rgb(219, 142, 0)",
@@ -31,6 +43,11 @@ const HomePage = ({ eventId, event, showModal }) => {
   }
 
   const rate = Array(5).fill(0)
+
+  const getAvrg = (eventId) => {
+    const reviewArr = reviewsList.filter(review => review.eventId === eventId)
+    console.log(reviewArr, 'reviewArr')
+  }
 
   const averageReviews = (reviewsList) => {
     let sum = 0;
@@ -42,8 +59,9 @@ const HomePage = ({ eventId, event, showModal }) => {
         sum += reviewsList[i].rating
         i++
       }
-      return ((sum / reviewsList.length)).toFixed(2)
+      var average = ((sum / reviewsList.length)).toFixed(2)
     }
+    return average
   }
 
   const images = [
@@ -112,33 +130,16 @@ const HomePage = ({ eventId, event, showModal }) => {
 
   useEffect(() => {
     dispatch(eventActions.getAllEventsThunk())
-    // dispatch(getReviewsThunk())
+    dispatch(getReviewsThunk(eventId))
   }, [dispatch])
 
-  // const getAverageRating = (eventId) => {
-  //   console.log(reviewsList, 'reviewsList----------------')
-  //   const reviewsData = reviewsList.filter(review => review.eventId === eventId)
-  //   console.log(reviewsData, 'reviewsData----------------')
-  //   const eventRating = reviewsData.map(review => review.rating)
-  //   console.log(eventRating)
-  //   const averageEventRating = (eventRating.reduce((a, b) => a + b, 0) / eventRating.length)
-  //   console.log(averageEventRating)
-  //   const result = Math.floor(Number(averageEventRating))
-  //   console.log(result)
-  //   return result
-  // }
-  // getAverageRating()
 
-
-  // if (!event) {
-  //   return
-  // }
 
   let content;
   if (!showModal) {
     content = (
       <div>
-        <div className={'welcome-user-home'} style={{ zIndex: '1', position: 'absolute', top: '418px', color: 'white', fontSize: '72px', fontWeight: '700', textAlign: 'center', paddingBottom: '100px' }}>Welcome Home, <br />{user.username}!</div>
+        <div className={'welcome-user-home'} style={{ zIndex: '1', textTransform: 'capitalize', position: 'absolute', top: '418px', color: 'white', fontSize: '72px', fontWeight: '700', textAlign: 'center', paddingBottom: '100px' }}>Welcome Home, <br />{user.username}!</div>
       </div>
     )
   } else {
@@ -151,6 +152,10 @@ const HomePage = ({ eventId, event, showModal }) => {
   const handleMousoverExit = () => {
     setOnHoverRating(null)
   };
+
+  const handleRedirect = () => {
+    history.push(`/events/${eventId}`)
+  }
 
   return (user &&
     <> <NavBar />
@@ -170,17 +175,12 @@ const HomePage = ({ eventId, event, showModal }) => {
           {events &&
             events.map(event =>
               <div key={event.id} to={`/events/${event.id}`} className="event-card">
-                {/* <img
-                  src={!fallback ? fallbacks : event.imageUrl}
-                  // style={{ backgroundImage: `${event.imageUrl}` ? `url(${event.imageUrl})` : `${event.imageUrl = 'https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg'}` }}
-                  // style={{ backgroundImage: `${event.imageUrl}` ? `url(${event.imageUrl})` : `${event.imageUrl = 'https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg'}` }}
-                  alt=''
-                  onError={() => setImageError(true)}
-                ></img> */}
-                <img className='event_image' onError={({ target }) => {
-                  target.onError = null
-                  target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
-                }} src={event.imageUrl}></img>
+                <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
+                  <img className='event_image' onError={({ target }) => {
+                    target.onError = null
+                    target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
+                  }} src={event.imageUrl}></img>
+                </NavLink>
                 <br></br>
                 <div className="event-content-wrapper">
 
@@ -189,36 +189,17 @@ const HomePage = ({ eventId, event, showModal }) => {
                   </NavLink>
                   <div className='star-chart-wrapper'>
                     <div className='star-chart-inner-div' style={{ display: 'flex', marginBottom: '10px' }}>
-                      {rate.map((_, i) => {
-                        const input = i + 1;
-                        return (
-                          <div style={{ display: 'flex', flexDirection: 'row' }}>
-                            <FaStar
-                              key={i}
-                              size={30}
-                              isFilled={averageReviews(reviewsList)}
-                              style={{
-                                marginRight: 10
-                              }}
-                              color={input <= (rating || onHoverRating) ? colors.yellow : colors.gray}
-                              onClick={() => setRating(input)}
-                              onMouseEnter={() => handleMouseover(input)}
-                              onMouseLeave={handleMousoverExit}
-                            ></FaStar>
-                          </div>
-                        )
-                      })}
+                      {/* {rate.map((_, i) => { */}
+                      {/* // const input = i + 1; */}
+                      {/* return ( */}
+                      <NavLink to={`/events/${event.id}`} style={{ display: 'flex', flexDirection: 'row', textDecoration: 'none' }}>
+                        <div className="homepage-rate-button">Rate</div>
+                      </NavLink>
+                      {/* ) */}
+                      {/* })} */}
                     </div>
-
                   </div>
                 </div>
-                {/* <NavLink to={`/events/${event.id}`}> */}
-                {/* <Rating
-                    value={getAverageRating}
-                    readonly={true}
-                    allowHover={false}
-                  ></Rating> */}
-                {/* </NavLink> */}
               </div>
             ).reverse()
           }

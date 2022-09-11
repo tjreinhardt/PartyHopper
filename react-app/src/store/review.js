@@ -82,7 +82,7 @@ export const deleteReviewThunk = (eventId, reviewId) => async dispatch => {
 
 export const updateReviewThunk = (newReview) => async (dispatch) => {
   const res = await fetch(`/api/events/${newReview.eventId}/reviews/${newReview.id}/edit`, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(newReview),
   });
