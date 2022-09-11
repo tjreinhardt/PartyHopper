@@ -72,13 +72,17 @@ const EventDetail = () => {
     if (reviewsList.length === 0) return
     if (reviewsList.length === 1) return reviewsList[0].rating - 1
     if (reviewsList.length === 2) return (((reviewsList[0].rating - 1) + reviewsList[1].rating) / 2)
-    else {
+    if (reviewsList.length >= 3) {
+      let newArray = []
       for (let i = 0; i < reviewsList.length; i++) {
-        sum += reviewsList[i].rating
-        i++
+        newArray.push(reviewsList[i].rating)
+        console.log('newArray from for looooop', newArray)
+        let newValue = reviewsList[i].rating
+        sum += newValue
       }
-      return ((sum / reviewsList.length)).toFixed(2)
+      return sum / reviewsList.length - 1
     }
+    return ((sum / reviewsList.length)).toFixed(2)
   }
 
   const timeConversion = (startTime) => {
