@@ -34,7 +34,7 @@ const CreateEventForm = ({ hideModal }) => {
 
   const getTodaysDate = () => {
     let today = new Date();
-    let todays_day = new Date().getDay() + 5;
+    let todays_day = new Date().getDay() + 13;
     // console.log('todays_day', todays_day)
     if (todays_day < 10) todays_day = `0${todays_day}`
     let todays_month = new Date().getMonth() + 1;

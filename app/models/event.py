@@ -51,7 +51,7 @@ class Event(db.Model):
       # "lat": self.lat,
       # "lng": self.lng,
       "totalRsvps": len(self.event_rsvp_users),
-      "totalReviews": len(self.reviews)
+      "totalReviews": len(self.reviews),
       # "user": {
       #     "profileImage":self.user.profileImage,
       #     "username":self.user.username,

@@ -8,14 +8,17 @@ import NavBar from "./NavBar";
 import { useSpringCarousel } from 'react-spring-carousel';
 import '../styles/HomePage.css'
 import { FaStar } from 'react-icons/fa'
+import { getReviewsThunk } from "../store/review";
 // import { getReviewsThunk } from "../store/review";
 
 const HomePage = ({ eventId, event, showModal }) => {
   const history = useHistory()
   const dispatch = useDispatch()
+
   const user = useSelector(state => state.session.user);
-  const reviews = useSelector(state => state.review)
+  const reviews = useSelector(state => state?.review)
   const events = Object.values(useSelector(state => state.event))
+  const eventsList = Object.values(events)
   const [imageError, setImageError] = useState(false);
   // const [imageUrl, setImageUrl] = useState()
   const [fallbacks, setFallBacks] = useState(fallback)
@@ -23,7 +26,16 @@ const HomePage = ({ eventId, event, showModal }) => {
   const [rating, setRating] = useState(0)
 
   const [onHoverRating, setOnHoverRating] = useState(null);
+
+  const randomNum = Math.random(0, 5)
+  console.log('randomNum', randomNum)
   // const onError = () => setImageSrc(fallback)
+
+
+  // console.log(, "eventId")
+  // const getAverage = (eventId) => {
+
+  // }
 
   const colors = {
     'yellow': "rgb(219, 142, 0)",
@@ -31,6 +43,11 @@ const HomePage = ({ eventId, event, showModal }) => {
   }
 
   const rate = Array(5).fill(0)
+
+  const getAvrg = (eventId) => {
+    const reviewArr = reviewsList.filter(review => review.eventId === eventId)
+    console.log(reviewArr, 'reviewArr')
+  }
 
   const averageReviews = (reviewsList) => {
     let sum = 0;
@@ -42,8 +59,9 @@ const HomePage = ({ eventId, event, showModal }) => {
         sum += reviewsList[i].rating
         i++
       }
-      return ((sum / reviewsList.length)).toFixed(2)
+      var average = ((sum / reviewsList.length)).toFixed(2)
     }
+    return average
   }
 
   const images = [
@@ -112,6 +130,7 @@ const HomePage = ({ eventId, event, showModal }) => {
 
   useEffect(() => {
     dispatch(eventActions.getAllEventsThunk())
+    dispatch(getReviewsThunk(eventId))
   }, [dispatch])
 
 
@@ -156,10 +175,12 @@ const HomePage = ({ eventId, event, showModal }) => {
           {events &&
             events.map(event =>
               <div key={event.id} to={`/events/${event.id}`} className="event-card">
-                <img className='event_image' onError={({ target }) => {
-                  target.onError = null
-                  target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
-                }} src={event.imageUrl}></img>
+                <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
+                  <img className='event_image' onError={({ target }) => {
+                    target.onError = null
+                    target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
+                  }} src={event.imageUrl}></img>
+                </NavLink>
                 <br></br>
                 <div className="event-content-wrapper">
 
@@ -168,25 +189,14 @@ const HomePage = ({ eventId, event, showModal }) => {
                   </NavLink>
                   <div className='star-chart-wrapper'>
                     <div className='star-chart-inner-div' style={{ display: 'flex', marginBottom: '10px' }}>
-                      {rate.map((_, i) => {
-                        const input = i + 1;
-                        return (
-                          <div style={{ display: 'flex', flexDirection: 'row' }}>
-                            <FaStar
-                              key={i}
-                              size={30}
-                              isFilled={averageReviews(reviewsList)}
-                              style={{
-                                marginRight: 10
-                              }}
-                              color={input <= (rating || onHoverRating) ? colors.yellow : colors.gray}
-                              onClick={() => setRating(input)}
-                              onMouseEnter={() => handleMouseover(input)}
-                              onMouseLeave={handleMousoverExit}
-                            ></FaStar>
-                          </div>
-                        )
-                      })}
+                      {/* {rate.map((_, i) => { */}
+                      {/* // const input = i + 1; */}
+                      {/* return ( */}
+                      <NavLink to={`/events/${event.id}`} style={{ display: 'flex', flexDirection: 'row', textDecoration: 'none' }}>
+                        <div className="homepage-rate-button">Rate</div>
+                      </NavLink>
+                      {/* ) */}
+                      {/* })} */}
                     </div>
                   </div>
                 </div>

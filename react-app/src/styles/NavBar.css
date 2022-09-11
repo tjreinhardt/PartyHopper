@@ -1,6 +1,6 @@
 .navbar-nav {
     padding-top: 24px;
-    z-index: 1;
+    z-index: 6;
     width: 100%;
     position: fixed;
     top: 0;

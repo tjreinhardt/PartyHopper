@@ -16,6 +16,7 @@ const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
     const session = useSelector(state => state.session.user);
     const review = useSelector(state => state.review)
     const review_ = Object.values(review)
+    // const userReview = useSelector(state => state.)
     const user = useSelector(state => state?.session?.user);
     // console.log('review_    ------', review_)
     const [errors, setErrors] = useState([])
@@ -35,8 +36,8 @@ const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
     //     console.log('return from filter function', result)
     //     return result
     // })
-    const [rating, setRating] = useState(0)
-    const [comment, setComment] = useState('')
+    const [rating, setRating] = useState(rev?.rating)
+    const [comment, setComment] = useState(rev?.comment)
     // console.log(reviewList)
 
     const reviewFinder = (review_) => {
@@ -89,6 +90,9 @@ const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
     // console.log(' ------',)
     // console.log('review?.id', review.user.id)
 
+    const handleCancel = async (e) => {
+        setShowModal(!showModal)
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -97,12 +101,12 @@ const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
             if (review_[i].userId === session?.id) {
                 result = review_[i].userId
             }
-            console.log('result', result)
+            // console.log('result', result)
             userId = result
         }
-        // if (session?.id !== result) {
-        console.log('session?.id', session?.id)
-        console.log('result', result)
+        // if (!errors) {
+        // console.log('session?.id', session?.id)
+        // console.log('result', result)
 
         const newReview = {
             id: rev?.id,
@@ -111,9 +115,9 @@ const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
             eventId: eventId,
             userId: session?.id
         }
-        console.log('newReview ===================================', newReview)
+        // console.log('newReview ===================================', newReview)
 
-        if (session?.id === userId) {
+        if (!errors.length) {
             dispatch(updateReviewThunk(newReview))
             history.push(`/events/${eventId}`)
             setShowModal(!showModal)
@@ -123,13 +127,11 @@ const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
     }
     useEffect(() => {
         let errors = [];
-        if (rating === 0) errors.push("Please rate the event")
-        // if (session.id !== reviewList[0].userId) errors.push('fuck')
-        // if (comment.length === 0) errors.push("Please provide a review")
+        if (rating === 0) errors.push("Please rate the event from 0-5 stars")
         if (session?.id !== userId) errors.push("Cannot edit another users review")
         if (comment.trim().length < 10 && comment.trim().length >= 1) errors.push("Review is too short (10 characters minimum)")
         if (comment.trim().length > 500) errors.push("Review is too long (500)")
-        if (comment.trim().length === 0) errors.push("Please provide a review")
+        if (comment.trim().length === 0) errors.push("Please provide a comment for your review")
         setErrors(errors)
     }, [rating, comment])
 
@@ -137,6 +139,7 @@ const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
     return (
         <div>
             <form style={{ padding: '20px' }} onSubmit={handleSubmit} className="edit-review-form">
+                <h2>Edit Your Review</h2>
                 <div>
                     <div>
                         <div className='star-chart-wrapper'>
@@ -184,7 +187,10 @@ const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
                     />
                 </div>
                 <div>
-                    <button className="login-button" style={{ width: '420px' }} type="submit">Edit</button>
+                    <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px' }}>
+                        <button className="login-button" style={{ width: '420px' }} type="submit">Submit</button>
+                        <button className="login-button" style={{ width: '420px', marginTop: '16px' }} onClick={handleCancel}>Cancel</button>
+                    </div>
                     <div style={{ textAlign: 'center', marginTop: '10px' }}>
                         {errors.map((error, idx) => (
                             <div style={{ color: 'red' }} key={idx} >*{error}</div>

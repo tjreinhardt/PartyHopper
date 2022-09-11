@@ -216,10 +216,10 @@ const EventDetail = () => {
       <div>
         {session.id !== event.userId && sessionLinks}
       </div>
-      <div>
+      <div style={{ marginTop: '24px' }}>
         <GetReviews eventId={eventId} />
       </div>
-      <div style={{ marginBottom: '10%' }}>
+      <div style={{ marginBottom: '12%' }}>
 
       </div>
 

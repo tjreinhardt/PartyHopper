@@ -31,7 +31,7 @@ const EditEventForm = ({ event, hideModal }) => {
 
   const getTodaysDate = () => {
     let today = new Date();
-    let todays_day = new Date().getDay() + 4;
+    let todays_day = new Date().getDay() + 13;
     // console.log('todays_day', todays_day)
     if (todays_day < 10) todays_day = `0${todays_day}`
     let todays_month = new Date().getMonth() + 1;
@@ -90,7 +90,7 @@ const EditEventForm = ({ event, hideModal }) => {
   }
   useEffect(() => {
     let errors = [];
-    if (startDate < getTodaysDate()) errors.push("Unable to reschedule to a date earlier than today's date")
+    if (startDate < getTodaysDate()) errors.push("Event date cannot be scheduled before original start-date")
     if (name.trim().length === 0) errors.push("Please provide a name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
@@ -121,10 +121,10 @@ const EditEventForm = ({ event, hideModal }) => {
             />
           </div>
           <div>
-            <input
+            <input style={{ textTransform: 'capitalize' }}
               type={'text'}
               placeholder={"Event Description*"}
-              value={description}
+              value={description.trim()}
               onChange={e => setDescription(e.target.value)}
             />
           </div>
