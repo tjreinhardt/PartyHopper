@@ -19,6 +19,7 @@ const EventDetail = () => {
   // const [rating, setRating] = useState(0)
   const event = useSelector(state => state.event[eventId]);
   const session = useSelector(state => state.session.user);
+  console.log(session, 'session')
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const reviewsList = Object.values(reviews)
@@ -113,7 +114,7 @@ const EventDetail = () => {
 
 
 
-  // console.log(averageReviews(reviewsList))
+  console.log(averageReviews(reviewsList), "averageReviews(reviewsList)")
 
   return (eventIsLoaded && event && <>
     <NavBar />
@@ -213,6 +214,9 @@ const EventDetail = () => {
       </div>
       <div>
         <GetReviews eventId={eventId} />
+      </div>
+      <div style={{ marginBottom: '10%' }}>
+
       </div>
 
 

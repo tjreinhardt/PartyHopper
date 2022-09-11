@@ -9,13 +9,22 @@ import { FaStar } from 'react-icons/fa'
 
 
 
-const EditReviewForm = ({ eventId, id, showModal, setShowModal, review, event }) => {
+const EditReviewForm = ({ eventId, reviewId, id, showModal, setShowModal, event }) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const session = useSelector(state => state.session.user);
+    const review = useSelector(state => state.review)
+    const review_ = Object.values(review)
 
-    const [rating, setRating] = useState(0)
-    const [comment, setComment] = useState('')
+    const reviewList = review_.filter((rev) => rev.userId === session.id)
+    console.log(reviewList)
+
+
+
+    // console.log(reviewNumber(), 'reviewtest')
+
+    const [rating, setRating] = useState(reviewList[0].rating)
+    const [comment, setComment] = useState(reviewList[0].comment)
     const [errors, setErrors] = useState([])
     const [onHoverRating, setOnHoverRating] = useState(null);
 
@@ -47,11 +56,9 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review, event })
             rating,
             comment,
             eventId: eventId,
-            userId: session.id
+            userId: session?.id
         }
 
-
-        // console.log(newReview, '---------------newReview')
         if (!errors.length) {
             dispatch(updateReviewThunk(newReview))
             history.push(`/events/${eventId}`)
@@ -59,12 +66,10 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review, event })
         }
 
     }
-    // const handleRating = (rate) => {
-    //     setRating(rate)
-    // }
     useEffect(() => {
         let errors = [];
         if (rating === 0) errors.push("Please rate the event")
+        // if (session.id !== reviewList[0].userId) errors.push('fuck')
         // if (comment.length === 0) errors.push("Please provide a review")
         if (comment.trim().length < 10 && comment.trim().length >= 1) errors.push("Review is too short (10 characters minimum)")
         if (comment.trim().length > 500) errors.push("Review is too long (500)")
@@ -78,13 +83,6 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review, event })
             <form style={{ padding: '20px' }} onSubmit={handleSubmit} className="edit-review-form">
                 <div>
                     <div>
-                        {/* <Rating
-                            value={rating}
-                            onClick={handleRating}
-                            showTooltip
-                            fillColorArray={['#f17a45', '#f19745', '#f1a545', '#f1b345', '#f1d045']}
-                            tooltipArray={['Terrible', 'Bad', 'Average', 'Great', 'Perfect']}
-                        /> */}
                         <div className='star-chart-wrapper'>
                             <div className='star-chart-inner-div' style={{ display: 'flex' }}>
                                 {rate.map((_, i) => {
@@ -131,8 +129,7 @@ const EditReviewForm = ({ eventId, id, showModal, setShowModal, review, event })
                 </div>
                 <div>
                     <button className="login-button" style={{ width: '420px' }} type="submit">Edit</button>
-                    {/* <button onClick={hideModal}>Cancel</button> */}
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{ textAlign: 'center', marginTop: '10px' }}>
                         {errors.map((error, idx) => (
                             <div style={{ color: 'red' }} key={idx} >*{error}</div>
                         ))}

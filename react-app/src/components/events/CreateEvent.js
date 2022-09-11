@@ -34,7 +34,7 @@ const CreateEventForm = ({ hideModal }) => {
 
   const getTodaysDate = () => {
     let today = new Date();
-    let todays_day = new Date().getDay() + 4;
+    let todays_day = new Date().getDay() + 5;
     // console.log('todays_day', todays_day)
     if (todays_day < 10) todays_day = `0${todays_day}`
     let todays_month = new Date().getMonth() + 1;
@@ -109,62 +109,39 @@ const CreateEventForm = ({ hideModal }) => {
   } else if (new Date().getMinutes() >= 10) {
     var minutes = `${new Date().getMinutes()}`
   }
-  // let newCurrentTime =
-  // var minutes = `0${new Date().getMinutes()}`
   useEffect(() => {
     let errors = [];
-    // console.log(startDate)
-    // console.log(todays_date)
-    // console.log(newStartTime, 'newStartTime')
-    // console.log(getCurrentTime(), 'currentTime()')
-    // if (startDate < getTodaysDate() && parseInt(newStartTime) < ((new Date().getHours() + ':' + minutes).split(":").join(""))) errors.push("Time is set before current time")
-    // if (parseInt(newStartTime) < ((new Date().getHours() + ':' + minutes).split(":").join("")) && (startDate < getTodaysDate())) errors.push("Time must be set after the current date's time")
-    // if (timeConversion(startTime) < timeConversion(getCurrentTime)) errors.push("Time is in the past")
-    if (startDate < getTodaysDate()) errors.push("Oops! Event date must be after today's date")
-    if (name.trim().length === 0) errors.push("Please name your event")
+    if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
+    if (name.trim().length === 0) errors.push("Please provide a name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
     if (description.trim().length > 500) errors.push("Description is too long!")
-    // if (imageUrl.trim().length === 0) errors.push("Please upload an image for your event")
-    if (imageUrl.trim().length === 0 || (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("ImageUrl is not valid")
+    if (imageUrl.trim().length === 0 || (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("Image URL address appears to be invalid. Must be '.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif' or '.svg' format, and must include: 'https://'")
     if (imageUrl.trim().length > 500) errors.push("Image URL address is too long!")
-    if (!eventType || eventType === 'None') errors.push("Please select a category for your event")
-    if (!entertainment || entertainment === 'None') errors.push("Please select entertainment type")
+    if (!eventType || eventType === '-- Event Type --') errors.push("Please select a category for your event")
+    if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Please select entertainment type")
     if (!startDate) errors.push("What date is your event taking place?");
-    // if (Number(startDate.split('-').join('')) + 1 < Number(todays_date.split('-').join(''))) errors.push("Start Date must be on/later than today's date")
     if (!startTime) errors.push("What time does your event start?")
-    // if (!lat) errors.push("Please enter a latitude")
-    // if (!lng) errors.push("Please enter a longitude")
-    // if (startDate < todays_date) errors.push("Fix your date fool")
     setErrors(errors)
   }, [name, newStartTime, description, imageUrl, eventType, entertainment, startDate, startTime, minutes, getTodaysDate()])
 
 
   return (
     <div style={{ marginTop: '20px' }}>
+      <h2 style={{ display: 'flex', justifyContent: 'center' }}>Create Event</h2>
       {/* <NavBar /> */}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline" }}><span>**All fields required**</span></div>
       <form onSubmit={handleSubmit}>
         <div style={{
           display: 'flex',
           justifyContent: 'center',
-          padding: '5%',
           flexDirection: 'column',
-          alignItems: 'center',
-          paddingTop: '5rem'
+          alignItems: 'center'
         }}>
-
-          <div style={{ color: 'red', marginBottom: '14px', wordBreak: 'break-word', textAlign: 'center', width: '300px' }}>** An event can be scheduled at any time, <span style={{
-            textDecoration: 'underline',
-            fontWeight: '550',
-            color: 'red'
-          }}>on</span>/<span style={{
-            textDecoration: 'underline',
-            fontWeight: '550'
-          }}>after</span> today's date **</div>
           <div>
             <input
               type={'text'}
-              placeholder={"Event Name"}
+              placeholder={"Event Name*"}
               value={name}
               onChange={e => setName(e.target.value)}
             />
@@ -172,7 +149,7 @@ const CreateEventForm = ({ hideModal }) => {
           <div>
             <input
               type={'text'}
-              placeholder={"Event Description"}
+              placeholder={"Event Description*"}
               value={description}
               onChange={e => setDescription(e.target.value)}
             />
@@ -187,7 +164,7 @@ const CreateEventForm = ({ hideModal }) => {
           </div> */}
           <div className='event-image-wrapper'>
             <input className="event_imageUrl"
-              placeholder='Image URL Address (https://www.example.jpg)'
+              placeholder='Image URL Address* (https://www.example.jpg)'
               onChange={(e) => {
                 setImageUrl(e.target.value)
                 setIsValid(checkImageUrl(e.target.value))
@@ -200,8 +177,9 @@ const CreateEventForm = ({ hideModal }) => {
             </input>
           </div>
           <div>
+
             <select value={eventType} onChange={e => setEventType(e.target.value)}>
-              <option value="None">None</option>
+              <option value="-- Event Type --">-- Event Type --</option>
               <option value="Party">Party</option>
               <option value="Kickback">Kickback</option>
               <option value="Live Show/Event">Live Show/Event</option>
@@ -215,13 +193,14 @@ const CreateEventForm = ({ hideModal }) => {
           </div>
           <div>
             <select value={entertainment} onChange={e => setEntertainment(e.target.value)}>
-              <option value="None">None</option>
+              <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
               <option value="Live-Band">Live-Band</option>
               <option value="DJ">DJ</option>
               <option value="Comedian">Comedian</option>
             </select>
           </div>
           <div>
+            <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Start Date:</label>
             <input
               type="hidden"
               value={getTodaysDate}
@@ -237,6 +216,7 @@ const CreateEventForm = ({ hideModal }) => {
           </div>
           <div>
           </div>
+          <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Start Time:</label>
           <div>
             <input
               type={'time'}
@@ -276,9 +256,9 @@ const CreateEventForm = ({ hideModal }) => {
           }}>Cancel</button>
           <br />
         </div>
-        <ul style={{ paddingBottom: '5rem', lineHeight: '20px' }}>
+        <ul style={{ lineHeight: '20px' }}>
           {errors.map((error, idx) => (
-            <li key={idx} >{error}</li>
+            <li style={{ color: 'red', width: '270px', lineHeight: "22px" }} key={idx} >{error}</li>
           ))}
         </ul>
       </form>

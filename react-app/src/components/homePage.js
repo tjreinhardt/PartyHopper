@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import fallback from "../Assets/groups-and-parties-christmas-party.jpeg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import * as eventActions from '../store/event'
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -11,7 +11,7 @@ import { FaStar } from 'react-icons/fa'
 // import { getReviewsThunk } from "../store/review";
 
 const HomePage = ({ eventId, event, showModal }) => {
-  // const { startDate } = useParams()
+  const history = useHistory()
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user);
   const reviews = useSelector(state => state.review)
@@ -112,33 +112,15 @@ const HomePage = ({ eventId, event, showModal }) => {
 
   useEffect(() => {
     dispatch(eventActions.getAllEventsThunk())
-    // dispatch(getReviewsThunk())
   }, [dispatch])
 
-  // const getAverageRating = (eventId) => {
-  //   console.log(reviewsList, 'reviewsList----------------')
-  //   const reviewsData = reviewsList.filter(review => review.eventId === eventId)
-  //   console.log(reviewsData, 'reviewsData----------------')
-  //   const eventRating = reviewsData.map(review => review.rating)
-  //   console.log(eventRating)
-  //   const averageEventRating = (eventRating.reduce((a, b) => a + b, 0) / eventRating.length)
-  //   console.log(averageEventRating)
-  //   const result = Math.floor(Number(averageEventRating))
-  //   console.log(result)
-  //   return result
-  // }
-  // getAverageRating()
 
-
-  // if (!event) {
-  //   return
-  // }
 
   let content;
   if (!showModal) {
     content = (
       <div>
-        <div className={'welcome-user-home'} style={{ zIndex: '1', position: 'absolute', top: '418px', color: 'white', fontSize: '72px', fontWeight: '700', textAlign: 'center', paddingBottom: '100px' }}>Welcome Home, <br />{user.username}!</div>
+        <div className={'welcome-user-home'} style={{ zIndex: '1', textTransform: 'capitalize', position: 'absolute', top: '418px', color: 'white', fontSize: '72px', fontWeight: '700', textAlign: 'center', paddingBottom: '100px' }}>Welcome Home, <br />{user.username}!</div>
       </div>
     )
   } else {
@@ -151,6 +133,10 @@ const HomePage = ({ eventId, event, showModal }) => {
   const handleMousoverExit = () => {
     setOnHoverRating(null)
   };
+
+  const handleRedirect = () => {
+    history.push(`/events/${eventId}`)
+  }
 
   return (user &&
     <> <NavBar />
@@ -170,13 +156,6 @@ const HomePage = ({ eventId, event, showModal }) => {
           {events &&
             events.map(event =>
               <div key={event.id} to={`/events/${event.id}`} className="event-card">
-                {/* <img
-                  src={!fallback ? fallbacks : event.imageUrl}
-                  // style={{ backgroundImage: `${event.imageUrl}` ? `url(${event.imageUrl})` : `${event.imageUrl = 'https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg'}` }}
-                  // style={{ backgroundImage: `${event.imageUrl}` ? `url(${event.imageUrl})` : `${event.imageUrl = 'https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg'}` }}
-                  alt=''
-                  onError={() => setImageError(true)}
-                ></img> */}
                 <img className='event_image' onError={({ target }) => {
                   target.onError = null
                   target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
@@ -209,16 +188,8 @@ const HomePage = ({ eventId, event, showModal }) => {
                         )
                       })}
                     </div>
-
                   </div>
                 </div>
-                {/* <NavLink to={`/events/${event.id}`}> */}
-                {/* <Rating
-                    value={getAverageRating}
-                    readonly={true}
-                    allowHover={false}
-                  ></Rating> */}
-                {/* </NavLink> */}
               </div>
             ).reverse()
           }
