@@ -41,7 +41,25 @@ ___
   * [MVP Features](https://github.com/tjreinhardt/PartyHopper/wiki/MVP-Features-List)
   * [User Stories](https://github.com/tjreinhardt/PartyHopper/wiki/User-Stories)
   * [Wireframes](https://github.com/tjreinhardt/PartyHopper/wiki/Wireframe)
+  
+  
+___
+## Login Page
 
+___
+## Signup Page
+
+___
+## Home Page
+
+___
+## Create Event / Edit Event
+
+___
+## Create Review / Edit Review
+
+___
+## Event Details
 
 ___
 
