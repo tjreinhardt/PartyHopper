@@ -17,7 +17,7 @@
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: rgba(45, 46, 47, 1);
   display: inline-block;
-  max-width: 80%;
+  max-width: 400px;
   justify-content: center;
   margin-top: 2px;
   word-wrap: break-word;
@@ -62,7 +62,8 @@
 }
 
 .review-list-username-content {
-  margin-left: 12px;
+  /* margin-left: 12px; */
+  margin-right: 40px;
   margin-top: 10px;
   border: 1px solid gray;
   padding: 1rem;

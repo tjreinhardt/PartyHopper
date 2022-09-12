@@ -55,6 +55,7 @@ const LoginForm = () => {
         <img alt='' style={{
           height: '60px',
           width: 'auto',
+          border: 'none',
           marginLeft: '0px',
           zIndex: '1'
         }} src={"https://www.svgrepo.com/show/349576/yelp.svg"} />

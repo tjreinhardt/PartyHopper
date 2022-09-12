@@ -58,7 +58,7 @@ img {
     height: 100%;
     border-right: 1px solid gray;
     max-width: 208x;
-    max-height: 202px;
+    /* max-height: 202px; */
     /* object-fit: cover; */
     /* height: calc(100% + 2px); */
     /* width: calc(100% + 2px); */
@@ -75,7 +75,8 @@ img {
 }
 
 .event-name-div {
-    font-size: 24px;
+    font-size: 18px;
+    font-weight: 550;
     position: relative;
     max-width: 288px;
     text-overflow: clip;

@@ -122,7 +122,6 @@ const GetReviews = ({ eventId }) => {
                     <div className="review-list-username-content">
                         <div style={{
                             fontSize: '20px',
-                            marginLeft: '18px',
                             marginBottom: '2px'
                         }} className="review-list-username">{review.user.username}</div>
                         <div className='star-chart-wrapper'>

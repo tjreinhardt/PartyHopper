@@ -123,12 +123,15 @@ const EventDetail = () => {
   return (eventIsLoaded && event && <>
     <NavBar />
     <div>
-      <div className="header-content-wrapper">
-        <div className="image-header-block">
-          <div className="image-header-content-block">
+      <div style={{ width: '100vw' }} className="header-content-wrapper">
+        <div style={{ width: '100vw' }} className="image-header-block">
+          <div style={{ maxWidth: '100vw' }} className="image-header-content-block">
           </div>
-          <div className="event-detail-image-wrapper">
-            <img className="event-detail-img" src={event.imageUrl} alt=""></img>
+          <div style={{ width: '100vw', maxWidth: '100vw' }} className="event-detail-image-wrapper">
+            <img className={'event-detail-image'} style={{ width: '100%', maxWidth: '100vw', overflowX: 'hidden' }} onError={({ target }) => {
+              target.onError = null
+              target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
+            }} src={event?.imageUrl}></img>
           </div>
         </div>
         <div className="overlay-content-on-image">
@@ -196,33 +199,33 @@ const EventDetail = () => {
           </div>
         )}
       </div>
-      <div style={{padding:'20px',display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'flex-start'}}>
-        <div style={{width:'100%',display:'flex',flexDirection:'column',justifyContent:'flex-start',alignItems:'center'}}>
-          <div style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'flex-start'}}>
-            <div 
-            style={{fontWeight: '550',marginLeft: '12px',marginTop: '6px'}} 
-            className={"event-start-date-div"}
-          >
-            <span style={{color:'darkGrey'}}>Event Date:</span> {dateConversion(event.startDate)}
-          </div>
-          <div 
-            style={{fontWeight: '550',marginLeft: '12px',marginTop: '6px'}} 
-            className={"event-start-time-div"}
-          >
-            <span style={{color:'darkGrey'}}>Starts At:</span> {timeConversion(event.startTime)}
-          </div>
-          <div 
-            style={{padding:'10px',fontSize:'20px',maxWidth:'600px',marginTop:'8px',wordBreak:'break-word',textOverflow:'clip'}} 
-            className={"event-description-div"}
-          >
-            {event.description}
-          </div>
-          <div>
-            {session.id !== event.userId && sessionLinks}
-          </div>
-        <div style={{width:'100%', marginTop: '24px',padding:'10px'}}>
-          <GetReviews eventId={eventId} />
-        </div>
+      <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
+        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
+            <div
+              style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px' }}
+              className={"event-start-date-div"}
+            >
+              <span style={{ color: 'darkGrey' }}>Event Date:</span> {dateConversion(event.startDate)}
+            </div>
+            <div
+              style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px' }}
+              className={"event-start-time-div"}
+            >
+              <span style={{ color: 'darkGrey' }}>Starts At:</span> {timeConversion(event.startTime)}
+            </div>
+            <div
+              style={{ padding: '10px', fontSize: '20px', maxWidth: '600px', marginTop: '8px', wordBreak: 'break-word', textOverflow: 'clip' }}
+              className={"event-description-div"}
+            >
+              {event.description}
+            </div>
+            <div>
+              {session.id !== event.userId && sessionLinks}
+            </div>
+            <div style={{ width: '100%', marginTop: '24px', padding: '10px' }}>
+              <GetReviews eventId={eventId} />
+            </div>
           </div>
         </div>
       </div>
