@@ -37,7 +37,7 @@ const EditReviewForm = ({ eventId, userId, id, showModal, setShowModal }) => {
     //     return result
     // })
     const [rating, setRating] = useState(rev?.rating)
-    const [comment, setComment] = useState(rev?.comment)
+    const [comment, setComment] = useState(rev?.comment.trim())
     // console.log(reviewList)
 
     const reviewFinder = (review_) => {

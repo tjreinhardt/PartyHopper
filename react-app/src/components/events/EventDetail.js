@@ -203,27 +203,27 @@ const EventDetail = () => {
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
             <div
-              style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px' }}
+              style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px', borderBottom: '1px solid gray' }}
               className={"event-start-date-div"}
             >
               <span style={{ color: 'darkGrey' }}>Event Date:</span> {dateConversion(event.startDate)}
             </div>
             <div
-              style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px' }}
+              style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px', borderBottom: '1px solid gray' }}
               className={"event-start-time-div"}
             >
               <span style={{ color: 'darkGrey' }}>Starts At:</span> {timeConversion(event.startTime)}
             </div>
             <div
-              style={{ padding: '10px', fontSize: '20px', maxWidth: '600px', marginTop: '8px', wordBreak: 'break-word', textOverflow: 'clip' }}
+              style={{ padding: '10px', fontSize: '20px', maxWidth: '600px', marginTop: '8px', wordBreak: 'break-word', textOverflow: 'clip', lineHeight: '24px' }}
               className={"event-description-div"}
-            >
+            ><span style={{ color: 'darkGrey', textDecoration: 'underline' }}>Details:</span> <br />
               {event.description}
             </div>
             <div>
               {session.id !== event.userId && sessionLinks}
             </div>
-            <div style={{ width: '100%', marginTop: '24px', padding: '10px' }}>
+            <div style={{ width: '100%', marginTop: '24px' }}>
               <GetReviews eventId={eventId} />
             </div>
           </div>

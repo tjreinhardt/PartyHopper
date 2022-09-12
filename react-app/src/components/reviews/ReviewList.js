@@ -78,8 +78,20 @@ const GetReviews = ({ eventId }) => {
         return null
     }
 
-    if (!reviewsList) {
-        return null
+    let reviewTitle;
+    if (reviewsList.length === 0) {
+        reviewTitle = (
+            <div>
+
+                <h1 style={{ fontWeight: '600' }}>This event does not have any reviews... yet!</h1>
+            </div>
+        )
+    } else if (reviewsList.length) {
+        reviewTitle = (
+            <div>
+                <h2 style={{ marginLeft: '24px', fontWeight: '600' }}>Recommended Reviews</h2>
+            </div>
+        )
     }
 
     const timeAfterCreated = (createdAt) => {
@@ -115,7 +127,7 @@ const GetReviews = ({ eventId }) => {
     return (reviewsIsLoaded &&
 
         <div className="review-details-container">
-            <h2 style={{ marginLeft: '24px', fontWeight: '600' }}>Recommended Reviews</h2>
+            {reviewTitle}
             {reviewsList.map((review) =>
             (
                 <div id={review.id} onMouseOver={handleOnMouseOver} key={review.id} className="review-list-review-container">
