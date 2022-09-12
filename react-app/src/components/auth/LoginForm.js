@@ -111,7 +111,7 @@ const LoginForm = () => {
           </div> */}
           <div style={{ textAlign: 'center' }}>
             {errors.map((error, ind) => (
-              <div style={{ color: 'red', maxWidth: '300px', wordBreak: 'break-word' }} key={ind}>* {error}</div>
+              <div style={{ color: 'red', maxWidth: '300px', wordBreak: 'break-word' }} key={ind}>{error}</div>
             ))}
           </div>
           <div>
@@ -120,8 +120,8 @@ const LoginForm = () => {
               type='text'
               placeholder='Email'
               value={email}
-              required
-              onInvalid={e => e.target.setCustomValidity(errors)}
+              // required
+              // onInvalid={e => e.target.setCustomValidity(errors)}
               onChange={updateEmail}
             />
           </div>
@@ -131,8 +131,8 @@ const LoginForm = () => {
               type='password'
               placeholder='Password'
               value={password}
-              required
-              onInvalid={e => e.target.setCustomValidity(errors)}
+              // required
+              // onInvalid={e => e.target.setCustomValidity(errors)}
               onChange={updatePassword}
             />
           </div>
