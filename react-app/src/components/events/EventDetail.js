@@ -125,16 +125,16 @@ const EventDetail = () => {
     <div>
       <div style={{ width: '100vw' }} className="header-content-wrapper">
         <div style={{ width: '100vw' }} className="image-header-block">
-          <div style={{ maxWidth: '100vw' }} className="image-header-content-block">
+          <div style={{ width: '100%', maxWidth: '100%' }} className="image-header-content-block">
           </div>
-          <div style={{ width: '100vw', maxWidth: '100vw' }} className="event-detail-image-wrapper">
-            <img className={'event-detail-image'} style={{ width: '100%', maxWidth: '100vw', overflowX: 'hidden' }} onError={({ target }) => {
+          <div style={{ width: '100%', maxWidth: '100%' }} className="event-detail-image-wrapper">
+            <img className={'event-detail-image'} style={{ border: 'none', width: '99.7%', maxWidth: '99vw', overflowX: 'hidden' }} onError={({ target }) => {
               target.onError = null
               target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
             }} src={event?.imageUrl}></img>
           </div>
         </div>
-        <div className="overlay-content-on-image">
+        <div style={{ maxWidth: '100%' }} className="overlay-content-on-image">
           <div style={{
             textTransform: 'capitalize',
             wordBreak: 'break-word'
@@ -178,13 +178,13 @@ const EventDetail = () => {
       </div>
       <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
         {showButton && (
-          <div style={{ marginLeft: '36.3%' }} className="event-detail-buttons">
+          <div style={{ marginLeft: '38%' }} className="event-detail-buttons">
             <button style={{
               fontWeight: '800',
               fontSize: '16px',
               height: '36px',
               marginTop: '10px',
-              marginRight: '8px',
+              marginRight: '16px',
               width: '150px',
               marginLeft: '5%'
             }} onClick={() => setEditModal(true)}>Edit Event</button>
