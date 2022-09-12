@@ -42,12 +42,12 @@ const SignUpForm = () => {
 
   useEffect(() => {
     let errors = [];
-    if (email.trim().length === 0) errors.push("Enter your email")
+    // if (email.trim().length === 0) errors.push("Enter your email")
     if (email.trim().length > 255) errors.push("Email is too long")
-    if (!email.includes("@") || !email.includes(".")) errors.push("Email seems to be invalid, must contain '@' and ' . '")
-    if (username.trim().length === 0) errors.push("Enter a username")
+    if (!email.includes("@") || !email.includes(".")) errors.push("Email must contain '@' and ' . '")
+    // if (username.trim().length === 0) errors.push("Enter a username")
     if (username.trim().length > 40) errors.push("Username is too long")
-    if (password.trim().length === 0) errors.push("Enter a password")
+    // if (password.trim().length === 0) errors.push("Enter a password")
     // if (!password.includes("!" || "@" || "#" || "$" || "%" || "^" || "&" || "*" || "(" || ")" || "{" || "}" || "+" || "=" || "_" || "-" || "?" || "/" || ">" || "." || "," || "<" || "~" || "`" || "[" || "]" || "'" || "'" || ";" || ":")) errors.push("Password must include 1 special character (!, @, #, etc..)")
     if (password.trim().length < 8) errors.push("Password must be at least 8 characters")
     if (password.trim().length > 255) errors.push("Password exceeds max limit")
@@ -163,7 +163,7 @@ const SignUpForm = () => {
               placeholder='Repeat Password'
               onChange={updateRepeatPassword}
               value={repeatPassword}
-              required={true}
+            // required={true}
             ></input>
           </div>
           <button type='submit'

@@ -35,12 +35,12 @@ const LoginForm = () => {
 
 
 
-  useEffect(() => {
-    let errors = [];
-    if (email.trim().length === 0) errors.push("Please enter your email")
-    if (password.trim().length === 0) errors.push("Please enter your password")
-    setErrors(errors)
-  }, [email, password])
+  // useEffect(() => {
+  //   let errors = [];
+  //   if (email.trim().length === 0) errors.push("Please enter your email")
+  //   if (password.trim().length === 0) errors.push("Please enter your password")
+  //   setErrors(errors)
+  // }, [email, password])
 
   if (user) {
     return <Redirect to='/' />;
