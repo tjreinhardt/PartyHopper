@@ -154,21 +154,12 @@ const CreateEventForm = ({ hideModal }) => {
               onChange={e => setDescription(e.target.value)}
             />
           </div>
-          {/* <div>
-            <input
-              type={'text'}
-              placeholder={"Event Image URL"}
-              value={imageUrl}
-              onChange={e => setImageUrl(e.target.value)}
-            />
-          </div> */}
           <div className='event-image-wrapper'>
             <input className="event_imageUrl"
               placeholder='Image URL Address* (https://www.example.jpg)'
               onChange={(e) => {
                 setImageUrl(e.target.value)
                 setIsValid(checkImageUrl(e.target.value))
-                // console.log("*******check image imageUrl",checkImageUrl(e.target.value) )
                 setErrors([])
               }}
               value={imageUrl}
