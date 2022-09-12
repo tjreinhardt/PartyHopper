@@ -206,7 +206,6 @@ const EventDetail = () => {
       }} className={"event-start-time-div"}>Starts At: {timeConversion(event.startTime)}</div>
       <div style={{
         fontSize: '20px',
-        textTransform: 'capitalize',
         maxWidth: '60%',
         marginLeft: '12px',
         marginTop: '8px',
