@@ -180,11 +180,13 @@ const CreateEventForm = ({ hideModal }) => {
               <option value="Charity Event">Charity Event</option>
               <option value="After Party">After Party</option>
               <option value="Grand Opening">Grand Opening</option>
+              <option value="Custom Event">Custom Event</option>
             </select>
           </div>
           <div>
             <select value={entertainment} onChange={e => setEntertainment(e.target.value)}>
               <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
+              <option value="No Performers">No Performers</option>
               <option value="Live-Band">Live-Band</option>
               <option value="DJ">DJ</option>
               <option value="Comedian">Comedian</option>
