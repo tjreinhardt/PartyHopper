@@ -136,7 +136,7 @@ const HomePage = ({ eventId, event, showModal }) => {
   if (!showModal) {
     content = (
       <div>
-        <div className={'welcome-user-home'} style={{ zIndex: '1', textTransform: 'capitalize', position: 'absolute', top: '418px', color: 'white', fontSize: '72px', fontWeight: '700', textAlign: 'center', paddingBottom: '100px' }}>Welcome Home, <br />{user.username}!</div>
+        <div className={'welcome-user-home'} style={{ zIndex: '1', textTransform: 'capitalize', position: 'absolute', top: '418px', color: 'white', fontSize: '72px', fontWeight: '700', textAlign: 'center', paddingBottom: '100px', wordBreak: 'break-word' }}>Welcome Home, <br />{user.username}!</div>
       </div>
     )
   } else {
