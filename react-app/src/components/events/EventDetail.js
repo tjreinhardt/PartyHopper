@@ -178,7 +178,7 @@ const EventDetail = () => {
       </div>
       <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
         {showButton && (
-          <div className="event-detail-buttons">
+          <div style={{ marginLeft: '36.3%' }} className="event-detail-buttons">
             <button style={{
               fontWeight: '800',
               fontSize: '16px',
