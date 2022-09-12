@@ -111,7 +111,7 @@ const LoginForm = () => {
           </div> */}
           <div style={{ textAlign: 'center' }}>
             {errors.map((error, ind) => (
-              <div style={{ color: 'red' }} key={ind}>* {error}</div>
+              <div style={{ color: 'red', maxWidth: '300px', wordBreak: 'break-word' }} key={ind}>* {error}</div>
             ))}
           </div>
           <div>
