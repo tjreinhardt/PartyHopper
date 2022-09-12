@@ -22,7 +22,6 @@
     /* background-color: black; */
     /* background-color: black; */
     z-index: 5;
-
 }
 
 .event-detail-img {
@@ -131,4 +130,8 @@
 
 .event-description-div {
     font-weight: 600;
+}
+
+.event-description-div::first-letter {
+    text-transform: capitalize;
 }

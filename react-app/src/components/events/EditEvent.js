@@ -121,7 +121,7 @@ const EditEventForm = ({ event, hideModal }) => {
             />
           </div>
           <div>
-            <input style={{ textTransform: 'capitalize' }}
+            <input
               type={'text'}
               placeholder={"Event Description*"}
               value={description}
