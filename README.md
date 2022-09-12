@@ -51,9 +51,12 @@ ___
 
 ___
 ## Home Page
+![partyhopper-homepage](https://user-images.githubusercontent.com/95321368/189557649-faa81a6b-b796-4600-a690-cf89b01873a0.png)
 
 ___
 ## Create Event / Edit Event
+![create-event](https://user-images.githubusercontent.com/95321368/189557779-44c513ca-d057-42f0-9ac3-0acc00f2f2b5.png)
+![edit-event](https://user-images.githubusercontent.com/95321368/189557815-60ed68d3-bf6b-4465-b886-d65efeb96f31.png)
 
 ___
 ## Create Review / Edit Review
