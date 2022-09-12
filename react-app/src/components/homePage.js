@@ -193,7 +193,7 @@ const HomePage = ({ eventId, event, showModal }) => {
                       {/* // const input = i + 1; */}
                       {/* return ( */}
                       <NavLink to={`/events/${event.id}`} style={{ display: 'flex', flexDirection: 'row', textDecoration: 'none' }}>
-                        <div className="homepage-rate-button">Rate</div>
+                        <div className="homepage-rate-button">Details / Reviews</div>
                       </NavLink>
                       {/* ) */}
                       {/* })} */}
