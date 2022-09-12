@@ -116,7 +116,7 @@ const EditEventForm = ({ event, hideModal }) => {
             <input
               type={'text'}
               placeholder={"Event Name*"}
-              value={name.trim()}
+              value={name}
               onChange={e => setName(e.target.value)}
             />
           </div>
@@ -124,7 +124,7 @@ const EditEventForm = ({ event, hideModal }) => {
             <input style={{ textTransform: 'capitalize' }}
               type={'text'}
               placeholder={"Event Description*"}
-              value={description.trim()}
+              value={description}
               onChange={e => setDescription(e.target.value)}
             />
           </div>
