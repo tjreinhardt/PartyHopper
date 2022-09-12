@@ -44,10 +44,7 @@ const HomePage = ({ eventId, event, showModal }) => {
 
   const rate = Array(5).fill(0)
 
-  const getAvrg = (eventId) => {
-    const reviewArr = reviewsList.filter(review => review.eventId === eventId)
-    console.log(reviewArr, 'reviewArr')
-  }
+
 
   const averageReviews = (reviewsList) => {
     let sum = 0;
