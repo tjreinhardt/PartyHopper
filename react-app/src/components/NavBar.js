@@ -14,6 +14,8 @@ const NavBar = () => {
   return (
     <nav className='navbar-nav'>
       <div className='nav-outer-wrapper'>
+        <NavLink className="nav-partyhopper-logo" to={'/'} style={{ textDecoration: 'none', color: 'white', fontSize: '36px', position: 'absolute', left: '25px', fontWeight: '700' }}>PartyHopper
+        </NavLink>
         {user && (
           <>
             <NavLink to='/' exact={true} activeClassName='active'>

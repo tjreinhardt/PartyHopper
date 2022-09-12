@@ -115,6 +115,7 @@ const GetReviews = ({ eventId }) => {
     return (reviewsIsLoaded &&
 
         <div className="review-details-container">
+            <h2 style={{ marginLeft: '24px', fontWeight: '600' }}>Recommended Reviews</h2>
             {reviewsList.map((review) =>
             (
                 <div id={review.id} onMouseOver={handleOnMouseOver} key={review.id} className="review-list-review-container">
