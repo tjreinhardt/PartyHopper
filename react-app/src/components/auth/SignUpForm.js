@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import { NavLink } from 'react-router-dom';
+import '../../styles/SignupForm.css'
 
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
@@ -62,33 +63,48 @@ const SignUpForm = () => {
 
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
-      <form onSubmit={onSignUp}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center'
-        }}><h2
-          style={{
-            fontSize: '22px',
-            color: '#d32323',
-            textAlign: 'center',
-            marginBottom: '6px',
-            marginTop: '0px'
-          }}>Sign up for PartyHopper</h2>
-        <div
+    <div>
+      <div className='header-login-signup'>
+        <div style={{ marginLeft: '0px' }}>
+          partyhopper
+        </div>
+        <img alt='' style={{
+          height: '60px',
+          width: 'auto',
+          border: 'none',
+          marginLeft: '0px',
+          zIndex: '1'
+        }} src={"https://www.svgrepo.com/show/349576/yelp.svg"} />
+      </div>
+      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '24px' }}>
+
+        <form onSubmit={onSignUp}
           style={{
             display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'center',
-            flexDirection: 'row',
-            fontWeight: '600',
-            marginBottom: '12px',
-            color: '#333333',
-            fontSize: '14px'
-          }}
-        >Find the best local parties
-        </div>
-        {/* <div
+            alignItems: 'center'
+          }}><h2
+            style={{
+              fontSize: '22px',
+              color: '#d32323',
+              textAlign: 'center',
+              marginBottom: '6px',
+              marginTop: '0px'
+            }}>Sign up for PartyHopper</h2>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              flexDirection: 'row',
+              fontWeight: '600',
+              marginBottom: '12px',
+              color: '#333333',
+              fontSize: '14px'
+            }}
+          >Find the best local parties
+          </div>
+          {/* <div
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -101,90 +117,91 @@ const SignUpForm = () => {
             marginTop: '6px'
           }}>By continuing, you agree to PartyHopper's <NavLink style={{ color: '#0073bb', marginRight: '4px' }} to='/tos'> Terms of Service </NavLink> and acknowledge PartyHopper's <NavLink style={{ color: '#0073bb' }} to='/privacy'>Privacy Policy</NavLink>
         </div> */}
-        <div>
-          <input
-            style={{
-              border: '1px solid #999'
-            }}
-            type='text'
-            name='username'
-            onChange={updateUsername}
-            placeholder="Username"
-            value={username}
-          ></input>
-        </div>
-        <div>
-          <input
-            style={{
-              border: '1px solid #999'
-            }}
-            type='text'
-            name='email'
-            placeholder='Email'
-            onChange={updateEmail}
-            value={email}
-          ></input>
-        </div>
-        <div>
-          <input
-            style={{
-              border: '1px solid #999'
-            }}
-            type='password'
-            name='password'
-            placeholder='Password'
-            onChange={updatePassword}
-            value={password}
-          ></input>
-        </div>
-        <div>
-          <input
-            style={{
-              border: '1px solid #999'
-            }}
-            type='password'
-            name='repeat_password'
-            placeholder='Repeat Password'
-            onChange={updateRepeatPassword}
-            value={repeatPassword}
-            required={true}
-          ></input>
-        </div>
-        <button type='submit'
-          style={{
-            height: '40px',
-            color: 'white',
-            backgroundColor: '#d32323',
-            border: 'transparent',
-            borderRadius: '4px',
-            width: '320px',
-            fontWeight: '900'
-          }}>Sign Up</button>
-        <div style={{ textAlign: 'center' }}>
-          <br />
-          {errors.map((error, ind) => (
-            <div style={{ color: 'red' }} key={ind}>* {error}</div>
-          ))}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            flexDirection: 'row',
-            marginTop: '12px',
-            color: '#999',
-            fontSize: '12px'
-          }}
-        >Already have an account?
-          <NavLink to='/login' exact={true}>
-            <div
+          <div>
+            <input
               style={{
-                marginLeft: '4px',
-                color: '#0073bb'
-              }}> Log In</div>
-          </NavLink>
-        </div>
-      </form >
+                border: '1px solid #999'
+              }}
+              type='text'
+              name='username'
+              onChange={updateUsername}
+              placeholder="Username"
+              value={username}
+            ></input>
+          </div>
+          <div>
+            <input
+              style={{
+                border: '1px solid #999'
+              }}
+              type='text'
+              name='email'
+              placeholder='Email'
+              onChange={updateEmail}
+              value={email}
+            ></input>
+          </div>
+          <div>
+            <input
+              style={{
+                border: '1px solid #999'
+              }}
+              type='password'
+              name='password'
+              placeholder='Password'
+              onChange={updatePassword}
+              value={password}
+            ></input>
+          </div>
+          <div>
+            <input
+              style={{
+                border: '1px solid #999'
+              }}
+              type='password'
+              name='repeat_password'
+              placeholder='Repeat Password'
+              onChange={updateRepeatPassword}
+              value={repeatPassword}
+              required={true}
+            ></input>
+          </div>
+          <button type='submit'
+            style={{
+              height: '40px',
+              color: 'white',
+              backgroundColor: '#d32323',
+              border: 'transparent',
+              borderRadius: '4px',
+              width: '320px',
+              fontWeight: '900'
+            }}>Sign Up</button>
+          <div style={{ textAlign: 'center' }}>
+            <br />
+            {errors.map((error, ind) => (
+              <div style={{ color: 'red' }} key={ind}>* {error}</div>
+            ))}
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              flexDirection: 'row',
+              marginTop: '12px',
+              color: '#999',
+              fontSize: '12px'
+            }}
+          >Already have an account?
+            <NavLink to='/login' exact={true}>
+              <div
+                style={{
+                  marginLeft: '4px',
+                  color: '#0073bb'
+                }}> Log In</div>
+            </NavLink>
+          </div>
+        </form >
+      </div>
 
     </div >
   );
