@@ -22,7 +22,7 @@ def username_exists(form, field):
 
 class SignUpForm(FlaskForm):
     username = StringField(
-        'username', validators=[DataRequired(), username_exists])
-    email = StringField('email', validators=[DataRequired(), user_exists])
+        'username', validators=[DataRequired(message="Username cannot be empty"), username_exists])
+    email = StringField('email', validators=[DataRequired(message="Email cannot be empty"), user_exists])
     profileImage = StringField('profileImage')
-    password = StringField('password', validators=[DataRequired()])
+    password = StringField('password', validators=[DataRequired(message="Password cannot be empty")])
