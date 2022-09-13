@@ -35,12 +35,13 @@ const LoginForm = () => {
 
 
 
-  // useEffect(() => {
-  //   let errors = [];
-  //   if (email.trim().length === 0) errors.push("Please enter your email")
-  //   if (password.trim().length === 0) errors.push("Please enter your password")
-  //   setErrors(errors)
-  // }, [email, password])
+  useEffect(() => {
+    let errors = [];
+    if (email.trim().length === 0) errors.push("Please enter your email")
+    if (email.trim().length > 255) errors.push("Email is too long")
+    if (password.trim().length > 255) errors.push("Password exceeds max limit")
+    setErrors(errors)
+  }, [email, password])
 
   if (user) {
     return <Redirect to='/' />;
