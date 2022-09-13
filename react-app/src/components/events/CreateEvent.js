@@ -5,7 +5,6 @@ import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/CreateEvent.css'
-// import NavBar from "../NavBar";
 
 const CreateEventForm = ({ hideModal }) => {
   const dispatch = useDispatch();
@@ -14,28 +13,17 @@ const CreateEventForm = ({ hideModal }) => {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [imageUrl, setImageUrl] = useState("")
-  const [isValid, setIsValid] = useState(false)
   const [eventType, setEventType] = useState("")
   const [entertainment, setEntertainment] = useState("")
   const [startDate, setStartDate] = useState("")
   const [startTime, setStartTime] = useState("")
-  // const [lat, setLat] = useState(1)
-  // const [lng, setLng] = useState(1)
   const [errors, setErrors] = useState([])
-  // const [currentTime, setCurrentTime] = useState(null)
-
-  // const [today, setToday] = useState(today_)
-  const [todayDate, setTodayDate] = useState(null)
-  // const setCurrentDate = () => {
-  //   setTodayDate(today)
-  // }
 
 
 
   const getTodaysDate = () => {
     let today = new Date();
     let todays_day = new Date().getDay() + 12;
-    // console.log('todays_day', todays_day)
     if (todays_day < 10) todays_day = `0${todays_day}`
     let todays_month = new Date().getMonth() + 1;
     if (todays_month < 10) todays_month = `0${todays_month}`
@@ -44,33 +32,7 @@ const CreateEventForm = ({ hideModal }) => {
     return todays_date
   }
 
-  const getCurrentTime = () => {
-    let today = new Date();
-    if (new Date().getMinutes() < 10) {
-      var minutes = `0${new Date().getMinutes()}`
-    } else minutes = new Date().getMinutes()
-    var currentTime = (new Date().getHours() + ':' + minutes).split(":").join("")
-    // setCurrentTime(currentTime)
-    // console.log(currentTime, "currenttime")
-    return currentTime
-  }
 
-  const timeConversion = () => {
-    let parts = startTime.split(":")
-    if (parts[0] > 12) {
-      return `${(parts[0]) - 12}:${parts[1]} PM`
-    } else return `${startTime} AM`
-  }
-
-  // console.log(getTodaysDate(), "getTodaysDate()")
-
-  function checkImageUrl(imageUrl) {
-    if (!imageUrl || imageUrl.trimEnd().length === 0) return false
-    if (imageUrl && imageUrl.includes(' ')) return false
-    if (imageUrl && imageUrl.includes("File:")) return false
-
-    return /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl);
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,8 +44,6 @@ const CreateEventForm = ({ hideModal }) => {
       entertainment,
       startDate,
       startTime,
-      // lat,
-      // lng
     };
     if (!errors.length) {
 
@@ -92,7 +52,6 @@ const CreateEventForm = ({ hideModal }) => {
           async (res) => {
             if (res.errors) {
               setErrors(res.errors)
-              // e.preventDefault()
             }
             else {
               hideModal()
@@ -103,11 +62,10 @@ const CreateEventForm = ({ hideModal }) => {
     errors.push(['Cannot pick a date that has already happened'])
   }
   let newStartTime = startTime.split(':').join('')
-  let hours = new Date().getHours()
   if (new Date().getMinutes() < 10) {
     var minutes = `0${new Date().getMinutes()}`
   } else if (new Date().getMinutes() >= 10) {
-    var minutes = `${new Date().getMinutes()}`
+    minutes = `${new Date().getMinutes()}`
   }
   useEffect(() => {
     let errors = [];
@@ -123,13 +81,12 @@ const CreateEventForm = ({ hideModal }) => {
     if (!startDate) errors.push("What date is your event taking place?");
     if (!startTime) errors.push("What time does your event start?")
     setErrors(errors)
-  }, [name, newStartTime, description, imageUrl, eventType, entertainment, startDate, startTime, minutes, getTodaysDate()])
+  }, [name, newStartTime, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
 
 
   return (
     <div style={{ marginTop: '20px' }}>
       <h2 style={{ display: 'flex', justifyContent: 'center' }}>Create Event</h2>
-      {/* <NavBar /> */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline" }}><span>**All fields required**</span></div>
       <form onSubmit={handleSubmit}>
         <div style={{
@@ -159,7 +116,6 @@ const CreateEventForm = ({ hideModal }) => {
               placeholder='Image URL Address* (https://www.example.jpg)'
               onChange={(e) => {
                 setImageUrl(e.target.value)
-                setIsValid(checkImageUrl(e.target.value))
                 setErrors([])
               }}
               value={imageUrl}
@@ -219,31 +175,12 @@ const CreateEventForm = ({ hideModal }) => {
           </div>
           <div>
           </div>
-          {/* <div>
-            <input
-              type={'number'}
-              placeholder={"Lat"}
-              value={lat}
-              onChange={e => setLat(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type={'number'}
-              placeholder={"Lng"}
-              value={lng}
-              onChange={e => setLng(e.target.value)}
-            />
-          </div> */}
         </div>
         <div className="bottom-button">
-          {/* {!errors && ( */}
           <button type="submit" style={{
             margin: '10px'
           }}>Share</button>
           <br />
-          {/* ) */}
-          {/* } */}
           <button onClick={hideModal} style={{
             margin: '10px'
           }}>Cancel</button>

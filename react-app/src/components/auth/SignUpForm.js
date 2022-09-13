@@ -16,7 +16,7 @@ const SignUpForm = () => {
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
+    if (!errors.length) {
       const data = await dispatch(signUp(username.trim(), email.trim(), password.trim()));
       if (data) {
         setErrors(data)
@@ -42,17 +42,12 @@ const SignUpForm = () => {
 
   useEffect(() => {
     let errors = [];
-    // if (email.trim().length === 0) errors.push("Enter your email")
     if (email.trim().length > 255) errors.push("Email is too long")
     if (!email.includes("@") || !email.includes(".")) errors.push("Email must contain '@' and ' . '")
-    // if (username.trim().length === 0) errors.push("Enter a username")
     if (username.trim().length > 40) errors.push("Username is too long")
-    // if (password.trim().length === 0) errors.push("Enter a password")
-    // if (!password.includes("!" || "@" || "#" || "$" || "%" || "^" || "&" || "*" || "(" || ")" || "{" || "}" || "+" || "=" || "_" || "-" || "?" || "/" || ">" || "." || "," || "<" || "~" || "`" || "[" || "]" || "'" || "'" || ";" || ":")) errors.push("Password must include 1 special character (!, @, #, etc..)")
     if (password.trim().length < 8) errors.push("Password must be at least 8 characters")
     if (password.trim().length > 255) errors.push("Password exceeds max limit")
     if (password !== repeatPassword) errors.push("Passwords must match")
-    // if (startDate < todays_date) errors.push("Fix your date fool")
     setErrors(errors)
   }, [email, username, password, repeatPassword])
   if (user) {
@@ -104,19 +99,6 @@ const SignUpForm = () => {
             }}
           >Find the best local parties
           </div>
-          {/* <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            color: '#333333',
-            flexWrap: 'wrap',
-            textAlign: 'center',
-            fontSize: '12px',
-            width: '300px',
-            marginBottom: '22px',
-            marginTop: '6px'
-          }}>By continuing, you agree to PartyHopper's <NavLink style={{ color: '#0073bb', marginRight: '4px' }} to='/tos'> Terms of Service </NavLink> and acknowledge PartyHopper's <NavLink style={{ color: '#0073bb' }} to='/privacy'>Privacy Policy</NavLink>
-        </div> */}
           <div>
             <input
               style={{
@@ -163,7 +145,6 @@ const SignUpForm = () => {
               placeholder='Repeat Password'
               onChange={updateRepeatPassword}
               value={repeatPassword}
-            // required={true}
             ></input>
           </div>
           <button type='submit'

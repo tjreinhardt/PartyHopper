@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getReviewsThunk, deleteReviewThunk } from "../../store/review";
 import EditReviewForm from "./EditReview";
@@ -48,17 +48,12 @@ const GetReviews = ({ eventId }) => {
         console.log('hoveredReviewId', hoveredReviewId)
     }, [hoveredReviewId])
 
-    const handleOnMouseOver = useCallback(event => {
+    const handleOnMouseOver = (event) => {
         let { id } = event.currentTarget;
-        // let reviewId = Number(document.querySelector('div.review-list-review-container').getAttribute('id'))
-        // console.log('reviewId from document querySelector', reviewId)
         if (shouldChangeCurrentId(id)) {
             setHoveredReviewId(Number(id))
         }
-    })
-    const handleOnMouseLeave = useCallback(event => {
-        console.log('mouseLeave::Event', event)
-    })
+    }
 
 
     const handleDelete = async (eventId, reviewId) => {

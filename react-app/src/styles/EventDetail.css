@@ -21,8 +21,6 @@
 
     margin-top: 100px;
     color: black;
-    /* background-color: black; */
-    /* background-color: black; */
     z-index: 5;
 }
 
@@ -31,11 +29,9 @@
     height: 426px;
     backface-visibility: visible;
     min-height: 426px;
-    /* z-index: -1; */
     width: 100%;
     opacity: 60%;
     color: rgb(219, 142, 0);
-    /* background: linear-gradient(115deg, #f5f5f5 70%, #fff 110%); */
 }
 
 .event-detail-name-div {
@@ -43,12 +39,10 @@
     justify-content: flex-start;
     margin-left: 380px;
     font-size: 36px;
-    /* position: absolute; */
     letter-spacing: -0.4px;
     text-shadow: 5px black;
     width: 700px;
     font-weight: 700;
-    /* top: -60px; */
     color: rgb(255, 255, 255);
     z-index: 3;
 }
@@ -61,17 +55,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    /* margin-left: 8px; */
     letter-spacing: -0.4px;
     font-size: 16px;
     text-shadow: 5px black;
     font-weight: 700;
-    /* top: 485px; */
     color: rgb(255, 255, 255);
 }
 
 .event-detail-type-div {
-    /* padding-left: 10px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,8 +86,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* margin-left: 30%; */
-    /* font-size: 48px; */
     position: absolute;
     height: 200px;
     letter-spacing: -0.4px;
@@ -107,7 +96,6 @@
     font-weight: 700;
     background: linear-gradient(to top, black, transparent);
     top: 226px;
-    /* color: rgb(255, 255, 255); */
     z-index: 3;
 }
 
@@ -115,13 +103,11 @@
     color: white;
     width: 90px;
     padding-left: 15px;
-    /* margin-right: 30px; */
 }
 
 .event-detail-rating-reviews-content-div {
     display: flex;
     flex-direction: column;
-    /* width: 300px; */
 }
 
 .header-content-wrapper {

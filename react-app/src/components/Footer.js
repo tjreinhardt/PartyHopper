@@ -11,12 +11,12 @@ function Footer() {
             textDecoration: 'none',
             marginLeft: '60px',
             marginRight: '25px'
-          }} href={'https://github.com/tjreinhardt'} target="_blank">Github</a>
+          }} href={'https://github.com/tjreinhardt'} target="_blank" rel="noreferrer">Github</a>
           <a className="about-links" style={{
             textDecoration: 'none',
             marginLeft: '60px',
             marginRight: '25px'
-          }} href={'https://www.linkedin.com/in/tim-reinhardt-55716b146/'} target="_blank">LinkedIn</a>
+          }} href={'https://www.linkedin.com/in/tim-reinhardt-55716b146/'} target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
       </div>
     </div>

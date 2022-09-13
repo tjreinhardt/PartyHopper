@@ -16,10 +16,8 @@ const EventDetail = () => {
   const { eventId } = useParams();
   const reviews = useSelector(state => state.review)
   const history = useHistory()
-  // const [rating, setRating] = useState(0)
   const event = useSelector(state => state.event[eventId]);
   const session = useSelector(state => state.session.user);
-  // console.log(session, 'session')
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const reviewsList = Object.values(reviews)
@@ -106,19 +104,12 @@ const EventDetail = () => {
 
     let monthsNumber = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    // console.log(removeZeroes, "removeZeroes")
-    // console.log(monthsNumber[10] - 2, "monthsNumber[10] - 1")
     for (let i = 0; i < months.length; i++) {
       if (`${monthsNumber[i]}` === removeZeroes) {
         return `${months[i]} ${day}, ${year}`
       }
     }
   }
-
-
-
-
-  // console.log(averageReviews(reviewsList), "averageReviews(reviewsList)")
 
   return (eventIsLoaded && event && <>
     <NavBar />
@@ -128,7 +119,7 @@ const EventDetail = () => {
           <div style={{ width: '100%', maxWidth: '100%' }} className="image-header-content-block">
           </div>
           <div style={{ width: '100%', maxWidth: '100%' }} className="event-detail-image-wrapper">
-            <img className={'event-detail-image'} style={{ border: 'none', width: '99.7%', maxWidth: '99vw', overflowX: 'hidden' }} onError={({ target }) => {
+            <img alt='' className={'event-detail-image'} style={{ border: 'none', width: '99.7%', maxWidth: '99vw', overflowX: 'hidden' }} onError={({ target }) => {
               target.onError = null
               target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
             }} src={event?.imageUrl}></img>
@@ -143,7 +134,6 @@ const EventDetail = () => {
             <div className='star-chart-wrapper'>
               <div className='star-chart-inner-div' style={{ display: 'flex', marginBottom: '10px' }}>
                 {rate.map((_, i) => {
-                  // const input = i + 1;
                   return (
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
                       <FaStar
