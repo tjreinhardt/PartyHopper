@@ -31,9 +31,7 @@
     margin: 20px;
     display: flex;
     flex-direction: row;
-    /* flex-wrap: wrap; */
     transition: all 0.3s;
-    /* cursor: pointer; */
     text-decoration: none;
     color: black;
 }
@@ -56,12 +54,7 @@
 img {
     width: 208px;
     height: 100%;
-    /* border-right: 1px solid gray; */
     max-width: 208x;
-    /* max-height: 202px; */
-    /* object-fit: cover; */
-    /* height: calc(100% + 2px); */
-    /* width: calc(100% + 2px); */
 }
 
 .event-description-div {

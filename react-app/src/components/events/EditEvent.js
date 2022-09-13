@@ -16,8 +16,6 @@ const EditEventForm = ({ event, hideModal }) => {
   const [startDate, setStartDate] = useState(event.startDate)
   const [startTime, setStartTime] = useState(event.startTime)
 
-  // const [lat, setLat] = useState(event.lat)
-  // const [lng, setLng] = useState(event.lng)
   const [errors, setErrors] = useState([])
   let today = new Date();
   let todays_day = today.getDay() - 3;
@@ -32,7 +30,6 @@ const EditEventForm = ({ event, hideModal }) => {
   const getTodaysDate = () => {
     let today = new Date();
     let todays_day = new Date().getDay() + 12;
-    // console.log('todays_day', todays_day)
     if (todays_day < 10) todays_day = `0${todays_day}`
     let todays_month = new Date().getMonth() + 1;
     if (todays_month < 10) todays_month = `0${todays_month}`
@@ -41,13 +38,6 @@ const EditEventForm = ({ event, hideModal }) => {
     return todays_date
   }
 
-  function checkImageUrl(imageUrl) {
-    if (!imageUrl || imageUrl.trimEnd().length === 0) return false
-    if (imageUrl && imageUrl.includes(' ')) return false
-    if (imageUrl && imageUrl.includes("File:")) return false
-
-    return /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl);
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,33 +50,19 @@ const EditEventForm = ({ event, hideModal }) => {
       entertainment,
       startDate,
       startTime
-      // lat,
-      // lng
     };
     if (!errors.length) {
       dispatch(updateEventThunk(newEvent))
       history.push(`/events/${newEvent.id}`);
       hideModal()
-      // .then(
-      //   async (res) => {
-      //     if (res.errors) {
-      //       setErrors(res.errors)
-      //     }
-      //     else {
-      //       hideModal()
-      //     }
-
-      //   })
     }
-    // errors.push(['Cannot pick a date that has already happened'])
   }
 
   let newStartTime = startTime.split(':').join('')
-  let hours = new Date().getHours()
   if (new Date().getMinutes() < 10) {
     var minutes = `0${new Date().getMinutes()}`
   } else if (new Date().getMinutes() >= 10) {
-    var minutes = `${new Date().getMinutes()}`
+    minutes = `${new Date().getMinutes()}`
   }
   useEffect(() => {
     let errors = [];
@@ -102,7 +78,7 @@ const EditEventForm = ({ event, hideModal }) => {
     if (!startDate) errors.push("What date is your event taking place?");
     if (!startTime) errors.push("What time does your event start?")
     setErrors(errors)
-  }, [name, newStartTime, description, imageUrl, eventType, entertainment, startDate, startTime, minutes, getTodaysDate()])
+  }, [name, newStartTime, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
 
   return (
     <div>

@@ -1,65 +1,21 @@
-import React, { useEffect, useState } from "react";
-import fallback from "../Assets/groups-and-parties-christmas-party.jpeg";
-import { NavLink, useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import * as eventActions from '../store/event'
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import { useSpringCarousel } from 'react-spring-carousel';
 import '../styles/HomePage.css'
-import { FaStar } from 'react-icons/fa'
 import { getReviewsThunk } from "../store/review";
-// import { getReviewsThunk } from "../store/review";
 
 const HomePage = ({ eventId, event, showModal }) => {
-  const history = useHistory()
   const dispatch = useDispatch()
 
   const user = useSelector(state => state.session.user);
-  const reviews = useSelector(state => state?.review)
   const events = Object.values(useSelector(state => state.event))
-  const eventsList = Object.values(events)
-  const [imageError, setImageError] = useState(false);
-  // const [imageUrl, setImageUrl] = useState()
-  const [fallbacks, setFallBacks] = useState(fallback)
-  const reviewsList = Object.values(reviews)
-  const [rating, setRating] = useState(0)
-
-  const [onHoverRating, setOnHoverRating] = useState(null);
 
   const randomNum = Math.random(0, 5)
   console.log('randomNum', randomNum)
-  // const onError = () => setImageSrc(fallback)
 
-
-  // console.log(, "eventId")
-  // const getAverage = (eventId) => {
-
-  // }
-
-  const colors = {
-    'yellow': "rgb(219, 142, 0)",
-    'gray': "#a9a9a9"
-  }
-
-  const rate = Array(5).fill(0)
-
-
-
-  const averageReviews = (reviewsList) => {
-    let sum = 0;
-    if (reviewsList.length === 0) return
-    if (reviewsList.length === 1) return reviewsList[0].rating - 1
-    if (reviewsList.length === 2) return (((reviewsList[0].rating - 1) + reviewsList[1].rating) / 2)
-    else {
-      for (let i = 0; i < reviewsList.length; i++) {
-        sum += reviewsList[i].rating
-        i++
-      }
-      var average = ((sum / reviewsList.length)).toFixed(2)
-    }
-    return average
-  }
 
   const images = [
     {
@@ -90,7 +46,6 @@ const HomePage = ({ eventId, event, showModal }) => {
 
   const {
     carouselFragment,
-    slideToPrevItem,
     slideToNextItem
   } = useSpringCarousel({
     draggingSlideTreshold: 1,
@@ -99,13 +54,11 @@ const HomePage = ({ eventId, event, showModal }) => {
       id: i.id,
       renderItem: (
         <div>
-
           <div className="image-cards" style={{ margin: '0px', height: "682px", maxWidth: "100vw", maxHeight: "682px" }} key={i.id} to={`/images/${i.id}`}>
             <div>
               {i.title}
             </div>
             <div>
-
               <img alt="" style={{ opacity: "100%", margin: '0px', position: 'sticky', top: '0', minHeight: '682px', minWidth: '100vw', width: '100vw', height: "100vh", bottom: '60px' }} className="image-card" src={i.imageUrl}>
               </img>
             </div>
@@ -128,7 +81,7 @@ const HomePage = ({ eventId, event, showModal }) => {
   useEffect(() => {
     dispatch(eventActions.getAllEventsThunk())
     dispatch(getReviewsThunk(eventId))
-  }, [dispatch])
+  }, [dispatch, eventId])
 
 
 
@@ -143,21 +96,10 @@ const HomePage = ({ eventId, event, showModal }) => {
     content = null
   }
 
-  const handleMouseover = value => {
-    setOnHoverRating(value)
-  };
-  const handleMousoverExit = () => {
-    setOnHoverRating(null)
-  };
-
-  const handleRedirect = () => {
-    history.push(`/events/${eventId}`)
-  }
 
   return (user &&
     <> <NavBar />
       <div className="carousel-outer-div">
-        {/* <div className={'welcome-user-home'} style={{ zIndex: '1', position: 'absolute', top: '418px', color: 'white', fontSize: '72px', fontWeight: '700', textAlign: 'center', paddingBottom: '100px' }}>Welcome Home, <br />{user.username}!</div> */}
         {content}
         <div className="carousel-content-div">
           {carouselFragment}
@@ -173,7 +115,7 @@ const HomePage = ({ eventId, event, showModal }) => {
             events.map(event =>
               <div key={event.id} to={`/events/${event.id}`} className="event-card">
                 <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
-                  <img className='event_image' onError={({ target }) => {
+                  <img alt='' className='event_image' onError={({ target }) => {
                     target.onError = null
                     target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
                   }} src={event.imageUrl}></img>
@@ -186,14 +128,9 @@ const HomePage = ({ eventId, event, showModal }) => {
                   </NavLink>
                   <div className='star-chart-wrapper'>
                     <div className='star-chart-inner-div' style={{ display: 'flex', marginBottom: '10px' }}>
-                      {/* {rate.map((_, i) => { */}
-                      {/* // const input = i + 1; */}
-                      {/* return ( */}
                       <NavLink to={`/events/${event.id}`} style={{ display: 'flex', flexDirection: 'row', textDecoration: 'none' }}>
                         <div className="homepage-rate-button">Details / Reviews</div>
                       </NavLink>
-                      {/* ) */}
-                      {/* })} */}
                     </div>
                   </div>
                 </div>

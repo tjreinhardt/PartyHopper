@@ -34,15 +34,6 @@ const LoginForm = () => {
   }
 
 
-
-  useEffect(() => {
-    let errors = [];
-    if (email.trim().length === 0) errors.push("Please enter your email")
-    if (email.trim().length > 255) errors.push("Email is too long")
-    if (password.trim().length > 255) errors.push("Password exceeds max limit")
-    setErrors(errors)
-  }, [email, password])
-
   if (user) {
     return <Redirect to='/' />;
   }
@@ -121,8 +112,6 @@ const LoginForm = () => {
               type='text'
               placeholder='Email'
               value={email}
-              // required
-              // onInvalid={e => e.target.setCustomValidity(errors)}
               onChange={updateEmail}
             />
           </div>
@@ -132,8 +121,6 @@ const LoginForm = () => {
               type='password'
               placeholder='Password'
               value={password}
-              // required
-              // onInvalid={e => e.target.setCustomValidity(errors)}
               onChange={updatePassword}
             />
           </div>
