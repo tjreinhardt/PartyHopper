@@ -192,19 +192,6 @@ const EventDetail = () => {
               marginTop: '10px'
             }} onClick={handleDelete}>Delete Event</button>
             {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
-            <div>
-              {/* <div><button onClick={() => handleRsvps(eventId)} >rsvps event</button></div> */}
-              <div className="event-rsvp-buttons" onClick={() => handleRsvps(event.id)}>
-                {event.rsvpStatus === 1 ?
-                  <button style={{ height: '35px', width: '150px' }}>Cancel RSVP</button>
-                  :
-                  <button style={{ height: '35px', width: '150px' }}>RSVP</button>
-                }
-
-              </div>
-
-              {/* <div>{!!event.totalRsvps && (event.totalRsvps === 1 ? <p>1 rsvp</p> : <p>{event.totalRsvps} rsvps</p>)}</div> */}
-            </div>
           </div>
         )}
       </div>
@@ -229,6 +216,24 @@ const EventDetail = () => {
             ><span style={{ color: 'darkGrey', textDecoration: 'underline' }}>Details:</span> <br />
               {event.description}
             </div>
+            {!showButton && (
+              <div style={{ marginLeft: 'auto', marginRight: '100%' }}>
+                {/* <div><button onClick={() => handleRsvps(eventId)} >rsvps event</button></div> */}
+                <div style={{ marginRight: '10px', marginLeft: '8px' }} className="event-rsvp-buttons" onClick={() => handleRsvps(event.id)}>
+                  {event.rsvpStatus === 1 ?
+                    <button style={{ height: '35px', width: '150px' }}>Cancel RSVP</button>
+                    :
+                    <button style={{ height: '35px', width: '150px' }}>RSVP</button>
+                  }
+
+                </div>
+
+                {/* <div>{!!event.totalRsvps && (event.totalRsvps === 1 ? <p>1 rsvp</p> : <p>{event.totalRsvps} rsvps</p>)}</div> */}
+              </div>
+
+            )
+
+            }
             <div>
               {session.id !== event.userId && sessionLinks}
             </div>
