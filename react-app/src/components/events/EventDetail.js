@@ -174,7 +174,7 @@ const EventDetail = () => {
       </div>
       <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
         {showButton && (
-          <div style={{ marginLeft: '38%' }} className="event-detail-buttons">
+          <div style={{ marginLeft: '30%' }} className="event-detail-buttons">
             <button style={{
               fontWeight: '800',
               fontSize: '16px',
@@ -192,21 +192,21 @@ const EventDetail = () => {
               marginTop: '10px'
             }} onClick={handleDelete}>Delete Event</button>
             {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
+            <div>
+              {/* <div><button onClick={() => handleRsvps(eventId)} >rsvps event</button></div> */}
+              <div className="event-rsvp-buttons" onClick={() => handleRsvps(event.id)}>
+                {event.rsvpStatus === 1 ?
+                  <button style={{ height: '36px', width: '150px' }}>Cancel RSVP</button>
+                  :
+                  <button style={{ height: '36px', width: '150px' }}>RSVP</button>
+                }
+
+              </div>
+
+              {/* <div>{!!event.totalRsvps && (event.totalRsvps === 1 ? <p>1 rsvp</p> : <p>{event.totalRsvps} rsvps</p>)}</div> */}
+            </div>
           </div>
         )}
-      </div>
-      <div>
-        {/* <div><button onClick={() => handleRsvps(eventId)} >rsvps event</button></div> */}
-        <div onClick={() => handleRsvps(event.id)}>
-          {event.rsvpStatus === 1 ?
-            <button style={{ height: '36px', width: '150px' }}>Cancel RSVP</button>
-            :
-            <button style={{ height: '36px', width: '150px' }}>RSVP</button>
-          }
-
-        </div>
-
-        {/* <div>{!!event.totalRsvps && (event.totalRsvps === 1 ? <p>1 rsvp</p> : <p>{event.totalRsvps} rsvps</p>)}</div> */}
       </div>
       <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
