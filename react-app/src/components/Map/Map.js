@@ -11,6 +11,9 @@ import { GeolocateControl } from 'react-map-gl';
 import './Map.css'
 import { useSelector } from 'react-redux';
 import { getAllEventsThunk } from '../../store/event';
+import Geocoder from './Geocoder';
+import NavBar from '../NavBar';
+// import EventDetail from '../events/EventDetail';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU1dzQwZGZobCJ9.f93BsV65IIUxtBJkbiiqXg'; // Set your mapbox token here
 
@@ -93,6 +96,7 @@ export default function MapGL() {
 
   return (
     <>
+      <NavBar />
       <Map
         ref={mapRef}
         onLoad={onMapLoad}
@@ -101,10 +105,11 @@ export default function MapGL() {
           longitude: -100,
           zoom: 3
         }}
-        style={{ position: "fixed", height: '90.8%', width: '100%', marginTop: "50px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover' }}
+        style={{ position: "fixed", height: '89.1%', width: '100%', marginTop: "80px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
 
-        mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
+        mapStyle="mapbox://styles/mapbox/dark-v10"
         projection="globe"
+
         mapboxAccessToken={MAPBOX_TOKEN}
       >
         <GeolocateControl
@@ -136,9 +141,11 @@ export default function MapGL() {
               <br />
               {/* Latitude: {popupInfo.lat} */}
               {/* <img className="map-event-popup" width="100%" height="100%" src={popupInfo.eventUrl} alt="" /> */}
+              {/* <EventDetail /> */}
             </div>
           </Popup>
         )}
+        <Geocoder />
       </Map>
     </>
   );
