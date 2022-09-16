@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from .event import Event, event_rsvps
+from .reviews import review_likes
 
 
 class User(db.Model, UserMixin):
@@ -24,6 +25,13 @@ class User(db.Model, UserMixin):
         "Event",
         secondary=event_rsvps,
         back_populates="event_rsvp_users",
+        cascade="all, delete"
+    )
+
+    like_reviews = db.relationship(
+        "Review",
+        secondary=review_likes,
+        back_populates="review_like_users",
         cascade="all, delete"
     )
 

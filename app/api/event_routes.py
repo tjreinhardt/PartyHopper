@@ -17,9 +17,9 @@ def get_all_events():
   res = {}
 
   for event in events:
-    # rsvp_status=list(filter(lambda user: user.id==current_user.id, user))
+    rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
     event_dict = event.to_dict()
-    # event_dict['rsvpStatus'] = 1 if len(rsvp_status) > 0 else 0
+    event_dict['rsvpStatus'] = 1 if len(rsvp_status) > 0 else 0
     res[event.id] = event_dict
 
   return {"Events": res}
@@ -32,9 +32,9 @@ def get_all_events_from_user():
     res = {}
 
     for event in events:
-        # rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
+        rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
         event_dict = event.to_dict()
-        # event_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
+        event_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
         res[event.id] = event_dict
 
     return {"Events": res}
@@ -47,9 +47,9 @@ def get_others_events(id):
     events = Event.query.filter(Event.userId == id).all()
     res = {}
     for event in events:
-        # rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
+        rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
         event_dict = event.to_dict()
-        # event_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
+        event_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
         res[event.id] = event_dict
 
     return {"Events": res}
@@ -131,9 +131,9 @@ def update_event(eventId):
     # event.lat=(form.data['lat'])
     # event.lng=(form.data['lng'])
     db.session.commit()
-    # rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
+    rsvp_status=list(filter(lambda user: user.id==current_user.id, event.event_rsvp_users))
     res = event.to_dict()
-    # res["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
+    res["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
 
     return res
 
@@ -163,9 +163,9 @@ def get_all_reviews(eventId):
     reviews = Review.query.filter(Review.eventId == eventId).all()
     res = {}
     for review in reviews:
-        # rsvp_status = list(filter(lambda user: user.id==current_user.id, review.review_like_users))
+        like_status = list(filter(lambda user: user.id==current_user.id, review.review_like_users))
         review_dict = review.to_dict()
-        # review_dict["rsvpStatus"] = 1 if len(rsvp_status) > 0 else 0
+        review_dict["likeStatus"] = 1 if len(like_status) > 0 else 0
         res[review.id] = review_dict
     return {"Reviews": res}
 
@@ -183,18 +183,15 @@ def create_reviews(eventId):
     if form.validate_on_submit():
         review = Review(
             rating=form.data['rating'],
-            # entertainmentRating=form.data['entertainmentRating'],
-            # atmosphereRating=form.data['atmosphereRating'],
             comment=form.data['comment']
         )
         review.userId = current_user.id
         review.eventId = eventId
         db.session.add(review)
         db.session.commit()
-        # print("review.totalLikes-------------", review.review_rsvp_users)
 
         res = review.to_dict()
-        # res["rsvpStatus"] = 0
+        res["rsvpStatus"] = 0
         return res
     return  {'errors': ['All fields are required']}, 400
 
@@ -212,9 +209,6 @@ def update_reviews(eventId, reviewId):
         return {'errors': ['review can not be found']}, 404
 
     if review.userId != current_user.id:
-        # review.userId = current_user.id
-        print(review.userId, "------------------------------------------------review.userId")
-        print(current_user.id, "------------------------------------------------current_user.id")
         return {"errors": ['Unauthorized']}, 401
 
     form = ReviewForm()
@@ -249,3 +243,44 @@ def delete_review(eventId, reviewId):
     db.session.delete(review)
     db.session.commit()
     return {"message":"Successfully deleted"}
+
+
+#Get all rsvps of specified event
+@event_routes.route('/<int:eventId>/rsvps')
+@login_required
+def get_event_rsvps(eventId):
+    event = Event.query.get(eventId)
+    if not event:
+        return {'errors': ['event cannot be found']}, 400
+    rsvp_users = list(event.event_rsvp_users)
+    res = {}
+    for user in rsvp_users:
+        res[user.id] = {
+            "username": user.username
+        }
+
+    return {"rsvp_users": res}
+
+#update the rsvp status for a specified event
+@event_routes.route('/<int:eventId>/rsvps', methods=["PUT"])
+@login_required
+def update_event_rsvps(eventId):
+
+    event = Event.query.get(eventId)
+    if not event:
+        return {'errors': ['event cannot be found']}, 400
+    rsvp_users = list(event.event_rsvp_users)
+    current_user_rsvp = list(filter(lambda user: user.id == current_user.id, rsvp_users))
+    if len(current_user_rsvp) == 0:
+        event.event_rsvp_users.append(current_user)
+        db.session.commit()
+    else:
+        event.event_rsvp_users.remove(current_user)
+        db.session.commit()
+
+
+    updated_event = Event.query.get(eventId)
+    updated_rsvp_users = list(updated_event.event_rsvp_users)
+    updated_current_user_rsvp = list(filter(lambda user: user.id == current_user.id, updated_rsvp_users))
+    current_user_rsvp_status = 1 if len(updated_current_user_rsvp) else 0
+    return {"eventId": eventId, "rsvpStatus": current_user_rsvp_status, "totalRsvps": len(updated_event.event_rsvp_users)}
