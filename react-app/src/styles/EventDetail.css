@@ -75,6 +75,12 @@
     color: rgb(255, 255, 255);
 }
 
+.event-rsvp-buttons {
+    /* margin-left: 15%; */
+    margin-top: 10px;
+    margin-left: 16px;
+}
+
 .overall-rating-stars {
     width: 300px;
     display: flex;
