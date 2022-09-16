@@ -8,6 +8,9 @@ import '../../styles/EventDetail.css'
 import GetReviews from "../reviews/ReviewList"
 import CreateReviewForm from "../reviews/CreateReview";
 import { FaStar } from 'react-icons/fa'
+import rsvpIcon from '../../Images/instagram-like-icon.png';
+import rsvpdIcon from '../../Images/PngItem_5229528.png';
+import { rsvpEventThunk } from "../../store/event";
 
 
 
@@ -44,6 +47,9 @@ const EventDetail = () => {
     return dispatch(deleteEventThunk(eventId)).then(() => history.push('/'))
   }
 
+  const handleRsvps = async (eventId) => {
+    return dispatch(rsvpEventThunk(eventId))
+  }
 
   if (!event) {
     return null
@@ -74,7 +80,6 @@ const EventDetail = () => {
       let newArray = []
       for (let i = 0; i < reviewsList.length; i++) {
         newArray.push(reviewsList[i].rating)
-        console.log('newArray from for looooop', newArray)
         let newValue = reviewsList[i].rating
         sum += newValue
       }
@@ -160,7 +165,8 @@ const EventDetail = () => {
               }>{event.totalReviews} {(event.totalReviews) !== 1 ? "reviews" : "review"}</div>
 
               <div className={"event-detail-type-div"}>{event.eventType}, </div>
-              <div className={"event-detail-entertainment-div"}>{event.entertainment}</div>
+              <div className={"event-detail-entertainment-div"}>{event.entertainment} </div>
+              <div className={"event-detail-type-div"} style={{ marginLeft: '24px' }}>RSVPS: {event.totalRsvps}</div>
             </div>
           </div>
 
@@ -188,6 +194,19 @@ const EventDetail = () => {
             {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
           </div>
         )}
+      </div>
+      <div>
+        {/* <div><button onClick={() => handleRsvps(eventId)} >rsvps event</button></div> */}
+        <div onClick={() => handleRsvps(event.id)}>
+          {event.rsvpStatus === 1 ?
+            <button style={{ height: '36px', width: '150px' }}>Cancel RSVP</button>
+            :
+            <button style={{ height: '36px', width: '150px' }}>RSVP</button>
+          }
+
+        </div>
+
+        {/* <div>{!!event.totalRsvps && (event.totalRsvps === 1 ? <p>1 rsvp</p> : <p>{event.totalRsvps} rsvps</p>)}</div> */}
       </div>
       <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>

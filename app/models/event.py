@@ -52,12 +52,4 @@ class Event(db.Model):
       # "lng": self.lng,
       "totalRsvps": len(self.event_rsvp_users),
       "totalReviews": len(self.reviews),
-      # "user": {
-      #     "profileImage":self.user.profileImage,
-      #     "username":self.user.username,
-      #     'totalRsvps': self.user.followers.count(),
-      #     'totalFollowings': self.user.following.count(),
-      #     'totalEvents': len(self.user.events),
-      #     'fullname': self.user.fullname
-      # },
     }

@@ -136,7 +136,7 @@ const GetReviews = ({ eventId }) => {
                                 {rate.map((_, i) => {
                                     // const input = i + 1;
                                     return (
-                                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <div key={i} style={{ display: 'flex', flexDirection: 'row' }}>
                                             <FaStar
                                                 key={i}
                                                 size={25}
