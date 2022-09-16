@@ -13,8 +13,8 @@ def seed_events():
         startDate = datetime(2022, 6, 5, 11, 12, 12, 10),
         startTime = datetime(2022, 6, 5, 10, 20, 10, 10),
         createdAt = datetime(2022, 6, 5, 10, 20, 10, 10),
-        # lat = 1,
-        # lng = 1
+        lat = 1,
+        lng = 1
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event2 = Event(
@@ -27,8 +27,8 @@ def seed_events():
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 5),
         createdAt = date(2022, 6, 5),
-        # lat = 5,
-        # lng = 5
+        lat = 25,
+        lng = 25
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event3 = Event(
@@ -41,8 +41,8 @@ def seed_events():
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 7),
         createdAt = date(2022, 6, 5),
-        # lat = 10,
-        # lng = 10
+        lat = 80,
+        lng = 80
 
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
@@ -57,8 +57,8 @@ def seed_events():
         startTime = date(2022, 6, 3),
         createdAt = date(2022, 6, 5),
         event_rsvp_users = [User.query.get(1),User.query.get(3) , User.query.get(2)],
-        # lat = 15,
-        # lng = 15
+        lat = 15,
+        lng = 15
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
 

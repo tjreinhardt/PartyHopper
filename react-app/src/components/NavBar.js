@@ -21,6 +21,7 @@ const NavBar = () => {
             <NavLink to='/' exact={true} activeClassName='active'>
               <button className='nav-buttons'>Home</button>
             </NavLink>
+            <NavLink className="nav-buttons" to="/map">Map</NavLink>
             <div onClick={() => setCreateModal(true)}>
               <button className='nav-buttons'>Create Event</button>
             </div>

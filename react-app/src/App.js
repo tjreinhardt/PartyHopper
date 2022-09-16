@@ -12,7 +12,7 @@ import EventDetail from './components/events/EventDetail';
 import CreateEventForm from './components/events/CreateEvent';
 import Footer from './components/Footer';
 import CreateReviewForm from './components/reviews/CreateReview';
-import Map from './components/Map/Map';
+import MapGL from './components/Map/Map';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -40,9 +40,9 @@ function App() {
           <Route path='/sign-up' exact={true}>
             <SignUpForm />
           </Route>
-          {/* <ProtectedRoute path='/map'>
-            <Map />
-          </ProtectedRoute> */}
+          <ProtectedRoute path='/map'>
+            <MapGL />
+          </ProtectedRoute>
           <ProtectedRoute path='/users' exact={true} >
             <UsersList />
           </ProtectedRoute>
