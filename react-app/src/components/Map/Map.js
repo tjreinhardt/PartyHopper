@@ -107,9 +107,8 @@ export default function MapGL() {
         }}
         style={{ position: "fixed", height: '89.1%', width: '100%', marginTop: "80px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
 
-        mapStyle="mapbox://styles/mapbox/dark-v10"
+        mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
         projection="globe"
-
         mapboxAccessToken={MAPBOX_TOKEN}
       >
         <GeolocateControl
@@ -130,16 +129,19 @@ export default function MapGL() {
             style={{ padding: '0px', margin: '0px' }}
           >
             <div className="popup-info-container" style={{ position: 'relative', width: '13rem', height: '13rem', backgroundImage: `url(${popupInfo.imageUrl})`, backgroundPosition: 'center', backgroundSize: 'cover' }}>
-              <div style={{ position: 'absolute', bottom: '0', color: 'white', backgroundColor: 'black', width: '100%', margin: '10px 10px 15px', marginBottom: '0px' }}>
-                {/* {popupInfo.event.title} */}
+              <div style={{ position: 'absolute', bottom: '0', color: 'white', backgroundColor: 'black', width: '100%', margin: '10px 10px 15px', marginBottom: '0px', fontSize: '20px' }}>
+                {popupInfo.name}
+                <br />
+                {popupInfo.description}
+                <br />
+                Rsvp's: {popupInfo.totalRsvps}
+                Longitude: {popupInfo.lng}
+                Latitude: {popupInfo.lat}
               </div>
-              <br />
-              {/* {popupInfo.eventDescription} */}
-              <br />
-              <br />
-              {/* Longitude: {popupInfo.lng} */}
-              <br />
-              {/* Latitude: {popupInfo.lat} */}
+              {/* <br /> */}
+              {/* <br /> */}
+              {/* <br /> */}
+              {/* <br /> */}
               {/* <img className="map-event-popup" width="100%" height="100%" src={popupInfo.eventUrl} alt="" /> */}
               {/* <EventDetail /> */}
             </div>
