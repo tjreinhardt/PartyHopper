@@ -26,18 +26,18 @@ export default function MapGL() {
   const eventsList = useSelector(state => state.event);
   const events = Object.values(eventsList)
 
-  const onMapLoad = React.useCallback(() => {
-    mapRef.current.on('style.load', () => {
-      mapRef.current.setFog({
-        "range": [0.8, 8],
-        "color": "#dc9f9f",
-        "horizon-blend": 0.5,
-        "high-color": "#245bde",
-        "space-color": "#000000",
-        "star-intensity": 0.15
-      })
-    })
-  }, [])
+  // const onMapLoad = React.useCallback(() => {
+  //   mapRef.current.on('style.load', () => {
+  //     mapRef.current.setFog({
+  //       "range": [0.8, 8],
+  //       "color": "#dc9f9f",
+  //       "horizon-blend": 0.5,
+  //       "high-color": "#245bde",
+  //       "space-color": "#000000",
+  //       "star-intensity": 0.15
+  //     })
+  //   })
+  // }, [])
 
 
 
@@ -99,7 +99,7 @@ export default function MapGL() {
       <NavBar />
       <Map
         ref={mapRef}
-        onLoad={onMapLoad}
+        // onLoad={onMapLoad}
         initialViewState={{
           latitude: 40,
           longitude: -100,
