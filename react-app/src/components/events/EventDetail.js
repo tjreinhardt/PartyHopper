@@ -196,9 +196,9 @@ const EventDetail = () => {
               {/* <div><button onClick={() => handleRsvps(eventId)} >rsvps event</button></div> */}
               <div className="event-rsvp-buttons" onClick={() => handleRsvps(event.id)}>
                 {event.rsvpStatus === 1 ?
-                  <button style={{ height: '36px', width: '150px' }}>Cancel RSVP</button>
+                  <button style={{ height: '35px', width: '150px' }}>Cancel RSVP</button>
                   :
-                  <button style={{ height: '36px', width: '150px' }}>RSVP</button>
+                  <button style={{ height: '35px', width: '150px' }}>RSVP</button>
                 }
 
               </div>
