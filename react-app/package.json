@@ -7,8 +7,6 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "@turf/buffer": "^6.5.0",
-    "@turf/collect": "^6.5.0",
     "http-proxy-middleware": "^1.0.5",
     "mapbox-gl": "^2.9.2",
     "querystring-es3": "^0.2.1",
@@ -26,8 +24,7 @@
     "react-spring-carousel": "^2.0.19",
     "redux": "^4.1.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0",
-    "turf": "^3.0.14"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
