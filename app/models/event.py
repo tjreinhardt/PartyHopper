@@ -23,8 +23,8 @@ class Event(db.Model):
   startDate = db.Column(db.String, nullable=False)
   startTime = db.Column(db.String, nullable=False)
   rating = db.Column(db.Integer)
-  # lat = db.Column(db.Integer, nullable=False)
-  # lng = db.Column(db.Integer, nullable=False)
+  lat = db.Column(db.Integer, nullable=False)
+  lng = db.Column(db.Integer, nullable=False)
   user = db.relationship("User", back_populates="events")
   reviews = db.relationship("Review", back_populates="event", cascade="all, delete")
 
@@ -48,8 +48,8 @@ class Event(db.Model):
       "createdAt": self.createdAt,
       "startDate": self.startDate,
       "startTime": self.startTime,
-      # "lat": self.lat,
-      # "lng": self.lng,
+      "lat": self.lat,
+      "lng": self.lng,
       "totalRsvps": len(self.event_rsvp_users),
       "totalReviews": len(self.reviews),
     }
