@@ -3,6 +3,8 @@ import thunk from 'redux-thunk';
 import session from './session';
 import event from './event';
 import review from './review';
+import likeIcon from '../../Images/instagram-like-icon.png';
+import likedIcon from '../../Images/PngItem_5229528.png';
 
 const rootReducer = combineReducers({
   session,
