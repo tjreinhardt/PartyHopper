@@ -8,8 +8,6 @@ import '../../styles/EventDetail.css'
 import GetReviews from "../reviews/ReviewList"
 import CreateReviewForm from "../reviews/CreateReview";
 import { FaStar } from 'react-icons/fa'
-import rsvpIcon from '../../Images/instagram-like-icon.png';
-import rsvpdIcon from '../../Images/PngItem_5229528.png';
 import { rsvpEventThunk } from "../../store/event";
 
 
