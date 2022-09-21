@@ -17,6 +17,8 @@ const CreateEventForm = ({ hideModal }) => {
   const [entertainment, setEntertainment] = useState("")
   const [startDate, setStartDate] = useState("")
   const [startTime, setStartTime] = useState("")
+  const [lat, setLat] = useState('');
+  const [lng, setLng] = useState('');
   const [errors, setErrors] = useState([])
 
 
@@ -44,6 +46,8 @@ const CreateEventForm = ({ hideModal }) => {
       entertainment,
       startDate,
       startTime,
+      lat: Math.random() * (89 - 1) + 1,
+      lng: Math.random() * (89 - 1) + 1
     };
     if (!errors.length) {
 
@@ -87,7 +91,7 @@ const CreateEventForm = ({ hideModal }) => {
   return (
     <div style={{ marginTop: '20px' }}>
       <h2 style={{ display: 'flex', justifyContent: 'center' }}>Create Event</h2>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline" }}><span>**All fields required**</span></div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline", maxWidth: '300px', textAlign: 'center' }}><span>Map functionality is still in beta, therefore, all event locations will be temporarily assigned a default location, and may be edited following an upcoming patch release</span></div>
       <form onSubmit={handleSubmit}>
         <div style={{
           display: 'flex',
@@ -173,6 +177,20 @@ const CreateEventForm = ({ hideModal }) => {
               onChange={e => setStartTime(e.target.value)}
             />
           </div>
+          <input
+            type="hidden"
+            placeholder="Longitude"
+            value={Math.random() * (89 - 1) + 1}
+          // onChange={updateLng}
+          // required
+          />
+          <input
+            type="hidden"
+            placeholder="Latitude"
+            value={Math.random() * (89 - 1) + 1}
+          // onChange={updateLat}
+          // required
+          />
           <div>
           </div>
         </div>
