@@ -73,7 +73,7 @@ const CreateEventForm = ({ hideModal }) => {
   }
   useEffect(() => {
     let errors = [];
-    if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
+    // if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
     if (name.trim().length === 0) errors.push("Please provide a name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
