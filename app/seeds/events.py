@@ -23,7 +23,7 @@ def seed_events():
         description = "Come by on the daily for skiing, mountainbiking, live entertainment and dining",
         eventType = "Local Community Event",
         entertainment = "DJ",
-        imageUrl = "https://hctg-images.imgix.net/images/venues/lakeview-lodge-at-heavenly-resort/WD20211206HeavenlySkiResort01.jpeg",
+        imageUrl = "https://cdn.theculturetrip.com/wp-content/uploads/2020/12/the-lodge-at-edgewood-tahoe--e1607083812737.jpg",
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 5),
         createdAt = date(2022, 6, 5),
