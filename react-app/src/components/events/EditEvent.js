@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { updateEventThunk } from "../../store/event";
 
 
-const EditEventForm = ({ event, hideModal }) => {
+const EditEventForm = ({ event, hideModal, lat, lng }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -15,6 +15,8 @@ const EditEventForm = ({ event, hideModal }) => {
   const [entertainment, setEntertainment] = useState(event.entertainment)
   const [startDate, setStartDate] = useState(event.startDate)
   const [startTime, setStartTime] = useState(event.startTime)
+
+  console.log(event)
 
   const [errors, setErrors] = useState([])
   let today = new Date();
@@ -49,7 +51,9 @@ const EditEventForm = ({ event, hideModal }) => {
       eventType,
       entertainment,
       startDate,
-      startTime
+      startTime,
+      lat: event.lat,
+      lng: event.lng
     };
     if (!errors.length) {
       dispatch(updateEventThunk(newEvent))
