@@ -25,7 +25,7 @@ const CreateEventForm = ({ hideModal }) => {
 
   const getTodaysDate = () => {
     let today = new Date();
-    let todays_day = new Date().getDay() + 12;
+    let todays_day = new Date().getDay() + 19;
     if (todays_day < 10) todays_day = `0${todays_day}`
     let todays_month = new Date().getMonth() + 1;
     if (todays_month < 10) todays_month = `0${todays_month}`
@@ -73,7 +73,7 @@ const CreateEventForm = ({ hideModal }) => {
   }
   useEffect(() => {
     let errors = [];
-    // if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
+    if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
     if (name.trim().length === 0) errors.push("Please provide a name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
