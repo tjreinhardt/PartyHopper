@@ -5,30 +5,30 @@ from datetime import datetime, date, time
 def seed_events():
     event1 = Event(
         userId = 1,
-        name = "BEACH Party!!",
-        description = "Fun in the sun",
-        eventType = "Rager",
+        name = "Tahoe South",
+        description = "Join us each Thursday for live music, beer, and food!",
+        eventType = "Live Show/Event",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
+        imageUrl = "https://www.caesars.com/content/dam/empire/tah/things-to-do/shows/1920x1080/hlt-shows-outdoor-concert-venue-1920x1080.jpg.transform/featured-img/image.jpg",
         startDate = datetime(2022, 6, 5, 11, 12, 12, 10),
         startTime = datetime(2022, 6, 5, 10, 20, 10, 10),
         createdAt = datetime(2022, 6, 5, 10, 20, 10, 10),
-        lat = 1,
-        lng = 1
+        lat = 38.9594,
+        lng = -119.9416
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event2 = Event(
         userId = 2,
-        name = "HOUSE Party!!",
-        description = "Fun in the casa",
+        name = "Heavenly Lodge",
+        description = "Come by on the daily for skiing, mountainbiking, live entertainment and dining",
         eventType = "Rager",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
+        imageUrl = "https://hctg-images.imgix.net/images/venues/lakeview-lodge-at-heavenly-resort/WD20211206HeavenlySkiResort01.jpeg",
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 5),
         createdAt = date(2022, 6, 5),
-        lat = 25,
-        lng = 25
+        lat = 38.9349,
+        lng = -119.9403
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event3 = Event(
