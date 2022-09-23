@@ -14,35 +14,35 @@ def seed_events():
         startTime = datetime(2022, 6, 5, 10, 20, 10, 10),
         createdAt = datetime(2022, 6, 5, 10, 20, 10, 10),
         lat = 38.9594,
-        lng = -119.9416
+        lng = -120.9416
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event2 = Event(
         userId = 2,
-        name = "Heavenly Lodge",
+        name = "Mountain Lodge",
         description = "Come by on the daily for skiing, mountainbiking, live entertainment and dining",
-        eventType = "Rager",
+        eventType = "Local Community Event",
         entertainment = "DJ",
         imageUrl = "https://hctg-images.imgix.net/images/venues/lakeview-lodge-at-heavenly-resort/WD20211206HeavenlySkiResort01.jpeg",
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 5),
         createdAt = date(2022, 6, 5),
-        lat = 38.9349,
-        lng = -119.9403
+        lat = 38.9353,
+        lng = -120.940
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event3 = Event(
         userId = 3,
-        name = "BEER Party!!",
-        description = "Fun while drunk",
-        eventType = "Rager",
-        entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
+        name = "Emerald Bay",
+        description = "Kayaking, Camping, Sightseeing and more!",
+        eventType = "Custom Event",
+        entertainment = "No Performers",
+        imageUrl = "https://vastphotos.com/files/uploads/photos/10706/high-resolution-lake-photo-vast-xl.jpg",
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 7),
         createdAt = date(2022, 6, 5),
-        lat = 80,
-        lng = 80
+        lat = 38.9542,
+        lng = -120.1104
 
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
@@ -52,13 +52,13 @@ def seed_events():
         description = "Fun on the floor",
         eventType = "Rager",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
+        imageUrl = "https://discover.ticketmaster.com.au/wp-content/uploads/2020/10/live-stream-gigs-2020.jpg",
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 3),
         createdAt = date(2022, 6, 5),
         event_rsvp_users = [User.query.get(1),User.query.get(3) , User.query.get(2)],
-        lat = 15,
-        lng = 15
+        lat = 38.9242,
+        lng = -120.1204
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
 
