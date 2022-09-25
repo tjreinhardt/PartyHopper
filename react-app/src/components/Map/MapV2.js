@@ -14,6 +14,7 @@ import { getAllEventsThunk } from '../../store/event';
 import Geocoder from './Geocoder';
 import NavBar from '../NavBar';
 // import EventDetail from '../events/EventDetail';
+import MapboxDirections from '@mapbox/mapbox-gl-directions';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU1dzQwZGZobCJ9.f93BsV65IIUxtBJkbiiqXg'; // Set your mapbox token here
 
@@ -39,7 +40,11 @@ export default function MapGL() {
   //   })
   // }, [])
 
-
+  const directions = new MapboxDirections({
+    accessToken: mapboxgl.accessToken,
+    unit: 'metric',
+    profile: 'mapbox/driving',
+  });
 
   const pins = useMemo(
     () =>
@@ -132,12 +137,10 @@ export default function MapGL() {
               <div style={{ position: 'absolute', bottom: '0', color: 'white', backgroundColor: 'black', width: '100%', margin: '10px 10px 15px', marginBottom: '0px', fontSize: '20px' }}>
                 {popupInfo.name}
                 <br />
-                {/* {popupInfo.description} */}
+                {popupInfo.description}
                 <br />
                 Rsvp's: {popupInfo.totalRsvps}
-                <br />
                 Longitude: {popupInfo.lng}
-                <br />
                 Latitude: {popupInfo.lat}
               </div>
               {/* <br /> */}
