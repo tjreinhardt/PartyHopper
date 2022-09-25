@@ -17,8 +17,8 @@ class User(db.Model, UserMixin):
     bio = db.Column(db.String(300))
     # imageUrl = db.column(db.String(500))
     hashed_password = db.Column(db.String(255), nullable=False)
-    # lat = db.Column(db.Integer)
-    # lng = db.Column(db.Integer)
+    lat = db.Column(db.Float(precision=12, asdecimal=False))
+    lng = db.Column(db.Float(precision=12, asdecimal=False))
 
 
     rsvp_event = db.relationship(
@@ -57,6 +57,8 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email,
             'bio': self.bio,
+            "lat": self.lat,
+            "lng": self.lng,
             'total_reviews': len(self.reviews)
             # 'total_rsvps': len(self.rsvps)
         }
