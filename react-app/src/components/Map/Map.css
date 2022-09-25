@@ -27,6 +27,19 @@
   max-width: 100vw;
 }
 
+.popup-name-navlink {
+  color: white;
+  transition: all 150ms ease-in-out;
+  text-decoration: none;
+  /* border: 1px solid red; */
+}
+
+.popup-name-navlink:hover {
+  color: red;
+  border: 0px;
+  border: transparent;
+}
+
 .nav-wrapper {
   width: 50%;
 }
