@@ -59,7 +59,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             }
             else {
               // hideModal()
-              history.push(`/events/${res.id}`);
+              history.push(`/explore`);
             }
           })
     }
