@@ -10,18 +10,20 @@ input {
   padding-left: 9px;
   padding-right: 9px;
   font-size: 14px;
-  width: 300px;
+  width: 20vw;
   height: 22px;
   margin-bottom: 9px;
   border: 1px solid #999;
-
 }
 
 
 select {
+  padding-top: 5px;
+  padding-bottom: 5px;
   padding-left: 9px;
+  padding-right: 9px;
   font-size: 14px;
-  width: 322px;
+  width: 21.3vw;
   height: 36px;
   margin-bottom: 9px;
 }
