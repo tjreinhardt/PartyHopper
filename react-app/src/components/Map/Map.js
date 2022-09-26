@@ -23,6 +23,7 @@ import { getEventDetailThunk } from '../../store/event';
 import CreateEventForm from '../events/CreateEvent';
 import EditEventForm from '../events/EditEvent';
 import EventDetail from '../events/EventDetail';
+import { setRTLTextPlugin } from 'mapbox-gl';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU1dzQwZGZobCJ9.f93BsV65IIUxtBJkbiiqXg'; // Set your mapbox token here
 
@@ -43,68 +44,22 @@ export default function MapGL() {
   const eventsList = useSelector(state => state.event);
   const session = useSelector(state => state.session.user);
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
+  const [latt, setLatt] = useState(null)
+  const [long, setLong] = useState(null)
   const events = Object.values(eventsList)
+  const [newIdea, setNewIdea] = useState(null)
   const event = useSelector(state => state.event[eventId]);
 
 
-  // const onMapLoad = React.useCallback(() => {
-  //   mapRef.current.on('style.load', () => {
-  //     mapRef.current.setFog({
-  //       "range": [0.8, 8],
-  //       "color": "#dc9f9f",
-  //       "horizon-blend": 0.5,
-  //       "high-color": "#245bde",
-  //       "space-color": "#000000",
-  //       "star-intensity": 0.15
-  //     })
-  //   })
-  // }, [])
-
-
-
-  const pins = useMemo(
-    () =>
-      events.map((event, index) => (
-        <Marker
-          key={`marker-${index}`}
-          longitude={event.lng}
-          latitude={event.lat}
-          anchor="bottom"
-
-          // draggable={true}
-
-          onClick={e => {
-            e.originalEvent.stopPropagation();
-            setPopupInfo({ ...event })
-          }}
-        >
-          <Pin />
-        </Marker>
-      )),
-    [events, event, popupInfo]
-  )
-
-
-  const createFeatureCollection = (eventsArray) => {
-    return {
-      "type": "FeatureCollection",
-      "features": eventsArray.map((dbEvent) => {
-        return {
-          "type": "Feature",
-          "properties": {
-            "url": dbEvent.imageUrl,
-            "title": dbEvent.title,
-            "body": dbEvent.description,
-            "userId": dbEvent.userId
-          },
-          "geometry": {
-            "type": "Point",
-            "coordinates": [dbEvent.lng, dbEvent.lat]
-          }
-        }
-      })
-    }
-  }
+  const handleAddClick = (e) => {
+    const [longitude, latitude] = e.lngLat.toArray();
+    setNewIdea({
+      lat: latitude,
+      long: longitude,
+    });
+    setLatt(latitude)
+    setLong(longitude)
+  };
 
 
   const handleRsvps = async (eventId) => {
@@ -125,9 +80,6 @@ export default function MapGL() {
     dispatch(getAllEventsThunk())
   }, [dispatch, event, rsvpEventThunk, popupInfo])
 
-  React.useEffect(() => {
-    createFeatureCollection(events)
-  }, [events, event])
 
 
   return (
@@ -141,21 +93,34 @@ export default function MapGL() {
             {...viewState}
             className={'map-wrapper'}
             onMove={evt => setViewState(evt.viewState)}
+            onDblClick={handleAddClick}
             style={{ position: "absolute", right: '-0px', borderRight: '0px', borderBottomRightRadius: '0px', borderTopLeftRadius: '4px', borderTopRightRadius: '0px', height: '84.3%', width: '75vw', marginRight: 'auto', border: '3px solid black', borderBottomLeftRadius: '4px', marginTop: "80px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
 
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
             projection="globe"
             mapboxAccessToken={MAPBOX_TOKEN}
           >
+            {newIdea && (
+              <Marker
+                longitude={newIdea.long}
+                latitude={newIdea.lat}
+                anchor="left"
+                closeButton={true}
+                closeOnClick={false}
+                onClose={() => setNewIdea(null)}>
+                <Pin />
+              </Marker>
+            )}
             <GeolocateControl
               positionOptions={{ enableHighAccuracy: true }}
               trackUserLocation={true}
+              showUserHeading={true}
+              showUserLocation={true}
               onGeolocate={(position) => {
                 // get latitude and longitude of user current location
                 setNewLocation([position.coords.latitude, position.coords.longitude]);
               }}
             />
-            {pins}
             {popupInfo && (
               <Popup
                 anchor="top"
@@ -208,7 +173,7 @@ export default function MapGL() {
           </Map>
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', width: '20vw', position: 'absolute', left: '29px' }}>
-          <CreateEventForm />
+          <CreateEventForm lat={latt} lng={long} />
         </div>
         {/* <div style={{ display: 'flex', justifyContent: 'center', width: '24vw', position: 'absolute', right: '0px' }}>
           <EventDetail />

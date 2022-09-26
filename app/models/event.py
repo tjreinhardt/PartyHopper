@@ -23,8 +23,8 @@ class Event(db.Model):
   startDate = db.Column(db.String, nullable=False)
   startTime = db.Column(db.String, nullable=False)
   rating = db.Column(db.Integer)
-  lat = db.Column(db.Float(precision=12, asdecimal=False),nullable=False)
-  lng = db.Column(db.Float(precision=12, asdecimal=False),nullable=False)
+  lat = db.Column(db.Float(precision=16, asdecimal=False),nullable=False)
+  lng = db.Column(db.Float(precision=16, asdecimal=False),nullable=False)
   user = db.relationship("User", back_populates="events")
   reviews = db.relationship("Review", back_populates="event", cascade="all, delete")
 
