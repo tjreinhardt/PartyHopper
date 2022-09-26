@@ -3,7 +3,7 @@
 
 // collect(turf.points, turf.polys, 'population', 'populationValues');
 import * as React from 'react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -39,6 +39,11 @@ export default function MapGL() {
   const { eventId } = useParams();
   const { rsvpStatus } = useParams();
   const mapRef = React.useRef()
+  const [viewport, setViewport] = useState({
+    lng: 37.7577,
+    lat: -122.4376,
+    zoom: 8
+  });
   const [popupInfo, setPopupInfo] = useState(null);
   const [newLocation, setNewLocation] = useState(null);
   const eventsList = useSelector(state => state.event);
@@ -50,6 +55,21 @@ export default function MapGL() {
   const [newIdea, setNewIdea] = useState(null)
   const event = useSelector(state => state.event[eventId]);
 
+  const handleViewportChange = useCallback(
+    (newViewState) => setViewState(newViewState),
+    []
+  );
+  const handleGeocoderViewportChange = useCallback(
+    (newViewState) => {
+      const geocoderDefaultOverrides = { transitionDuration: 1000 };
+
+      return handleViewportChange({
+        ...newViewState,
+        ...geocoderDefaultOverrides
+      });
+    },
+    []
+  );
 
   const handleAddClick = (e) => {
     const [longitude, latitude] = e.lngLat.toArray();
@@ -93,6 +113,7 @@ export default function MapGL() {
             {...viewState}
             className={'map-wrapper'}
             onMove={evt => setViewState(evt.viewState)}
+            onViewportChange={handleViewportChange}
             onDblClick={handleAddClick}
             style={{ position: "absolute", right: '-0px', borderRight: '0px', borderBottomRightRadius: '0px', borderTopLeftRadius: '4px', borderTopRightRadius: '0px', height: '84.3%', width: '75vw', marginRight: 'auto', border: '3px solid black', borderBottomLeftRadius: '4px', marginTop: "80px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
 
@@ -120,8 +141,8 @@ export default function MapGL() {
               onGeolocate={(position) => {
                 // get latitude and longitude of user current location
                 setNewLocation([position.coords.latitude, position.coords.longitude]);
-                setLatt(position.coords.latitude)
-                setLong(position.coords.longitude)
+                // setLatt(position.coords.latitude)
+                // setLong(position.coords.longitude)
               }}
             />
             {popupInfo && (
@@ -172,7 +193,12 @@ export default function MapGL() {
                 </div>
               </Popup>
             )}
-            <Geocoder style={{ width: '900px' }} />
+            <Geocoder
+              mapRef={mapRef}
+              onViewportChange={handleGeocoderViewportChange}
+              mapboxAccessToken={MAPBOX_TOKEN}
+              reverseGeocode
+            />
           </Map>
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end', width: '20vw', position: 'absolute', left: '29px' }}>
