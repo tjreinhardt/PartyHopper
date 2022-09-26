@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, TimeField, StringField, SelectField, DateTimeField
+from wtforms import IntegerField, TimeField, StringField, SelectField, DecimalField, DateTimeField
 from wtforms.validators import DataRequired, Email, ValidationError
 from app.models import Event
 
@@ -13,5 +13,5 @@ class CreateEventForm(FlaskForm):
     # entertainment = StringField('entertainment', validators=[DataRequired()])
     startDate = StringField('startDate', validators=[DataRequired()])
     startTime = StringField('startTime', validators=[DataRequired()])
-    lat = IntegerField('lat', validators=[DataRequired()])
-    lng = IntegerField('lng', validators=[DataRequired()])
+    lat = DecimalField('lat', validators=[DataRequired()])
+    lng = DecimalField('lng', validators=[DataRequired()])

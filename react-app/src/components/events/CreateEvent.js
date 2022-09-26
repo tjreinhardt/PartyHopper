@@ -6,7 +6,7 @@ import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/CreateEvent.css'
 
-const CreateEventForm = ({ hideModal }) => {
+const CreateEventForm = ({ hideModal, lat, lng }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -17,8 +17,8 @@ const CreateEventForm = ({ hideModal }) => {
   const [entertainment, setEntertainment] = useState("")
   const [startDate, setStartDate] = useState("")
   const [startTime, setStartTime] = useState("")
-  const [lat, setLat] = useState('');
-  const [lng, setLng] = useState('');
+  // const [lat, setLat] = useState('');
+  // const [lng, setLng] = useState('');
   const [errors, setErrors] = useState([])
 
 
@@ -46,8 +46,8 @@ const CreateEventForm = ({ hideModal }) => {
       entertainment,
       startDate,
       startTime,
-      lat: Math.random() * (89 - 1) + 1,
-      lng: Math.random() * (89 - 1) + 1
+      lat,
+      lng
     };
     if (!errors.length) {
 
@@ -59,12 +59,12 @@ const CreateEventForm = ({ hideModal }) => {
             }
             else {
               // hideModal()
-              // history.push(`/events/${res.id}`);
+              history.push(`/events/${res.id}`);
             }
           })
     }
     // errors.push(['Cannot pick a date that has already happened'])
-    console.log(errors)
+    // console.log(errors)
   }
   let newStartTime = startTime.split(':').join('')
   if (new Date().getMinutes() < 10) {
@@ -75,6 +75,7 @@ const CreateEventForm = ({ hideModal }) => {
   useEffect(() => {
     let errors = [];
     // if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
+    if (!lng) errors.push("Double click a location on the map to add a location!")
     if (name.trim().length === 0) errors.push("Please provide a name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
@@ -86,8 +87,10 @@ const CreateEventForm = ({ hideModal }) => {
     if (!startDate) errors.push("What date is your event taking place?");
     if (!startTime) errors.push("What time does your event start?")
     setErrors(errors)
-  }, [name, newStartTime, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
+  }, [name, newStartTime, lng, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
 
+  console.log(lat, "lat")
+  console.log(lng, "lng")
 
   return (
     <div style={{ marginTop: '100px', width: '20vw' }}>
@@ -181,14 +184,14 @@ const CreateEventForm = ({ hideModal }) => {
           <input
             type="hidden"
             placeholder="Longitude"
-            value={Math.random() * (89 - 1) + 1}
+            value={lng}
           // onChange={updateLng}
           // required
           />
           <input
             type="hidden"
             placeholder="Latitude"
-            value={Math.random() * (89 - 1) + 1}
+            value={lat}
           // onChange={updateLat}
           // required
           />
