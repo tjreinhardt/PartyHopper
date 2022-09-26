@@ -182,21 +182,20 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             />
           </div>
           <input
-            type="hidden"
+            type="text"
             placeholder="Longitude"
             value={lng}
           // onChange={updateLng}
           // required
           />
           <input
-            type="hidden"
+            type="text"
             placeholder="Latitude"
             value={lat}
           // onChange={updateLat}
           // required
           />
-          <div>
-          </div>
+
         </div>
         <div className="bottom-button">
           <button type="submit" style={{
