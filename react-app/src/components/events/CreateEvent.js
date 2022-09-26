@@ -58,12 +58,13 @@ const CreateEventForm = ({ hideModal }) => {
               setErrors(res.errors)
             }
             else {
-              hideModal()
-              history.push(`/events/${res.id}`);
+              // hideModal()
+              // history.push(`/events/${res.id}`);
             }
           })
     }
-    errors.push(['Cannot pick a date that has already happened'])
+    // errors.push(['Cannot pick a date that has already happened'])
+    console.log(errors)
   }
   let newStartTime = startTime.split(':').join('')
   if (new Date().getMinutes() < 10) {
@@ -73,7 +74,7 @@ const CreateEventForm = ({ hideModal }) => {
   }
   useEffect(() => {
     let errors = [];
-    if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
+    // if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
     if (name.trim().length === 0) errors.push("Please provide a name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
@@ -89,9 +90,9 @@ const CreateEventForm = ({ hideModal }) => {
 
 
   return (
-    <div style={{ marginTop: '20px' }}>
+    <div style={{ marginTop: '100px', width: '20vw' }}>
       <h2 style={{ display: 'flex', justifyContent: 'center' }}>Create Event</h2>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline", maxWidth: '300px', textAlign: 'center' }}><span>Map functionality is still in beta, therefore, all event locations will be temporarily assigned a default location, and may be edited following an upcoming patch release</span></div>
+      {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline", maxWidth: '300px', textAlign: 'center' }}><span>Map functionality is still in beta, therefore, all event locations will be temporarily assigned a default location, and may be edited following an upcoming patch release</span></div> */}
       <form onSubmit={handleSubmit}>
         <div style={{
           display: 'flex',
@@ -196,17 +197,17 @@ const CreateEventForm = ({ hideModal }) => {
         </div>
         <div className="bottom-button">
           <button type="submit" style={{
-            margin: '10px'
+            // margin: '10px'
           }}>Share</button>
           <br />
-          <button onClick={hideModal} style={{
-            margin: '10px'
+          {/* <button onClick={hideModal} style={{
+            marginLeft: '10px'
           }}>Cancel</button>
-          <br />
+          <br /> */}
         </div>
-        <ul style={{ lineHeight: '20px' }}>
+        <ul style={{ lineHeight: '20px', margin: '0px', padding: '0px' }}>
           {errors.map((error, idx) => (
-            <li style={{ color: 'red', width: '270px', lineHeight: "22px" }} key={idx} >{error}</li>
+            <li style={{ color: 'red', width: 'auto', lineHeight: "22px", marginRight: '0px', fontSize: '14px' }} key={idx} >{error}</li>
           ))}
         </ul>
       </form>

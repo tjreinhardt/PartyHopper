@@ -100,7 +100,7 @@
     overflow-x: hidden;
     width: 100vw;
     font-weight: 700;
-    background: linear-gradient(to top, black, transparent);
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.194), transparent);
     top: 226px;
     z-index: 3;
 }

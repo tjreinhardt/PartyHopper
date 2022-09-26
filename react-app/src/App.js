@@ -13,6 +13,7 @@ import CreateEventForm from './components/events/CreateEvent';
 import Footer from './components/Footer';
 import CreateReviewForm from './components/reviews/CreateReview';
 import MapGL from './components/Map/Map';
+import MapGL2 from './components/Map/MapV2';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -42,6 +43,9 @@ function App() {
           </Route>
           <ProtectedRoute path='/map'>
             <MapGL />
+          </ProtectedRoute>
+          <ProtectedRoute path='/explore'>
+            <MapGL2 />
           </ProtectedRoute>
           <ProtectedRoute path='/users' exact={true} >
             <UsersList />
