@@ -106,6 +106,7 @@ export default function MapGL() {
                 latitude={newIdea.lat}
                 anchor="left"
                 closeButton={true}
+                // draggable={true}
                 closeOnClick={false}
                 onClose={() => setNewIdea(null)}>
                 <Pin />
@@ -119,6 +120,8 @@ export default function MapGL() {
               onGeolocate={(position) => {
                 // get latitude and longitude of user current location
                 setNewLocation([position.coords.latitude, position.coords.longitude]);
+                setLatt(position.coords.latitude)
+                setLong(position.coords.longitude)
               }}
             />
             {popupInfo && (
