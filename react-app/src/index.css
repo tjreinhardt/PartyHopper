@@ -10,6 +10,7 @@ input {
   padding-left: 9px;
   padding-right: 9px;
   font-size: 14px;
+  min-width: 280px;
   width: 20vw;
   height: 22px;
   margin-bottom: 9px;
@@ -23,6 +24,7 @@ select {
   padding-left: 9px;
   padding-right: 9px;
   font-size: 14px;
+  min-width: 300px;
   width: 21.3vw;
   height: 36px;
   margin-bottom: 9px;
