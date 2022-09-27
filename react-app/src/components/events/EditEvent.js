@@ -16,7 +16,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
   const [startDate, setStartDate] = useState(event.startDate)
   const [startTime, setStartTime] = useState(event.startTime)
 
-  console.log(event)
+  // console.log(event)
 
   const [errors, setErrors] = useState([])
   let today = new Date();
@@ -52,13 +52,13 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
       entertainment,
       startDate,
       startTime,
-      lat: event.lat,
-      lng: event.lng
+      lat,
+      lng
     };
     if (!errors.length) {
       dispatch(updateEventThunk(newEvent))
-      history.push(`/events/${newEvent.id}`);
-      hideModal()
+      history.push(`/explore`);
+      // hideModal()
     }
   }
 
@@ -70,7 +70,8 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
   }
   useEffect(() => {
     let errors = [];
-    if (startDate < getTodaysDate()) errors.push("Event must be scheduled 1 day in advance from today")
+    // if (startDate < getTodaysDate()) errors.push("Event must be scheduled 1 day in advance from today")
+    if (!lng) errors.push("Double click a location on the map to add a location!")
     if (name.trim().length === 0) errors.push("Please provide a name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
@@ -82,7 +83,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
     if (!startDate) errors.push("What date is your event taking place?");
     if (!startTime) errors.push("What time does your event start?")
     setErrors(errors)
-  }, [name, newStartTime, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
+  }, [name, newStartTime, lng, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
 
   return (
     <div>
@@ -155,34 +156,34 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
               onChange={e => setStartDate(e.target.value)}
             />
           </div>
-          <div>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Start Time:</label>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Start Time:</label>
+          <input
+            type={'time'}
+            value={startTime}
+            onChange={e => setStartTime(e.target.value)}
+          />
+        </div>
+        <div>
+          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <input
-              type={'time'}
-              value={startTime}
-              onChange={e => setStartTime(e.target.value)}
+              type="hidden"
+              placeholder="Longitude"
+              value={event.lng}
+              readOnly
+            // onChange={updateLng}
+            // required
+            />
+            <input
+              type="hidden"
+              placeholder="Latitude"
+              value={event.lat}
+              readOnly
+            // onChange={updateLat}
+            // required
             />
           </div>
-          <div>
-          </div>
-          {/* <div>
-            <input
-              type={'number'}
-              placeholder={"Lat"}
-              value={lat}
-              onChange={e => setLat(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type={'number'}
-              placeholder={"Lng"}
-              value={lng}
-              onChange={e => setLng(e.target.value)}
-            />
-          </div> */}
         </div>
         <div style={{ marginTop: '10px' }} className="bottom-button">
           <button style={{ marginRight: '15px' }} type="submit">Share</button>

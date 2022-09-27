@@ -185,6 +185,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             type="text"
             placeholder="Longitude"
             value={lng}
+            readOnly
           // onChange={updateLng}
           // required
           />
@@ -192,6 +193,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             type="text"
             placeholder="Latitude"
             value={lat}
+            readOnly
           // onChange={updateLat}
           // required
           />
