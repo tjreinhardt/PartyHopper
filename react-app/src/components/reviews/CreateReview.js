@@ -100,7 +100,7 @@ const CreateReviewForm = ({ eventId }) => {
                     </div>
                     <input
                         type={'textarea'}
-                        style={{ fontSize: '16px', minWidth: '400px', marginTop: '6px', height: '30px' }}
+                        style={{ fontSize: '16px', maxWidth: '400px', width: '400px', marginTop: '6px', height: '30px' }}
                         value={comment}
                         placeholder="Please let us know about your experience"
                         onChange={e => setComment(e.target.value)}

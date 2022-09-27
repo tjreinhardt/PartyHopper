@@ -138,7 +138,8 @@ const EditReviewForm = ({ eventId, userId, showModal, setShowModal }) => {
                             textOverflow: 'clip',
                             wordWrap: 'break-word',
                             fontSize: '16px',
-                            minWidth: '400px',
+                            width: '400px',
+                            maxWidth: '400px',
                             marginTop: '6px',
                             height: '30px'
                         }}
