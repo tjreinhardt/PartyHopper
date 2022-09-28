@@ -5,6 +5,7 @@ import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/CreateEvent.css'
+import { isFuture, isPast, isEqual } from "date-fns";
 
 const CreateEventForm = ({ hideModal, lat, lng }) => {
   const dispatch = useDispatch();
@@ -21,11 +22,35 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
   // const [lng, setLng] = useState('');
   const [errors, setErrors] = useState([])
 
+  const startDateConversion = () => {
+    let parts = startDate.split('-')
+    let year = parts[0]
+    let month = parts[1] - 1
+    let day = parts[2]
+    day = Number(day) + 1
+    console.log(year)
+    console.log(month)
+    console.log(day)
+    const result = isPast(new Date(year, month, day))
+    return result
+  }
+
+  const dateEquality = () => {
+    let parts = startDate.split('-')
+    let year = parts[0]
+    let month = parts[1] - 1
+    let day = parts[2]
+    console.log(day, 'day')
+    const result = isEqual(startDate, new Date(year, month, day))
+    return result
+  }
+
+  startDateConversion()
 
 
   const getTodaysDate = () => {
     let today = new Date();
-    let todays_day = new Date().getDay() + 19;
+    let todays_day = new Date().getDay() + 18;
     if (todays_day < 10) todays_day = `0${todays_day}`
     let todays_month = new Date().getMonth() + 1;
     if (todays_month < 10) todays_month = `0${todays_month}`
@@ -72,40 +97,51 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
   } else if (new Date().getMinutes() >= 10) {
     minutes = `${new Date().getMinutes()}`
   }
+
+  // console.log(!isEqual(startDate, new Date()))
+  console.log(dateEquality(), 'eeeeeeeeeeeeeeeee')
   useEffect(() => {
     let errors = [];
+    if (startDateConversion(startDate) === true && (!dateEquality())) errors.push("Date must be no earlier than today!")
     // if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
-    if (!lng) errors.push("Double click a location on the map to add a location!")
-    if (name.trim().length === 0) errors.push("Please provide a name your event")
+    if (!lng) errors.push("Create a pin for your event")
+    if (name.trim().length === 0) errors.push("Name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
-    if (description.trim().length === 0) errors.push("Please describe your event")
+    if (description.trim().length === 0) errors.push("Describe your event")
     if (description.trim().length > 500) errors.push("Description is too long!")
-    if (imageUrl.trim().length === 0 || (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("Image URL address appears to be invalid. Must be '.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif' or '.svg' format, and must include: 'https://'")
-    if (imageUrl.trim().length > 500) errors.push("Image URL address is too long!")
-    if (!eventType || eventType === '-- Event Type --') errors.push("Please select a category for your event")
-    if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Please select entertainment type")
-    if (!startDate) errors.push("What date is your event taking place?");
-    if (!startTime) errors.push("What time does your event start?")
+    // if (imageUrl.trim().length === 0 || (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("Add an image URL -- Format: '.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif' or '.svg' format, and must include: 'https://'")
+    // if (imageUrl.trim().length > 500) errors.push("Image URL address is too long!")
+    if (!eventType || eventType === '-- Event Type --') errors.push("Select a category")
+    if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Select Entertainment Options")
+    if (!startDate) errors.push("Select a date");
+    if (!startTime) errors.push("Select a time")
     setErrors(errors)
   }, [name, newStartTime, lng, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
 
-  console.log(lat, "lat")
-  console.log(lng, "lng")
+  console.log(startDate, "startDate")
 
   return (
-    <div style={{ marginTop: '100px', width: '20vw' }}>
+    <div style={{ position: 'absolute', left: '0px', marginTop: '100px', width: 'auto', minWidth: '300px', borderTop: '1px solid gray' }}>
       <h2 style={{ display: 'flex', justifyContent: 'center' }}>Create Event</h2>
       {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline", maxWidth: '300px', textAlign: 'center' }}><span>Map functionality is still in beta, therefore, all event locations will be temporarily assigned a default location, and may be edited following an upcoming patch release</span></div> */}
+      <h3>Steps:</h3>
+      <ol style={{ lineHeight: '20px' }}>
+        <li style={{ minWidth: 'auto', wordBreak: 'break-word' }}>Use the map tool to find the location for your event</li>
+        <li>Double click to create a map marker for your event</li>
+        <li>Fill out the rest of the form fields</li>
+        <li>Start Partying!</li>
+      </ol>
       <form onSubmit={handleSubmit}>
         <div style={{
           display: 'flex',
           justifyContent: 'center',
           flexDirection: 'column',
-          alignItems: 'center'
+          minWidth: 'auto'
         }}>
           <div>
             <input
               type={'text'}
+              style={{ minWidth: 'auto' }}
               placeholder={"Event Name*"}
               value={name}
               onChange={e => setName(e.target.value)}
@@ -114,6 +150,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
           <div>
             <input
               type={'text'}
+              style={{ minWidth: 'auto' }}
               placeholder={"Event Description*"}
               value={description}
               onChange={e => setDescription(e.target.value)}
@@ -126,6 +163,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
                 setImageUrl(e.target.value)
                 setErrors([])
               }}
+              style={{ minWidth: 'auto' }}
               value={imageUrl}
               type="url"
             >
@@ -133,7 +171,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
           </div>
           <div>
 
-            <select value={eventType} onChange={e => setEventType(e.target.value)}>
+            <select style={{ minWidth: 'auto' }} value={eventType} onChange={e => setEventType(e.target.value)}>
               <option value="-- Event Type --">-- Event Type --</option>
               <option value="Party">Party</option>
               <option value="Kickback">Kickback</option>
@@ -148,7 +186,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             </select>
           </div>
           <div>
-            <select value={entertainment} onChange={e => setEntertainment(e.target.value)}>
+            <select style={{ minWidth: 'auto' }} value={entertainment} onChange={e => setEntertainment(e.target.value)}>
               <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
               <option value="No Performers">No Performers</option>
               <option value="Live-Band">Live-Band</option>
@@ -167,6 +205,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
           <div>
             <input
               type={'date'}
+              style={{ minWidth: 'auto' }}
               value={startDate}
               onChange={e => setStartDate(e.target.value)}
             />
@@ -178,11 +217,12 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             <input
               type={'time'}
               value={startTime}
+              style={{ minWidth: 'auto' }}
               onChange={e => setStartTime(e.target.value)}
             />
           </div>
           <input
-            type="text"
+            type="hidden"
             placeholder="Longitude"
             value={lng}
             readOnly
@@ -190,7 +230,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
           // required
           />
           <input
-            type="text"
+            type="hidden"
             placeholder="Latitude"
             value={lat}
             readOnly

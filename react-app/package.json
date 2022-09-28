@@ -7,6 +7,7 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "date-fns": "^2.29.3",
     "http-proxy-middleware": "^1.0.5",
     "mapbox-gl": "^2.9.2",
     "querystring-es3": "^0.2.1",

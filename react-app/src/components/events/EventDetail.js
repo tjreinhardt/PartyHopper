@@ -88,7 +88,11 @@ const EventDetail = () => {
 
   const timeConversion = (startTime) => {
     let parts = startTime.split(":")
-    if (parts[0] > 12) {
+    console.log(parts[0], "parts[0]")
+    if (parts[0] === '00') {
+      return `${(Number(parts[0])) + 12}:${parts[1]} AM`
+    }
+    else if (parts[0] > 12) {
       return `${(parts[0]) - 12}:${parts[1]} PM`
     } else return `${startTime} AM`
   }
