@@ -236,7 +236,7 @@ const EventDetail = () => {
             )
 
             }
-            <div>
+            <div style={{ marginLeft: '-4px' }}>
               {session.id !== event.userId && sessionLinks}
             </div>
             <div style={{ width: '100%', marginTop: '24px' }}>
