@@ -1,40 +1,51 @@
 
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import CreateEventModal from './modals/CreateEventModal';
 import LogoutButton from './auth/LogoutButton';
+import { logout } from '../store/session';
 import '../styles/NavBar.css'
 
 const NavBar = () => {
   const [createModal, setCreateModal] = useState(false);
 
   const user = useSelector(state => state.session.user)
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const onLogout = async (e) => {
+    await dispatch(logout());
+    history.push('/')
+  };
 
   return (
     <nav className='navbar-nav'>
       <div className='nav-outer-wrapper'>
-        <NavLink className="nav-partyhopper-logo" to={'/'} style={{ textDecoration: 'none', color: 'white', fontSize: '36px', position: 'absolute', left: '25px', fontWeight: '700' }}>PartyHopper
+        <NavLink className="nav-partyhopper-logo" to={'/'}>PartyHopper
         </NavLink>
         {user && (
           <>
-            <NavLink to='/' exact={true} activeClassName='active'>
-              <button className='nav-buttons'>Home</button>
+            <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
+              <button className='navbar-buttons'>Home</button>
             </NavLink>
-            <NavLink to="/map"><button className="nav-buttons">Create Event</button></NavLink>
-            <NavLink to="/explore"><button className="nav-buttons">Map</button></NavLink>
+            <NavLink className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink>
+            <NavLink className={'navlinks'} to="/explore"><button className="navbar-buttons">Explore</button></NavLink>
+            <div className={'navlinks'}>
+              <button id={"logout-butt"} className={'navbar-buttons'} onClick={onLogout}>Logout</button>
+            </div>
             {/* <div onClick={() => setCreateModal(true)}>
               <button className='nav-buttons'>Create Event</button>
             </div> */}
             {createModal && <CreateEventModal setShowModal={setCreateModal} />}
-            <LogoutButton />
           </>
 
         )}
         {!user && (
           <>
             <NavLink to='/login' exact={true} activeClassName='active'>
-              <button className='nav-buttons'>Log In</button>
+              <button className='navbar-buttons'>Log In</button>
             </NavLink>
             <NavLink to='/sign-up' exact={true} activeClassName='active'>
               <button className='nav-signup-button-red'>Sign Up</button>
