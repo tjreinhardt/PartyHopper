@@ -1,15 +1,24 @@
 
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 import CreateEventModal from './modals/CreateEventModal';
 import LogoutButton from './auth/LogoutButton';
+import { logout } from '../store/session';
 import '../styles/NavBar.css'
 
 const NavBar = () => {
   const [createModal, setCreateModal] = useState(false);
 
   const user = useSelector(state => state.session.user)
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const onLogout = async (e) => {
+    await dispatch(logout());
+    history.push('/')
+  };
 
   return (
     <nav className='navbar-nav'>
@@ -23,11 +32,13 @@ const NavBar = () => {
             </NavLink>
             <NavLink className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink>
             <NavLink className={'navlinks'} to="/explore"><button className="navbar-buttons">Explore</button></NavLink>
+            <div className={'navlinks'}>
+              <button id={"logout-butt"} className={'navbar-buttons'} onClick={onLogout}>Logout</button>
+            </div>
             {/* <div onClick={() => setCreateModal(true)}>
               <button className='nav-buttons'>Create Event</button>
             </div> */}
             {createModal && <CreateEventModal setShowModal={setCreateModal} />}
-            <LogoutButton />
           </>
 
         )}
