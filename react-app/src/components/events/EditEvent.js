@@ -71,7 +71,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
   useEffect(() => {
     let errors = [];
     // if (startDate < getTodaysDate()) errors.push("Event must be scheduled 1 day in advance from today")
-    if (!lng) errors.push("Double click a location on the map to add a location!")
+    // if (!lng) errors.push("Double click a location on the map to add a location!")
     if (name.trim().length === 0) errors.push("Please provide a name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
