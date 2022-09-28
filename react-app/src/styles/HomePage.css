@@ -97,3 +97,15 @@ img {
     justify-content: center;
     margin-bottom: 100px;
 }
+
+@media screen and (max-width:1200px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and(max-width:575px) {
+    .welcome-user-home {
+        font-size: 12px;
+    }
+}

@@ -14,15 +14,15 @@ const NavBar = () => {
   return (
     <nav className='navbar-nav'>
       <div className='nav-outer-wrapper'>
-        <NavLink className="nav-partyhopper-logo" to={'/'} style={{ textDecoration: 'none', color: 'white', fontSize: '36px', position: 'absolute', left: '25px', fontWeight: '700' }}>PartyHopper
+        <NavLink className="nav-partyhopper-logo" to={'/'}>PartyHopper
         </NavLink>
         {user && (
           <>
-            <NavLink to='/' exact={true} activeClassName='active'>
-              <button className='nav-buttons'>Home</button>
+            <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
+              <button className='navbar-buttons'>Home</button>
             </NavLink>
-            <NavLink to="/map"><button className="nav-buttons">Create Event</button></NavLink>
-            <NavLink to="/explore"><button className="nav-buttons">Map</button></NavLink>
+            <NavLink className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink>
+            <NavLink className={'navlinks'} to="/explore"><button className="navbar-buttons">Explore</button></NavLink>
             {/* <div onClick={() => setCreateModal(true)}>
               <button className='nav-buttons'>Create Event</button>
             </div> */}
@@ -34,7 +34,7 @@ const NavBar = () => {
         {!user && (
           <>
             <NavLink to='/login' exact={true} activeClassName='active'>
-              <button className='nav-buttons'>Log In</button>
+              <button className='navbar-buttons'>Log In</button>
             </NavLink>
             <NavLink to='/sign-up' exact={true} activeClassName='active'>
               <button className='nav-signup-button-red'>Sign Up</button>

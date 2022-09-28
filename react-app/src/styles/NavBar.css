@@ -16,7 +16,18 @@
     justify-content: flex-end;
 }
 
-.nav-buttons {
+.nav-partyhopper-logo {
+    text-decoration: none;
+    color: white;
+    font-size: 36px;
+    position: absolute;
+    left: 25px;
+    font-weight: 700;
+    transition: all 150ms ease-in-out;
+}
+
+
+.navbar-buttons {
     width: 80px;
     height: 40px;
     margin-right: 12px;
@@ -51,4 +62,38 @@
 
 .nav-signup-button-red:hover {
     background-color: #e70000;
+}
+
+@media screen and (max-width:650px) {
+    .nav-partyhopper-logo {
+        display: none;
+    }
+
+    .navbar-buttons {
+        border-top: none;
+        border-bottom: none;
+        border-radius: 0%;
+        border-left: none;
+        margin: 0px;
+        height: 90px;
+        width: 25vw;
+        font-size: 4vw;
+        /* width: fit-content; */
+    }
+
+    .nav-outer-wrapper {
+        align-items: center;
+        justify-content: center;
+        /* padding-left: 10px; */
+        /* padding-right: 10px; */
+        margin-right: 0px;
+        padding: 0px;
+    }
+
+    .navbar-nav {
+        margin: 0px;
+        padding: 0px;
+        height: 100px;
+        width: 100%;
+    }
 }
