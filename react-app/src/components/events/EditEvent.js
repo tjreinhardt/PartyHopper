@@ -52,8 +52,8 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
       entertainment,
       startDate,
       startTime,
-      lat,
-      lng
+      lat: event.lat,
+      lng: event.lng
     };
     if (!errors.length) {
       dispatch(updateEventThunk(newEvent))
