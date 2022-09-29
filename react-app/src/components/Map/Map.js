@@ -115,7 +115,7 @@ export default function MapGL() {
             onMove={evt => setViewState(evt.viewState)}
             onViewportChange={handleViewportChange}
             onDblClick={handleAddClick}
-            style={{ position: "absolute", right: '-0px', borderRight: '0px', borderBottomRightRadius: '0px', borderTopLeftRadius: '4px', borderTopRightRadius: '0px', height: '85.9%', width: '75vw', marginLeft: '20px', border: '3px solid black', borderBottomLeftRadius: '4px', marginTop: "80px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
+            style={{ position: "absolute", right: '-0px', borderRight: '0px', borderBottomRightRadius: '0px', borderTopLeftRadius: '4px', borderTopRightRadius: '0px', height: '85.9%', width: '100vw', marginLeft: '20px', border: '3px solid black', borderBottomLeftRadius: '4px', marginTop: "100px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
 
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
             projection="globe"
@@ -201,7 +201,7 @@ export default function MapGL() {
             />
           </Map>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', width: '20vw', position: 'absolute', left: '29px' }}>
+        <div style={{ display: 'flex', justifyContent: 'flex-start', width: '20vw', position: 'relative' }}>
           <CreateEventForm lat={latt} lng={long} />
         </div>
         {/* <div style={{ display: 'flex', justifyContent: 'center', width: '24vw', position: 'absolute', right: '0px' }}>

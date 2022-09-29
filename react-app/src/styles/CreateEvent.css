@@ -14,6 +14,10 @@ create-event-form-form {
 }
 
 
+path {
+    margin-right: 100px;
+}
+
 
 button {
     height: 43px;

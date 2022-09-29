@@ -141,7 +141,7 @@ export default function MapGL2() {
             {...viewState}
             className={'map-wrapper'}
             onMove={evt => setViewState(evt.viewState)}
-            style={{ borderRight: '0px', position: "absolute", right: '-0px', height: '84.3%', width: '100vw', marginRight: 'auto', border: '3px solid black', marginTop: "80px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
+            style={{ borderRight: '0px', position: "absolute", right: '-0px', height: '84.3%', width: '100vw', marginRight: 'auto', border: '3px solid black', marginTop: "100px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
 
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
             projection="globe"
