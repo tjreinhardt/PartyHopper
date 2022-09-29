@@ -11,7 +11,7 @@ input {
   padding-right: 9px;
   font-size: 14px;
   min-width: 280px;
-  width: 20vw;
+  width: 260px;
   height: 22px;
   margin-bottom: 9px;
   border: 1px solid #999;
@@ -19,13 +19,14 @@ input {
 
 
 select {
+  position: relative;
   padding-top: 5px;
   padding-bottom: 5px;
   padding-left: 9px;
   padding-right: 9px;
   font-size: 14px;
-  min-width: 300px;
-  width: 21.3vw;
+  min-width: 280px;
+  width: 280px;
   height: 36px;
   margin-bottom: 9px;
 }

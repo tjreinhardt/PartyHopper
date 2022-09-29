@@ -121,15 +121,15 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
   console.log(startDate, "startDate")
 
   return (
-    <div style={{ position: 'absolute', left: '0px', marginTop: '100px', width: 'auto', minWidth: '300px', borderTop: '1px solid gray' }}>
+    <div style={{ position: 'relative', paddingLeft: '20px', backgroundColor: 'white', height: '100vh', minWidth: '350px', maxWidth: '350px', left: '0px', marginTop: '100px', width: '20%', minWidth: '300px', borderTop: '1px solid gray' }}>
       <h2 style={{ display: 'flex', justifyContent: 'center' }}>Create Event</h2>
       {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline", maxWidth: '300px', textAlign: 'center' }}><span>Map functionality is still in beta, therefore, all event locations will be temporarily assigned a default location, and may be edited following an upcoming patch release</span></div> */}
       <h3>Steps:</h3>
       <ol style={{ lineHeight: '20px' }}>
-        <li style={{ minWidth: 'auto', wordBreak: 'break-word' }}>Use the map tool to find the location for your event</li>
-        <li>Double click to create a map marker for your event</li>
-        <li>Fill out the rest of the form fields</li>
-        <li>Start Partying!</li>
+        <li style={{ marginRight: '10px', wordBreak: 'break-word' }}>Use the map tool to find the location for your event</li>
+        <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Double click to create a map marker for your event</li>
+        <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Fill out the rest of the form fields</li>
+        <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Start Partying!</li>
       </ol>
       <form onSubmit={handleSubmit}>
         <div style={{
@@ -170,6 +170,33 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             </input>
           </div>
           <div>
+            <label style={{ fontWeight: 'bold', fontSize: '14px' }}>Start Date:</label>
+            <input
+              type="hidden"
+              value={getTodaysDate}
+            >
+            </input>
+          </div>
+          <div>
+            <input
+              type={'date'}
+              style={{ minWidth: 'auto' }}
+              value={startDate}
+              onChange={e => setStartDate(e.target.value)}
+            />
+          </div>
+          <div>
+          </div>
+          <label style={{ fontWeight: 'bold', fontSize: '14px' }}>Start Time:</label>
+          <div>
+            <input
+              type={'time'}
+              value={startTime}
+              style={{ minWidth: 'auto' }}
+              onChange={e => setStartTime(e.target.value)}
+            />
+          </div>
+          <div>
 
             <select style={{ minWidth: 'auto' }} value={eventType} onChange={e => setEventType(e.target.value)}>
               <option value="-- Event Type --">-- Event Type --</option>
@@ -193,33 +220,6 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
               <option value="DJ">DJ</option>
               <option value="Comedian">Comedian</option>
             </select>
-          </div>
-          <div>
-            <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Start Date:</label>
-            <input
-              type="hidden"
-              value={getTodaysDate}
-            >
-            </input>
-          </div>
-          <div>
-            <input
-              type={'date'}
-              style={{ minWidth: 'auto' }}
-              value={startDate}
-              onChange={e => setStartDate(e.target.value)}
-            />
-          </div>
-          <div>
-          </div>
-          <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Start Time:</label>
-          <div>
-            <input
-              type={'time'}
-              value={startTime}
-              style={{ minWidth: 'auto' }}
-              onChange={e => setStartTime(e.target.value)}
-            />
           </div>
           <input
             type="hidden"
