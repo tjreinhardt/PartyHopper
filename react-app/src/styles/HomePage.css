@@ -9,6 +9,8 @@
     margin-top: 15px;
     font-size: 16px;
     transition: all 0.4s;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 .homepage-rate-button:hover {
@@ -20,6 +22,12 @@
     grid-template-columns: 1fr 1fr;
     max-width: 1224px;
     position: relative;
+}
+
+.name-description-reviews-homepage-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .event-card {
@@ -45,8 +53,14 @@
 }
 
 .event-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     width: 356px;
-    padding: 30px;
+    padding-top: 20px;
+    padding-left: 24px;
+    padding-right: 30px;
+    padding-bottom: 10px;
 }
 
 
@@ -60,6 +74,7 @@ img {
 .event-description-div {
     font-size: 24px;
     position: relative;
+    width: 80%;
 }
 
 .welcome-user-home {

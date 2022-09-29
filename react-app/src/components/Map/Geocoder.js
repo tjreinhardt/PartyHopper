@@ -10,7 +10,7 @@ const Geocoder = () => {
   const ctrl = new MapBoxGeocoder({
     accessToken: MAPBOX_TOKEN,
     marker: false,
-    collapsed: true,
+    collapsed: false,
   });
   useControl(() => ctrl);
   ctrl.on('result', (e) => {

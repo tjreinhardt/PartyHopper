@@ -121,23 +121,18 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
   console.log(startDate, "startDate")
 
   return (
-    <div style={{ position: 'relative', paddingLeft: '20px', backgroundColor: 'white', height: '100vh', minWidth: '350px', maxWidth: '350px', left: '0px', marginTop: '100px', width: '20%', minWidth: '300px', borderTop: '1px solid gray' }}>
+    <div className={'create-event-form-wrap2'}>
       <h2 style={{ display: 'flex', justifyContent: 'center' }}>Create Event</h2>
       {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline", maxWidth: '300px', textAlign: 'center' }}><span>Map functionality is still in beta, therefore, all event locations will be temporarily assigned a default location, and may be edited following an upcoming patch release</span></div> */}
       <h3>Steps:</h3>
-      <ol style={{ lineHeight: '20px' }}>
+      <ol style={{ lineHeight: '20px', width: '280px', paddingLeft: "20px", paddingRight: '20px' }}>
         <li style={{ marginRight: '10px', wordBreak: 'break-word' }}>Use the map tool to find the location for your event</li>
         <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Double click to create a map marker for your event</li>
         <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Fill out the rest of the form fields</li>
         <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Start Partying!</li>
       </ol>
       <form onSubmit={handleSubmit}>
-        <div style={{
-          display: 'flex',
-          justifyContent: 'center',
-          flexDirection: 'column',
-          minWidth: 'auto'
-        }}>
+        <div className="form-inner-wrapper">
           <div>
             <input
               type={'text'}
@@ -198,7 +193,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
           </div>
           <div>
 
-            <select style={{ minWidth: 'auto' }} value={eventType} onChange={e => setEventType(e.target.value)}>
+            <select style={{ minWidth: 'auto', width: '280px' }} value={eventType} onChange={e => setEventType(e.target.value)}>
               <option value="-- Event Type --">-- Event Type --</option>
               <option value="Party">Party</option>
               <option value="Kickback">Kickback</option>
@@ -213,7 +208,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             </select>
           </div>
           <div>
-            <select style={{ minWidth: 'auto' }} value={entertainment} onChange={e => setEntertainment(e.target.value)}>
+            <select style={{ minWidth: 'auto', width: '280px' }} value={entertainment} onChange={e => setEntertainment(e.target.value)}>
               <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
               <option value="No Performers">No Performers</option>
               <option value="Live-Band">Live-Band</option>
@@ -249,7 +244,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
           }}>Cancel</button>
           <br /> */}
         </div>
-        <ul style={{ lineHeight: '20px', margin: '0px', padding: '0px' }}>
+        <ul style={{ lineHeight: '20px', padding: '0px', marginLeft: '0px' }}>
           {errors.map((error, idx) => (
             <li style={{ color: 'red', width: 'auto', lineHeight: "22px", marginRight: '0px', fontSize: '14px' }} key={idx} >{error}</li>
           ))}

@@ -4,6 +4,21 @@ create-event-form-form {
     align-items: center;
 }
 
+.create-event-form-wrap2 {
+    position: relative;
+    border-right: 1px solid black;
+    padding-left: 20px;
+    background-color: white;
+    height: 100vh;
+    min-width: 300px;
+    max-width: 300px;
+    left: 0px;
+    margin-top: 100px;
+    transition: all 300ms ease-in-out;
+    width: 20%;
+    border-top: 1px solid gray;
+}
+
 
 .bottom-button {
     display: flex;
@@ -13,6 +28,12 @@ create-event-form-form {
     padding: 5px;
 }
 
+.form-inner-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-width: auto;
+}
 
 path {
     margin-right: 100px;
@@ -28,7 +49,7 @@ button {
     border: transparent;
     border-radius: 4px;
     font-weight: 900;
-    transition: all 0.8s;
+    transition: all 300ms;
     cursor: pointer;
 }
 
@@ -46,4 +67,31 @@ select {
     /* background-color: black;
     color: white; */
     border-radius: 4px;
+}
+
+@media screen and (max-width:650px) {
+    .create-event-form-wrap2 {
+        position: relative;
+        bottom: 0;
+        margin-top: 710px;
+        height: 34vh;
+        min-width: 100vw;
+        overflow-y: scroll;
+    }
+
+    form {
+        flex-direction: row;
+    }
+
+    h2 {
+        padding-right: 20px;
+    }
+
+    Map {
+        height: 50px;
+    }
+
+    body {
+        overflow-y: hidden;
+    }
 }
