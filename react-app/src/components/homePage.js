@@ -50,9 +50,9 @@ const HomePage = ({ eventId, event, showModal }) => {
 
   const stringShorten = (string) => {
 
-    if (string.length > 77) {
+    if (string.length > 30) {
       const newString = _.truncate(string, {
-        'length': 77,
+        'length': 30,
         'separator': /,? +/
       });
       return newString
@@ -64,9 +64,9 @@ const HomePage = ({ eventId, event, showModal }) => {
 
   const nameShorten = (string) => {
 
-    if (string.length > 30) {
+    if (string.length > 25) {
       const newString = _.truncate(string, {
-        'length': 30,
+        'length': 25,
         'separator': /,? +/
       });
       return newString
@@ -89,13 +89,13 @@ const HomePage = ({ eventId, event, showModal }) => {
     items: images.map((i) => ({
       id: i.id,
       renderItem: (
-        <div>
-          <div className="image-cards" style={{ margin: '0px', height: "682px", maxWidth: "100vw", maxHeight: "682px" }} key={i.id} to={`/images/${i.id}`}>
+        <div className="image-card-wrapper">
+          <div className="image-cards" key={i.id} to={`/images/${i.id}`}>
             <div>
               {i.title}
             </div>
             <div>
-              <img alt="" style={{ opacity: "100%", margin: '0px', position: 'sticky', top: '0', minHeight: '682px', minWidth: '100vw', width: '100vw', height: "100vh", bottom: '60px' }} className="image-card" src={i.imageUrl}>
+              <img alt="" className="image-card" src={i.imageUrl}>
               </img>
             </div>
           </div>
@@ -162,7 +162,7 @@ const HomePage = ({ eventId, event, showModal }) => {
                     <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
                       <div style={{ color: 'black', wordBreak: 'break-word', textTransform: 'capitalize' }} className="event-name-div">{nameShorten(event.name)}</div>
                     </NavLink>
-                    <div style={{ marginTop: '8px', marginLeft: '1px', fontSize: '12px', color: 'black', wordBreak: 'break-word', textTransform: 'capitalize' }} className="event-description-div">{stringShorten(event.description)}</div>
+                    <div style={{ marginTop: '8px', marginLeft: '1px', color: 'black', wordBreak: 'break-word', textTransform: 'capitalize' }} className="event-description-div">{stringShorten(event.description)}</div>
                   </div>
                   <div className='star-chart-wrapper'>
                     <div className='star-chart-inner-div' style={{ display: 'flex', marginBottom: '10px', position: 'inherit', bottom: '0' }}>
