@@ -147,6 +147,7 @@ export default function MapGL2() {
             projection="globe"
             mapboxAccessToken={MAPBOX_TOKEN}
           >
+            <Geocoder style={{ width: '900px' }} />
             <GeolocateControl
               positionOptions={{ enableHighAccuracy: true }}
               trackUserLocation={true}
@@ -204,7 +205,6 @@ export default function MapGL2() {
                 </div>
               </Popup>
             )}
-            <Geocoder style={{ width: '900px' }} />
           </Map>
         </div>
         {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '20vw', position: 'absolute', left: '36px' }}>

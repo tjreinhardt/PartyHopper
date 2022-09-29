@@ -6,6 +6,8 @@ import NavBar from "./NavBar";
 import { useSpringCarousel } from 'react-spring-carousel';
 import '../styles/HomePage.css'
 import { getReviewsThunk } from "../store/review";
+import setGlobals from "react-map-gl/dist/esm/utils/set-globals";
+var _ = require('lodash')
 
 const HomePage = ({ eventId, event, showModal }) => {
   const dispatch = useDispatch()
@@ -43,6 +45,40 @@ const HomePage = ({ eventId, event, showModal }) => {
       imageUrl: "https://wallpaperset.com/w/full/e/5/9/475472.jpg"
     },
   ]
+
+  let string = 'WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW'
+
+  const stringShorten = (string) => {
+
+    if (string.length > 77) {
+      const newString = _.truncate(string, {
+        'length': 77,
+        'separator': /,? +/
+      });
+      return newString
+    } else {
+      return string
+    }
+  }
+
+
+  const nameShorten = (string) => {
+
+    if (string.length > 30) {
+      const newString = _.truncate(string, {
+        'length': 30,
+        'separator': /,? +/
+      });
+      return newString
+    } else {
+      return string
+    }
+  }
+
+
+
+  // console.log(newString, 'newString')
+
 
   const {
     carouselFragment,
@@ -121,13 +157,15 @@ const HomePage = ({ eventId, event, showModal }) => {
                   }} src={event.imageUrl}></img>
                 </NavLink>
                 <br></br>
-                <div className="event-content-wrapper">
-
-                  <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
-                    <div style={{ color: 'black', wordBreak: 'break-word', textTransform: 'capitalize' }} className="event-name-div">{event.name}</div>
-                  </NavLink>
+                <div className="name-description-reviews-homepage-wrapper">
+                  <div className="event-content-wrapper">
+                    <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
+                      <div style={{ color: 'black', wordBreak: 'break-word', textTransform: 'capitalize' }} className="event-name-div">{nameShorten(event.name)}</div>
+                    </NavLink>
+                    <div style={{ marginTop: '8px', marginLeft: '1px', fontSize: '12px', color: 'black', wordBreak: 'break-word', textTransform: 'capitalize' }} className="event-description-div">{stringShorten(event.description)}</div>
+                  </div>
                   <div className='star-chart-wrapper'>
-                    <div className='star-chart-inner-div' style={{ display: 'flex', marginBottom: '10px' }}>
+                    <div className='star-chart-inner-div' style={{ display: 'flex', marginBottom: '10px', position: 'inherit', bottom: '0' }}>
                       <NavLink to={`/events/${event.id}`} style={{ display: 'flex', flexDirection: 'row', textDecoration: 'none' }}>
                         <div className="homepage-rate-button">Details / Reviews</div>
                       </NavLink>

@@ -105,8 +105,8 @@ export default function MapGL() {
   return (
     <>
       <NavBar />
-      <div>
-        <div>
+      <div >
+        <div style={{ overflowY: 'scroll' }}>
           <Map
             ref={mapRef}
             // onLoad={onMapLoad}
@@ -115,10 +115,10 @@ export default function MapGL() {
             onMove={evt => setViewState(evt.viewState)}
             onViewportChange={handleViewportChange}
             onDblClick={handleAddClick}
-            style={{ position: "absolute", right: '-0px', borderRight: '0px', borderBottomRightRadius: '0px', borderTopLeftRadius: '4px', borderTopRightRadius: '0px', height: '85.9%', width: '100vw', marginLeft: '20px', border: '3px solid black', borderBottomLeftRadius: '4px', marginTop: "100px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
+            style={{ position: "absolute", top: '-00px', right: '-0px', height: '60%', width: '100vw', marginLeft: '20px', border: '3px solid black', borderBottomLeftRadius: '4px', marginTop: "100px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
 
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
-            projection="globe"
+            // projection="globe"
             mapboxAccessToken={MAPBOX_TOKEN}
           >
             {newIdea && (
@@ -133,6 +133,12 @@ export default function MapGL() {
                 <Pin />
               </Marker>
             )}
+            <Geocoder
+              mapRef={mapRef}
+              onViewportChange={handleGeocoderViewportChange}
+              mapboxAccessToken={MAPBOX_TOKEN}
+              reverseGeocode
+            />
             <GeolocateControl
               positionOptions={{ enableHighAccuracy: true }}
               trackUserLocation={true}
@@ -141,8 +147,6 @@ export default function MapGL() {
               onGeolocate={(position) => {
                 // get latitude and longitude of user current location
                 setNewLocation([position.coords.latitude, position.coords.longitude]);
-                // setLatt(position.coords.latitude)
-                // setLong(position.coords.longitude)
               }}
             />
             {popupInfo && (
@@ -193,15 +197,9 @@ export default function MapGL() {
                 </div>
               </Popup>
             )}
-            <Geocoder
-              mapRef={mapRef}
-              onViewportChange={handleGeocoderViewportChange}
-              mapboxAccessToken={MAPBOX_TOKEN}
-              reverseGeocode
-            />
           </Map>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-start', width: '20vw', position: 'relative' }}>
+        <div className="create-event-form-wrap">
           <CreateEventForm lat={latt} lng={long} />
         </div>
         {/* <div style={{ display: 'flex', justifyContent: 'center', width: '24vw', position: 'absolute', right: '0px' }}>
