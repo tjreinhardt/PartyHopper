@@ -5,12 +5,12 @@ import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/CreateEvent.css'
-import { isFuture, isPast, isEqual } from "date-fns";
+import { startDateConversion, dateEquality, getTodaysDate } from "../HelperFunctions/CreateEventHelp";
 
-const CreateEventForm = ({ hideModal, lat, lng }) => {
+
+const CreateEventForm = ({ lat, lng }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [imageUrl, setImageUrl] = useState("")
@@ -18,47 +18,7 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
   const [entertainment, setEntertainment] = useState("")
   const [startDate, setStartDate] = useState("")
   const [startTime, setStartTime] = useState("")
-  // const [lat, setLat] = useState('');
-  // const [lng, setLng] = useState('');
   const [errors, setErrors] = useState([])
-
-  const startDateConversion = () => {
-    let parts = startDate.split('-')
-    let year = parts[0]
-    let month = parts[1] - 1
-    let day = parts[2]
-    day = Number(day) + 1
-    console.log(year)
-    console.log(month)
-    console.log(day)
-    const result = isPast(new Date(year, month, day))
-    return result
-  }
-
-  const dateEquality = () => {
-    let parts = startDate.split('-')
-    let year = parts[0]
-    let month = parts[1] - 1
-    let day = parts[2]
-    console.log(day, 'day')
-    const result = isEqual(startDate, new Date(year, month, day))
-    return result
-  }
-
-  startDateConversion()
-
-
-  const getTodaysDate = () => {
-    let today = new Date();
-    let todays_day = new Date().getDay() + 18;
-    if (todays_day < 10) todays_day = `0${todays_day}`
-    let todays_month = new Date().getMonth() + 1;
-    if (todays_month < 10) todays_month = `0${todays_month}`
-    let todays_year = today.getFullYear();
-    let todays_date = `${todays_year}-${todays_month}-${todays_day}`
-    return todays_date
-  }
-
 
 
   const handleSubmit = async (e) => {
@@ -83,17 +43,10 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
               setErrors(res.errors)
             }
             else {
-              // hideModal()
               history.push(`/explore`);
             }
           })
     }
-  }
-  let newStartTime = startTime.split(':').join('')
-  if (new Date().getMinutes() < 10) {
-    var minutes = `0${new Date().getMinutes()}`
-  } else if (new Date().getMinutes() >= 10) {
-    minutes = `${new Date().getMinutes()}`
   }
 
   useEffect(() => {
@@ -109,27 +62,56 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
     if (!eventType || eventType === '-- Event Type --') errors.push("Select a category")
     if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Select Featured Entertainment")
     setErrors(errors)
-  }, [name, newStartTime, lng, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
+  }, [name, lng, description, imageUrl, eventType, entertainment, startDate, startTime])
 
-  console.log(startDate, "startDate")
 
   return (
     <div className={'create-event-form-wrap2'}>
-      <h2 style={{ display: 'flex' }}>Create Event</h2>
-      {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline", maxWidth: '300px', textAlign: 'center' }}><span>Map functionality is still in beta, therefore, all event locations will be temporarily assigned a default location, and may be edited following an upcoming patch release</span></div> */}
+      <h2
+        style={{
+          display: 'flex'
+        }}>Create Event</h2>
       <h4>Steps:</h4>
-      <ol style={{ lineHeight: '20px', width: 'auto', paddingLeft: "20px", paddingRight: '20px' }}>
-        <li style={{ marginRight: '10px', maxWidth: '90%', minWidth: 'auto', wordBreak: 'break-word' }}>Use the map tool to find the location for your event</li>
-        <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Double click to create a map marker for your event</li>
-        <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Fill out the rest of the form fields</li>
-        <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Start Partying!</li>
+      <ol
+        style={{
+          lineHeight: '20px',
+          width: 'auto',
+          paddingLeft: "20px",
+          paddingRight: '20px'
+        }}>
+        <li
+          style={{
+            marginRight: '10px',
+            minWidth: 'auto',
+            wordBreak: 'break-word'
+          }}>Use the map tool to find the location for your event</li>
+        <li
+          style={{
+            marginRight: '10px',
+            minWidth: 'auto',
+            wordBreak: 'break-word'
+          }}>Double click to create a map marker for your event</li>
+        <li
+          style={{
+            marginRight: '10px',
+            minWidth: 'auto',
+            wordBreak: 'break-word'
+          }}>Fill out the rest of the form fields</li>
+        <li
+          style={{
+            marginRight: '10px',
+            minWidth: 'auto',
+            wordBreak: 'break-word'
+          }}>Start Partying!</li>
       </ol>
       <form onSubmit={handleSubmit}>
         <div className="form-inner-wrapper">
           <div>
             <input
               type={'text'}
-              style={{ minWidth: 'auto' }}
+              style={{
+                minWidth: 'auto'
+              }}
               placeholder={"Event Name*"}
               value={name}
               onChange={e => setName(e.target.value)}
@@ -138,7 +120,9 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
           <div>
             <input
               type={'text'}
-              style={{ minWidth: 'auto' }}
+              style={{
+                minWidth: 'auto'
+              }}
               placeholder={"Event Description*"}
               value={description}
               onChange={e => setDescription(e.target.value)}
@@ -151,14 +135,20 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
                 setImageUrl(e.target.value)
                 setErrors([])
               }}
-              style={{ minWidth: 'auto' }}
+              style={{
+                minWidth: 'auto'
+              }}
               value={imageUrl}
               type="url"
             >
             </input>
           </div>
           <div>
-            <label style={{ fontWeight: 'bold', fontSize: '14px' }}>Start Date:</label>
+            <label
+              style={{
+                fontWeight: 'bold',
+                fontSize: '14px'
+              }}>Start Date:</label>
             <input
               type="hidden"
               value={getTodaysDate}
@@ -168,25 +158,37 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
           <div>
             <input
               type={'date'}
-              style={{ minWidth: 'auto' }}
+              style={{
+                minWidth: 'auto'
+              }}
               value={startDate}
               onChange={e => setStartDate(e.target.value)}
             />
           </div>
           <div>
           </div>
-          <label style={{ fontWeight: 'bold', fontSize: '14px' }}>Start Time:</label>
+          <label
+            style={{
+              fontWeight: 'bold',
+              fontSize: '14px'
+            }}>Start Time:</label>
           <div>
             <input
               type={'time'}
               value={startTime}
-              style={{ minWidth: 'auto' }}
+              style={{
+                minWidth: 'auto'
+              }}
               onChange={e => setStartTime(e.target.value)}
             />
           </div>
           <div>
 
-            <select style={{ minWidth: 'auto', width: '280px' }} value={eventType} onChange={e => setEventType(e.target.value)}>
+            <select
+              style={{
+                minWidth: 'auto',
+                width: '280px'
+              }} value={eventType} onChange={e => setEventType(e.target.value)}>
               <option value="-- Event Type --">-- Event Type --</option>
               <option value="Party">Party</option>
               <option value="Kickback">Kickback</option>
@@ -201,7 +203,11 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             </select>
           </div>
           <div>
-            <select style={{ minWidth: 'auto', width: '280px' }} value={entertainment} onChange={e => setEntertainment(e.target.value)}>
+            <select
+              style={{
+                minWidth: 'auto',
+                width: '280px'
+              }} value={entertainment} onChange={e => setEntertainment(e.target.value)}>
               <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
               <option value="No Performers">No Performers</option>
               <option value="Live-Band">Live-Band</option>
@@ -214,34 +220,36 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             placeholder="Longitude"
             value={lng}
             readOnly
-          // onChange={updateLng}
-          // required
           />
           <input
             type="hidden"
             placeholder="Latitude"
             value={lat}
             readOnly
-          // onChange={updateLat}
-          // required
           />
 
         </div>
         <div className="bottom-button">
           <button type="submit" style={{
             width: '280px',
-
-            // margin: '10px'
           }}>Share</button>
           <br />
-          {/* <button onClick={hideModal} style={{
-            marginLeft: '10px'
-          }}>Cancel</button>
-          <br /> */}
         </div>
-        <ul style={{ lineHeight: '20px', padding: '0px', marginLeft: '40px' }}>
+        <ul
+          style={{
+            lineHeight: '20px',
+            padding: '0px',
+            marginLeft: '40px'
+          }}>
           {errors.map((error, idx) => (
-            <li style={{ color: 'red', width: 'auto', lineHeight: "18px", marginRight: '0px', fontSize: '14px' }} key={idx} >{error}</li>
+            <li
+              style={{
+                color: 'red',
+                width: 'auto',
+                lineHeight: "18px",
+                marginRight: '0px',
+                fontSize: '14px'
+              }} key={idx} >{error}</li>
           ))}
         </ul>
       </form>

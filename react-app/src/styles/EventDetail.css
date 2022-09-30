@@ -2,11 +2,76 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 30%;
+}
+
+.detail-edit-button-style {
+    font-weight: 800;
+    font-size: 16px;
+    height: 36px;
+    margin-top: 10px;
+    margin-right: 16px;
+    width: 150px;
+    margin-left: 5%;
+}
+
+.detail-delete-button-style {
+    font-weight: 800;
+    font-size: 16px;
+    height: 36px;
+    width: 150px;
+    margin-top: 10px;
+}
+
+.detail-body-outer-wrapper {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-body-middle-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail-body-innermost-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.event-start-date-div {
+    font-weight: 550;
+    margin-left: 12px;
+    margin-top: 6px;
+    border-bottom: 1px solid gray;
+}
+
+.event-start-time-div {
+    font-weight: 550;
+    margin-left: 12px;
+    margin-top: 6px;
+    border-bottom: 1px solid gray;
+}
+
+.event-date-label {
+    color: darkgray;
+}
+
+.event-time-label {
+    color: darkgray;
 }
 
 .image-header-content-block {
     position: relative;
-
+    width: 100%;
+    max-width: 100%;
     flex: 1 auto;
     z-index: 3;
 }
@@ -14,18 +79,23 @@
 .image-header-block {
     background: linear-gradient(to top, black, transparent);
     z-index: 6;
+    width: 100vw;
 }
 
 .event-detail-image-wrapper {
     height: 426px;
-
+    width: 100%;
+    max-width: 100%;
     margin-top: 100px;
     color: black;
     z-index: 5;
 }
 
 .event-detail-img {
-
+    border: none;
+    width: 99.7%;
+    max-width: 99vw;
+    overflow-x: hidden;
     height: 426px;
     backface-visibility: visible;
     min-height: 426px;
@@ -36,6 +106,8 @@
 
 .event-detail-name-div {
     display: flex;
+    text-transform: capitalize;
+    word-break: break-word;
     justify-content: flex-start;
     margin-left: 300px;
     font-size: 36px;
@@ -78,7 +150,27 @@
 .event-rsvp-buttons {
     /* margin-left: 15%; */
     margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 8px;
     margin-left: 16px;
+}
+
+.bottom-whitespace-div {
+    margin-bottom: 12%;
+}
+
+.detail-review-div {
+    width: 100%;
+    margin-top: 24px;
+}
+
+.session-links-div {
+    margin-left: 4px;
+}
+
+.rsvp-button-wrapper {
+    margin-left: auto;
+    margin-right: 100%;
 }
 
 .overall-rating-stars {
@@ -89,6 +181,7 @@
 
 .overlay-content-on-image {
     display: flex;
+    max-width: 100%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -123,7 +216,7 @@ svg {
 
 .header-content-wrapper {
 
-
+    width: 100vw;
     position: relative;
     width: 100vw;
     z-index: 0;
@@ -133,10 +226,37 @@ svg {
 
 .event-description-div {
     font-weight: 600;
+    padding: 10px;
+    font-size: 20px;
+    max-width: 600px;
+    margin-top: 8px;
+    word-break: break-word;
+    text-overflow: clip;
+    line-height: 24px;
+}
+
+.detail-rsvp-button {
+    height: 35px;
+    width: 150px;
+}
+
+.details-label {
+    color: darkgray;
+    text-decoration: underline;
 }
 
 .event-description-div::first-letter {
     text-transform: capitalize;
+}
+
+.detail-button-wrapper {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.star-chart-inner-div {
+    display: flex;
+    margin-bottom: 10px;
 }
 
 .overlay-details {

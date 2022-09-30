@@ -121,64 +121,26 @@ const EventDetail = () => {
   return (eventIsLoaded && event && <>
     <NavBar />
     <div>
-      <div
-        style={{
-          width: '100vw'
-        }}
-        className="header-content-wrapper">
-        <div
-          style={{
-            width: '100vw'
-          }}
-          className="image-header-block">
-          <div
-            style={{
-              width: '100%',
-              maxWidth: '100%'
-            }}
-            className="image-header-content-block">
+      <div className="header-content-wrapper">
+        <div className="image-header-block">
+          <div className="image-header-content-block">
           </div>
-          <div
-            style={{
-              width: '100%',
-              maxWidth: '100%'
-            }}
-            className="event-detail-image-wrapper">
-            <img alt=''
-              className={'event-detail-image'}
-              style={{
-                border: 'none',
-                width: '99.7%',
-                maxWidth: '99vw',
-                overflowX: 'hidden'
-              }} onError={({ target }) => {
+          <div className="event-detail-image-wrapper">
+            <img alt='' className={'event-detail-image'}
+              onError={({ target }) => {
                 target.onError = null
                 target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
-              }} src={event?.imageUrl}></img>
+              }}
+              src={event?.imageUrl}></img>
           </div>
         </div>
-        <div
-          style={{
-            maxWidth: '100%'
-          }}
-          className="overlay-content-on-image">
-          <div
-            style={{
-              textTransform: 'capitalize',
-              wordBreak: 'break-word'
-            }}
-            className={"event-detail-name-div"}
+        <div className="overlay-content-on-image">
+          <div className={"event-detail-name-div"}
           >{event.name}</div>
           <div
             className={"event-detail-rating-reviews-content-div"}>
-            <div
-              className='star-chart-wrapper'>
-              <div
-                className='star-chart-inner-div'
-                style={{
-                  display: 'flex',
-                  marginBottom: '10px'
-                }}>
+            <div className='star-chart-wrapper'>
+              <div className='star-chart-inner-div'>
                 {rate.map((_, i) => {
                   return (
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -199,176 +161,87 @@ const EventDetail = () => {
             <div className={'overlay-details'}>
               <div className={
                 "event-detail-total-reviews-div"
-              }>{event.totalReviews} {(event.totalReviews) !== 1 ? "reviews" : "review"}</div>
+              }>
+                {event.totalReviews} {(event.totalReviews) !== 1 ? "reviews" : "review"}
+              </div>
 
-              <div className={"event-detail-type-div"}>{event.totalRsvps} {(event.totalRsvps) !== 1 ? "RSVPS" : "RSVP"}</div>
-              <div className={"event-detail-type-div"}>{event.eventType}, </div>
-              <div className={"event-detail-entertainment-div"}>{event.entertainment} </div>
+              <div className={"event-detail-type-div"}>
+                {event.totalRsvps} {(event.totalRsvps) !== 1 ? "RSVPS" : "RSVP"}
+              </div>
+              <div className={"event-detail-type-div"}>
+                {event.eventType},
+              </div>
+              <div className={"event-detail-entertainment-div"}>
+                {event.entertainment}
+              </div>
             </div>
           </div>
 
         </div>
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-start'
-        }}>
+      <div className="detail-button-wrapper">
         {showButton && (
-          <div
-            style={{
-              marginLeft: '30%'
-            }} className="event-detail-buttons">
+          <div className="event-detail-buttons">
             <button
-              style={{
-                fontWeight: '800',
-                fontSize: '16px',
-                height: '36px',
-                marginTop: '10px',
-                marginRight: '16px',
-                width: '150px',
-                marginLeft: '5%'
-              }} onClick={() => setEditModal(true)}>Edit Event</button>
+              className="detail-edit-button-style"
+              onClick={() => setEditModal(true)}>
+              Edit Event
+            </button>
             <button
-              style={{
-                fontWeight: '800',
-                fontSize: '16px',
-                height: '36px',
-                width: '150px',
-                marginTop: '10px'
-              }} onClick={handleDelete}>Delete Event</button>
+              className="detail-delete-button-style"
+              onClick={handleDelete}>
+              Delete Event
+            </button>
             {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
           </div>
         )}
       </div>
-      <div
-        style={{
-          padding: '20px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'flex-start'
-        }}>
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'flex-start',
-            alignItems: 'center'
-          }}>
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'flex-start'
-            }}>
-            <div
-              style={{
-                fontWeight: '550',
-                marginLeft: '12px',
-                marginTop: '6px',
-                borderBottom: '1px solid gray'
-              }}
-              className={"event-start-date-div"}
+      <div className="detail-body-outer-wrapper">
+        <div className="detail-body-middle-wrapper">
+          <div className="detail-body-innermost-wrapper">
+            <div className={"event-start-date-div"}
             >
-              <span
-                style={{
-                  color: 'darkGrey'
-                }}>Event Date:</span> {dateConversion(event.startDate)}
+              <span className="event-date-label">
+                Event Date:
+              </span>
+              {dateConversion(event.startDate)}
             </div>
-            <div
-              style={{
-                fontWeight: '550',
-                marginLeft: '12px',
-                marginTop: '6px',
-                borderBottom: '1px solid gray'
-              }}
-              className={"event-start-time-div"}
+            <div className={"event-start-time-div"}
             >
-              <span
-                style={{
-                  color: 'darkGrey'
-                }}>Starts At:</span> {timeConversion(event.startTime)}
+              <span className="event-time-label">
+                Starts At:
+              </span>
+              {timeConversion(event.startTime)}
             </div>
-            <div
-              style={{
-                padding: '10px',
-                fontSize: '20px',
-                maxWidth: '600px',
-                marginTop: '8px',
-                wordBreak: 'break-word',
-                textOverflow: 'clip',
-                lineHeight: '24px'
-              }}
-              className={"event-description-div"}
-            ><span
-              style={{
-                color: 'darkGrey',
-                textDecoration: 'underline'
-              }}>Details:</span> <br />
+            <div className={"event-description-div"}
+            ><span className="details-label">
+                Details:
+              </span>
+              <br />
               {event.description}
             </div>
             {!showButton && (
-              <div
-                style={{
-                  marginLeft: 'auto',
-                  marginRight: '100%'
-                }}>
-                {/* <div><button onClick={() => handleRsvps(eventId)} >rsvps event</button></div> */}
-                <div
-                  style={{
-                    marginRight: '10px',
-                    marginLeft: '8px'
-                  }}
-                  className="event-rsvp-buttons" onClick={() => handleRsvps(event.id)}>
+              <div className="rsvp-button-wrapper">
+                <div className="event-rsvp-buttons"
+                  onClick={() => handleRsvps(event.id)}>
                   {event.rsvpStatus === 1 ?
-                    <button
-                      style={{
-                        height: '35px',
-                        width: '150px'
-                      }}>Cancel RSVP</button>
+                    <button className="detail-rsvp-button">Cancel RSVP</button>
                     :
-                    <button
-                      style={{
-                        height: '35px',
-                        width: '150px'
-                      }}>RSVP</button>
-                  }
-
+                    <button className="detail-rsvp-button">RSVP</button>}
                 </div>
-
-                {/* <div>{!!event.totalRsvps && (event.totalRsvps === 1 ? <p>1 rsvp</p> : <p>{event.totalRsvps} rsvps</p>)}</div> */}
               </div>
-
-            )
-
-            }
-            <div
-              style={{
-                marginLeft: '-4px'
-              }}>
+            )}
+            <div className="session-links-div">
               {session.id !== event.userId && sessionLinks}
             </div>
-            <div
-              style={{
-                width: '100%',
-                marginTop: '24px'
-              }}>
+            <div className="detail-review-div">
               <GetReviews eventId={eventId} />
             </div>
           </div>
         </div>
       </div>
-      <div
-        style={{
-          marginBottom: '12%'
-        }}>
-
+      <div className="bottom-whitespace-div">
       </div>
-
-
     </div>
   </>
   )

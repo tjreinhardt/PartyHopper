@@ -1,13 +1,8 @@
-// import collect from '@turf/collect';
-// import * as turf from '@turf/turf'
-
-// collect(turf.points, turf.polys, 'population', 'populationValues');
 import * as React from 'react';
 import { useState, useMemo } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import Pin from './Pin'
 import { GeolocateControl } from 'react-map-gl';
@@ -17,19 +12,13 @@ import { getAllEventsThunk } from '../../store/event';
 import Geocoder from './Geocoder';
 import NavBar from '../NavBar';
 import { rsvpEventThunk } from "../../store/event";
-// import EventDetail from '../events/EventDetail';
 import { NavLink } from 'react-router-dom';
-import { getEventDetailThunk } from '../../store/event';
-import CreateEventForm from '../events/CreateEvent';
-import EditEventForm from '../events/EditEvent';
-import EventDetail from '../events/EventDetail';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU1dzQwZGZobCJ9.f93BsV65IIUxtBJkbiiqXg'; // Set your mapbox token here
 
 
 export default function MapGL2() {
   const dispatch = useDispatch();
-  const history = useHistory();
   const [viewState, setViewState] = React.useState({
     longitude: -100,
     latitude: 40,
@@ -45,22 +34,6 @@ export default function MapGL2() {
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const events = Object.values(eventsList)
   const event = useSelector(state => state.event[eventId]);
-
-
-  // const onMapLoad = React.useCallback(() => {
-  //   mapRef.current.on('style.load', () => {
-  //     mapRef.current.setFog({
-  //       "range": [0.8, 8],
-  //       "color": "#dc9f9f",
-  //       "horizon-blend": 0.5,
-  //       "high-color": "#245bde",
-  //       "space-color": "#000000",
-  //       "star-intensity": 0.15
-  //     })
-  //   })
-  // }, [])
-
-
 
   const pins = useMemo(
     () =>
@@ -113,46 +86,61 @@ export default function MapGL2() {
     window.alert("RSVP updated")
   }
 
+
   let showButton = false
   if (eventIsLoaded && event && (session.id === event.userId)) {
     showButton = true
   }
 
 
-
-
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getAllEventsThunk())
   }, [dispatch, event, rsvpEventThunk, popupInfo])
 
-  React.useEffect(() => {
+  useEffect(() => {
     createFeatureCollection(events)
   }, [events, event])
 
 
+
   return (
-    <div style={{ overflowY: "hidden" }}>
+    <div
+      style={{
+        overflowY: "hidden"
+      }}
+    >
       <NavBar />
       <div>
         <div>
           <Map
             ref={mapRef}
-            // onLoad={onMapLoad}
             {...viewState}
             className={'map-wrapper'}
             onMove={evt => setViewState(evt.viewState)}
-            style={{ zIndex: '0', position: "absolute", top: '-00px', height: '100%', right: '-0px', marginLeft: '20px', border: '3px solid black', borderBottomLeftRadius: '4px', marginTop: "100px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
+            style={{
+              zIndex: '0',
+              position: "absolute",
+              top: '-00px',
+              height: '100%',
+              right: '-0px',
+              marginLeft: '20px',
+              border: '3px solid black',
+              borderBottomLeftRadius: '4px',
+              marginTop: "100px",
+              backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat'
+            }}
 
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
             projection="globe"
             mapboxAccessToken={MAPBOX_TOKEN}
           >
-            <Geocoder style={{ width: '900px' }} />
+            <Geocoder />
             <GeolocateControl
               positionOptions={{ enableHighAccuracy: true }}
               trackUserLocation={true}
               onGeolocate={(position) => {
-                // get latitude and longitude of user current location
                 setNewLocation([position.coords.latitude, position.coords.longitude]);
               }}
             />
@@ -163,56 +151,76 @@ export default function MapGL2() {
                 longitude={Number(popupInfo.lng)}
                 latitude={Number(popupInfo.lat)}
                 onClose={() => setPopupInfo(null)}
-                style={{ padding: '0px', margin: '0px' }}
-
+                style={{
+                  padding: '0px',
+                  margin: '0px'
+                }}
               >
-                <div className="popup-info-container" style={{ position: 'relative', width: '13rem', height: '13rem', backgroundImage: `url(${popupInfo.imageUrl})`, backgroundPosition: 'center', backgroundSize: 'cover' }}>
-                  <div style={{ position: 'absolute', bottom: '0', color: 'white', backgroundColor: 'black', width: '100%', margin: '10px 10px 15px', marginBottom: '0px', fontSize: '20px' }}>
+                <div className="popup-info-container"
+                  style={{
+                    position: 'relative',
+                    width: '13rem',
+                    height: '13rem',
+                    backgroundImage: `url(${popupInfo.imageUrl})`,
+                    backgroundPosition: 'center',
+                    backgroundSize: 'cover'
+                  }}
+                >
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '0',
+                      color: 'white',
+                      backgroundColor: 'black',
+                      width: '100%',
+                      margin: '10px 10px 15px',
+                      marginBottom: '0px',
+                      fontSize: '20px'
+                    }}
+                  >
                     <NavLink to={`/events/${popupInfo.id}`} className='popup-name-navlink'>
                       {popupInfo.name}
                     </NavLink>
-                    {/* {popupInfo.description} */}
                     <br />
                     {popupInfo.totalRsvps} {(popupInfo.totalRsvps) !== 1 ? "others attending" : "other attending"}
                     <br />
 
-                    <div style={{ marginLeft: 'auto', marginRight: '100%' }}>
-                      <div style={{ marginLeft: '30px' }} className="event-rsvp-buttons" onClick={() => handleRsvps(popupInfo.id)}>
+                    <div
+                      style={{
+                        marginLeft: 'auto',
+                        marginRight: '100%'
+                      }}
+                    >
+                      <div
+                        style={{
+                          marginLeft: '30px'
+                        }}
+                        className="event-rsvp-buttons"
+                        onClick={() => handleRsvps(popupInfo.id)}
+                      >
                         {popupInfo.rsvpStatus === 1 ?
-                          <button style={{ height: '35px', width: '150px' }}>Cancel RSVP</button>
+                          <button
+                            style={{
+                              height: '35px',
+                              width: '150px'
+                            }}>Cancel RSVP
+                          </button>
                           :
-                          <button style={{ height: '35px', width: '150px' }}>RSVP</button>
+                          <button
+                            style={{
+                              height: '35px',
+                              width: '150px'
+                            }}>RSVP
+                          </button>
                         }
                       </div>
-
-                      {/* <div>{!!event.totalRsvps && (event.totalRsvps === 1 ? <p>1 rsvp</p> : <p>{event.totalRsvps} rsvps</p>)}</div> */}
                     </div>
-
-
-
-                    {/* </div> */}
-                    {/* Longitude: {popupInfo.lng} */}
-
-                    {/* <br /> */}
-                    {/* Latitude: {popupInfo.lat} */}
                   </div>
-                  {/* <br /> */}
-                  {/* <br /> */}
-                  {/* <br /> */}
-                  {/* <br /> */}
-                  {/* <img className="map-event-popup" width="100%" height="100%" src={popupInfo.eventUrl} alt="" /> */}
-                  {/* <EventDetail /> */}
                 </div>
               </Popup>
             )}
           </Map>
         </div>
-        {/* <div style={{ display: 'flex', justifyContent: 'flex-end', width: '20vw', position: 'absolute', left: '36px' }}>
-          <CreateEventForm />
-        </div> */}
-        {/* <div style={{ display: 'flex', justifyContent: 'center', width: '24vw', position: 'absolute', right: '0px' }}>
-          <EventDetail />
-        </div> */}
       </div>
     </div>
   );
