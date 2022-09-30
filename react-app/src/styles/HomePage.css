@@ -22,14 +22,14 @@
     grid-template-columns: 1fr 1fr;
     max-width: 1224px;
     position: relative;
-    transition: all 150ms ease-in-out;
+    transition: all 0.6s ease-in-out;
 }
 
 .name-description-reviews-homepage-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: all 150ms ease-in-out;
+    transition: all 0.6s ease-in-out;
 }
 
 .event-card {
@@ -44,7 +44,7 @@
     /* transition: all 0.8s ease-in-out; */
     text-decoration: none;
     color: black;
-    transition: all 150ms ease-in-out;
+    transition: all 0.6s ease-in-out;
 }
 
 
@@ -54,7 +54,7 @@
     overflow-x: hidden;
     overflow-y: hidden;
 
-    transition: all 150ms ease-in-out;
+    transition: all 0.6s ease-in-out;
 }
 
 .event-content-wrapper {
@@ -66,7 +66,7 @@
     padding-left: 24px;
     padding-right: 30px;
     padding-bottom: 10px;
-    transition: all 150ms ease-in-out;
+    transition: all 0.6s ease-in-out;
 }
 
 
@@ -80,14 +80,14 @@ img {
 }
 
 .event-description-div {
-    transition: all 150ms ease-in-out;
+    transition: all 0.6s ease-in-out;
     font-size: 24px;
     position: relative;
     width: 80%;
 }
 
 .welcome-user-home {
-    transition: all 150ms ease-in-out;
+    transition: all 0.6s ease-in-out;
     background: linear-gradient(to top, black, transparent);
     width: 100%;
     z-index: 1;
@@ -130,7 +130,7 @@ img {
 .event-name-navlink {
     text-decoration: none;
     cursor: pointer;
-    transition: all 150ms ease-in-out;
+    transition: all 0.6s ease-in-out;
 
 }
 
@@ -221,16 +221,12 @@ img {
         padding-left: 12px;
 
     }
-
-    html {
-        overflow-y: scroll;
-    }
 }
 
 @media only screen and (min-width:580px) and (max-width:1200px) {
 
     .welcome-user-home {
-        top: 372px;
+        top: auto;
     }
 
     .content-wrapper {
@@ -245,7 +241,7 @@ img {
         /* flex-direction: column; */
         width: max-content;
         min-height: 18vh;
-        transition: all 150ms ease-in-out;
+        transition: all 0.6s ease-in-out;
     }
 
 

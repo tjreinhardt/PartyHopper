@@ -4,7 +4,7 @@ import '../styles/Footer.css';
 function Footer() {
 
   return (
-    <div className='footer-div'>
+    <div className='footer-div' style={{ zIndex: '3' }}>
       <div className="footer">
         <div className="footer-content" style={{ fontWeight: '600' }}>Designed By Tim Reinhardt:
           <a className="about-links" style={{

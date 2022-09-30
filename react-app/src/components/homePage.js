@@ -123,11 +123,7 @@ const HomePage = ({ eventId, event, showModal }) => {
 
   let content;
   if (!showModal) {
-    content = (
-      <div>
-        <div className={'welcome-user-home'}></div>
-      </div>
-    )
+    content = null
   } else {
     content = null
   }

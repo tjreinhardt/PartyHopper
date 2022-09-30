@@ -88,8 +88,6 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
             }
           })
     }
-    // errors.push(['Cannot pick a date that has already happened'])
-    // console.log(errors)
   }
   let newStartTime = startTime.split(':').join('')
   if (new Date().getMinutes() < 10) {
@@ -98,23 +96,18 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
     minutes = `${new Date().getMinutes()}`
   }
 
-  // console.log(!isEqual(startDate, new Date()))
-  console.log(dateEquality(), 'eeeeeeeeeeeeeeeee')
   useEffect(() => {
     let errors = [];
     if (startDateConversion(startDate) === true && (!dateEquality())) errors.push("Date must be no earlier than today!")
-    // if (startDate < getTodaysDate()) errors.push("Events must be scheduled at least 1 day in advance")
     if (!lng) errors.push("Create a pin for your event")
     if (name.trim().length === 0) errors.push("Name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Describe your event")
     if (description.trim().length > 500) errors.push("Description is too long!")
-    // if (imageUrl.trim().length === 0 || (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("Add an image URL -- Format: '.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif' or '.svg' format, and must include: 'https://'")
-    // if (imageUrl.trim().length > 500) errors.push("Image URL address is too long!")
-    if (!eventType || eventType === '-- Event Type --') errors.push("Select a category")
-    if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Select Entertainment Options")
     if (!startDate) errors.push("Select a date");
     if (!startTime) errors.push("Select a time")
+    if (!eventType || eventType === '-- Event Type --') errors.push("Select a category")
+    if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Select Featured Entertainment")
     setErrors(errors)
   }, [name, newStartTime, lng, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
 
@@ -122,11 +115,11 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
 
   return (
     <div className={'create-event-form-wrap2'}>
-      <h2 style={{ display: 'flex', justifyContent: 'center' }}>Create Event</h2>
+      <h2 style={{ display: 'flex' }}>Create Event</h2>
       {/* <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline", maxWidth: '300px', textAlign: 'center' }}><span>Map functionality is still in beta, therefore, all event locations will be temporarily assigned a default location, and may be edited following an upcoming patch release</span></div> */}
-      <h3>Steps:</h3>
-      <ol style={{ lineHeight: '20px', width: '280px', paddingLeft: "20px", paddingRight: '20px' }}>
-        <li style={{ marginRight: '10px', wordBreak: 'break-word' }}>Use the map tool to find the location for your event</li>
+      <h4>Steps:</h4>
+      <ol style={{ lineHeight: '20px', width: 'auto', paddingLeft: "20px", paddingRight: '20px' }}>
+        <li style={{ marginRight: '10px', maxWidth: '90%', minWidth: 'auto', wordBreak: 'break-word' }}>Use the map tool to find the location for your event</li>
         <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Double click to create a map marker for your event</li>
         <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Fill out the rest of the form fields</li>
         <li style={{ marginRight: '10px', minWidth: 'auto', wordBreak: 'break-word' }}>Start Partying!</li>
@@ -236,6 +229,8 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
         </div>
         <div className="bottom-button">
           <button type="submit" style={{
+            width: '280px',
+
             // margin: '10px'
           }}>Share</button>
           <br />
@@ -244,9 +239,9 @@ const CreateEventForm = ({ hideModal, lat, lng }) => {
           }}>Cancel</button>
           <br /> */}
         </div>
-        <ul style={{ lineHeight: '20px', padding: '0px', marginLeft: '0px' }}>
+        <ul style={{ lineHeight: '20px', padding: '0px', marginLeft: '40px' }}>
           {errors.map((error, idx) => (
-            <li style={{ color: 'red', width: 'auto', lineHeight: "22px", marginRight: '0px', fontSize: '14px' }} key={idx} >{error}</li>
+            <li style={{ color: 'red', width: 'auto', lineHeight: "18px", marginRight: '0px', fontSize: '14px' }} key={idx} >{error}</li>
           ))}
         </ul>
       </form>
