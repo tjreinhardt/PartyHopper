@@ -10,7 +10,7 @@ create-event-form-form {
     padding-left: 20px;
     background-color: white;
     margin-bottom: 61px;
-    /* height: 90vh; */
+    height: 100vh;
     min-width: 300px;
     max-width: 300px;
     left: 0px;
@@ -57,9 +57,7 @@ button {
     border: 5px solid black !important;
 }
 
-.mapboxgl-canvas {
-    height: 558px !important;
-}
+
 
 button:hover {
     background-color: #f06464;
@@ -85,8 +83,9 @@ select {
         padding-left: 50%;
         bottom: 61px;
         margin-bottom: 50px;
-        margin-top: 79vh;
+        margin-top: 85.3vh;
         height: 40%;
+        min-width: 90vw;
         /* min-width: 350px; */
         /* overflow-y: scroll; */
         overflow-x: hidden;
@@ -97,9 +96,11 @@ select {
     }
 
     .mapboxgl-map {
-        width: 96vw !important;
+        /* width: 96vw !important; */
         border: 5px solid black !important;
     }
+
+
 
 
 
