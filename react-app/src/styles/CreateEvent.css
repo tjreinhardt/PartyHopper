@@ -57,9 +57,7 @@ button {
     border: 5px solid black !important;
 }
 
-.mapboxgl-canvas {
-    height: 558px !important;
-}
+
 
 button:hover {
     background-color: #f06464;
