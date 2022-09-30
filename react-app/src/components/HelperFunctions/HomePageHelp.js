@@ -1,9 +1,9 @@
 var _ = require('lodash')
 
 export const stringShorten = (string) => {
-  if (string.length > 30) {
+  if (string.length > 65) {
     const newString = _.truncate(string, {
-      'length': 30,
+      'length': 65,
       'separator': /,? +/
     });
     return newString

@@ -89,11 +89,11 @@ const HomePage = ({ eventId, event, showModal }) => {
                 <div className="name-description-reviews-homepage-wrapper">
                   <div className="event-content-wrapper">
                     <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
-                      <div className="event-name-div">
+                      <div className="home-event-name-div">
                         {nameShorten(event.name)}
                       </div>
                     </NavLink>
-                    <div className="event-description-div">
+                    <div className="home-event-description-div">
                       {stringShorten(event.description)}
                     </div>
                   </div>
@@ -101,7 +101,7 @@ const HomePage = ({ eventId, event, showModal }) => {
                     <div className='star-chart-inner-div'>
                       <NavLink to={`/events/${event.id}`} className="detail-review-navlink">
                         <div className="homepage-rate-button">
-                          Details / Reviews
+                          Details
                         </div>
                       </NavLink>
                     </div>

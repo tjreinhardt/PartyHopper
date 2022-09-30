@@ -15,7 +15,7 @@ import NavBar from '../NavBar';
 import { rsvpEventThunk } from "../../store/event";
 import { NavLink } from 'react-router-dom';
 import CreateEventForm from '../events/CreateEvent';
-import { startDateConversion, dateEquality, getTodaysDate } from '../HelperFunctions/CreateEventHelp';
+
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU1dzQwZGZobCJ9.f93BsV65IIUxtBJkbiiqXg'; // Set your mapbox token here
 
