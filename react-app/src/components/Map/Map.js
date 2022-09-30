@@ -1,7 +1,3 @@
-// import collect from '@turf/collect';
-// import * as turf from '@turf/turf'
-
-// collect(turf.points, turf.polys, 'population', 'populationValues');
 import * as React from 'react';
 import { useState, useMemo, useCallback } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
@@ -17,13 +13,9 @@ import { getAllEventsThunk } from '../../store/event';
 import Geocoder from './Geocoder';
 import NavBar from '../NavBar';
 import { rsvpEventThunk } from "../../store/event";
-// import EventDetail from '../events/EventDetail';
 import { NavLink } from 'react-router-dom';
-import { getEventDetailThunk } from '../../store/event';
 import CreateEventForm from '../events/CreateEvent';
-import EditEventForm from '../events/EditEvent';
-import EventDetail from '../events/EventDetail';
-import { setRTLTextPlugin } from 'mapbox-gl';
+import { startDateConversion, dateEquality, getTodaysDate } from '../HelperFunctions/CreateEventHelp';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU1dzQwZGZobCJ9.f93BsV65IIUxtBJkbiiqXg'; // Set your mapbox token here
 
@@ -37,13 +29,7 @@ export default function MapGL() {
     zoom: 3.5
   });
   const { eventId } = useParams();
-  const { rsvpStatus } = useParams();
   const mapRef = React.useRef()
-  const [viewport, setViewport] = useState({
-    lng: 37.7577,
-    lat: -122.4376,
-    zoom: 8
-  });
   const [popupInfo, setPopupInfo] = useState(null);
   const [newLocation, setNewLocation] = useState(null);
   const eventsList = useSelector(state => state.event);
@@ -51,7 +37,6 @@ export default function MapGL() {
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const [latt, setLatt] = useState(null)
   const [long, setLong] = useState(null)
-  const events = Object.values(eventsList)
   const [newIdea, setNewIdea] = useState(null)
   const event = useSelector(state => state.event[eventId]);
 
@@ -62,7 +47,6 @@ export default function MapGL() {
   const handleGeocoderViewportChange = useCallback(
     (newViewState) => {
       const geocoderDefaultOverrides = { transitionDuration: 1000 };
-
       return handleViewportChange({
         ...newViewState,
         ...geocoderDefaultOverrides
@@ -96,7 +80,7 @@ export default function MapGL() {
 
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getAllEventsThunk())
   }, [dispatch, event, rsvpEventThunk, popupInfo])
 
@@ -109,7 +93,6 @@ export default function MapGL() {
         <div style={{ overflowY: 'scroll' }}>
           <Map
             ref={mapRef}
-            // onLoad={onMapLoad}
             {...viewState}
             className={'map-wrapper'}
             onMove={evt => setViewState(evt.viewState)}
@@ -118,7 +101,6 @@ export default function MapGL() {
             style={{ zIndex: '0', position: "absolute", top: '-00px', right: '-0px', height: '60%', width: '100vw', marginLeft: '20px', border: '3px solid black', borderBottomLeftRadius: '4px', marginTop: "100px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
 
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
-            // projection="globe"
             mapboxAccessToken={MAPBOX_TOKEN}
           >
             {newIdea && (
@@ -127,7 +109,6 @@ export default function MapGL() {
                 latitude={newIdea.lat}
                 anchor="left"
                 closeButton={true}
-                // draggable={true}
                 closeOnClick={false}
                 onClose={() => setNewIdea(null)}>
                 <Pin />
@@ -145,7 +126,6 @@ export default function MapGL() {
               showUserHeading={true}
               showUserLocation={true}
               onGeolocate={(position) => {
-                // get latitude and longitude of user current location
                 setNewLocation([position.coords.latitude, position.coords.longitude]);
               }}
             />
@@ -163,7 +143,6 @@ export default function MapGL() {
                     <NavLink to={`/events/${popupInfo.id}`} className='popup-name-navlink'>
                       {popupInfo.name}
                     </NavLink>
-                    {/* {popupInfo.description} */}
                     <br />
                     {popupInfo.totalRsvps} {(popupInfo.totalRsvps) !== 1 ? "others attending" : "other attending"}
                     <br />
@@ -176,24 +155,8 @@ export default function MapGL() {
                           <button style={{ height: '35px', width: '150px' }}>RSVP</button>
                         }
                       </div>
-
-                      {/* <div>{!!event.totalRsvps && (event.totalRsvps === 1 ? <p>1 rsvp</p> : <p>{event.totalRsvps} rsvps</p>)}</div> */}
                     </div>
-
-
-
-                    {/* </div> */}
-                    {/* Longitude: {popupInfo.lng} */}
-
-                    {/* <br /> */}
-                    {/* Latitude: {popupInfo.lat} */}
                   </div>
-                  {/* <br /> */}
-                  {/* <br /> */}
-                  {/* <br /> */}
-                  {/* <br /> */}
-                  {/* <img className="map-event-popup" width="100%" height="100%" src={popupInfo.eventUrl} alt="" /> */}
-                  {/* <EventDetail /> */}
                 </div>
               </Popup>
             )}
@@ -202,9 +165,6 @@ export default function MapGL() {
         <div className="create-event-form-wrap">
           <CreateEventForm lat={latt} lng={long} />
         </div>
-        {/* <div style={{ display: 'flex', justifyContent: 'center', width: '24vw', position: 'absolute', right: '0px' }}>
-          <EventDetail />
-        </div> */}
       </div>
     </>
   );

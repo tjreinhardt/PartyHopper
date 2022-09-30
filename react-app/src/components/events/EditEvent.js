@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { updateEventThunk } from "../../store/event";
+import '../../styles/EditEvent.css'
 
 
 const EditEventForm = ({ event, hideModal, lat, lng }) => {
@@ -15,31 +16,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
   const [entertainment, setEntertainment] = useState(event.entertainment)
   const [startDate, setStartDate] = useState(event.startDate)
   const [startTime, setStartTime] = useState(event.startTime)
-
-  // console.log(event)
-
   const [errors, setErrors] = useState([])
-  let today = new Date();
-  let todays_day = today.getDay() - 3;
-  if (todays_day < 10) todays_day = `0${todays_day}`
-  let todays_month = today.getMonth() + 1;
-  if (todays_month < 10) todays_month = `0${todays_month}`
-  let todays_year = today.getFullYear();
-  let todays_date = `${todays_year}-${todays_month}-${todays_day}`
-
-
-
-  const getTodaysDate = () => {
-    let today = new Date();
-    let todays_day = new Date().getDay() + 19;
-    if (todays_day < 10) todays_day = `0${todays_day}`
-    let todays_month = new Date().getMonth() + 1;
-    if (todays_month < 10) todays_month = `0${todays_month}`
-    let todays_year = today.getFullYear();
-    let todays_date = `${todays_year}-${todays_month}-${todays_day}`
-    return todays_date
-  }
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,20 +35,11 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
     if (!errors.length) {
       dispatch(updateEventThunk(newEvent))
       history.push(`/explore`);
-      // hideModal()
     }
   }
 
-  let newStartTime = startTime.split(':').join('')
-  if (new Date().getMinutes() < 10) {
-    var minutes = `0${new Date().getMinutes()}`
-  } else if (new Date().getMinutes() >= 10) {
-    minutes = `${new Date().getMinutes()}`
-  }
   useEffect(() => {
     let errors = [];
-    // if (startDate < getTodaysDate()) errors.push("Event must be scheduled 1 day in advance from today")
-    // if (!lng) errors.push("Double click a location on the map to add a location!")
     if (name.trim().length === 0) errors.push("Please provide a name your event")
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
@@ -83,16 +51,15 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
     if (!startDate) errors.push("What date is your event taking place?");
     if (!startTime) errors.push("What time does your event start?")
     setErrors(errors)
-  }, [name, newStartTime, lng, description, imageUrl, eventType, entertainment, startDate, startTime, minutes])
+  }, [name, lng, description, imageUrl, eventType, entertainment, startDate, startTime])
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <form className="form-wrapper" onSubmit={handleSubmit}>
+        <div >
+          <div className="event-title-wrapper">
             <h2>Edit Event</h2>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', color: 'red', marginBottom: '8px', textDecoration: "underline" }}><span>**All fields required**</span></div>
           <div>
             <input
               type={'text'}
@@ -118,7 +85,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
             />
           </div>
           <div>
-            <select value={eventType} onChange={e => setEventType(e.target.value)}>
+            <select value={eventType} className="edit-event-select-field" onChange={e => setEventType(e.target.value)}>
               <option value="-- Event Type --">-- Event Type --</option>
               <option value="Party">Party</option>
               <option value="Kickback">Kickback</option>
@@ -133,7 +100,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
             </select>
           </div>
           <div>
-            <select value={entertainment} onChange={e => setEntertainment(e.target.value)}>
+            <select value={entertainment} className="edit-event-select-field" onChange={e => setEntertainment(e.target.value)}>
               <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
               <option value="No Performers">No Performers</option>
               <option value="Live-Band">Live-Band</option>
@@ -141,13 +108,8 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
               <option value="Comedian">Comedian</option>
             </select>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Start Date:</label>
-            <input
-              type="hidden"
-              value={todays_date}
-            >
-            </input>
+          <div className="start-date-time-label-wrapper">
+            <label className="start-date-time-label">Start Date:</label>
           </div>
           <div>
             <input
@@ -157,8 +119,8 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
             />
           </div>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label style={{ fontWeight: 'bold', fontSize: '16px' }}>Start Time:</label>
+        <div className="start-date-time-label-wrapper">
+          <label className="start-date-time-label">Start Time:</label>
           <input
             type={'time'}
             value={startTime}
@@ -166,36 +128,26 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
           />
         </div>
         <div>
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <input
-              type="hidden"
-              placeholder="Longitude"
-              value={event.lng}
-              readOnly
-            // onChange={updateLng}
-            // required
-            />
-            <input
-              type="hidden"
-              placeholder="Latitude"
-              value={event.lat}
-              readOnly
-            // onChange={updateLat}
-            // required
-            />
-          </div>
+          <input
+            type="hidden"
+            value={event.lng}
+          />
+          <input
+            type="hidden"
+            value={event.lat}
+          />
         </div>
-        <div style={{ marginTop: '10px' }} className="bottom-button">
-          <button style={{ marginRight: '15px' }} type="submit">Share</button>
+        <div className="bottom-button">
+          <button className="share-edit-button" type="submit">Share</button>
           <button onClick={hideModal}>Cancel</button>
         </div>
-        <ul style={{ width: '285px' }}>
+        <ul className="edit-errors-list">
           {errors.map((error, idx) => (
-            <li style={{ color: 'red' }} key={idx} >**{error}**</li>
+            <li className="edit-errors-list-item" key={idx} >**{error}**</li>
           ))}
         </ul>
-      </form>
-    </div>
+      </form >
+    </div >
   )
 }
 

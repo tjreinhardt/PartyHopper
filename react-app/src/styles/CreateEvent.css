@@ -20,10 +20,59 @@ create-event-form-form {
     border-top: 1px solid gray;
 }
 
+.create-directions-list {
+    line-height: 20px;
+    width: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.steps-list-item {
+    margin-right: 10px;
+    min-width: auto;
+    word-break: break-word;
+}
+
+.create-select-field {
+    min-width: auto;
+    width: 280px;
+}
+
+.date-time-label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.event-input {
+    min-width: auto;
+}
+
+.create-event-label {
+    display: flex;
+}
+
 
 .bottom-button {
     display: flex;
     margin-right: 10px;
+}
+
+.share-button {
+    width: 280px;
+}
+
+.errors-list {
+    line-height: 20px;
+    padding: 0px;
+    margin-left: 40px;
+}
+
+.errors-list-items {
+    color: red;
+    width: auto;
+    line-height: 18px;
+    margin-right: 0px;
+    font-size: 14px;
 }
 
 .form-inner-wrapper {
