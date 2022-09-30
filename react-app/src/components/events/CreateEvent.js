@@ -67,76 +67,38 @@ const CreateEventForm = ({ lat, lng }) => {
 
   return (
     <div className={'create-event-form-wrap2'}>
-      <h2
-        style={{
-          display: 'flex'
-        }}>Create Event</h2>
-      <h4>Steps:</h4>
-      <ol
-        style={{
-          lineHeight: '20px',
-          width: 'auto',
-          paddingLeft: "20px",
-          paddingRight: '20px'
-        }}>
-        <li
-          style={{
-            marginRight: '10px',
-            minWidth: 'auto',
-            wordBreak: 'break-word'
-          }}>Use the map tool to find the location for your event</li>
-        <li
-          style={{
-            marginRight: '10px',
-            minWidth: 'auto',
-            wordBreak: 'break-word'
-          }}>Double click to create a map marker for your event</li>
-        <li
-          style={{
-            marginRight: '10px',
-            minWidth: 'auto',
-            wordBreak: 'break-word'
-          }}>Fill out the rest of the form fields</li>
-        <li
-          style={{
-            marginRight: '10px',
-            minWidth: 'auto',
-            wordBreak: 'break-word'
-          }}>Start Partying!</li>
+      <h2 className="create-event-label">Create Event</h2>
+      <h4 className="steps-label">Steps:</h4>
+      <ol className="create-directions-list">
+        <li className="steps-list-item">Use the map tool to find the location for your event</li>
+        <li className="steps-list-item">Double click to create a map marker for your event</li>
+        <li className="steps-list-item">Fill out the rest of the form fields</li>
+        <li className="steps-list-item">Start Partying!</li>
       </ol>
       <form onSubmit={handleSubmit}>
         <div className="form-inner-wrapper">
           <div>
-            <input
+            <input className="event-input"
               type={'text'}
-              style={{
-                minWidth: 'auto'
-              }}
               placeholder={"Event Name*"}
               value={name}
               onChange={e => setName(e.target.value)}
             />
           </div>
           <div>
-            <input
+            <input className="event-input"
               type={'text'}
-              style={{
-                minWidth: 'auto'
-              }}
               placeholder={"Event Description*"}
               value={description}
               onChange={e => setDescription(e.target.value)}
             />
           </div>
           <div className='event-image-wrapper'>
-            <input className="event_imageUrl"
+            <input className="event_input" style={{ minWidth: '200px' }}
               placeholder='Image URL Address* (https://www.example.jpg)'
               onChange={(e) => {
                 setImageUrl(e.target.value)
                 setErrors([])
-              }}
-              style={{
-                minWidth: 'auto'
               }}
               value={imageUrl}
               type="url"
@@ -144,11 +106,7 @@ const CreateEventForm = ({ lat, lng }) => {
             </input>
           </div>
           <div>
-            <label
-              style={{
-                fontWeight: 'bold',
-                fontSize: '14px'
-              }}>Start Date:</label>
+            <label className="date-time-label">Start Date:</label>
             <input
               type="hidden"
               value={getTodaysDate}
@@ -158,37 +116,22 @@ const CreateEventForm = ({ lat, lng }) => {
           <div>
             <input
               type={'date'}
-              style={{
-                minWidth: 'auto'
-              }}
               value={startDate}
               onChange={e => setStartDate(e.target.value)}
             />
           </div>
           <div>
           </div>
-          <label
-            style={{
-              fontWeight: 'bold',
-              fontSize: '14px'
-            }}>Start Time:</label>
+          <label className="date-time-label">Start Time:</label>
           <div>
-            <input
+            <input className="event-input"
               type={'time'}
               value={startTime}
-              style={{
-                minWidth: 'auto'
-              }}
               onChange={e => setStartTime(e.target.value)}
             />
           </div>
           <div>
-
-            <select
-              style={{
-                minWidth: 'auto',
-                width: '280px'
-              }} value={eventType} onChange={e => setEventType(e.target.value)}>
+            <select className="create-select-field" value={eventType} onChange={e => setEventType(e.target.value)}>
               <option value="-- Event Type --">-- Event Type --</option>
               <option value="Party">Party</option>
               <option value="Kickback">Kickback</option>
@@ -203,11 +146,7 @@ const CreateEventForm = ({ lat, lng }) => {
             </select>
           </div>
           <div>
-            <select
-              style={{
-                minWidth: 'auto',
-                width: '280px'
-              }} value={entertainment} onChange={e => setEntertainment(e.target.value)}>
+            <select className="create-select-field" value={entertainment} onChange={e => setEntertainment(e.target.value)}>
               <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
               <option value="No Performers">No Performers</option>
               <option value="Live-Band">Live-Band</option>
@@ -230,26 +169,12 @@ const CreateEventForm = ({ lat, lng }) => {
 
         </div>
         <div className="bottom-button">
-          <button type="submit" style={{
-            width: '280px',
-          }}>Share</button>
+          <button type="submit" className="share-button">Share</button>
           <br />
         </div>
-        <ul
-          style={{
-            lineHeight: '20px',
-            padding: '0px',
-            marginLeft: '40px'
-          }}>
+        <ul className="errors-list">
           {errors.map((error, idx) => (
-            <li
-              style={{
-                color: 'red',
-                width: 'auto',
-                lineHeight: "18px",
-                marginRight: '0px',
-                fontSize: '14px'
-              }} key={idx} >{error}</li>
+            <li className="errors-list-items" key={idx} >{error}</li>
           ))}
         </ul>
       </form>

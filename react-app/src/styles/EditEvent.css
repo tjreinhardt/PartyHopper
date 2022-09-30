@@ -1,0 +1,43 @@
+.event-title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.edit-event-select-field {
+  width: 280px;
+}
+
+
+.start-date-time-label-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.start-date-time-label {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.bottom-button {
+  margin-top: 10px;
+}
+
+.share-edit-button {
+  margin-right: 15px;
+}
+
+.edit-errors-list {
+  width: 280px;
+}
+
+.edit-errors-list-item {
+  color: red;
+}

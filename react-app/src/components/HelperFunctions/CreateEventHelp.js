@@ -23,7 +23,6 @@ export const dateEquality = (startDate) => {
   return result
 }
 
-startDateConversion()
 
 
 export const getTodaysDate = () => {
