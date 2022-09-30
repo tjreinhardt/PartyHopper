@@ -121,25 +121,64 @@ const EventDetail = () => {
   return (eventIsLoaded && event && <>
     <NavBar />
     <div>
-      <div style={{ width: '100vw' }} className="header-content-wrapper">
-        <div style={{ width: '100vw' }} className="image-header-block">
-          <div style={{ width: '100%', maxWidth: '100%' }} className="image-header-content-block">
+      <div
+        style={{
+          width: '100vw'
+        }}
+        className="header-content-wrapper">
+        <div
+          style={{
+            width: '100vw'
+          }}
+          className="image-header-block">
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '100%'
+            }}
+            className="image-header-content-block">
           </div>
-          <div style={{ width: '100%', maxWidth: '100%' }} className="event-detail-image-wrapper">
-            <img alt='' className={'event-detail-image'} style={{ border: 'none', width: '99.7%', maxWidth: '99vw', overflowX: 'hidden' }} onError={({ target }) => {
-              target.onError = null
-              target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
-            }} src={event?.imageUrl}></img>
+          <div
+            style={{
+              width: '100%',
+              maxWidth: '100%'
+            }}
+            className="event-detail-image-wrapper">
+            <img alt=''
+              className={'event-detail-image'}
+              style={{
+                border: 'none',
+                width: '99.7%',
+                maxWidth: '99vw',
+                overflowX: 'hidden'
+              }} onError={({ target }) => {
+                target.onError = null
+                target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
+              }} src={event?.imageUrl}></img>
           </div>
         </div>
-        <div style={{ maxWidth: '100%' }} className="overlay-content-on-image">
-          <div style={{
-            textTransform: 'capitalize',
-            wordBreak: 'break-word'
-          }} className={"event-detail-name-div"}>{event.name}</div>
-          <div className={"event-detail-rating-reviews-content-div"}>
-            <div className='star-chart-wrapper'>
-              <div className='star-chart-inner-div' style={{ display: 'flex', marginBottom: '10px' }}>
+        <div
+          style={{
+            maxWidth: '100%'
+          }}
+          className="overlay-content-on-image">
+          <div
+            style={{
+              textTransform: 'capitalize',
+              wordBreak: 'break-word'
+            }}
+            className={"event-detail-name-div"}
+          >{event.name}</div>
+          <div
+            className={"event-detail-rating-reviews-content-div"}>
+            <div
+              className='star-chart-wrapper'>
+              <div
+                className='star-chart-inner-div'
+                style={{
+                  display: 'flex',
+                  marginBottom: '10px'
+                }}>
                 {rate.map((_, i) => {
                   return (
                     <div style={{ display: 'flex', flexDirection: 'row' }}>
@@ -162,66 +201,140 @@ const EventDetail = () => {
                 "event-detail-total-reviews-div"
               }>{event.totalReviews} {(event.totalReviews) !== 1 ? "reviews" : "review"}</div>
 
+              <div className={"event-detail-type-div"}>{event.totalRsvps} {(event.totalRsvps) !== 1 ? "RSVPS" : "RSVP"}</div>
               <div className={"event-detail-type-div"}>{event.eventType}, </div>
               <div className={"event-detail-entertainment-div"}>{event.entertainment} </div>
-              <div className={"event-detail-type-div"} style={{ marginLeft: '24px' }}>RSVPS: {event.totalRsvps}</div>
             </div>
           </div>
 
         </div>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-start'
+        }}>
         {showButton && (
-          <div style={{ marginLeft: '30%' }} className="event-detail-buttons">
-            <button style={{
-              fontWeight: '800',
-              fontSize: '16px',
-              height: '36px',
-              marginTop: '10px',
-              marginRight: '16px',
-              width: '150px',
-              marginLeft: '5%'
-            }} onClick={() => setEditModal(true)}>Edit Event</button>
-            <button style={{
-              fontWeight: '800',
-              fontSize: '16px',
-              height: '36px',
-              width: '150px',
-              marginTop: '10px'
-            }} onClick={handleDelete}>Delete Event</button>
+          <div
+            style={{
+              marginLeft: '30%'
+            }} className="event-detail-buttons">
+            <button
+              style={{
+                fontWeight: '800',
+                fontSize: '16px',
+                height: '36px',
+                marginTop: '10px',
+                marginRight: '16px',
+                width: '150px',
+                marginLeft: '5%'
+              }} onClick={() => setEditModal(true)}>Edit Event</button>
+            <button
+              style={{
+                fontWeight: '800',
+                fontSize: '16px',
+                height: '36px',
+                width: '150px',
+                marginTop: '10px'
+              }} onClick={handleDelete}>Delete Event</button>
             {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
           </div>
         )}
       </div>
-      <div style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
-        <div style={{ width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
+      <div
+        style={{
+          padding: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'flex-start'
+        }}>
+        <div
+          style={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-start',
+            alignItems: 'center'
+          }}>
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'flex-start'
+            }}>
             <div
-              style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px', borderBottom: '1px solid gray' }}
+              style={{
+                fontWeight: '550',
+                marginLeft: '12px',
+                marginTop: '6px',
+                borderBottom: '1px solid gray'
+              }}
               className={"event-start-date-div"}
             >
-              <span style={{ color: 'darkGrey' }}>Event Date:</span> {dateConversion(event.startDate)}
+              <span
+                style={{
+                  color: 'darkGrey'
+                }}>Event Date:</span> {dateConversion(event.startDate)}
             </div>
             <div
-              style={{ fontWeight: '550', marginLeft: '12px', marginTop: '6px', borderBottom: '1px solid gray' }}
+              style={{
+                fontWeight: '550',
+                marginLeft: '12px',
+                marginTop: '6px',
+                borderBottom: '1px solid gray'
+              }}
               className={"event-start-time-div"}
             >
-              <span style={{ color: 'darkGrey' }}>Starts At:</span> {timeConversion(event.startTime)}
+              <span
+                style={{
+                  color: 'darkGrey'
+                }}>Starts At:</span> {timeConversion(event.startTime)}
             </div>
             <div
-              style={{ padding: '10px', fontSize: '20px', maxWidth: '600px', marginTop: '8px', wordBreak: 'break-word', textOverflow: 'clip', lineHeight: '24px' }}
+              style={{
+                padding: '10px',
+                fontSize: '20px',
+                maxWidth: '600px',
+                marginTop: '8px',
+                wordBreak: 'break-word',
+                textOverflow: 'clip',
+                lineHeight: '24px'
+              }}
               className={"event-description-div"}
-            ><span style={{ color: 'darkGrey', textDecoration: 'underline' }}>Details:</span> <br />
+            ><span
+              style={{
+                color: 'darkGrey',
+                textDecoration: 'underline'
+              }}>Details:</span> <br />
               {event.description}
             </div>
             {!showButton && (
-              <div style={{ marginLeft: 'auto', marginRight: '100%' }}>
+              <div
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: '100%'
+                }}>
                 {/* <div><button onClick={() => handleRsvps(eventId)} >rsvps event</button></div> */}
-                <div style={{ marginRight: '10px', marginLeft: '8px' }} className="event-rsvp-buttons" onClick={() => handleRsvps(event.id)}>
+                <div
+                  style={{
+                    marginRight: '10px',
+                    marginLeft: '8px'
+                  }}
+                  className="event-rsvp-buttons" onClick={() => handleRsvps(event.id)}>
                   {event.rsvpStatus === 1 ?
-                    <button style={{ height: '35px', width: '150px' }}>Cancel RSVP</button>
+                    <button
+                      style={{
+                        height: '35px',
+                        width: '150px'
+                      }}>Cancel RSVP</button>
                     :
-                    <button style={{ height: '35px', width: '150px' }}>RSVP</button>
+                    <button
+                      style={{
+                        height: '35px',
+                        width: '150px'
+                      }}>RSVP</button>
                   }
 
                 </div>
@@ -232,16 +345,26 @@ const EventDetail = () => {
             )
 
             }
-            <div style={{ marginLeft: '-4px' }}>
+            <div
+              style={{
+                marginLeft: '-4px'
+              }}>
               {session.id !== event.userId && sessionLinks}
             </div>
-            <div style={{ width: '100%', marginTop: '24px' }}>
+            <div
+              style={{
+                width: '100%',
+                marginTop: '24px'
+              }}>
               <GetReviews eventId={eventId} />
             </div>
           </div>
         </div>
       </div>
-      <div style={{ marginBottom: '12%' }}>
+      <div
+        style={{
+          marginBottom: '12%'
+        }}>
 
       </div>
 

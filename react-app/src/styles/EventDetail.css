@@ -68,7 +68,7 @@
     align-items: center;
     font-size: 1rem;
     min-width: max-content;
-    margin-right: 6px;
+    margin-right: 12px;
     letter-spacing: -0.4px;
     text-shadow: 5px black;
     font-weight: 700;
@@ -107,7 +107,8 @@
 
 .event-detail-total-reviews-div {
     color: white;
-    width: 90px;
+    width: fit-content;
+    margin-right: 1rem;
     padding-left: 15px;
 }
 
