@@ -208,7 +208,7 @@ img {
         margin-right: 30px;
     }
 
-    img {
+    .event-img {
         width: 80vw;
         max-height: 50vw;
         min-width: 80vw;

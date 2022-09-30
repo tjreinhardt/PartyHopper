@@ -66,7 +66,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
+    font-size: 1rem;
     min-width: max-content;
     margin-right: 6px;
     letter-spacing: -0.4px;
@@ -93,7 +93,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    height: 200px;
+    height: 22vh;
     letter-spacing: -0.4px;
     font-size: 16px;
     text-shadow: 5px black;
@@ -116,13 +116,17 @@
     flex-direction: column;
 }
 
+svg {
+    transition: all 80ms ease;
+}
+
 .header-content-wrapper {
 
 
     position: relative;
     width: 100vw;
     z-index: 0;
-    height: 426px;
+    height: 45vh;
     margin-top: 100px
 }
 
@@ -132,4 +136,40 @@
 
 .event-description-div::first-letter {
     text-transform: capitalize;
+}
+
+.overlay-details {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 0px;
+}
+
+@media screen and (max-width:540px) {
+    .event-detail-image-wrapper {
+        height: 45vh;
+    }
+
+    .overlay-details {
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 80vw;
+    }
+
+    .star-chart-inner-div {
+        justify-content: center;
+    }
+
+
+
+    .event-detail-name-div {
+        /* font-size: 10vw; */
+        justify-content: center;
+        margin-right: 0px;
+        margin-left: 0px;
+        /* margin-left: 130%; */
+    }
+
+    .event-detail-total-reviews-div {
+        font-size: 1rem;
+    }
 }

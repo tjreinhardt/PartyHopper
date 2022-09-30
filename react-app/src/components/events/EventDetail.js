@@ -157,11 +157,7 @@ const EventDetail = () => {
                 })}
               </div>
             </div>
-            <div style={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              paddingLeft: '0px'
-            }}>
+            <div className={'overlay-details'}>
               <div className={
                 "event-detail-total-reviews-div"
               }>{event.totalReviews} {(event.totalReviews) !== 1 ? "reviews" : "review"}</div>
