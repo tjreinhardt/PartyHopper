@@ -83,7 +83,7 @@ def create_event():
         event = Event(
         name=form.data['name'],
         description=form.data['description'],
-        imageUrl=form.data['imageUrl'],
+        # imageUrl=form.data['imageUrl'],
         eventType=form.data['eventType'],
         entertainment=form.data['entertainment'],
         startDate=form.data['startDate'],
@@ -123,7 +123,7 @@ def update_event(eventId):
 
     event.name=(form.data['name'])
     event.description=(form.data['description'])
-    event.imageUrl=(form.data['imageUrl'])
+    # event.imageUrl=(form.data['imageUrl'])
     event.eventType=(form.data['eventType'])
     event.entertainment=(form.data['entertainment'])
     event.startDate=(form.data['startDate'])

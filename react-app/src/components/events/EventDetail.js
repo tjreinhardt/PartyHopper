@@ -10,6 +10,9 @@ import CreateReviewForm from "../reviews/CreateReview";
 import { FaStar } from 'react-icons/fa'
 import { rsvpEventThunk } from "../../store/event";
 import { averageReviews, timeConversion, dateConversion, colors } from "../HelperFunctions/EventDetailHelp";
+import AllImages from "../images/AllImages";
+
+
 
 
 
@@ -18,6 +21,8 @@ const EventDetail = () => {
   const { eventId } = useParams();
   const reviews = useSelector(state => state.review)
   const history = useHistory()
+  const user = useSelector(state => state?.session.user);
+  const images = useSelector(state => state?.images);
   const event = useSelector(state => state.event[eventId]);
   const session = useSelector(state => state.session.user);
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
@@ -25,6 +30,10 @@ const EventDetail = () => {
   const reviewsList = Object.values(reviews)
 
   const rate = Array(5).fill(0)
+
+  const eventImages = Object.values(images)?.filter(image => {
+    return (image.eventId === Number(eventId) && image.user_id === user.id);
+  });
 
   useEffect(() => {
     dispatch(getEventDetailThunk(eventId)).then(() => setEventIsLoaded(true));
@@ -76,12 +85,20 @@ const EventDetail = () => {
           <div className="image-header-content-block">
           </div>
           <div className="event-detail-image-wrapper">
-            <img alt='' className={'event-detail-image'}
+            {/* <img alt='' className={'event-detail-image'}
               onError={({ target }) => {
                 target.onError = null
                 target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
               }}
-              src={event?.imageUrl}></img>
+              src={event?.imageUrl}></img> */}
+            {eventImages.map(image => (
+              // <div className='event-detail-image'>
+              <img className='upload-pg-img' src={image.image_url} />
+              // </div>
+            ))}
+            <div>
+              <AllImages className={'event-detail-image'} />
+            </div>
           </div>
         </div>
         <div className="overlay-content-on-image">

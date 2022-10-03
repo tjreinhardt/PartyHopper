@@ -7,14 +7,17 @@ import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/CreateEvent.css'
 // import { startDateConversion, dateEquality, getTodaysDate } from "../HelperFunctions/CreateEventHelp";
 import { isPast, isEqual } from "date-fns";
+import UploadImageModal from '../UploadImageModal';
+import { useParams } from "react-router-dom";
 
 
 const CreateEventForm = ({ lat, lng }) => {
   const dispatch = useDispatch();
+  const { eventId } = useParams();
   const history = useHistory();
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
-  const [imageUrl, setImageUrl] = useState("")
+  // const [imageUrl, setImageUrl] = useState("")
   const [eventType, setEventType] = useState("")
   const [entertainment, setEntertainment] = useState("")
   const [startDate, setStartDate] = useState("")
@@ -27,9 +30,9 @@ const CreateEventForm = ({ lat, lng }) => {
     let month = parts[1] - 1
     let day = parts[2]
     day = Number(day) + 1
-    console.log(year)
-    console.log(month)
-    console.log(day)
+    // console.log(year)
+    // console.log(month)
+    // console.log(day)
     const result = isPast(new Date(year, month, day))
     return result
   }
@@ -39,7 +42,7 @@ const CreateEventForm = ({ lat, lng }) => {
     let year = parts[0]
     let month = parts[1] - 1
     let day = parts[2]
-    console.log(day, 'day')
+    // console.log(day, 'day')
     const result = isEqual(startDate, new Date(year, month, day))
     return result
   }
@@ -60,29 +63,35 @@ const CreateEventForm = ({ lat, lng }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newEvent = {
-      name,
-      description,
-      imageUrl,
-      eventType,
-      entertainment,
-      startDate,
-      startTime,
-      lat,
-      lng
-    };
     if (!errors.length) {
+      const newEvent = {
+        name,
+        description,
+        // imageUrl,
+        eventType,
+        entertainment,
+        startDate,
+        startTime,
+        lat,
+        lng
+      };
 
-      dispatch(createEventThunk(newEvent))
-        .then(
-          async (res) => {
-            if (res.errors) {
-              setErrors(res.errors)
-            }
-            else {
-              history.push(`/explore`);
-            }
-          })
+      // dispatch(createEventThunk(newEvent))
+      //   .then(
+      //     async (res) => {
+      //       if (res.errors) {
+      //         setErrors(res.errors)
+      //       }
+      //       else {
+      //         history.push(`/event_user_photos/${newEvent.id}/upload`);
+      //       }
+      //     })
+      const createdEvent = await dispatch(createEventThunk(newEvent));
+      if (createdEvent) {
+        // reset();
+        // setHasSubmitted(false);
+        history.push(`/event_user_photos/${createdEvent.id}/upload`);
+      };
     }
   }
 
@@ -99,7 +108,7 @@ const CreateEventForm = ({ lat, lng }) => {
     if (!eventType || eventType === '-- Event Type --') errors.push("Select a category")
     if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Select Featured Entertainment")
     setErrors(errors)
-  }, [name, lng, description, imageUrl, eventType, entertainment, startDate, startTime])
+  }, [name, lng, description, eventType, entertainment, startDate, startTime])
 
 
   return (
@@ -129,18 +138,6 @@ const CreateEventForm = ({ lat, lng }) => {
               value={description}
               onChange={e => setDescription(e.target.value)}
             />
-          </div>
-          <div className='event-image-wrapper'>
-            <input className="event_input" style={{ minWidth: '200px' }}
-              placeholder='Image URL Address* (https://www.example.jpg)'
-              onChange={(e) => {
-                setImageUrl(e.target.value)
-                setErrors([])
-              }}
-              value={imageUrl}
-              type="url"
-            >
-            </input>
           </div>
           <div>
             <label className="date-time-label">Start Date:</label>

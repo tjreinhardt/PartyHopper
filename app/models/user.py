@@ -15,6 +15,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     bio = db.Column(db.String(300))
+    profile_pic = db.Column(db.String(255), default='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVAsYAAWUbB2YPxq9pECm6rDAjpJlwnUnfKA&usqp=CAU')
     # imageUrl = db.column(db.String(500))
     hashed_password = db.Column(db.String(255), nullable=False)
     lat = db.Column(db.Float(precision=12, asdecimal=False))
@@ -62,3 +63,5 @@ class User(db.Model, UserMixin):
             'total_reviews': len(self.reviews)
             # 'total_rsvps': len(self.rsvps)
         }
+
+    image_uploaded = db.relationship('Eventphoto', back_populates='image_owner')
