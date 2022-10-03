@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: f9ea43c4ff1b
+Revision ID: fb639883dfd5
 Revises: 
-Create Date: 2022-09-25 12:31:40.903021
+Create Date: 2022-10-03 15:53:56.259090
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f9ea43c4ff1b'
+revision = 'fb639883dfd5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -23,6 +23,7 @@ def upgrade():
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('bio', sa.String(length=300), nullable=True),
+    sa.Column('profile_pic', sa.String(length=255), nullable=True),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
     sa.Column('lat', sa.Float(precision=12), nullable=True),
     sa.Column('lng', sa.Float(precision=12), nullable=True),
@@ -35,16 +36,24 @@ def upgrade():
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=50), nullable=False),
     sa.Column('description', sa.String(length=500), nullable=False),
-    sa.Column('imageUrl', sa.String(length=500), nullable=False),
     sa.Column('eventType', sa.String(length=50), nullable=False),
     sa.Column('entertainment', sa.String(length=50), nullable=False),
     sa.Column('createdAt', sa.DateTime(timezone=True), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('startDate', sa.String(), nullable=False),
     sa.Column('startTime', sa.String(), nullable=False),
     sa.Column('rating', sa.Integer(), nullable=True),
-    sa.Column('lat', sa.Float(precision=12), nullable=False),
-    sa.Column('lng', sa.Float(precision=12), nullable=False),
+    sa.Column('lat', sa.Float(precision=16), nullable=False),
+    sa.Column('lng', sa.Float(precision=16), nullable=False),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('event_photos',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('eventId', sa.Integer(), nullable=False),
+    sa.Column('image_url', sa.String(length=500), nullable=False),
+    sa.ForeignKeyConstraint(['eventId'], ['events.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('event_rsvps',
@@ -80,6 +89,7 @@ def downgrade():
     op.drop_table('review_likes')
     op.drop_table('reviews')
     op.drop_table('event_rsvps')
+    op.drop_table('event_photos')
     op.drop_table('events')
     op.drop_table('users')
     # ### end Alembic commands ###

@@ -16,7 +16,6 @@ class Event(db.Model):
   userId = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
   name = db.Column(db.String(50), nullable=False)
   description = db.Column(db.String(500), nullable=False)
-  imageUrl = db.Column(db.String(500), nullable=False)
   eventType = db.Column(db.String(50), nullable=False)
   entertainment = db.Column(db.String(50), nullable=False)
   createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
@@ -35,6 +34,12 @@ class Event(db.Model):
         passive_deletes=True
   )
 
+  event_photos = db.relationship(
+        'Eventphoto',
+        back_populates="event",
+        cascade="all, delete"
+  )
+
 
   def to_dict(self):
     return {
@@ -42,7 +47,6 @@ class Event(db.Model):
       "userId": self.userId,
       "name": self.name,
       "description": self.description,
-      "imageUrl": self.imageUrl,
       "eventType": self.eventType,
       "entertainment": self.entertainment,
       "createdAt": self.createdAt,

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { updateEventThunk } from "../../store/event";
 import '../../styles/EditEvent.css'
+import UploadImageModal from "../UploadImageModal";
 
 
 const EditEventForm = ({ event, hideModal, lat, lng }) => {
@@ -11,7 +12,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
 
   const [name, setName] = useState(event.name.trim())
   const [description, setDescription] = useState(event.description.trim())
-  const [imageUrl, setImageUrl] = useState(event.imageUrl.trim())
+  // const [imageUrl, setImageUrl] = useState(event.imageUrl.trim())
   const [eventType, setEventType] = useState(event.eventType)
   const [entertainment, setEntertainment] = useState(event.entertainment)
   const [startDate, setStartDate] = useState(event.startDate)
@@ -24,7 +25,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
       id: event.id,
       name,
       description,
-      imageUrl,
+      // imageUrl,
       eventType,
       entertainment,
       startDate,
@@ -44,14 +45,14 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
     if (name.trim().length > 50) errors.push("Name is too long!")
     if (description.trim().length === 0) errors.push("Please describe your event")
     if (description.trim().length > 500) errors.push("Description is too long!")
-    if (imageUrl.trim().length === 0 || (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("Image URL address appears to be invalid. Must be '.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif' or '.svg' format, and must include: 'https://'")
-    if (imageUrl.trim().length > 500) errors.push("Image URL address is too long!")
+    // if (imageUrl.trim().length === 0 || (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("Image URL address appears to be invalid. Must be '.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif' or '.svg' format, and must include: 'https://'")
+    // if (imageUrl.trim().length > 500) errors.push("Image URL address is too long!")
     if (!eventType || eventType === '-- Event Type --') errors.push("Please select a category for your event")
     if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Please select entertainment type")
     if (!startDate) errors.push("What date is your event taking place?");
     if (!startTime) errors.push("What time does your event start?")
     setErrors(errors)
-  }, [name, lng, description, imageUrl, eventType, entertainment, startDate, startTime])
+  }, [name, lng, description, eventType, entertainment, startDate, startTime])
 
   return (
     <div>
@@ -74,14 +75,6 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
               placeholder={"Event Description*"}
               value={description}
               onChange={e => setDescription(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type={'text'}
-              placeholder={"Event Cover Photo*"}
-              value={imageUrl}
-              onChange={e => setImageUrl(e.target.value)}
             />
           </div>
           <div>
@@ -147,6 +140,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
           ))}
         </ul>
       </form >
+
     </div >
   )
 }

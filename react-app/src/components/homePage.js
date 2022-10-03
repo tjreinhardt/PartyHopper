@@ -13,6 +13,7 @@ const HomePage = ({ eventId, event, showModal }) => {
   const user = useSelector(state => state.session.user);
   const events = Object.values(useSelector(state => state.event))
 
+  console.log(images, 'images')
   const {
     carouselFragment,
     slideToNextItem
@@ -36,6 +37,7 @@ const HomePage = ({ eventId, event, showModal }) => {
       ),
     })),
   });
+
 
   useEffect(() => {
     const timer = setInterval(() => {

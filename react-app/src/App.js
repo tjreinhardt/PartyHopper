@@ -14,9 +14,13 @@ import Footer from './components/Footer';
 import CreateReviewForm from './components/reviews/CreateReview';
 import MapGL from './components/Map/Map';
 import MapGL2 from './components/Map/MapV2';
+import EventPhotos from './components/images/EventPhotos';
+import { useSelector } from 'react-redux';
+import EventUploadImage from './components/events/EventUploadImage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
+  const events = useSelector(state => state?.events)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,9 +63,15 @@ function App() {
           <ProtectedRoute path='/events/:eventId' exact={true} >
             <EventDetail />
           </ProtectedRoute>
+          <ProtectedRoute path='/event_user_photos/:eventId/upload' exact={true}>
+            <EventUploadImage />
+          </ProtectedRoute>
           <ProtectedRoute path='/users/:userId' exact={true} >
             <User />
           </ProtectedRoute>
+          <Route path='/event_photos/:eventId' exact={true}>
+            <EventPhotos events={events} />
+          </Route>
           <ProtectedRoute path='/events/:eventId/new_review' exact={true}>
             <CreateReviewForm />
           </ProtectedRoute>
