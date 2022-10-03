@@ -8,7 +8,7 @@ import '../styles/HomePage.css'
 import { getReviewsThunk } from "../store/review";
 import { images, stringShorten, nameShorten } from "./HelperFunctions/HomePageHelp";
 
-const HomePage = ({ eventId, event, showModal }) => {
+const HomePage = ({ eventId, showModal }) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user);
   const events = Object.values(useSelector(state => state.event))
