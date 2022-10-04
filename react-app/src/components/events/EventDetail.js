@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getEventDetailThunk, deleteEventThunk } from "../../store/event"
 import EditEventModal from "../modals/EditEventModal";
+import { useSpringCarousel } from 'react-spring-carousel';
 import NavBar from "../NavBar";
 import '../../styles/EventDetail.css'
 import GetReviews from "../reviews/ReviewList"
@@ -11,6 +12,7 @@ import { FaStar } from 'react-icons/fa'
 import { rsvpEventThunk } from "../../store/event";
 import { averageReviews, timeConversion, dateConversion, colors } from "../HelperFunctions/EventDetailHelp";
 import AllImages from "../images/AllImages";
+import { loadImages } from "../../store/image";
 
 
 
@@ -35,8 +37,43 @@ const EventDetail = () => {
     return (image.eventId === Number(eventId) && image.user_id === user.id);
   });
 
+  // const [imgs, setImgs] = useState(eventImages)
+  // console.log(imgs, "eventImages")
+
+  // const {
+  //   carouselFragment,
+  //   slideToNextItem
+  // } = useSpringCarousel({
+  //   draggingSlideTreshold: 1,
+  //   withLoop: true,
+  //   items: imgs.map((i) => ({
+  //     id: i.id,
+  //     renderItem: (
+  //       <div className="image-card-wrapper">
+  //         <div className="image-cards" key={i}>
+  //           <div>
+  //             <img alt="" className="image-card" src={i.image_url}>
+  //             </img>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     ),
+  //   })),
+  // });
+
+
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     slideToNextItem();
+  //   }, 5000);
+  //   return () => {
+  //     window.clearInterval(timer);
+  //   };
+  // }, [slideToNextItem]);
+
   useEffect(() => {
     dispatch(getEventDetailThunk(eventId)).then(() => setEventIsLoaded(true));
+    dispatch(loadImages())
   }, [dispatch, eventId, reviewsList.length]);
 
 
@@ -93,12 +130,9 @@ const EventDetail = () => {
               src={event?.imageUrl}></img> */}
             {eventImages.map(image => (
               <div className='event-detail-image' >
-                <img className='upload-pg-img' src={image.image_url} style={{ minHeight: '426px', width: '100%', maxWidth: '35vmin', height: 'auto' }} />
+                <img className='upload-pg-img' src={image.image_url} style={{ minHeight: '33vmin', width: '100vmin', maxWidth: '35vmin', height: 'auto' }} />
               </div>
             ))}
-            <div>
-              <AllImages className={'event-detail-image'} />
-            </div>
           </div>
         </div>
         <div className="overlay-content-on-image">
@@ -106,7 +140,7 @@ const EventDetail = () => {
           >{event.name}</div>
           <div
             className={"event-detail-rating-reviews-content-div"}>
-            <div className='star-chart-wrapper'>
+            <div className='star-chart-wrapper' style={{ display: 'flex', justifyContent: 'center', maxWidth: '200px' }}>
               <div className='star-chart-inner-div'>
                 {rate.map((_, i) => {
                   return (

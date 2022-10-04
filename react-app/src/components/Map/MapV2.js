@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useMemo } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Pin from './Pin'
 import { GeolocateControl } from 'react-map-gl';
@@ -19,6 +19,7 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU
 
 
 export default function MapGL2() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [viewState, setViewState] = React.useState({
     longitude: -100,
@@ -92,7 +93,8 @@ export default function MapGL2() {
   const handleRsvps = async (eventId) => {
     setPopupInfo(null)
     dispatch(rsvpEventThunk(eventId))
-    window.alert("RSVP updated")
+    window.alert("RSVP updated, taking you to event details!")
+    history.push(`/events/${eventId}`)
   }
 
 
@@ -169,8 +171,6 @@ export default function MapGL2() {
                 <div className="popup-info-container"
                   style={{
                     position: 'relative',
-                    width: '13rem',
-                    height: '13rem',
                     backgroundImage: `url(${evPhoto(popupInfo?.id)?.image_url})`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover'
@@ -203,23 +203,19 @@ export default function MapGL2() {
                     >
                       <div
                         style={{
-                          marginLeft: '30px'
+                          marginLeft: '0px'
                         }}
                         className="event-rsvp-buttons"
-                        onClick={() => handleRsvps(popupInfo.id)}
+
                       >
                         {popupInfo.rsvpStatus === 1 ?
-                          <button
-                            style={{
-                              height: '35px',
-                              width: '150px'
-                            }}>Cancel RSVP
-                          </button>
+                          null
                           :
-                          <button
+                          <button onClick={() => handleRsvps(popupInfo.id)}
                             style={{
                               height: '35px',
-                              width: '150px'
+                              width: '325px',
+                              border: '2px solid black'
                             }}>RSVP
                           </button>
                         }
