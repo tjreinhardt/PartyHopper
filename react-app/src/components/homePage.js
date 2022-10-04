@@ -7,13 +7,21 @@ import { useSpringCarousel } from 'react-spring-carousel';
 import '../styles/HomePage.css'
 import { getReviewsThunk } from "../store/review";
 import { images, stringShorten, nameShorten } from "./HelperFunctions/HomePageHelp";
+import { loadImages } from "../store/image";
 
 const HomePage = ({ eventId, showModal }) => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user);
   const events = Object.values(useSelector(state => state.event))
+  const eventsArr = events ? Object.values(events) : null;
+  console.log(eventsArr, 'eventsArr')
+  const imgs = useSelector(state => state?.images)
+  const imagesArr = imgs ? Object.values(imgs) : null;
 
-  console.log(images, 'images')
+  const evPhoto = (id) => {
+    return imagesArr.filter(image => image.eventId === id)[0];
+  }
+
   const {
     carouselFragment,
     slideToNextItem
@@ -51,6 +59,7 @@ const HomePage = ({ eventId, showModal }) => {
   useEffect(() => {
     dispatch(eventActions.getAllEventsThunk())
     dispatch(getReviewsThunk(eventId))
+    dispatch(loadImages());
   }, [dispatch, eventId])
 
 
@@ -76,16 +85,11 @@ const HomePage = ({ eventId, showModal }) => {
       </div>
       <div className="page-content-wrapper">
         <div className="content-wrapper">
-          {events &&
-            events.map(event =>
-              <div key={event.id} to={`/events/${event.id}`} className="event-card">
+          {eventsArr &&
+            eventsArr.map(event =>
+              <div key={event} to={`/events/${event.id}`} className="event-card">
                 <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
-                  <img className='event_image' src={event.imageUrl} alt=''
-                    onError={({ target }) => {
-                      target.onError = null
-                      target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
-                    }}
-                  ></img>
+                  <img className='event_image' src={evPhoto(event?.id)?.image_url} alt='' />
                 </NavLink>
                 <br></br>
                 <div className="name-description-reviews-homepage-wrapper">
