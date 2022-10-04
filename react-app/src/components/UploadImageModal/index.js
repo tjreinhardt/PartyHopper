@@ -87,8 +87,7 @@ function UploadImageModal() {
                 )}
               </div>
               <div className='attach-photos-container'>
-                <img className='drop-photos' src='https://s3-media0.fl.yelpcdn.com/assets/public/photo_review_325x200_v2.yji-4a099f5381e9ea0301bb.svg' alt='add-photos' />
-                <h2 className='select-your-photos'>Select your photos here</h2>
+                <h2 className='select-your-photos'>Add Photo</h2>
                 <input
                   className='choose-file-btn'
                   type="file"
@@ -100,7 +99,7 @@ function UploadImageModal() {
                 <button className='cancel-upload-image-btn' type='button' onClick={() => setShowModal(false)}>Cancel</button>
                 <button className='upload-image-btn' type='submit'>Attach</button>
               </div>
-              {!validationErrors.length && imageLoading && <p className='loading-pic'>Loading ...</p>}
+              {!validationErrors.length && imageLoading && <img className='loading-pic' style={{ height: '50px', width: '50px' }} src={"https://media4.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif?cid=790b7611af1a457ad0c32d64f1aefccfb38f5f6d2e80f83f&rid=giphy.gif"}></img>}
             </form>
           </div>
         </Modal>
