@@ -84,7 +84,7 @@ const EventDetail = () => {
         <div className="image-header-block">
           <div className="image-header-content-block">
           </div>
-          <div className="event-detail-image-wrapper">
+          <div className="event-detail-image-wrapper" style={{ display: 'flex', flexDirection: 'row', overflowY: 'hidden' }}>
             {/* <img alt='' className={'event-detail-image'}
               onError={({ target }) => {
                 target.onError = null
@@ -92,9 +92,9 @@ const EventDetail = () => {
               }}
               src={event?.imageUrl}></img> */}
             {eventImages.map(image => (
-              // <div className='event-detail-image'>
-              <img className='upload-pg-img' src={image.image_url} />
-              // </div>
+              <div className='event-detail-image' >
+                <img className='upload-pg-img' src={image.image_url} style={{ minHeight: '426px', width: '100%', maxWidth: '35vmin', height: 'auto' }} />
+              </div>
             ))}
             <div>
               <AllImages className={'event-detail-image'} />

@@ -73,7 +73,7 @@ const EventUploadImage = () => {
             <div className='uploadpg-imgs-div'>
               {eventImages.map(image => (
                 <div className='uploadpg-img-delete-div'>
-                  <img className='upload-pg-img' src={image.image_url} />
+                  <img className='upload-pg-img' src={image.image_url} style={{ height: 'auto', width: '50vmin', maxHeight: '400px' }} />
                   <button className='uploadpg-delete-pic-btn' type='button' onClick={() => onDeletePic(image.id)}>
                     Delete
                   </button>
@@ -101,7 +101,7 @@ const EventUploadImage = () => {
                         </div> */}
         </div>
         <div className='upload-image-save-div'>
-          <button className='upload-image-save-btn' type='submit' onClick={onSave}>Save <i className="fa-solid fa-arrow-right"></i>
+          <button style={{ marginBottom: '200px' }} className='upload-image-save-btn' type='submit' onClick={onSave}>Save <i className="fa-solid fa-arrow-right"></i>
           </button>
         </div>
         {/* </form> */}
