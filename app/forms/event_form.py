@@ -13,5 +13,6 @@ class CreateEventForm(FlaskForm):
     # entertainment = StringField('entertainment', validators=[DataRequired()])
     startDate = StringField('startDate', validators=[DataRequired()])
     startTime = StringField('startTime', validators=[DataRequired()])
+    repeats = StringField('repeats')
     lat = DecimalField('lat', validators=[DataRequired()])
     lng = DecimalField('lng', validators=[DataRequired()])

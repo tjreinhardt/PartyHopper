@@ -21,6 +21,7 @@ class Event(db.Model):
   createdAt = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
   startDate = db.Column(db.String, nullable=False)
   startTime = db.Column(db.String, nullable=False)
+  repeats = db.Column(db.String)
   rating = db.Column(db.Integer)
   lat = db.Column(db.Float(precision=16, asdecimal=False),nullable=False)
   lng = db.Column(db.Float(precision=16, asdecimal=False),nullable=False)
@@ -52,6 +53,7 @@ class Event(db.Model):
       "createdAt": self.createdAt,
       "startDate": self.startDate,
       "startTime": self.startTime,
+      "repeats": self.repeats,
       "lat": self.lat,
       "lng": self.lng,
       "totalRsvps": len(self.event_rsvp_users),

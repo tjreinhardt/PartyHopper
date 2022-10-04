@@ -5,6 +5,7 @@ import AllImages from '../images/AllImages';
 import UploadImageModal from '../UploadImageModal';
 import { createImage, loadImages, deleteImage } from '../../store/image';
 import { Modal } from '../../context/Modal';
+import '../../styles/EventUploadImage.css'
 
 const EventUploadImage = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const EventUploadImage = () => {
 
   useEffect(() => {
     const errors = [];
-    if (eventTotalImages.length < 5) errors.push('Event owner must upload at least 6 photos.');
+    if (eventTotalImages.length < 5) errors.push('Event owner must upload at least 5 photos.');
     setValidationErrors(errors);
   }, [dispatch, eventImages?.length])
 
@@ -53,14 +54,14 @@ const EventUploadImage = () => {
   return (
     <>
       <div className='image-upload-container'>
-        <h1 className='image-upload-h1'>Photos</h1>
-        <div className='upload-manage-div'>
-          <h3 className='image-upload-h3'>Upload and manage photos</h3>
+        <h1 className='image-upload-title'>Photos</h1>
+        <div className='upload-message-div'>
+          <h3 className='image-upload-message-content'>Upload and manage photos</h3>
         </div>
         <div className='image-upload-div'>
-          <div className='add-your-photos'>Add your photo below</div>
-          <div className='uploadpg-view-add-div'>
-            <div className='upload-pg-errors-div'>
+          <div className='content-container'>
+
+            <div className='errors-div' style={{ display: 'flex', justifyContent: 'center' }}>
               {hasSubmitted && validationErrors.length > 0 && (
                 <ul>
                   {validationErrors.map(error => (
@@ -70,41 +71,22 @@ const EventUploadImage = () => {
               )}
             </div>
             <UploadImageModal />
-            <div className='uploadpg-imgs-div'>
+            <div>
               {eventImages.map(image => (
-                <div className='uploadpg-img-delete-div'>
-                  <img className='upload-pg-img' src={image.image_url} style={{ height: 'auto', width: '50vmin', maxHeight: '400px' }} />
-                  <button className='uploadpg-delete-pic-btn' type='button' onClick={() => onDeletePic(image.id)}>
+                <div className='delete-div'>
+                  <img className='image-upload' src={image.image_url} style={{ height: 'auto', width: '50vmin', maxHeight: '400px' }} />
+                  <button className='delete-image-button' type='button' onClick={() => onDeletePic(image.id)}>
                     Delete
                   </button>
                 </div>
               ))}
             </div>
           </div>
-          {/* {image && (
-                            <div>
-                                <img
-                                    className='image-preview'
-                                    src={URL.createObjectURL(image)}
-                                    alt='image-preview'
-                                />
-                            </div>
-                        )} */}
-          {/* <div className='choose-file-container'>
-                            <input
-                                className='choose-file-btn'
-                                id='choose-file-btn'
-                                type="file"
-                                accept="image/*"
-                                onChange={updateImage}
-                            />
-                        </div> */}
         </div>
         <div className='upload-image-save-div'>
-          <button style={{ marginBottom: '200px' }} className='upload-image-save-btn' type='submit' onClick={onSave}>Save <i className="fa-solid fa-arrow-right"></i>
+          <button style={{ marginBottom: '200px' }} className='upload-image-save-button' type='submit' onClick={onSave}>Save <i className="fa-solid fa-arrow-right"></i>
           </button>
         </div>
-        {/* </form> */}
       </div>
     </>
   )

@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { updateEventThunk } from "../../store/event";
 import '../../styles/EditEvent.css'
 import UploadImageModal from "../UploadImageModal";
+import { NavLink } from "react-router-dom";
 
 
 const EditEventForm = ({ event, hideModal, lat, lng }) => {
@@ -35,7 +36,8 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
     };
     if (!errors.length) {
       dispatch(updateEventThunk(newEvent))
-      history.push(`/explore`);
+      history.push(`/events/${newEvent.id}`);
+      hideModal()
     }
   }
 
@@ -78,7 +80,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
             />
           </div>
           <div>
-            <select value={eventType} className="edit-event-select-field" onChange={e => setEventType(e.target.value)}>
+            <select style={{ width: '300px' }} value={eventType} className="edit-event-select-field" onChange={e => setEventType(e.target.value)}>
               <option value="-- Event Type --">-- Event Type --</option>
               <option value="Party">Party</option>
               <option value="Kickback">Kickback</option>
@@ -93,7 +95,7 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
             </select>
           </div>
           <div>
-            <select value={entertainment} className="edit-event-select-field" onChange={e => setEntertainment(e.target.value)}>
+            <select style={{ width: '300px' }} value={entertainment} className="edit-event-select-field" onChange={e => setEntertainment(e.target.value)}>
               <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
               <option value="No Performers">No Performers</option>
               <option value="Live-Band">Live-Band</option>
@@ -131,9 +133,15 @@ const EditEventForm = ({ event, hideModal, lat, lng }) => {
           />
         </div>
         <div className="bottom-button">
-          <button className="share-edit-button" type="submit">Share</button>
-          <button onClick={hideModal}>Cancel</button>
+          <button className="share-edit-button" type="submit" style={{ width: '140px', marginRight: '20px', marginLeft: '8px' }}>Save</button>
+          <button onClick={hideModal} style={{ width: '140px' }}>Cancel</button>
         </div>
+        <div style={{ marginTop: '12px' }}>
+          <NavLink to={`/event_user_photos/${event.id}/upload`}>
+            <button className="share-edit-button" style={{ marginLeft: '12px', width: '300px' }}>Edit Photos</button>
+          </NavLink>
+        </div>
+
         <ul className="edit-errors-list">
           {errors.map((error, idx) => (
             <li className="edit-errors-list-item" key={idx} >**{error}**</li>
