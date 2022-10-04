@@ -88,6 +88,7 @@ def create_event():
         entertainment=form.data['entertainment'],
         startDate=form.data['startDate'],
         startTime=form.data['startTime'],
+        repeats=form.data['repeats'],
         lat=form.data['lat'],
         lng=form.data['lng']
         )
@@ -128,6 +129,7 @@ def update_event(eventId):
     event.entertainment=(form.data['entertainment'])
     event.startDate=(form.data['startDate'])
     event.startTime=(form.data['startTime'])
+    event.repeats=(form.data['repeats'])
     event.lat=(form.data['lat'])
     event.lng=(form.data['lng'])
     db.session.commit()

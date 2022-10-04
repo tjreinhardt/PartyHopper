@@ -1,0 +1,43 @@
+.image-upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.image-upload {
+  transition: all 0.6s ease-in-out;
+
+}
+
+.image-upload-title {
+  margin-top: 10vw;
+}
+
+.delete-div {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 50px;
+}
+
+.delete-image-button {
+  position: absolute;
+  /* transition: none !important; */
+  transition: all 0.6s ease-in-out;
+  height: 3%;
+  width: 50vmin;
+}
+
+.add-photos-icon-container {
+  width: auto;
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+}
+
+.add-photo-btn {
+  width: 300px;
+  margin-bottom: 2vh;
+}

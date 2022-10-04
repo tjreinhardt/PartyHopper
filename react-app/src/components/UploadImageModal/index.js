@@ -70,7 +70,7 @@ function UploadImageModal() {
     <div>
       <div className='add-photos-icon-container'>
         <button className='add-photo-btn' onClick={() => setShowModal(true)}>
-          Add
+          Add New Photo
         </button>
       </div>
       {showModal && (

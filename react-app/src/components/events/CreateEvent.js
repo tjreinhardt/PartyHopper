@@ -22,6 +22,7 @@ const CreateEventForm = ({ lat, lng }) => {
   const [entertainment, setEntertainment] = useState("")
   const [startDate, setStartDate] = useState("")
   const [startTime, setStartTime] = useState("")
+  const [repeats, setRepeats] = useState('')
   const [errors, setErrors] = useState([])
 
   const startDateConversion = () => {
@@ -72,6 +73,7 @@ const CreateEventForm = ({ lat, lng }) => {
         entertainment,
         startDate,
         startTime,
+        repeats,
         lat,
         lng
       };
@@ -162,6 +164,14 @@ const CreateEventForm = ({ lat, lng }) => {
               type={'time'}
               value={startTime}
               onChange={e => setStartTime(e.target.value)}
+            />
+          </div>
+          <div>
+            <input className="event-input"
+              type={'text'}
+              value={repeats}
+              placeholder={'How often does this event happen?'}
+              onChange={e => setRepeats(e.target.value)}
             />
           </div>
           <div>

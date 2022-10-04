@@ -11,6 +11,7 @@ def seed_events():
         entertainment = "DJ",
         startDate = datetime(2022, 6, 5, 11, 12, 12, 10),
         startTime = datetime(2022, 6, 5, 10, 20, 10, 10),
+        repeats = "Weekly",
         createdAt = datetime(2022, 6, 5, 10, 20, 10, 10),
         lat = 38.9594,
         lng = -120.9416
@@ -24,6 +25,7 @@ def seed_events():
         entertainment = "DJ",
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 5),
+        repeats = "Once Monthly",
         createdAt = date(2022, 6, 5),
         lat = 38.9353,
         lng = -120.940
@@ -37,6 +39,7 @@ def seed_events():
         entertainment = "No Performers",
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 7),
+        repeats = "Every Saturday",
         createdAt = date(2022, 6, 5),
         lat = 38.9542,
         lng = -120.1104
@@ -51,6 +54,7 @@ def seed_events():
         entertainment = "DJ",
         startDate = date(2022, 6, 5),
         startTime = date(2022, 6, 3),
+        repeats = "Daily",
         createdAt = date(2022, 6, 5),
         event_rsvp_users = [User.query.get(1),User.query.get(3) , User.query.get(2)],
         lat = 38.9242,

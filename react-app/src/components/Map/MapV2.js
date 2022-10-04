@@ -13,6 +13,7 @@ import Geocoder from './Geocoder';
 import NavBar from '../NavBar';
 import { rsvpEventThunk } from "../../store/event";
 import { NavLink } from 'react-router-dom';
+import { loadImages } from '../../store/image';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU1dzQwZGZobCJ9.f93BsV65IIUxtBJkbiiqXg'; // Set your mapbox token here
 
@@ -34,6 +35,13 @@ export default function MapGL2() {
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const events = Object.values(eventsList)
   const event = useSelector(state => state.event[eventId]);
+
+  const imgs = useSelector(state => state?.images)
+  const imagesArr = imgs ? Object.values(imgs) : null;
+
+  const evPhoto = (id) => {
+    return imagesArr.filter(image => image.eventId === id)[0];
+  }
 
   const pins = useMemo(
     () =>
@@ -65,6 +73,7 @@ export default function MapGL2() {
         return {
           "type": "Feature",
           "properties": {
+            "eventId": dbEvent.eventId,
             "url": dbEvent.imageUrl,
             "title": dbEvent.title,
             "body": dbEvent.description,
@@ -95,6 +104,7 @@ export default function MapGL2() {
 
   useEffect(() => {
     dispatch(getAllEventsThunk())
+    dispatch(loadImages());
   }, [dispatch, event, rsvpEventThunk, popupInfo])
 
   useEffect(() => {
@@ -161,7 +171,7 @@ export default function MapGL2() {
                     position: 'relative',
                     width: '13rem',
                     height: '13rem',
-                    backgroundImage: `url(${popupInfo.imageUrl})`,
+                    backgroundImage: `url(${evPhoto(popupInfo?.id)?.image_url})`,
                     backgroundPosition: 'center',
                     backgroundSize: 'cover'
                   }}
@@ -172,7 +182,7 @@ export default function MapGL2() {
                       bottom: '0',
                       color: 'white',
                       backgroundColor: 'black',
-                      width: '100%',
+                      width: '101%',
                       margin: '10px 10px 15px',
                       marginBottom: '0px',
                       fontSize: '20px'
