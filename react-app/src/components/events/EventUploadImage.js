@@ -32,7 +32,7 @@ const EventUploadImage = () => {
 
   useEffect(() => {
     const errors = [];
-    // if (eventTotalImages.length < 5) errors.push('Business owner must upload at least 5 photos.');
+    if (eventTotalImages.length < 5) errors.push('Event owner must upload at least 5 photos.');
     setValidationErrors(errors);
   }, [dispatch, eventImages?.length])
 
