@@ -17,8 +17,8 @@
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  height: 22rem !important;
-  width: 18rem !important;
+  height: 18rem !important;
+  width: 13rem !important;
   align-items: center;
   /* min-height: 250px; */
   border: .2rem solid rgb(0, 0, 0);
@@ -76,7 +76,7 @@
   justify-content: center !important;
   /* margin-left: 100px !important; */
   right: auto;
-  min-width: 18.3rem;
+  min-width: 13rem;
   /* margin-left: .2rem; */
   background-color: rgb(0, 0, 0);
   color: rgb(255, 255, 255);

@@ -42,7 +42,17 @@
   width: 50%;
 }
 
+.mapboxgl-map {
+  /* height: 100%; */
+  width: 100vw !important;
+  margin-top: -10px !important;
+  overflow-y: hidden !important;
+}
 
+.mapboxgl-canvas {
+  min-height: 100%;
+  border-bottom: 5px solid black !important;
+}
 
 .mapboxgl-popup-close-button {
   padding: 0px;

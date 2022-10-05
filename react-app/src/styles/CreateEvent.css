@@ -135,9 +135,8 @@ select {
         bottom: 61px;
         margin-bottom: 50px;
         margin-top: 70vh;
-        margin-left: 5%;
         height: 40%;
-        min-width: 90vw;
+        min-width: 100vw;
         /* min-width: 350px; */
         /* overflow-y: scroll; */
         overflow-x: hidden;
