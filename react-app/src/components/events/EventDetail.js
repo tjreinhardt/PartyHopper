@@ -130,7 +130,7 @@ const EventDetail = () => {
               src={event?.imageUrl}></img> */}
             {eventImages.map(image => (
               <div className='event-detail-image' >
-                <img className='upload-pg-img' src={image.image_url} style={{ minHeight: '33vmin', width: '40vmin', maxWidth: '100vmin', height: '100%' }} />
+                <img className='upload-pg-img' src={image.image_url} style={{ minHeight: '40vmin', width: '40vmin', maxWidth: '100vmin', height: '100%' }} />
               </div>
             ))}
           </div>
