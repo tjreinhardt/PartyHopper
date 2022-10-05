@@ -9,6 +9,7 @@ create-event-form-form {
     border-right: 1px solid black;
     padding-left: 20px;
     background-color: white;
+    border-top-right-radius: 8px;
     margin-bottom: 61px;
     height: 100vh;
     min-width: 300px;
@@ -129,10 +130,12 @@ select {
         border: none;
         z-index: 1;
         position: relative;
-        padding-left: 50%;
+        border-top-right-radius: 0px;
+        /* padding-left: 70%; */
         bottom: 61px;
         margin-bottom: 50px;
-        margin-top: 85.3vh;
+        margin-top: 70vh;
+        margin-left: 5%;
         height: 40%;
         min-width: 90vw;
         /* min-width: 350px; */
@@ -166,6 +169,10 @@ select {
 
     .mapboxgl-ctrl-geocoder {
         width: 200px !important;
+    }
+
+    .steps-list-item {
+        width: 260px;
     }
 
 }

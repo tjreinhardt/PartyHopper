@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import Pin from './Pin'
-import { GeolocateControl } from 'react-map-gl';
+import { GeolocateControl, NavigationControl } from 'react-map-gl';
 import './Map2.css'
 import { useSelector } from 'react-redux';
 import { getAllEventsThunk } from '../../store/event';
@@ -63,7 +63,7 @@ export default function MapGL2() {
           <Pin />
         </Marker>
       )),
-    [events, event, popupInfo]
+    [events]
   )
 
 
@@ -107,7 +107,7 @@ export default function MapGL2() {
   useEffect(() => {
     dispatch(getAllEventsThunk())
     dispatch(loadImages());
-  }, [dispatch, event, rsvpEventThunk, popupInfo])
+  }, [dispatch, event, popupInfo])
 
   useEffect(() => {
     createFeatureCollection(events)
@@ -125,6 +125,7 @@ export default function MapGL2() {
       <div>
         <div>
           <Map
+            reuseMaps
             ref={mapRef}
             {...viewState}
             className={'map-wrapper'}
@@ -144,7 +145,7 @@ export default function MapGL2() {
               backgroundRepeat: 'no-repeat'
             }}
 
-            mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
+            mapStyle="mapbox://styles/tjreinhardt/cl8w4la05000315rr8fnx5ciy"
             projection="globe"
             mapboxAccessToken={MAPBOX_TOKEN}
           >
@@ -152,10 +153,13 @@ export default function MapGL2() {
             <GeolocateControl
               positionOptions={{ enableHighAccuracy: true }}
               trackUserLocation={true}
+              showAccuracyCircle={false}
+              showUserHeading={true}
               onGeolocate={(position) => {
                 setNewLocation([position.coords.latitude, position.coords.longitude]);
               }}
             />
+            <NavigationControl />
             {pins}
             {popupInfo && (
               <Popup
@@ -173,13 +177,15 @@ export default function MapGL2() {
                     position: 'relative',
                     backgroundImage: `url(${evPhoto(popupInfo?.id)?.image_url})`,
                     backgroundPosition: 'center',
-                    backgroundSize: 'cover'
+                    backgroundSize: 'cover',
+                    boxShadow: '1px 1px 12px 1px darkergray'
                   }}
                 >
                   <div
                     style={{
                       position: 'absolute',
                       bottom: '0',
+                      paddingTop: '4px',
                       color: 'white',
                       backgroundColor: 'black',
                       width: '101%',
@@ -208,17 +214,17 @@ export default function MapGL2() {
                         className="event-rsvp-buttons"
 
                       >
-                        {popupInfo.rsvpStatus === 1 ?
+                        {/* {popupInfo.rsvpStatus === 1 ?
                           null
                           :
                           <button onClick={() => handleRsvps(popupInfo.id)}
                             style={{
                               height: '35px',
-                              width: '325px',
+                              width: '18.2rem',
                               border: '2px solid black'
                             }}>RSVP
                           </button>
-                        }
+                        } */}
                       </div>
                     </div>
                   </div>
