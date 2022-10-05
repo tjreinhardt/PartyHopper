@@ -94,3 +94,7 @@
 .mapboxgl-popup-content {
   padding: 0px;
 }
+
+.footer-div {
+  display: none;
+}

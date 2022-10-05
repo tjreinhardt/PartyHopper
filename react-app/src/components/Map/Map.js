@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import Pin from './Pin'
-import { GeolocateControl } from 'react-map-gl';
+import { GeolocateControl, NavigationControl } from 'react-map-gl';
 import './Map.css'
 import { useSelector } from 'react-redux';
 import { getAllEventsThunk } from '../../store/event';
@@ -92,6 +92,7 @@ export default function MapGL() {
       <div >
         <div style={{ overflowY: 'scroll' }}>
           <Map
+            reuseMaps
             ref={mapRef}
             {...viewState}
             className={'map-wrapper'}
@@ -107,7 +108,7 @@ export default function MapGL() {
               <Marker
                 longitude={newIdea.long}
                 latitude={newIdea.lat}
-                anchor="left"
+                anchor="bottom"
                 closeButton={true}
                 closeOnClick={false}
                 onClose={() => setNewIdea(null)}>
@@ -129,6 +130,7 @@ export default function MapGL() {
                 setNewLocation([position.coords.latitude, position.coords.longitude]);
               }}
             />
+            <NavigationControl />
             {popupInfo && (
               <Popup
                 anchor="top"
