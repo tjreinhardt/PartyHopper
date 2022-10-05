@@ -30,6 +30,7 @@ export default function MapGL2() {
   const { rsvpStatus } = useParams();
   const mapRef = React.useRef()
   const [popupInfo, setPopupInfo] = useState(null);
+  const [projectionState, setProjectionState] = useState('globe')
   const [newLocation, setNewLocation] = useState(null);
   const eventsList = useSelector(state => state.event);
   const session = useSelector(state => state.session.user);
@@ -106,8 +107,9 @@ export default function MapGL2() {
 
   useEffect(() => {
     dispatch(getAllEventsThunk())
+    setProjectionState('globe')
     dispatch(loadImages());
-  }, [dispatch, event, popupInfo])
+  }, [dispatch, event, popupInfo, projectionState])
 
   useEffect(() => {
     createFeatureCollection(events)
@@ -225,6 +227,13 @@ export default function MapGL2() {
                             }}>RSVP
                           </button>
                         } */}
+                        <NavLink to={`/events/${popupInfo.id}`}>
+                          <button style={{
+                            height: '35px',
+                            width: '13.1rem',
+                            border: '2px solid black'
+                          }}>Details</button>
+                        </NavLink>
                       </div>
                     </div>
                   </div>

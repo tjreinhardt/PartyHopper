@@ -99,7 +99,21 @@ export default function MapGL() {
             onMove={evt => setViewState(evt.viewState)}
             onViewportChange={handleViewportChange}
             onDblClick={handleAddClick}
-            style={{ zIndex: '0', position: "absolute", top: '-00px', right: '-0px', height: '60%', width: '100vw', marginLeft: '20px', border: '3px solid black', borderBottomLeftRadius: '4px', marginTop: "100px", backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }}
+            style={{
+              zIndex: '0',
+              position: "absolute",
+              top: '-00px',
+              height: '100%',
+              right: '-0px',
+              marginLeft: '20px',
+              border: '3px solid black',
+              borderBottomLeftRadius: '4px',
+              marginTop: "100px",
+              backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`,
+              backgroundSize: 'cover',
+              backgroundRepeat: 'no-repeat'
+              // width: '100vw',
+            }}
 
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
             mapboxAccessToken={MAPBOX_TOKEN}
