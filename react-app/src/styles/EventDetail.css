@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 30%;
+    /* margin-right: 50vw; */
 }
 
 .detail-edit-button-style {
@@ -82,6 +82,8 @@
     width: 100vw;
 }
 
+
+
 .event-detail-image-wrapper {
     height: 33vh;
     max-height: 33vh;
@@ -89,6 +91,7 @@
     max-width: 100%;
     margin-top: 100px;
     color: black;
+    overflow-x: hidden;
     z-index: 5;
 }
 
@@ -256,7 +259,7 @@ svg {
 
 .detail-button-wrapper {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .star-chart-inner-div {
