@@ -38,6 +38,7 @@ const EventDetail = () => {
     return (image.eventId === Number(eventId) && image.user_id === user.id);
   });
 
+  // test
   const imagesData = [
     {
       imageUrl: "https://wallpaperaccess.com/full/127026.jpg"
