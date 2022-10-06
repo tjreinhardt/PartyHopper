@@ -55,7 +55,7 @@ const EventUploadImage = () => {
     <>
       <div className='image-upload-container'>
         <h1 className='image-upload-title'>Photos</h1>
-        <div className='upload-message-div'>
+        <div className='upload-message-div' >
           <h3 className='image-upload-message-content'>Upload and manage photos</h3>
         </div>
         <div className='image-upload-div'>
@@ -71,11 +71,11 @@ const EventUploadImage = () => {
               )}
             </div>
             <UploadImageModal />
-            <div>
+            <div className='image-uploads-div'>
               {eventImages.map(image => (
                 <div className='delete-div'>
-                  <img className='image-upload' src={image.image_url} style={{ height: 'auto', width: '50vmin', maxHeight: '400px' }} />
-                  <button className='delete-image-button' type='button' onClick={() => onDeletePic(image.id)}>
+                  <img className='image-upload' src={image.image_url} style={{ maxHeight: '400px', border: '1px solid grey', borderRadius: '4px' }} />
+                  <button className='delete-image-button' type='button' onClick={() => onDeletePic(image.id)} style={{ borderTopLeftRadius: '0px', borderTopRightRadius: '0px' }}>
                     Delete
                   </button>
                 </div>
