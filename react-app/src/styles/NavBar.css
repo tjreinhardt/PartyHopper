@@ -1,0 +1,108 @@
+.navbar-nav {
+    padding-top: 33px;
+    z-index: 6;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    background: linear-gradient(to bottom, black, transparent);
+    padding-bottom: 33px;
+}
+
+.nav-outer-wrapper {
+    padding-left: 40px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    transition: all 0.6s ease-in-out;
+}
+
+.nav-partyhopper-logo {
+    text-decoration: none;
+    color: white;
+    margin-top: 4px;
+    font-size: 24px;
+    position: absolute;
+    left: 25px;
+    font-weight: 700;
+    transition: all 0.6s ease-in-out;
+}
+
+
+.navbar-buttons {
+    width: 80px;
+    height: 40px;
+    margin-right: 12px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 4px;
+    font-weight: 700;
+    transition: all 0.8s;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.nav-buttons:hover {
+    background-color: rgba(178, 175, 175, 0.767);
+}
+
+.nav-signup-button-red {
+    transition: all 0.8s;
+    font-size: 16px;
+    width: 90px;
+    height: 40px;
+    cursor: pointer;
+    margin-right: 12px;
+    color: white;
+    background-color: #d32323;
+    border: transparent;
+    border-radius: 4px;
+    font-weight: 700;
+
+}
+
+.nav-signup-button-red:hover {
+    background-color: #e70000;
+}
+
+@media screen and (max-width:580px) {
+    .nav-partyhopper-logo {
+        color: transparent;
+        z-index: -1;
+    }
+
+    .logout-butt {
+        border-right: none;
+    }
+
+    .navbar-buttons {
+        border-top: none;
+        border-bottom: none;
+        border-radius: 0%;
+        border-left: none;
+        margin: 0px;
+        height: 100px;
+        width: 25vw;
+        font-size: 4vw;
+        /* width: fit-content; */
+    }
+
+
+    .nav-outer-wrapper {
+        align-items: center;
+        height: 100px;
+        justify-content: space-between;
+        /* padding-left: 10px; */
+        /* padding-right: 10px; */
+        margin-right: 0px;
+        padding: 0px;
+    }
+
+    .navbar-nav {
+        margin: 0px;
+        padding: 0px;
+        height: 100px;
+        width: 100%;
+    }
+}

@@ -5,7 +5,7 @@ const CREATE_EVENT = "event/CREATE_EVENT"
 const UPDATE_EVENT = "event/UPDATE_EVENT"
 const DELETE_EVENT = "event/DELETE_EVENT"
 
-const LIKE_EVENT = "event/LIKE_EVENT"
+const RSVP_EVENT = "event/RSVP_EVENT"
 
 const GET_ALL_EVENTS = 'event/GET_ALL_EVENTS'
 
@@ -52,12 +52,12 @@ const deleteEvent = (eventId) => {
   }
 }
 
-const likeEvent = (eventId, totalLikes, likeStatus) => {
+const rsvpEvent = (eventId, totalRsvps, rsvpStatus) => {
   return {
-    type: LIKE_EVENT,
+    type: RSVP_EVENT,
     eventId,
-    totalLikes,
-    likeStatus
+    totalRsvps,
+    rsvpStatus
   }
 }
 
@@ -153,8 +153,8 @@ export const deleteEventThunk = (eventId) => async dispatch => {
   return response
 }
 
-export const likeEventThunk = (eventId) => async dispatch => {
-  const response = await fetch(`/api/events/${eventId}/likes`, {
+export const rsvpEventThunk = (eventId) => async dispatch => {
+  const response = await fetch(`/api/events/${eventId}/rsvps`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -164,7 +164,7 @@ export const likeEventThunk = (eventId) => async dispatch => {
   if (response.ok) {
     const data = await response.json();
 
-    dispatch(likeEvent(eventId, data.totalLikes, data.likeStatus))
+    dispatch(rsvpEvent(eventId, data.totalRsvps, data.rsvpStatus))
   }
   return response
 }
@@ -205,9 +205,9 @@ export default function reducer(state = initialState, action) {
       delete newState[action.eventId]
       return newState
     }
-    case LIKE_EVENT: {
+    case RSVP_EVENT: {
       newState = { ...state }
-      newState[action.eventId] = { ...newState[action.eventId], totalLikes: action.totalLikes, likeStatus: action.likeStatus }
+      newState[action.eventId] = { ...newState[action.eventId], totalRsvps: action.totalRsvps, rsvpStatus: action.rsvpStatus }
       return newState
     }
     case GET_ALL_EVENTS:

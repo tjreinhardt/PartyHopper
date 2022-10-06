@@ -5,6 +5,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 from flask_login import UserMixin
 from .event import Event, event_rsvps
+from .reviews import review_likes
+
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -13,9 +15,11 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     bio = db.Column(db.String(300))
+    profile_pic = db.Column(db.String(255), default='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVAsYAAWUbB2YPxq9pECm6rDAjpJlwnUnfKA&usqp=CAU')
+    # imageUrl = db.column(db.String(500))
     hashed_password = db.Column(db.String(255), nullable=False)
-    lat = db.Column(db.Integer)
-    lng = db.Column(db.Integer)
+    lat = db.Column(db.Float(precision=12, asdecimal=False))
+    lng = db.Column(db.Float(precision=12, asdecimal=False))
 
 
     rsvp_event = db.relationship(
@@ -25,8 +29,15 @@ class User(db.Model, UserMixin):
         cascade="all, delete"
     )
 
+    like_reviews = db.relationship(
+        "Review",
+        secondary=review_likes,
+        back_populates="review_like_users",
+        cascade="all, delete"
+    )
+
     events = db.relationship("Event", back_populates="user", cascade="all, delete")
-    # reviews = db.relationship("Review", back_populates="user", cascade="all, delete")
+    reviews = db.relationship("Review", back_populates="user", cascade="all, delete")
 
 
 
@@ -46,7 +57,11 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'bio': self.bio
-            # 'total_reviews': len(self.reviews)
+            'bio': self.bio,
+            "lat": self.lat,
+            "lng": self.lng,
+            'total_reviews': len(self.reviews)
             # 'total_rsvps': len(self.rsvps)
         }
+
+    image_uploaded = db.relationship('Eventphoto', back_populates='image_owner')

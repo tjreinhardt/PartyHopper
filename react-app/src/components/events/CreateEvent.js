@@ -4,117 +4,179 @@ import { useHistory } from "react-router-dom";
 import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import "react-datepicker/dist/react-datepicker.css";
+import '../../styles/CreateEvent.css'
+// import { startDateConversion, dateEquality, getTodaysDate } from "../HelperFunctions/CreateEventHelp";
+import { isPast, isEqual } from "date-fns";
+import UploadImageModal from '../UploadImageModal';
+import { useParams } from "react-router-dom";
 
 
-const CreateEventForm = ({ hideModal }) => {
+const CreateEventForm = ({ lat, lng }) => {
   const dispatch = useDispatch();
+  const { eventId } = useParams();
   const history = useHistory();
-
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
-  const [imageUrl, setImageUrl] = useState("")
+  // const [imageUrl, setImageUrl] = useState("")
   const [eventType, setEventType] = useState("")
   const [entertainment, setEntertainment] = useState("")
   const [startDate, setStartDate] = useState("")
   const [startTime, setStartTime] = useState("")
-  const [lat, setLat] = useState(1)
-  const [lng, setLng] = useState(1)
+  const [repeats, setRepeats] = useState('')
   const [errors, setErrors] = useState([])
-  let today = new Date();
-  let todays_day = today.getDay() - 3;
-  if (todays_day < 10) todays_day = `0${todays_day}`
-  let todays_month = today.getMonth() + 1;
-  if (todays_month < 10) todays_month = `0${todays_month}`
-  let todays_year = today.getFullYear();
-  let todays_date = `${todays_year}-${todays_month}-${todays_day}`
-  let display_date = `${todays_month}-${todays_day}-${todays_year}`
 
+  const startDateConversion = () => {
+    let parts = startDate.split('-')
+    let year = parts[0]
+    let month = parts[1] - 1
+    let day = parts[2]
+    day = Number(day) + 1
+    // console.log(year)
+    // console.log(month)
+    // console.log(day)
+    const result = isPast(new Date(year, month, day))
+    return result
+  }
+
+  const dateEquality = () => {
+    let parts = startDate.split('-')
+    let year = parts[0]
+    let month = parts[1] - 1
+    let day = parts[2]
+    // console.log(day, 'day')
+    const result = isEqual(startDate, new Date(year, month, day))
+    return result
+  }
+
+  startDateConversion()
+
+
+  const getTodaysDate = () => {
+    let today = new Date();
+    let todays_day = new Date().getDay() + 18;
+    if (todays_day < 10) todays_day = `0${todays_day}`
+    let todays_month = new Date().getMonth() + 1;
+    if (todays_month < 10) todays_month = `0${todays_month}`
+    let todays_year = today.getFullYear();
+    let todays_date = `${todays_year}-${todays_month}-${todays_day}`
+    return todays_date
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setErrors([]);
-    const newEvent = {
-      name,
-      description,
-      imageUrl,
-      eventType,
-      entertainment,
-      startDate,
-      startTime,
-      lat,
-      lng
-    };
-    // const dispatchEvent = await dispatch(createEventThunk(newEvent));
-    // if (dispatchEvent) {
-    //   hideModal()
-    // }
-    if (startDate + 1 > todays_date) {
+    if (!errors.length) {
+      const newEvent = {
+        name,
+        description,
+        // imageUrl,
+        eventType,
+        entertainment,
+        startDate,
+        startTime,
+        repeats,
+        lat,
+        lng
+      };
 
-      dispatch(createEventThunk(newEvent))
-        .then(
-          async (res) => {
-            if (res.errors) {
-              setErrors(res.errors)
-              // e.preventDefault()
-            }
-            else {
-              hideModal()
-              history.push(`/events/${res.id}`);
-            }
-          })
+      // dispatch(createEventThunk(newEvent))
+      //   .then(
+      //     async (res) => {
+      //       if (res.errors) {
+      //         setErrors(res.errors)
+      //       }
+      //       else {
+      //         history.push(`/event_user_photos/${newEvent.id}/upload`);
+      //       }
+      //     })
+      const createdEvent = await dispatch(createEventThunk(newEvent));
+      if (createdEvent) {
+        // reset();
+        // setHasSubmitted(false);
+        history.push(`/event_user_photos/${createdEvent.id}/upload`);
+      };
     }
-    errors.push(['Cannot pick a date that has already happened'])
   }
-
 
   useEffect(() => {
     let errors = [];
-    if (!name) errors.push("Please name your event")
-    if (!description) errors.push("Please enter a description for your event")
-    if (!imageUrl) errors.push("Please upload an image for your event")
-    if (!eventType) errors.push("Please enter a category for your event")
-    if (!entertainment) errors.push("Please select entertainment type")
-    if (!startDate) errors.push("Please add a date for your event");
-    if (Number(startDate.split('-').join('')) + 1 < Number(todays_date.split('-').join(''))) errors.push("Start Date must be on/later than today's date")
-    if (!startTime) errors.push("Please enter a start-time for your event")
-    if (!lat) errors.push("Please enter a latitude")
-    if (!lng) errors.push("Please enter a longitude")
-    // if (startDate < todays_date) errors.push("Fix your date fool")
+    if (startDateConversion(startDate) === true && (!dateEquality())) errors.push("Date must be no earlier than today!")
+    if (!lng) errors.push("Create a pin for your event")
+    if (name.trim().length === 0) errors.push("Name your event")
+    if (name.trim().length > 50) errors.push("Name is too long!")
+    if (description.trim().length === 0) errors.push("Describe your event")
+    if (description.trim().length > 500) errors.push("Description is too long!")
+    if (!startDate) errors.push("Select a date");
+    if (!startTime) errors.push("Select a time")
+    if (!eventType || eventType === '-- Event Type --') errors.push("Select a category")
+    if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Select Featured Entertainment")
     setErrors(errors)
-  }, [name, description, imageUrl, eventType, entertainment, startDate, startTime, lat, lng, todays_date])
+  }, [name, lng, description, eventType, entertainment, startDate, startTime])
 
 
   return (
-    <div>
+    <div className={'create-event-form-wrap2'}>
+      <h2 className="create-event-label">Create Event</h2>
+      <h4 className="steps-label">Steps:</h4>
+      <ol className="create-directions-list">
+        <li className="steps-list-item">Use the map tool to find the location for your event</li>
+        <li className="steps-list-item">Double click to create a map marker for your event</li>
+        <li className="steps-list-item">Fill out the rest of the form fields</li>
+        <li className="steps-list-item">Start Partying!</li>
+      </ol>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="form-inner-wrapper">
           <div>
-            <input
+            <input className="event-input"
               type={'text'}
-              placeholder={"Event Name"}
+              placeholder={"Event Name*"}
               value={name}
               onChange={e => setName(e.target.value)}
             />
           </div>
           <div>
-            <input
+            <input className="event-input"
               type={'text'}
-              placeholder={"Event Description"}
+              placeholder={"Event Description*"}
               value={description}
               onChange={e => setDescription(e.target.value)}
             />
           </div>
           <div>
+            <label className="date-time-label">Start Date:</label>
             <input
-              type={'text'}
-              placeholder={"Event Cover Photo"}
-              value={imageUrl}
-              onChange={e => setImageUrl(e.target.value)}
+              type="hidden"
+              value={getTodaysDate}
+            >
+            </input>
+          </div>
+          <div>
+            <input className="event-input"
+              type={'date'}
+              value={startDate}
+              onChange={e => setStartDate(e.target.value)}
             />
           </div>
           <div>
-            <select value={eventType} onChange={e => setEventType(e.target.value)}>
-              <option value="None">None</option>
+          </div>
+          <label className="date-time-label">Start Time:</label>
+          <div>
+            <input className="event-input"
+              type={'time'}
+              value={startTime}
+              onChange={e => setStartTime(e.target.value)}
+            />
+          </div>
+          <div>
+            <input className="event-input"
+              type={'text'}
+              value={repeats}
+              placeholder={'How often does this event happen?'}
+              onChange={e => setRepeats(e.target.value)}
+            />
+          </div>
+          <div>
+            <select className="create-select-field" value={eventType} onChange={e => setEventType(e.target.value)}>
+              <option value="-- Event Type --">-- Event Type --</option>
               <option value="Party">Party</option>
               <option value="Kickback">Kickback</option>
               <option value="Live Show/Event">Live Show/Event</option>
@@ -124,68 +186,39 @@ const CreateEventForm = ({ hideModal }) => {
               <option value="Charity Event">Charity Event</option>
               <option value="After Party">After Party</option>
               <option value="Grand Opening">Grand Opening</option>
+              <option value="Custom Event">Custom Event</option>
             </select>
           </div>
           <div>
-            <select value={entertainment} onChange={e => setEntertainment(e.target.value)}>
-              <option value="None">None</option>
+            <select className="create-select-field" value={entertainment} onChange={e => setEntertainment(e.target.value)}>
+              <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
+              <option value="No Performers">No Performers</option>
               <option value="Live-Band">Live-Band</option>
               <option value="DJ">DJ</option>
               <option value="Comedian">Comedian</option>
             </select>
           </div>
-          <div>
-            <input
-              type="hidden"
-              value={todays_date}
-            >
-            </input>
-          </div>
-          <div>
-            <input
-              type={'date'}
-              value={startDate}
-              onChange={e => setStartDate(e.target.value)}
-            />
-          </div>
-          <div>
-          </div>
-          <div>
-            <input
-              type={'time'}
-              value={startTime}
-              onChange={e => setStartTime(e.target.value)}
-            />
-          </div>
-          <div>
-          </div>
-          <div>
-            <input
-              type={'number'}
-              placeholder={"Lat"}
-              value={lat}
-              onChange={e => setLat(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type={'number'}
-              placeholder={"Lng"}
-              value={lng}
-              onChange={e => setLng(e.target.value)}
-            />
-          </div>
+          <input
+            type="hidden"
+            placeholder="Longitude"
+            value={lng}
+            readOnly
+          />
+          <input
+            type="hidden"
+            placeholder="Latitude"
+            value={lat}
+            readOnly
+          />
+
         </div>
         <div className="bottom-button">
-          {/* {!errors && ( */}
-          <button type="submit">Share</button>
-          {/* ) */}
-          {/* } */}
-          <button onClick={hideModal}>Cancel</button>
+          <button type="submit" className="share-button">Share</button>
+          <br />
         </div>
-        <ul>
+        <ul className="errors-list">
           {errors.map((error, idx) => (
-            <li key={idx} >{error}</li>
+            <li className="errors-list-items" key={idx} >{error}</li>
           ))}
         </ul>
       </form>

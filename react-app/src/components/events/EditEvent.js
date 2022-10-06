@@ -2,86 +2,71 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { updateEventThunk } from "../../store/event";
+import '../../styles/EditEvent.css'
+import UploadImageModal from "../UploadImageModal";
+import { NavLink } from "react-router-dom";
 
 
-const EditEventForm = ({ event, hideModal }) => {
+const EditEventForm = ({ event, hideModal, lat, lng }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [name, setName] = useState(event.name)
-  const [description, setDescription] = useState(event.description)
-  const [imageUrl, setImageUrl] = useState(event.imageUrl)
+  const [name, setName] = useState(event.name.trim())
+  const [description, setDescription] = useState(event.description.trim())
+  // const [imageUrl, setImageUrl] = useState(event.imageUrl.trim())
   const [eventType, setEventType] = useState(event.eventType)
   const [entertainment, setEntertainment] = useState(event.entertainment)
   const [startDate, setStartDate] = useState(event.startDate)
   const [startTime, setStartTime] = useState(event.startTime)
-  const [lat, setLat] = useState(event.lat)
-  const [lng, setLng] = useState(event.lng)
   const [errors, setErrors] = useState([])
-  let today = new Date();
-  let todays_day = today.getDay() - 3;
-  if (todays_day < 10) todays_day = `0${todays_day}`
-  let todays_month = today.getMonth() + 1;
-  if (todays_month < 10) todays_month = `0${todays_month}`
-  let todays_year = today.getFullYear();
-  let todays_date = `${todays_year}-${todays_month}-${todays_day}`
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // setErrors([]);
     const newEvent = {
       id: event.id,
       name,
       description,
-      imageUrl,
+      // imageUrl,
       eventType,
       entertainment,
       startDate,
       startTime,
-      lat,
-      lng
+      lat: event.lat,
+      lng: event.lng
     };
-    if (startDate + 1 > todays_date) {
+    if (!errors.length) {
       dispatch(updateEventThunk(newEvent))
-        .then(
-          async (res) => {
-            if (res.errors) {
-              setErrors(res.errors)
-            }
-            else {
-              hideModal()
-              history.push(`/events/${res.id}`);
-            }
-
-          })
+      history.push(`/events/${newEvent.id}`);
+      hideModal()
     }
-    errors.push(['Cannot pick a date that has already happened'])
   }
+
   useEffect(() => {
     let errors = [];
-    if (!name) errors.push("Please name your event")
-    if (!description) errors.push("Please enter a description for your event")
-    if (!imageUrl) errors.push("Please upload an image for your event")
-    if (!eventType) errors.push("Please enter a category for your event")
-    if (!entertainment) errors.push("Please select entertainment type")
-    if (!startDate) errors.push("Please add a date for your event");
-    if (Number(startDate.split('-').join('')) + 1 < Number(todays_date.split('-').join(''))) errors.push("Start Date must be on/later than today's date")
-    if (!startTime) errors.push("Please enter a start-time for your event")
-    if (!lat) errors.push("Please enter a latitude")
-    if (!lng) errors.push("Please enter a longitude")
-    // if (startDate < todays_date) errors.push("Fix your date fool")
+    if (name.trim().length === 0) errors.push("Please provide a name your event")
+    if (name.trim().length > 50) errors.push("Name is too long!")
+    if (description.trim().length === 0) errors.push("Please describe your event")
+    if (description.trim().length > 500) errors.push("Description is too long!")
+    // if (imageUrl.trim().length === 0 || (/^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(imageUrl) === false)) errors.push("Image URL address appears to be invalid. Must be '.jpg', '.jpeg', '.png', '.webp', '.avif', '.gif' or '.svg' format, and must include: 'https://'")
+    // if (imageUrl.trim().length > 500) errors.push("Image URL address is too long!")
+    if (!eventType || eventType === '-- Event Type --') errors.push("Please select a category for your event")
+    if (!entertainment || entertainment === '-- Featured Entertainment --') errors.push("Please select entertainment type")
+    if (!startDate) errors.push("What date is your event taking place?");
+    if (!startTime) errors.push("What time does your event start?")
     setErrors(errors)
-  }, [name, description, imageUrl, eventType, todays_date, entertainment, startDate, startTime, lat, lng])
+  }, [name, lng, description, eventType, entertainment, startDate, startTime])
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form className="form-wrapper" onSubmit={handleSubmit}>
+        <div >
+          <div className="event-title-wrapper">
+            <h2>Edit Event</h2>
+          </div>
           <div>
             <input
               type={'text'}
-              placeholder={"Event Name"}
+              placeholder={"Event Name*"}
               value={name}
               onChange={e => setName(e.target.value)}
             />
@@ -89,22 +74,14 @@ const EditEventForm = ({ event, hideModal }) => {
           <div>
             <input
               type={'text'}
-              placeholder={"Event Description"}
+              placeholder={"Event Description*"}
               value={description}
               onChange={e => setDescription(e.target.value)}
             />
           </div>
           <div>
-            <input
-              type={'text'}
-              placeholder={"Event Cover Photo"}
-              value={imageUrl}
-              onChange={e => setImageUrl(e.target.value)}
-            />
-          </div>
-          <div>
-            <select value={eventType} onChange={e => setEventType(e.target.value)}>
-              <option value="None">None</option>
+            <select style={{ width: '300px' }} value={eventType} className="edit-event-select-field" onChange={e => setEventType(e.target.value)}>
+              <option value="-- Event Type --">-- Event Type --</option>
               <option value="Party">Party</option>
               <option value="Kickback">Kickback</option>
               <option value="Live Show/Event">Live Show/Event</option>
@@ -114,22 +91,20 @@ const EditEventForm = ({ event, hideModal }) => {
               <option value="Charity Event">Charity Event</option>
               <option value="After Party">After Party</option>
               <option value="Grand Opening">Grand Opening</option>
+              <option value="Custom Event">Custom Event</option>
             </select>
           </div>
           <div>
-            <select value={entertainment} onChange={e => setEntertainment(e.target.value)}>
-              <option value="None">None</option>
+            <select style={{ width: '300px' }} value={entertainment} className="edit-event-select-field" onChange={e => setEntertainment(e.target.value)}>
+              <option value="-- Featured Entertainment --">-- Featured Entertainment --</option>
+              <option value="No Performers">No Performers</option>
               <option value="Live-Band">Live-Band</option>
               <option value="DJ">DJ</option>
               <option value="Comedian">Comedian</option>
             </select>
           </div>
-          <div>
-            <input
-              type="hidden"
-              value={todays_date}
-            >
-            </input>
+          <div className="start-date-time-label-wrapper">
+            <label className="start-date-time-label">Start Date:</label>
           </div>
           <div>
             <input
@@ -138,48 +113,43 @@ const EditEventForm = ({ event, hideModal }) => {
               onChange={e => setStartDate(e.target.value)}
             />
           </div>
-          <div>
-          </div>
-          <div>
-            <input
-              type={'time'}
-              value={startTime}
-              onChange={e => setStartTime(e.target.value)}
-            />
-          </div>
-          <div>
-          </div>
-          <div>
-            <input
-              type={'number'}
-              placeholder={"Lat"}
-              value={lat}
-              onChange={e => setLat(e.target.value)}
-            />
-          </div>
-          <div>
-            <input
-              type={'number'}
-              placeholder={"Lng"}
-              value={lng}
-              onChange={e => setLng(e.target.value)}
-            />
-          </div>
+        </div>
+        <div className="start-date-time-label-wrapper">
+          <label className="start-date-time-label">Start Time:</label>
+          <input
+            type={'time'}
+            value={startTime}
+            onChange={e => setStartTime(e.target.value)}
+          />
+        </div>
+        <div>
+          <input
+            type="hidden"
+            value={event.lng}
+          />
+          <input
+            type="hidden"
+            value={event.lat}
+          />
         </div>
         <div className="bottom-button">
-          {/* {!errors && ( */}
-          <button type="submit">Share</button>
-          {/* ) */}
-          {/* } */}
-          <button onClick={hideModal}>Cancel</button>
+          <button className="share-edit-button" type="submit" style={{ width: '140px', marginRight: '20px', marginLeft: '8px' }}>Save</button>
+          <button onClick={hideModal} style={{ width: '140px' }}>Cancel</button>
         </div>
-        <ul>
+        <div style={{ marginTop: '12px' }}>
+          <NavLink to={`/event_user_photos/${event.id}/upload`}>
+            <button className="share-edit-button" style={{ marginLeft: '12px', width: '300px' }}>Edit Photos</button>
+          </NavLink>
+        </div>
+
+        <ul className="edit-errors-list">
           {errors.map((error, idx) => (
-            <li key={idx} >{error}</li>
+            <li className="edit-errors-list-item" key={idx} >**{error}**</li>
           ))}
         </ul>
-      </form>
-    </div>
+      </form >
+
+    </div >
   )
 }
 

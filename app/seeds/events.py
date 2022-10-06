@@ -5,44 +5,44 @@ from datetime import datetime, date, time
 def seed_events():
     event1 = Event(
         userId = 1,
-        name = "BEACH Party!!",
-        description = "Fun in the sun",
-        eventType = "Rager",
+        name = "Tahoe South",
+        description = "Join us each Thursday for live music, beer, and food!",
+        eventType = "Live Show/Event",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
-        startDate = datetime(2015, 6, 5, 11, 12, 12, 10),
-        startTime = datetime(2015, 6, 5, 10, 20, 10, 10),
-        createdAt = datetime(2015, 6, 5, 10, 20, 10, 10),
-        lat = 1,
-        lng = 1
+        startDate = datetime(2022, 6, 5, 11, 12, 12, 10),
+        startTime = datetime(2022, 6, 5, 10, 20, 10, 10),
+        repeats = "Weekly",
+        createdAt = datetime(2022, 6, 5, 10, 20, 10, 10),
+        lat = 38.9594,
+        lng = -120.9416
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event2 = Event(
         userId = 2,
-        name = "HOUSE Party!!",
-        description = "Fun in the casa",
-        eventType = "Rager",
+        name = "Mountain Lodge",
+        description = "Come by on the daily for skiing, mountainbiking, live entertainment and dining",
+        eventType = "Local Community Event",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
-        startDate = date(3, 6, 5),
-        startTime = date(2, 6, 5),
-        createdAt = date(4, 6, 5),
-        lat = 5,
-        lng = 5
+        startDate = date(2022, 6, 5),
+        startTime = date(2022, 6, 5),
+        repeats = "Once Monthly",
+        createdAt = date(2022, 6, 5),
+        lat = 38.9353,
+        lng = -120.940
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
     event3 = Event(
         userId = 3,
-        name = "BEER Party!!",
-        description = "Fun while drunk",
-        eventType = "Rager",
-        entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
-        startDate = date(3, 6, 5),
-        startTime = date(5, 6, 7),
-        createdAt = date(2, 6, 5),
-        lat = 10,
-        lng = 10
+        name = "Emerald Bay",
+        description = "Kayaking, Camping, Sightseeing and more!",
+        eventType = "Custom Event",
+        entertainment = "No Performers",
+        startDate = date(2022, 6, 5),
+        startTime = date(2022, 6, 7),
+        repeats = "Every Saturday",
+        createdAt = date(2022, 6, 5),
+        lat = 38.9542,
+        lng = -120.1104
 
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
@@ -52,13 +52,13 @@ def seed_events():
         description = "Fun on the floor",
         eventType = "Rager",
         entertainment = "DJ",
-        imageUrl = "https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014__340.jpg",
-        startDate = date(1, 6, 5),
-        startTime = date(2, 6, 3),
-        createdAt = date(2, 6, 5),
+        startDate = date(2022, 6, 5),
+        startTime = date(2022, 6, 3),
+        repeats = "Daily",
+        createdAt = date(2022, 6, 5),
         event_rsvp_users = [User.query.get(1),User.query.get(3) , User.query.get(2)],
-        lat = 15,
-        lng = 15
+        lat = 38.9242,
+        lng = -120.1204
         # event_rsvp_users = [User.query.get(1),User.query.get(2) , User.query.get(3)]
     )
 
