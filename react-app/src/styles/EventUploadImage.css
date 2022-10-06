@@ -7,8 +7,10 @@
 
 .image-upload {
   transition: all 0.6s ease-in-out;
-
+  height: '30vh';
+  width: 270px;
 }
+
 
 .image-upload-title {
   margin-top: 10vw;
@@ -21,12 +23,18 @@
   margin-bottom: 50px;
 }
 
+.image-uploads-div {
+  transition: all 150ms ease-in-out;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(280px, 1fr));
+}
+
 .delete-image-button {
   position: absolute;
   /* transition: none !important; */
   transition: all 0.6s ease-in-out;
   height: 3%;
-  width: 50vmin;
+  width: 270px;
 }
 
 .add-photos-icon-container {
@@ -38,6 +46,33 @@
 }
 
 .add-photo-btn {
-  width: 300px;
+  width: 270px;
   margin-bottom: 2vh;
+}
+
+
+@media only screen and (min-width:1370px) and (max-width:1600px) {
+  .image-uploads-div {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+
+
+@media only screen and (min-width:900px) and (max-width:1369px) {
+  .image-uploads-div {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+
+@media only screen and (min-width:660px) and (max-width:899px) {
+  .image-uploads-div {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width:659px) {
+  .image-uploads-div {
+    grid-template-columns: 1fr;
+  }
 }

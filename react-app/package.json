@@ -24,6 +24,7 @@
     "react-scripts": "^5.0.1",
     "react-spring": "^9.5.2",
     "react-spring-carousel": "^2.0.19",
+    "react-spring-carousel-js": "^1.9.32",
     "redux": "^4.1.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
