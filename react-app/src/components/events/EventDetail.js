@@ -147,6 +147,15 @@ const EventDetail = () => {
               onClick={handleDelete}>
               Delete Event
             </button>
+            <div className="event-rsvp-buttons" style={{ marginLeft: '16px' }}>
+              <NavLink to={`/event_user_photos/${eventId}/upload`}>
+                <button className='detail-rsvp-button'>
+                  <i className="fa-solid fa-camera"></i>
+                  Add photo
+                </button>
+              </NavLink>
+            </div>
+
             {editModal && <EditEventModal style={{ zIndex: '7' }} event={event} setShowModal={setEditModal} />}
           </div>
         )}
@@ -187,7 +196,7 @@ const EventDetail = () => {
                 <div className="event-rsvp-buttons">
                   <NavLink to={`/event_user_photos/${eventId}/upload`}>
                     <button className='detail-rsvp-button'>
-                      {/* <i className="fa-solid fa-camera"></i> */}
+                      <i className="fa-solid fa-camera"></i>
                       Add photo
                     </button>
                   </NavLink>

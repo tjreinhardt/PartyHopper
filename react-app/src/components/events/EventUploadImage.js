@@ -34,7 +34,7 @@ const EventUploadImage = () => {
 
   useEffect(() => {
     const errors = [];
-    if (eventTotalImages.length < 5) errors.push('Event owner must upload at least 5 photos.');
+    if (eventTotalImages.length < 6) errors.push('Event owner must upload at least 6 photos.');
     setValidationErrors(errors);
   }, [dispatch, eventImages?.length])
 
@@ -58,7 +58,7 @@ const EventUploadImage = () => {
       <div className='image-upload-container'>
         <h1 className='image-upload-title'>Add Photos</h1>
         <div className='upload-message-div' >
-          <h3 className='image-upload-message-content'>Upload and manage photos (5 minimum)</h3>
+          <h3 className='image-upload-message-content'>Upload and manage photos (6 minimum)</h3>
         </div>
         <div className='image-upload-div'>
           <div className='content-container'>
