@@ -24,7 +24,7 @@ function UploadImageModal() {
   useEffect(() => {
     const errors = [];
     if (!image?.name.match(fileExtensions)) errors.push('Please select a valid image type');
-    // if (image?.size > 1e6) errors.push('Please upload an image smaller than 1MB');
+    if (image?.size > 1e6) errors.push('Please upload an image smaller than 1MB');
     setValidationErrors(errors);
   }, [image?.name, image?.size]);
 
