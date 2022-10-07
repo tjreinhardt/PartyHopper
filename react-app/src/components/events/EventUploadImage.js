@@ -6,6 +6,7 @@ import UploadImageModal from '../UploadImageModal';
 import { createImage, loadImages, deleteImage } from '../../store/image';
 import { Modal } from '../../context/Modal';
 import '../../styles/EventUploadImage.css'
+import NavBar from '../NavBar';
 
 const EventUploadImage = () => {
   const dispatch = useDispatch();
@@ -53,10 +54,11 @@ const EventUploadImage = () => {
 
   return (
     <>
+      <NavBar />
       <div className='image-upload-container'>
-        <h1 className='image-upload-title'>Add Photos To Your Event</h1>
+        <h1 className='image-upload-title'>Add Photos</h1>
         <div className='upload-message-div' >
-          <h3 className='image-upload-message-content'>Upload and manage photos</h3>
+          <h3 className='image-upload-message-content'>Upload and manage photos (5 minimum)</h3>
         </div>
         <div className='image-upload-div'>
           <div className='content-container'>
@@ -84,7 +86,7 @@ const EventUploadImage = () => {
           </div>
         </div>
         <div className='upload-image-save-div'>
-          <button style={{ marginBottom: '200px' }} className='upload-image-save-button' type='submit' onClick={onSave}>Save <i className="fa-solid fa-arrow-right"></i>
+          <button style={{ marginBottom: '200px', width: '270px' }} className='upload-image-save-button' type='submit' onClick={onSave}>Save / Continue<i className="fa-solid fa-arrow-right"></i>
           </button>
         </div>
       </div>

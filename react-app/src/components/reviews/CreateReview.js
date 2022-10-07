@@ -69,7 +69,7 @@ const CreateReviewForm = ({ eventId }) => {
 
 
     return (
-        <div style={{ margin: '12px', width: '440px', padding: '20px', border: '1px solid gray' }}>
+        <div style={{ margin: '8px', marginTop: '20px', width: '440px', padding: '20px', border: '1px solid gray' }}>
             <form onSubmit={handleSubmit} className="create-review-form">
                 <div>
                     <div>

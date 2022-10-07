@@ -1,3 +1,168 @@
+.eventphotos-content-container {
+    width: 1000px;
+    margin-left: 16rem;
+    margin-top: 100px;
+}
+
+.eventphotos-h1 {
+    color: #333;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 900;
+    line-height: 1.2em;
+    letter-spacing: -0.4;
+    padding-top: 10px;
+    margin-top: 30px;
+    padding-bottom: 6px;
+    margin-bottom: 6px;
+}
+
+.eventphotos-event-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 30px;
+}
+
+.enlarged-img {
+    border-radius: 5px;
+}
+
+#modal-content {
+    width: 550px;
+    height: 550px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#modal-content>#enlarged-photo-modal {
+    background-color: transparent;
+    width: 100%;
+    height: 550px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.eventphotos-event-img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(128, 128, 128, 0.342);
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.eventphotos-info-div {
+    padding-left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.eventphotos-rating-div {
+    display: flex;
+}
+
+
+.eventphotos-info-name {
+    font-size: 18px;
+    text-decoration: none;
+    color: black;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    transition: all 150ms ease-in-out;
+}
+
+.eventphotos-info-name:hover {
+    color: red;
+    text-decoration: none;
+}
+
+.eventphotos-info-name:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.eventphotos-reviews-ct {
+    font-size: 12px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #666;
+    padding-left: 5px;
+}
+
+.eventphotos-event-photo {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+}
+
+.eventphotos-images-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    gap: 10px;
+}
+
+.eventphotos-images-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 4px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.eventphotos-add-btn {
+    border: 1px solid #d32323;
+    background-color: #d32323;
+    width: 40px;
+    line-height: 1.3em;
+    font-size: 14px;
+    color: white;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding-top: 8px;
+    padding-bottom: 9px;
+    width: auto;
+    border-radius: 4px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-weight: 600;
+    transition: all 0.6s;
+}
+
+.eventphotos-add-btn:hover {
+    cursor: pointer;
+    background-color: #fd2e2e;
+}
+
+.uploadpg-imgs-div {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.upload-pg-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+}
+
+.uploadpg-img-delete-div {
+    position: relative;
+}
+
+.uploadpg-delete-pic-btn {
+    border: none;
+    background-color: transparent;
+    color: #333;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    cursor: pointer;
+}
+
 .event-detail-buttons {
     display: flex;
     justify-content: center;
@@ -97,8 +262,8 @@
 
 .event-detail-img {
     border: none;
-    width: 99.7%;
-    max-width: 99vw;
+    width: 426px;
+    max-width: 426px;
     overflow-x: hidden;
     height: 426px;
     backface-visibility: visible;
@@ -106,6 +271,22 @@
     width: 100%;
     opacity: 60%;
     color: rgb(219, 142, 0);
+}
+
+.ev-img {
+    width: 350px;
+    height: 100%;
+    background-size: cover;
+}
+
+.ev-img-container {
+    background-position: center center;
+}
+
+.images-container {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
 }
 
 .event-detail-name-div {
@@ -159,7 +340,6 @@
     margin-top: 10px;
     margin-right: 10px;
     margin-left: 8px;
-    margin-left: 16px;
 }
 
 .bottom-whitespace-div {
@@ -168,16 +348,19 @@
 
 .detail-review-div {
     width: 100%;
+    max-width: 482px;
     margin-top: 24px;
+    padding-left: 8px;
 }
 
-.session-links-div {
-    margin-left: 4px;
-}
+
 
 .rsvp-button-wrapper {
-    margin-left: auto;
-    margin-right: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-left: auto;
+    margin-right: 100%; */
 }
 
 .overall-rating-stars {
@@ -200,8 +383,8 @@
     overflow-x: hidden;
     width: 100vw;
     font-weight: 700;
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.194), transparent);
-    top: 142px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.531), transparent);
+    top: 86px;
     z-index: 3;
 }
 
@@ -228,8 +411,29 @@ svg {
     position: relative;
     width: 100vw;
     z-index: 0;
-    height: 45vh;
+    height: 326px;
     margin-top: 100px
+}
+
+.see-all-photos-btn {
+    border: 1px solid white;
+    border-radius: 4px;
+    background-color: transparent;
+    height: auto;
+    width: auto;
+    font-size: 17px;
+    font-family: 'Poppins', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding-top: 12px;
+    padding-right: 30px;
+    padding-left: 32px;
+    padding-bottom: 12px;
+    position: absolute;
+    z-index: 20;
+    top: 55px;
+    right: 12rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.6s;
 }
 
 .event-description-div {
