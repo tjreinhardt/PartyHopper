@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getEventDetailThunk, deleteEventThunk } from "../../store/event"
 import EditEventModal from "../modals/EditEventModal";
-import { useSpringCarousel } from 'react-spring-carousel';
 import NavBar from "../NavBar";
 import '../../styles/EventDetail.css'
 import GetReviews from "../reviews/ReviewList"
@@ -13,7 +12,9 @@ import { rsvpEventThunk } from "../../store/event";
 import { averageReviews, timeConversion, dateConversion, colors } from "../HelperFunctions/EventDetailHelp";
 import AllImages from "../images/AllImages";
 import { loadImages } from "../../store/image";
-import { useTransitionCarousel } from 'react-spring-carousel'
+import { NavLink } from "react-router-dom";
+// import { useTransitionCarousel } from 'react-spring-carousel'
+// import { Carousel } from 'react-responsive-carousel'
 
 
 
@@ -33,61 +34,6 @@ const EventDetail = () => {
   const reviewsList = Object.values(reviews)
 
   const rate = Array(5).fill(0)
-
-  const eventImages = Object.values(images)?.filter(image => {
-    return (image.eventId === Number(eventId));
-  });
-
-
-  console.log(eventImages, 'eventImages')
-
-  // const { carouselFragment,
-  //   slideToNextItem
-  // } = useTransitionCarousel({
-  //   withLoop: true,
-  //   items: eventImages.map((i) => ({
-  //     id: i.id,
-  //     renderItem: (
-  //       <div>
-  //         <img src={i.image_url} style={{ minHeight: '10vmax', width: '10vmax', maxWidth: '10vmax', height: '100%', backgroundColor: 'white' }}></img>
-  //       </div>
-  //     ),
-  //   })),
-  // });
-
-  // const [imgs, setImgs] = useState(eventImages)
-  // console.log(imgs, "eventImages")
-
-  // const {
-  //   carouselFragment,
-  //   slideToNextItem
-  // } = useSpringCarousel({
-  //   draggingSlideTreshold: 1,
-  //   withLoop: true,
-  //   items: imgs.map((i) => ({
-  //     id: i.id,
-  //     renderItem: (
-  //       <div className="image-card-wrapper">
-  //         <div className="image-cards" key={i}>
-  //           <div>
-  //             <img alt="" className="image-card" src={i.image_url}>
-  //             </img>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     ),
-  //   })),
-  // });
-
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     slideToNextItem();
-  //   }, 1000);
-  //   return () => {
-  //     window.clearInterval(timer);
-  //   };
-  // }, [slideToNextItem]);
 
   useEffect(() => {
     dispatch(getEventDetailThunk(eventId)).then(() => setEventIsLoaded(true));
@@ -140,18 +86,7 @@ const EventDetail = () => {
           <div className="image-header-content-block">
           </div>
           <div className="event-detail-image-wrapper" style={{ display: 'flex', flexDirection: 'row', overflowY: 'hidden' }}>
-            {/* <img alt='' className={'event-detail-image'}
-              onError={({ target }) => {
-                target.onError = null
-                target.src = "https://www.k1speed.com/wp-content/uploads/2021/07/christmas-holiday-party.jpeg"
-              }}
-              src={event?.imageUrl}></img> */}
-            {eventImages.map(image => (
-              <div className='event-detail-image' >
-                <img className='upload-pg-img' src={image.image_url} style={{ minHeight: '40vmin', width: '40vmin', maxWidth: '100vmin', height: '100%' }} />
-              </div>
-            ))}
-            {/* {carouselFragment} */}
+            <AllImages />
           </div>
         </div>
         <div className="overlay-content-on-image">
@@ -248,6 +183,14 @@ const EventDetail = () => {
                     <button className="detail-rsvp-button">Cancel RSVP</button>
                     :
                     <button className="detail-rsvp-button">RSVP</button>}
+                </div>
+                <div className="event-rsvp-buttons">
+                  <NavLink to={`/event_user_photos/${eventId}/upload`}>
+                    <button className='detail-rsvp-button'>
+                      {/* <i className="fa-solid fa-camera"></i> */}
+                      Add photo
+                    </button>
+                  </NavLink>
                 </div>
               </div>
             )}

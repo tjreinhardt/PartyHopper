@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadImages } from "../../store/image";
-// import '../events/event.css';
+import '../../styles/EventDetail.css';
 
 const AllImages = () => {
   const history = useHistory();
@@ -35,9 +35,9 @@ const AllImages = () => {
       </div>
       <div className="see-all-photos-div">
       </div>
-      {/* <NavLink to={`/ev_photos/${eventId}`}>
+      <NavLink to={`/ev_photos/${eventId}`}>
         <button className="see-all-photos-btn">See {evImages.length} Photos</button>
-      </NavLink> */}
+      </NavLink>
     </>
   )
 };

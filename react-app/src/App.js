@@ -20,7 +20,7 @@ import EventUploadImage from './components/events/EventUploadImage';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
-  const events = useSelector(state => state?.events)
+  const events = useSelector(state => state?.event)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -69,7 +69,7 @@ function App() {
           <ProtectedRoute path='/users/:userId' exact={true} >
             <User />
           </ProtectedRoute>
-          <Route path='/event_photos/:eventId' exact={true}>
+          <Route path='/ev_photos/:eventId' exact={true}>
             <EventPhotos events={events} />
           </Route>
           <ProtectedRoute path='/events/:eventId/new_review' exact={true}>

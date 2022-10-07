@@ -37,7 +37,7 @@ const HomePage = ({ eventId, showModal }) => {
               {i.title}
             </div>
             <div>
-              <img alt="" className="image-card" src={i.imageUrl}>
+              <img alt="" className="image-card" src={i.imageUrl} style={{ width: '100%', height: '100%' }}>
               </img>
             </div>
           </div>
@@ -89,7 +89,7 @@ const HomePage = ({ eventId, showModal }) => {
             eventsArr.map(event =>
               <div key={event} to={`/events/${event.id}`} className="event-card">
                 <NavLink className={'event-name-navlink'} to={`/events/${event.id}`}>
-                  <img className='event_image' src={evPhoto(event?.id)?.image_url} alt='' />
+                  <img className='event_image' src={evPhoto(event?.id)?.image_url} alt='' style={{ width: '100%', height: '100%' }} />
                 </NavLink>
                 <br></br>
                 <div className="name-description-reviews-homepage-wrapper">
