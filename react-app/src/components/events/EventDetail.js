@@ -75,7 +75,7 @@ const EventDetail = () => {
     items: eventImages.map((i) => ({
       id: i.id,
       renderItem: (
-        <div key={i.id}>
+        <div>
           <img src={i.image_url} style={{ minHeight: '10vmax', width: '10vmax', maxWidth: '10vmax', height: '100%', backgroundColor: 'white' }}></img>
         </div>
       ),
