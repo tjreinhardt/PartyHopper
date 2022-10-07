@@ -54,7 +54,7 @@ const EventUploadImage = () => {
   return (
     <>
       <div className='image-upload-container'>
-        <h1 className='image-upload-title'>Photos</h1>
+        <h1 className='image-upload-title'>Add Photos To Your Event</h1>
         <div className='upload-message-div' >
           <h3 className='image-upload-message-content'>Upload and manage photos</h3>
         </div>
