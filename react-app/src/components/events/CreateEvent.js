@@ -213,7 +213,7 @@ const CreateEventForm = ({ lat, lng }) => {
 
         </div>
         <div className="bottom-button">
-          <button type="submit" className="share-button">Share</button>
+          <button type="submit" className="share-button">Continue</button>
           <br />
         </div>
         <ul className="errors-list">
