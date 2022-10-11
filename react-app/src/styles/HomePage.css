@@ -50,6 +50,8 @@
 
 
 
+
+
 .carousel-content-div {
     height: 682px;
     overflow-x: hidden;
@@ -88,13 +90,13 @@
 }
 
 .welcome-user-home {
-    transition: all 0.6s ease-in-out;
+    transition: all auto ease-in-out;
     background: linear-gradient(to top, black, transparent);
     width: 100%;
     z-index: 1;
     text-transform: capitalize;
     position: absolute;
-    top: 582px;
+    top: 53vmin;
     color: white;
     font-size: 72px;
     font-weight: 700;
@@ -106,10 +108,14 @@
 .event-message {
     font-size: 20px;
     display: flex;
+    z-index: 300;
+    position: absolute;
+    background-color: white;
+    width: 100vw;
     justify-content: center;
     align-items: center;
     text-align: center;
-    transition: all 0.6s ease-in-out;
+    transition: all 0.6s ease;
 
 }
 
@@ -168,9 +174,14 @@
 
 .page-content-wrapper {
     display: flex;
+    width: 100vw;
+    background-color: white;
+    position: absolute;
+    z-index: 299;
     justify-content: center;
     margin-bottom: 100px;
-    transition: all 0.6s ease-in-out;
+    /* transition: all 0.6s ease-in-out; */
+    padding-top: 100px;
 }
 
 .image-cards {
@@ -212,8 +223,11 @@
     }
 
     .welcome-user-home {
-        top: 182px;
-
+        height: inherit;
+        transition: all 0.6s ease;
+        top: 80vmin;
+        font-size: 36px;
+        color: transparent;
     }
 
     .content-wrapper {
@@ -232,6 +246,7 @@
         height: 100%;
         min-height: 100vmin;
         width: 100vmin;
+        transition: all 0.6s ease-in-out;
     }
 
     .image-card-wrapper {
@@ -283,16 +298,21 @@
 @media only screen and (min-width:580px) and (max-width:1200px) {
 
     .welcome-user-home {
-        top: auto;
+        top: 40vmin;
+        padding-bottom: 200px;
+        transition: all 0.6s ease-in;
+        font-size: 50px;
     }
 
     .event-message {
         /* margin-top: -2vh; */
         font-size: 18px;
+        transition: all 0.7s ease;
     }
 
     .content-wrapper {
         grid-template-columns: 1fr;
+        /* padding-left: 5vw; */
     }
 
     .carousel-content-div {
@@ -309,7 +329,7 @@
         width: 80vw;
         max-width: 80vw;
         min-height: 18vh;
-        transition: all 0.6s ease-in-out;
+        /* transition: all 0.4s ease-in-out; */
     }
 
 
@@ -328,7 +348,7 @@
         min-width: 100vw;
         height: 100%;
         bottom: '60px';
-        /* transition: none; */
+        transition: all 0.6s ease;
     }
 
     .image-card-wrapper {
