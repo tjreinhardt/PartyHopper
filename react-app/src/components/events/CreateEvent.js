@@ -78,16 +78,6 @@ const CreateEventForm = ({ lat, lng }) => {
         lng
       };
 
-      // dispatch(createEventThunk(newEvent))
-      //   .then(
-      //     async (res) => {
-      //       if (res.errors) {
-      //         setErrors(res.errors)
-      //       }
-      //       else {
-      //         history.push(`/event_user_photos/${newEvent.id}/upload`);
-      //       }
-      //     })
       const createdEvent = await dispatch(createEventThunk(newEvent));
       if (createdEvent) {
         // reset();
