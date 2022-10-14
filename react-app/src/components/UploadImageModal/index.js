@@ -86,20 +86,21 @@ function UploadImageModal() {
                   </ul>
                 )}
               </div>
-              <div className='attach-photos-container'>
-                <h2 className='select-your-photos'>Add Photo</h2>
+              <div className='attach-photos-container' style={{ display: "flex", justifyContent: 'center', alignItems: 'center' }}>
+                <h2 className='select-your-photos' style={{ marginLeft: '12px' }}>Add Photo</h2>
                 <input
                   className='choose-file-btn'
                   type="file"
                   accept="image/*"
                   onChange={updateImage}
+                  style={{ margin: '20px' }}
                 />
               </div>
+              {!validationErrors.length && imageLoading && <img className='loading-pic' style={{ height: '50px', width: '50px', marginLeft: '20px' }} src={"https://media4.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif?cid=790b7611af1a457ad0c32d64f1aefccfb38f5f6d2e80f83f&rid=giphy.gif"}></img>}
               <div className='cancel-submit-pic-div'>
-                <button className='cancel-upload-image-btn' type='button' onClick={() => setShowModal(false)}>Cancel</button>
-                <button className='upload-image-btn' type='submit'>Attach</button>
+                <button className='cancel-upload-image-btn' style={{ width: '50%', borderRadius: '0px', border: '1px solid black', borderBottomLeftRadius: '4px' }} type='button' onClick={() => setShowModal(false)}>Cancel</button>
+                <button className='upload-image-btn' style={{ width: '50%', borderRadius: '0px', border: '1px solid black', borderBottomRightRadius: '4px', borderLeft: 'none' }} type='submit'>Attach</button>
               </div>
-              {!validationErrors.length && imageLoading && <img className='loading-pic' style={{ height: '50px', width: '50px' }} src={"https://media4.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif?cid=790b7611af1a457ad0c32d64f1aefccfb38f5f6d2e80f83f&rid=giphy.gif"}></img>}
             </form>
           </div>
         </Modal>
