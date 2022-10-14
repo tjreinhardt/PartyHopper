@@ -22,6 +22,15 @@
   border-radius: 4px;
 }
 
+#create-home-button-nav {
+  background-color: rgba(225, 207, 207, 0.131);
+  transition: all 180ms ease-in-out;
+}
+
+#create-home-button-nav:hover {
+  background-color: #d323239b;
+}
+
 .footer {
   max-width: 100vw;
 }

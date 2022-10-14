@@ -27,9 +27,9 @@ const NavBar = () => {
         </NavLink>
         {user && (
           <>
-            <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
+            {/* <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
               <button className='navbar-buttons'>Home</button>
-            </NavLink>
+            </NavLink> */}
             <NavLink id={'create-nav-button-id'} className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink>
             <NavLink className={'navlinks'} to="/explore"><button className="navbar-buttons">Explore</button></NavLink>
             <div className={'navlinks'}>

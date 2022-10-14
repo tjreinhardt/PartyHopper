@@ -124,7 +124,7 @@ export default function MapGL2() {
           {user && (
             <>
               <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
-                <button className='navbar-buttons' style={{ width: '100vw', height: '60px', padding: '0px', margin: '0px', borderTopRightRadius: '0px', borderTopLeftRadius: '0px' }}>Home</button>
+                <button id={'create-home-button-nav'} className='navbar-buttons' style={{ width: '100vw', height: '60px', padding: '0px', margin: '0px', borderTopRightRadius: '0px', borderTopLeftRadius: '0px' }}>Home</button>
               </NavLink>
               {/* <NavLink id={'create-nav-button-id'} className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink> */}
               {/* <div className={'navlinks'}>
