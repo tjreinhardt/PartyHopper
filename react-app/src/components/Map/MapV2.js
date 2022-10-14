@@ -14,6 +14,8 @@ import NavBar from '../NavBar';
 import { rsvpEventThunk } from "../../store/event";
 import { NavLink } from 'react-router-dom';
 import { loadImages } from '../../store/image';
+import CreateEventModal from '../modals/CreateEventModal';
+import { logout } from '../../store/session';
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU1dzQwZGZobCJ9.f93BsV65IIUxtBJkbiiqXg'; // Set your mapbox token here
 
@@ -21,13 +23,14 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU
 export default function MapGL2() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user)
+  const [createModal, setCreateModal] = useState(false);
   const [viewState, setViewState] = React.useState({
     longitude: -100,
     latitude: 40,
     zoom: 3.5
   });
   const { eventId } = useParams();
-  const { rsvpStatus } = useParams();
   const mapRef = React.useRef()
   const [popupInfo, setPopupInfo] = useState(null);
   const [projectionState, setProjectionState] = useState('globe')
@@ -40,7 +43,10 @@ export default function MapGL2() {
 
   const imgs = useSelector(state => state?.images)
   const imagesArr = imgs ? Object.values(imgs) : null;
-
+  const onLogout = async (e) => {
+    await dispatch(logout());
+    history.push('/')
+  };
   const evPhoto = (id) => {
     return imagesArr.filter(image => image.eventId === id)[0];
   }
@@ -53,14 +59,10 @@ export default function MapGL2() {
           longitude={event.lng}
           latitude={event.lat}
           anchor="bottom"
-
-          // draggable={true}
-
           onClick={e => {
             e.originalEvent.stopPropagation();
             setPopupInfo({ ...event })
-          }}
-        >
+          }}>
           <Pin />
         </Marker>
       )),
@@ -91,14 +93,6 @@ export default function MapGL2() {
   }
 
 
-  const handleRsvps = async (eventId) => {
-    setPopupInfo(null)
-    dispatch(rsvpEventThunk(eventId))
-    window.alert("RSVP updated, taking you to event details!")
-    history.push(`/events/${eventId}`)
-  }
-
-
   let showButton = false
   if (eventIsLoaded && event && (session.id === event.userId)) {
     showButton = true
@@ -123,7 +117,36 @@ export default function MapGL2() {
         overflowY: "hidden"
       }}
     >
-      <NavBar />
+      <nav className='navbar-nav'>
+        <div className='nav-outer-wrapper'>
+          <NavLink className="nav-partyhopper-logo" to={'/'}>PartyHopper
+          </NavLink>
+          {user && (
+            <>
+              <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
+                <button className='navbar-buttons'>Home</button>
+              </NavLink>
+              <NavLink id={'create-nav-button-id'} className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink>
+              <div className={'navlinks'}>
+                <button id={"logout-butt"} className={'navbar-buttons'} onClick={onLogout}>Logout</button>
+              </div>
+              {createModal && <CreateEventModal setShowModal={setCreateModal} />}
+            </>
+
+          )}
+          {!user && (
+            <>
+              <NavLink to='/login' exact={true} activeClassName='active'>
+                <button className='navbar-buttons'>Log In</button>
+              </NavLink>
+              <NavLink to='/sign-up' exact={true} activeClassName='active'>
+                <button className='nav-signup-button-red'>Sign Up</button>
+              </NavLink>
+
+            </>
+          )}
+        </div>
+      </nav >
       <div>
         <div>
           <Map

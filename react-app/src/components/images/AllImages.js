@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory, useParams, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadImages } from "../../store/image";
@@ -29,7 +29,6 @@ const AllImages = () => {
         {evImages && evImages.map((image, idx) => (
           <div className="ev-img-container" key={idx}>
             <div className="ev-img" style={{ backgroundImage: `linear-gradient(180deg,#0000 31.42%,#000), url(${image.image_url})` }}></div>
-            {/* <img src={image.image_url} style={{width: 500, height: 350 }} /> */}
           </div>
         ))}
       </div>

@@ -43,7 +43,6 @@
 }
 
 .mapboxgl-map {
-  /* height: 100%; */
   width: 100vw !important;
   margin-top: -10px !important;
   overflow-y: hidden !important;

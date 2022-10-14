@@ -30,14 +30,11 @@ const NavBar = () => {
             <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
               <button className='navbar-buttons'>Home</button>
             </NavLink>
-            <NavLink className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink>
+            <NavLink id={'create-nav-button-id'} className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink>
             <NavLink className={'navlinks'} to="/explore"><button className="navbar-buttons">Explore</button></NavLink>
             <div className={'navlinks'}>
               <button id={"logout-butt"} className={'navbar-buttons'} onClick={onLogout}>Logout</button>
             </div>
-            {/* <div onClick={() => setCreateModal(true)}>
-              <button className='nav-buttons'>Create Event</button>
-            </div> */}
             {createModal && <CreateEventModal setShowModal={setCreateModal} />}
           </>
 

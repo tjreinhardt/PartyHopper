@@ -1,20 +1,22 @@
 import * as React from 'react';
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import Pin from './Pin'
 import { GeolocateControl, NavigationControl } from 'react-map-gl';
 import './Map.css'
 import { useSelector } from 'react-redux';
 import { getAllEventsThunk } from '../../store/event';
+import { useHistory } from 'react-router-dom';
 import Geocoder from './Geocoder';
 import NavBar from '../NavBar';
 import { rsvpEventThunk } from "../../store/event";
+import CreateEventModal from '../modals/CreateEventModal';
 import { NavLink } from 'react-router-dom';
 import CreateEventForm from '../events/CreateEvent';
+import { logout } from '../../store/session';
 
 
 const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU1dzQwZGZobCJ9.f93BsV65IIUxtBJkbiiqXg'; // Set your mapbox token here
@@ -22,23 +24,29 @@ const MAPBOX_TOKEN = 'pk.eyJ1IjoidGpyZWluaGFyZHQiLCJhIjoiY2w4MHJyMzI1MDh6bDN2cnU
 
 export default function MapGL() {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useHistory()
+  const [createModal, setCreateModal] = useState(false);
   const [viewState, setViewState] = React.useState({
     longitude: -100,
     latitude: 40,
     zoom: 3.5
   });
   const { eventId } = useParams();
+  const user = useSelector(state => state.session.user)
   const mapRef = React.useRef()
   const [popupInfo, setPopupInfo] = useState(null);
   const [newLocation, setNewLocation] = useState(null);
-  const eventsList = useSelector(state => state.event);
   const session = useSelector(state => state.session.user);
   const [eventIsLoaded, setEventIsLoaded] = useState(false);
   const [latt, setLatt] = useState(null)
   const [long, setLong] = useState(null)
   const [newIdea, setNewIdea] = useState(null)
   const event = useSelector(state => state.event[eventId]);
+
+  const onLogout = async (e) => {
+    await dispatch(logout());
+    history.push('/')
+  };
 
   const handleViewportChange = useCallback(
     (newViewState) => setViewState(newViewState),
@@ -88,7 +96,35 @@ export default function MapGL() {
 
   return (
     <>
-      <NavBar />
+      <nav className='navbar-nav'>
+        <div className='nav-outer-wrapper'>
+          <NavLink className="nav-partyhopper-logo" to={'/'}>PartyHopper
+          </NavLink>
+          {user && (
+            <>
+              <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
+                <button className='navbar-buttons'>Home</button>
+              </NavLink>
+              <div className={'navlinks'}>
+                <button id={"logout-butt"} className={'navbar-buttons'} onClick={onLogout}>Logout</button>
+              </div>
+              {createModal && <CreateEventModal setShowModal={setCreateModal} />}
+            </>
+
+          )}
+          {!user && (
+            <>
+              <NavLink to='/login' exact={true} activeClassName='active'>
+                <button className='navbar-buttons'>Log In</button>
+              </NavLink>
+              <NavLink to='/sign-up' exact={true} activeClassName='active'>
+                <button className='nav-signup-button-red'>Sign Up</button>
+              </NavLink>
+
+            </>
+          )}
+        </div>
+      </nav >
       <div >
         <div style={{ overflowY: 'scroll' }}>
           <Map
@@ -112,7 +148,6 @@ export default function MapGL() {
               backgroundImage: `url(https://wallpaperaccess.com/full/2401680.jpg)`,
               backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat'
-              // width: '100vw',
             }}
 
             mapStyle="mapbox://styles/mapbox/satellite-streets-v11"

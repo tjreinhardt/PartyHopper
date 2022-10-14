@@ -5,19 +5,14 @@ import { createEventThunk } from "../../store/event";
 import 'react-modern-calendar-datepicker/lib/DatePicker.css';
 import "react-datepicker/dist/react-datepicker.css";
 import '../../styles/CreateEvent.css'
-// import { startDateConversion, dateEquality, getTodaysDate } from "../HelperFunctions/CreateEventHelp";
 import { isPast, isEqual } from "date-fns";
-import UploadImageModal from '../UploadImageModal';
-import { useParams } from "react-router-dom";
 
 
 const CreateEventForm = ({ lat, lng }) => {
   const dispatch = useDispatch();
-  const { eventId } = useParams();
   const history = useHistory();
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
-  // const [imageUrl, setImageUrl] = useState("")
   const [eventType, setEventType] = useState("")
   const [entertainment, setEntertainment] = useState("")
   const [startDate, setStartDate] = useState("")
@@ -31,9 +26,6 @@ const CreateEventForm = ({ lat, lng }) => {
     let month = parts[1] - 1
     let day = parts[2]
     day = Number(day) + 1
-    // console.log(year)
-    // console.log(month)
-    // console.log(day)
     const result = isPast(new Date(year, month, day))
     return result
   }
@@ -43,7 +35,6 @@ const CreateEventForm = ({ lat, lng }) => {
     let year = parts[0]
     let month = parts[1] - 1
     let day = parts[2]
-    // console.log(day, 'day')
     const result = isEqual(startDate, new Date(year, month, day))
     return result
   }
@@ -68,7 +59,6 @@ const CreateEventForm = ({ lat, lng }) => {
       const newEvent = {
         name,
         description,
-        // imageUrl,
         eventType,
         entertainment,
         startDate,
@@ -80,8 +70,6 @@ const CreateEventForm = ({ lat, lng }) => {
 
       const createdEvent = await dispatch(createEventThunk(newEvent));
       if (createdEvent) {
-        // reset();
-        // setHasSubmitted(false);
         history.push(`/event_user_photos/${createdEvent.id}/upload`);
       };
     }
