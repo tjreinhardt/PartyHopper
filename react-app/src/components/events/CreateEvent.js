@@ -96,8 +96,7 @@ const CreateEventForm = ({ lat, lng }) => {
       <h2 className="create-event-label">Create Event</h2>
       <h4 className="steps-label">Steps:</h4>
       <ol className="create-directions-list">
-        <li className="steps-list-item">Use the map tool to find the location for your event</li>
-        <li className="steps-list-item">Double click to create a map marker for your event</li>
+        <li className="steps-list-item">Double click on the map to create a pin for your event</li>
         <li className="steps-list-item">Fill out the rest of the form fields</li>
         <li className="steps-list-item">Start Partying!</li>
       </ol>
@@ -148,7 +147,7 @@ const CreateEventForm = ({ lat, lng }) => {
             <input className="event-input"
               type={'text'}
               value={repeats}
-              placeholder={'How often does this event happen?'}
+              placeholder={'Recurring event? (Optional)'}
               onChange={e => setRepeats(e.target.value)}
             />
           </div>

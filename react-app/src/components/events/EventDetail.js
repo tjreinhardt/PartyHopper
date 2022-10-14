@@ -135,11 +135,31 @@ const EventDetail = () => {
         </div>
       </div>
       <div className="detail-button-wrapper">
+        {!showButton && (
+          <div className="rsvp-button-wrapper" style={{ marginRight: '155px' }}>
+            <div className="event-rsvp-buttons"
+              onClick={() => handleRsvps(event.id)}>
+              {event.rsvpStatus === 1 ?
+                <button className="detail-rsvp-button">Cancel RSVP</button>
+                :
+                <button className="detail-rsvp-button">RSVP</button>}
+            </div>
+            <div className="event-rsvp-buttons">
+              <NavLink to={`/event_user_photos/${eventId}/upload`}>
+                <button className='detail-rsvp-button'>
+                  <i className="fa-solid fa-camera"></i>
+                  Add photo
+                </button>
+              </NavLink>
+            </div>
+          </div>
+        )}
         {showButton && (
           <div className="event-detail-buttons">
             <button
               className="detail-edit-button-style"
-              onClick={() => setEditModal(true)}>
+              onClick={() => setEditModal(true)}
+              style={{ marginLeft: '24px' }}>
               Edit Event
             </button>
             <button
@@ -165,14 +185,14 @@ const EventDetail = () => {
           <div className="detail-body-innermost-wrapper">
             <div className={"event-start-date-div"}
             >
-              <span className="event-date-label">
+              <span className="event-date-label" style={{ marginRight: '6px' }}>
                 Event Date:
               </span>
               {dateConversion(event.startDate)}
             </div>
             <div className={"event-start-time-div"}
             >
-              <span className="event-time-label">
+              <span className="event-time-label" style={{ marginRight: '6px' }}>
                 Starts At:
               </span>
               {timeConversion(event.startTime)}
@@ -181,28 +201,9 @@ const EventDetail = () => {
             ><span className="details-label">
                 Details:
               </span>
-              <br />
+              <div style={{ marginTop: '12px' }} />
               {event.description}
             </div>
-            {!showButton && (
-              <div className="rsvp-button-wrapper">
-                <div className="event-rsvp-buttons"
-                  onClick={() => handleRsvps(event.id)}>
-                  {event.rsvpStatus === 1 ?
-                    <button className="detail-rsvp-button">Cancel RSVP</button>
-                    :
-                    <button className="detail-rsvp-button">RSVP</button>}
-                </div>
-                <div className="event-rsvp-buttons">
-                  <NavLink to={`/event_user_photos/${eventId}/upload`}>
-                    <button className='detail-rsvp-button'>
-                      <i className="fa-solid fa-camera"></i>
-                      Add photo
-                    </button>
-                  </NavLink>
-                </div>
-              </div>
-            )}
             <div className="session-links-div">
               {session.id !== event.userId && sessionLinks}
             </div>

@@ -7,18 +7,20 @@ create-event-form-form {
 .create-event-form-wrap2 {
     position: relative;
     border-right: 1px solid black;
+    border-bottom: 1px solid black;
     padding-left: 20px;
     background-color: white;
     border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
     margin-bottom: 61px;
-    height: 100vh;
+    height: 86vh;
     min-width: 300px;
     max-width: 300px;
     left: 0px;
-    margin-top: 100px;
-    transition: all 300ms ease-in-out;
+    margin-top: 60px;
     width: 20%;
     border-top: 1px solid gray;
+    transition: all 300ms ease-in-out;
 }
 
 .create-directions-list {
@@ -104,7 +106,8 @@ button {
 .mapboxgl-map {
     margin-left: 110px !important;
     width: 96vw !important;
-    border: 5px solid black !important;
+    border: none !important;
+    border-bottom: 10px solid black !important;
 }
 
 
@@ -135,8 +138,8 @@ select {
         bottom: 61px;
         margin-bottom: 50px;
         margin-top: 70vh;
-        height: 40%;
-        min-width: 100vw;
+        /* height: 40%; */
+        min-width: 91vw;
         /* min-width: 350px; */
         /* overflow-y: scroll; */
         overflow-x: hidden;
@@ -152,7 +155,9 @@ select {
     }
 
 
-
+    .mapboxgl-ctrl-geocoder--input {
+        min-width: 220px;
+    }
 
 
     .mapboxgl-ctrl-geocoder--icon-search {

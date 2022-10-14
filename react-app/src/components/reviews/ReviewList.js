@@ -84,7 +84,7 @@ const GetReviews = ({ eventId }) => {
     } else if (reviewsList.length) {
         reviewTitle = (
             <div>
-                <h2 style={{ marginLeft: '8px', fontWeight: '600' }}>Recommended Reviews</h2>
+                <h2 style={{ marginLeft: '120px', fontWeight: '600' }}>Recommended Reviews</h2>
             </div>
         )
     }

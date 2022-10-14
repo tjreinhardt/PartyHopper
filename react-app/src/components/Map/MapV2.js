@@ -117,19 +117,19 @@ export default function MapGL2() {
         overflowY: "hidden"
       }}
     >
-      <nav className='navbar-nav'>
-        <div className='nav-outer-wrapper'>
-          <NavLink className="nav-partyhopper-logo" to={'/'}>PartyHopper
-          </NavLink>
+      <nav className='navbar-nav' style={{ padding: '0px' }}>
+        <div className='nav-outer-wrapper' style={{ margin: '0px', padding: '0px' }}>
+          {/* <NavLink className="nav-partyhopper-logo" to={'/'}>PartyHopper
+          </NavLink> */}
           {user && (
             <>
               <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
-                <button className='navbar-buttons'>Home</button>
+                <button className='navbar-buttons' style={{ width: '100vw', height: '60px', padding: '0px', margin: '0px', borderTopRightRadius: '0px', borderTopLeftRadius: '0px' }}>Home</button>
               </NavLink>
-              <NavLink id={'create-nav-button-id'} className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink>
-              <div className={'navlinks'}>
-                <button id={"logout-butt"} className={'navbar-buttons'} onClick={onLogout}>Logout</button>
-              </div>
+              {/* <NavLink id={'create-nav-button-id'} className={'navlinks'} to="/map"><button className="navbar-buttons">Create</button></NavLink> */}
+              {/* <div className={'navlinks'}>
+                <button id={"logout-butt"} className={'navbar-buttons'} onClick={onLogout} style={{ width: '50vw', height: '100px', padding: '0px', margin: '0px' }}>Logout</button>
+              </div> */}
               {createModal && <CreateEventModal setShowModal={setCreateModal} />}
             </>
 
