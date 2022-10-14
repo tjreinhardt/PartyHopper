@@ -107,3 +107,8 @@
 .footer-div {
   display: none;
 }
+
+.mapboxgl-ctrl-geocoder--button {
+  height: 20px;
+  width: 20px;
+}
