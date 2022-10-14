@@ -73,6 +73,10 @@ const EventUploadImage = () => {
               )}
             </div>
             <UploadImageModal />
+            <div className='upload-image-save-div' style={{ display: 'flex', justifyContent: 'center' }}>
+              <button style={{ marginBottom: '36px', width: '270px' }} className='upload-image-save-button' type='submit' onClick={onSave}>Save / Continue<i className="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
             <div className='image-uploads-div'>
               {eventImages.map(image => (
                 <div className='delete-div'>
@@ -84,10 +88,6 @@ const EventUploadImage = () => {
               ))}
             </div>
           </div>
-        </div>
-        <div className='upload-image-save-div'>
-          <button style={{ marginBottom: '200px', width: '270px' }} className='upload-image-save-button' type='submit' onClick={onSave}>Save / Continue<i className="fa-solid fa-arrow-right"></i>
-          </button>
         </div>
       </div>
     </>
