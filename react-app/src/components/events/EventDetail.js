@@ -85,7 +85,7 @@ const EventDetail = () => {
         <div className="image-header-block">
           <div className="image-header-content-block">
           </div>
-          <div className="event-detail-image-wrapper" style={{ display: 'flex', flexDirection: 'row', overflowY: 'hidden' }}>
+          <div className="event-detail-image-wrapper" style={{ display: 'flex', flexDirection: 'row', overflowY: 'hidden', maxHeight: '292px' }}>
             <AllImages />
           </div>
         </div>

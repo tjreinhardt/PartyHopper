@@ -71,7 +71,7 @@ const EventPhotos = () => {
                 {showModal && (
                   <Modal onClose={() => setShowModal(false)}>
                     <div id="enlarged-photo-modal">
-                      <img className="enlarged-img" src={evImages[selected].image_url} style={{ width: '550px', height: '550px' }} />
+                      <img className="enlarged-img" src={evImages[selected].image_url} style={{ width: 'auto', height: '550px' }} />
                     </div>
                   </Modal>
                 )}
