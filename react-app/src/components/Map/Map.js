@@ -135,6 +135,7 @@ export default function MapGL() {
             onMove={evt => setViewState(evt.viewState)}
             onViewportChange={handleViewportChange}
             onDblClick={handleAddClick}
+            projection="globe"
             style={{
               zIndex: '0',
               position: "absolute",
@@ -150,7 +151,7 @@ export default function MapGL() {
               backgroundRepeat: 'no-repeat'
             }}
 
-            mapStyle="mapbox://styles/mapbox/satellite-streets-v11"
+            mapStyle="mapbox://styles/tjreinhardt/cl98pst0m000f14rwx68mhs81"
             mapboxAccessToken={MAPBOX_TOKEN}
           >
             {newIdea && (
