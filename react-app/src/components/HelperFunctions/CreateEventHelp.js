@@ -1,4 +1,4 @@
-import { isFuture, isPast, isEqual } from "date-fns";
+import { isPast, isEqual } from "date-fns";
 
 export const startDateConversion = (startDate) => {
   let parts = startDate.split('-')

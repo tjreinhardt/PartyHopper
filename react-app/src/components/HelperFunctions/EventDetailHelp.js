@@ -18,7 +18,6 @@ export const averageReviews = (reviewsList) => {
 
 export const timeConversion = (startTime) => {
   let parts = startTime.split(":")
-  console.log(parts[0], "parts[0]")
   if (parts[0] === '00') {
     return `${(Number(parts[0])) + 12}:${parts[1]} AM`
   }
