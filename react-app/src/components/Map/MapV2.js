@@ -170,7 +170,7 @@ export default function MapGL2() {
               backgroundRepeat: 'no-repeat'
             }}
 
-            mapStyle="mapbox://styles/tjreinhardt/cl8w4la05000315rr8fnx5ciy"
+            mapStyle="mapbox://styles/tjreinhardt/cl981gktd000314o9iyoylhe0"
             projection="globe"
             mapboxAccessToken={MAPBOX_TOKEN}
           >
