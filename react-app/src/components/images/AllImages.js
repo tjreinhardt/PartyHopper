@@ -21,14 +21,14 @@ const AllImages = () => {
     return image.eventId === Number(eventId);
   })
 
-  console.log('evimages', evImages)
+  // console.log('evimages', evImages)
 
   return (
     <>
-      <div className="images-container">
+      <div className="images-container" style={{ maxHeight: '292px' }}>
         {evImages && evImages.map((image, idx) => (
-          <div className="ev-img-container" key={idx}>
-            <div className="ev-img" style={{ backgroundImage: `linear-gradient(180deg,#0000 31.42%,#000), url(${image.image_url})` }}></div>
+          <div className="ev-img-container" key={idx} style={{ maxHeight: '292px' }}>
+            <div className="ev-img" style={{ backgroundImage: `linear-gradient(180deg,#0000 31.42%,#000), url(${image.image_url})`, maxHeight: '292px' }}></div>
           </div>
         ))}
       </div>
