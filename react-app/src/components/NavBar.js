@@ -27,6 +27,9 @@ const NavBar = () => {
         </NavLink>
         {user && (
           <>
+            <NavLink to='/' exact={true} activeClassName='active'>
+              <button className='navbar-buttons'>Home</button>
+            </NavLink>
             {/* <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
               <button className='navbar-buttons'>Home</button>
             </NavLink> */}
@@ -41,13 +44,15 @@ const NavBar = () => {
         )}
         {!user && (
           <>
+            <NavLink to='/' exact={true} activeClassName='active'>
+              <button className='navbar-buttons'>Home</button>
+            </NavLink>
             <NavLink to='/login' exact={true} activeClassName='active'>
               <button className='navbar-buttons'>Log In</button>
             </NavLink>
             <NavLink to='/sign-up' exact={true} activeClassName='active'>
               <button className='nav-signup-button-red'>Sign Up</button>
             </NavLink>
-
           </>
         )}
 

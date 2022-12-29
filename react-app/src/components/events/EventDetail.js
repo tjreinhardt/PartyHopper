@@ -136,7 +136,7 @@ const EventDetail = () => {
       </div>
       <div className="detail-button-wrapper">
         {!showButton && (
-          <div className="rsvp-button-wrapper" style={{ marginRight: '155px' }}>
+          <div className="rsvp-button-wrapper" style={{ display: 'flex', flexDirection: 'row-wrap', flexWrap: 'wrap', justifyContent: 'flex-start', maxWidth: '100vw', minWidth: '400px' }}>
             <div className="event-rsvp-buttons"
               onClick={() => handleRsvps(event.id)}>
               {event.rsvpStatus === 1 ?

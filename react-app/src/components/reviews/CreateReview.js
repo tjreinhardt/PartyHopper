@@ -69,12 +69,12 @@ const CreateReviewForm = ({ eventId }) => {
 
 
     return (
-        <div style={{ margin: '8px', marginTop: '20px', width: '440px', padding: '20px', border: '1px solid gray' }}>
+        <div style={{ margin: '8px', marginTop: '20px', maxWidth: '440px', padding: '20px', border: '1px solid gray' }}>
             <form onSubmit={handleSubmit} className="create-review-form">
                 <div>
                     <div>
                         <div className='star-chart-wrapper'>
-                            <div className='star-chart-inner-div' style={{ display: 'flex' }}>
+                            <div className='star-chart-inner-div' style={{ display: 'flex', justifyContent: 'center' }}>
                                 {rate.map((_, i) => {
                                     const input = i + 1;
                                     return (
@@ -100,15 +100,16 @@ const CreateReviewForm = ({ eventId }) => {
                     </div>
                     <input
                         type={'textarea'}
-                        style={{ fontSize: '16px', maxWidth: '400px', width: '400px', marginTop: '6px', height: '30px' }}
+                        style={{ fontSize: '14px', maxWidth: '389px', marginTop: '6px', height: '30px', paddingRight: '-10px', marginRight: '0px', width: '400px' }}
                         value={comment}
-                        placeholder="Please let us know about your experience"
+                        placeholder="My experience.."
                         onChange={e => setComment(e.target.value)}
                     />
                 </div>
                 <div>
                     <button type="submit" className="login-button" style={{
-                        width: '420px',
+                        maxWidth: '409px',
+                        width: '100%',
                         height: '35px',
                         marginBottom: '12px'
                     }}>Post</button>
