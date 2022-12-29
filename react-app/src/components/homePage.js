@@ -8,6 +8,7 @@ import '../styles/HomePage.css'
 import { getReviewsThunk } from "../store/review";
 import { images, stringShorten, nameShorten } from "./HelperFunctions/HomePageHelp";
 import { loadImages } from "../store/image";
+import Footer from './Footer'
 
 const HomePage = ({ eventId, showModal }) => {
   const dispatch = useDispatch()

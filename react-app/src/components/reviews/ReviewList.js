@@ -6,6 +6,7 @@ import { Modal } from "../../context/Modal";
 import "../../styles/ReviewsList.css"
 import { useHistory } from "react-router-dom";
 import { FaStar } from 'react-icons/fa'
+import Footer from "../Footer";
 
 
 

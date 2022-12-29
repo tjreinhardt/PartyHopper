@@ -7,10 +7,10 @@
   width: 100%;
   height: 60px;
   margin-top: 20px;
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
   border-top: 1px solid rgba(157, 157, 157, 0.752);
-  z-index: 3;
+  z-index: 600;
 
 }
 
