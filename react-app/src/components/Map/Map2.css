@@ -119,9 +119,14 @@
 .create-event-form-wrap {
   display: flex;
   justify-content: flex-start;
+  opacity: 70%;
   width: 20vw;
   position: relative;
   transition: all 150ms ease-in-out;
+}
+
+.create-event-form-wrap:hover {
+  opacity: 100%;
 }
 
 .mapboxgl-popup-content {

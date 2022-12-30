@@ -6,6 +6,7 @@ import { Modal } from "../../context/Modal";
 import "../../styles/ReviewsList.css"
 import { useHistory } from "react-router-dom";
 import { FaStar } from 'react-icons/fa'
+import Footer from "../Footer";
 
 
 
@@ -84,7 +85,7 @@ const GetReviews = ({ eventId }) => {
     } else if (reviewsList.length) {
         reviewTitle = (
             <div>
-                <h2 style={{ marginLeft: '120px', fontWeight: '600' }}>Recommended Reviews</h2>
+                <h2 style={{ marginLeft: '0px', maxWidth: '100%', width: '400px', fontWeight: '600' }}>Recommended Reviews</h2>
             </div>
         )
     }
@@ -126,7 +127,7 @@ const GetReviews = ({ eventId }) => {
             {reviewsList.map((review) =>
             (
                 <div id={review.id} onMouseOver={handleOnMouseOver} key={review.id} className="review-list-review-container">
-                    <div className="review-list-username-content">
+                    <div className="review-list-username-content" style={{ maxWidth: '85vw' }}>
                         <div style={{
                             fontSize: '20px',
                             marginBottom: '2px'

@@ -3,6 +3,7 @@
 html {
   font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
   width: 100vw;
+
 }
 
 input {
@@ -38,4 +39,5 @@ body {
   padding: 0px;
   margin: 0px;
   width: 100vw;
+
 }

@@ -13,6 +13,7 @@ import { averageReviews, timeConversion, dateConversion, colors } from "../Helpe
 import AllImages from "../images/AllImages";
 import { loadImages } from "../../store/image";
 import { NavLink } from "react-router-dom";
+import Footer from "../Footer";
 // import { useTransitionCarousel } from 'react-spring-carousel'
 // import { Carousel } from 'react-responsive-carousel'
 
@@ -136,13 +137,13 @@ const EventDetail = () => {
       </div>
       <div className="detail-button-wrapper">
         {!showButton && (
-          <div className="rsvp-button-wrapper" style={{ marginRight: '155px' }}>
+          <div className="rsvp-button-wrapper" style={{ display: 'flex', flexDirection: 'row-wrap', flexWrap: 'wrap', justifyContent: 'flex-start', maxWidth: '100vw', minWidth: '400px' }}>
             <div className="event-rsvp-buttons"
               onClick={() => handleRsvps(event.id)}>
               {event.rsvpStatus === 1 ?
-                <button className="detail-rsvp-button">Cancel RSVP</button>
+                <button className="detail-rsvp-button" style={{ backgroundColor: "white", border: '1px solid red', color: 'red' }}>RSVP</button>
                 :
-                <button className="detail-rsvp-button">RSVP</button>}
+                <button className="detail-rsvp-button" >RSVP</button>}
             </div>
             <div className="event-rsvp-buttons">
               <NavLink to={`/event_user_photos/${eventId}/upload`}>
@@ -160,12 +161,12 @@ const EventDetail = () => {
               className="detail-edit-button-style"
               onClick={() => setEditModal(true)}
               style={{ marginLeft: '24px' }}>
-              Edit Event
+              Edit
             </button>
             <button
               className="detail-delete-button-style"
               onClick={handleDelete}>
-              Delete Event
+              Delete
             </button>
             <div className="event-rsvp-buttons" style={{ marginLeft: '16px' }}>
               <NavLink to={`/event_user_photos/${eventId}/upload`}>
@@ -216,6 +217,7 @@ const EventDetail = () => {
       <div className="bottom-whitespace-div">
       </div>
     </div>
+    <Footer />
   </>
   )
 }

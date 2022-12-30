@@ -166,24 +166,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-right: 75px;
     /* margin-right: 50vw; */
 }
 
 .detail-edit-button-style {
     font-weight: 800;
-    font-size: 16px;
+    font-size: 14px;
     height: 36px;
     margin-top: 10px;
     margin-right: 16px;
-    width: 150px;
-    margin-left: 5%;
+    width: 90px;
 }
 
 .detail-delete-button-style {
     font-weight: 800;
-    font-size: 16px;
+    font-size: 14px;
     height: 36px;
-    width: 150px;
+    width: 90px;
     margin-top: 10px;
 }
 
@@ -206,6 +206,9 @@
 .detail-body-innermost-wrapper {
     display: flex;
     flex-direction: column;
+    margin-left: 20px;
+    margin-right: 20px;
+    max-width: 408px;
     justify-content: center;
     align-items: flex-start;
 }
@@ -251,6 +254,7 @@
 .event-detail-image-wrapper {
     height: 33vh;
     max-height: 33vh;
+    min-height: 292px;
     width: 100%;
     max-width: 100%;
     margin-top: 100px;
@@ -275,6 +279,8 @@
 .ev-img {
     width: 400px;
     height: 100%;
+
+    min-height: 292px;
     background-size: cover;
 }
 
@@ -286,13 +292,14 @@
     display: flex;
     flex-direction: row;
     overflow: auto;
+    overflow-y: hidden !important;
 }
 
 .event-detail-name-div {
     display: flex;
     text-transform: capitalize;
     word-break: break-word;
-    /* justify-content: center; */
+    justify-content: center;
     align-items: center;
     /* margin-left: -20vw; */
     max-width: 400px;
@@ -314,6 +321,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: max-content;
     letter-spacing: -0.4px;
     font-size: 16px;
     text-shadow: 5px black;
@@ -375,14 +383,15 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    height: 14.5vh;
+    max-height: 292px;
+    min-height: 192px;
     letter-spacing: -0.4px;
     font-size: 16px;
     text-shadow: 5px black;
     overflow-x: hidden;
     width: 100vw;
     font-weight: 700;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.531), transparent);
+    /* background: linear-gradient(to top, rgba(0, 0, 0, 0.531), transparent); */
     top: 86px;
     z-index: 3;
 }
@@ -397,7 +406,9 @@
 .event-detail-rating-reviews-content-div {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    justify-content: center;
+    align-items: center;
+    width: auto;
     /* align-items: center; */
 }
 
@@ -410,17 +421,17 @@ svg {
     position: relative;
     width: 100vw;
     z-index: 0;
-    height: 326px;
+    height: 292px;
     margin-top: 100px
 }
 
 .see-all-photos-btn {
     border: 1px solid white;
     border-radius: 4px;
-    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.367);
     height: auto;
-    width: auto;
-    font-size: 17px;
+    width: max-content;
+    font-size: 12px;
     font-family: 'Poppins', "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding-top: 12px;
     padding-right: 30px;
@@ -429,8 +440,8 @@ svg {
     position: absolute;
     z-index: 20;
     top: 50px;
-    right: 12rem;
-    color: white;
+    right: 12%;
+    color: rgb(255, 255, 255);
     cursor: pointer;
     transition: all 0.6s;
 }
@@ -447,8 +458,14 @@ svg {
 }
 
 .detail-rsvp-button {
+    font-size: 14px !important;
     height: 35px;
-    width: 150px;
+    width: 110px;
+    max-width: 50vw;
+}
+
+.session-links-div {
+    max-width: 100vw;
 }
 
 .details-label {
@@ -462,6 +479,7 @@ svg {
 
 .detail-button-wrapper {
     display: flex;
+    margin-top: 8px;
     justify-content: center;
 }
 
@@ -471,6 +489,7 @@ svg {
 }
 
 .overlay-details {
+    font-size: 1rem;
     display: flex;
     justify-content: flex-start;
     padding-left: 0px;
@@ -503,5 +522,9 @@ svg {
 
     .event-detail-total-reviews-div {
         font-size: 1rem;
+    }
+
+    .session-links-div {
+        max-width: 100vw;
     }
 }

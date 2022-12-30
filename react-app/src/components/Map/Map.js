@@ -103,7 +103,7 @@ export default function MapGL() {
           {user && (
             <>
               <NavLink className={'navlinks'} to='/' exact={true} activeClassName='active'>
-                <button id={'create-home-button-nav'} className='navbar-buttons' style={{ width: '100vw', height: '60px', padding: '0px', margin: '0px', borderTopRightRadius: '0px', borderTopLeftRadius: '0px' }}>Home</button>
+                <button id={'create-home-button-nav'} className='navbar-buttons' style={{ position: 'absolute', left: '0', minWidth: '100%', maxWidth: '300px', width: '20%', height: '60px', padding: '0px', margin: '0px', borderRadius: '0px' }}>Home</button>
               </NavLink>
               {/* <div className={'navlinks'}>
                 <button id={"logout-butt"} className={'navbar-buttons'} onClick={onLogout} style={{ width: '50vw', height: '100px', padding: '0px', margin: '0px' }}>Logout</button>
